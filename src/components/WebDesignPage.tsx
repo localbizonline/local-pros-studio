@@ -22,7 +22,7 @@ const benefits = [
   {
     icon: Clock,
     title: "Ongoing Support",
-    description: "30 minutes of free changes every month with your hosting plan."
+    description: "1 hour of free changes every month with your hosting plan."
   }
 ];
 
@@ -60,11 +60,11 @@ const faqs = [
   },
   {
     question: "Can I edit my website myself?",
-    answer: "You won't have direct access to edit your website. All changes are handled by us to ensure quality and consistency. Your monthly plan includes 30 minutes of free changes per month."
+    answer: "You won't have direct access to edit your website. All changes are handled by us to ensure quality and consistency. Your monthly plan includes 1 hour of free changes per month."
   },
   {
     question: "What if I need changes after launch?",
-    answer: "You get a 2-day revision period after delivery for minor changes. After that, your monthly hosting includes 30 minutes of free changes per month. Additional changes are billed at R890 per hour."
+    answer: "You get a 2-day revision period after delivery for minor changes. After that, your monthly hosting includes 1 hour of free changes per month. Additional changes are billed at R890 per hour."
   },
   {
     question: "What about email and contact forms?",
@@ -272,14 +272,14 @@ const WebDesignPage = () => {
               </p>
 
               <div className="mb-6">
-                <span className="text-4xl font-bold">R350</span>
+                <span className="text-4xl font-bold">R290</span>
                 <span className="text-neutral-400 ml-2">/month</span>
               </div>
 
               <ul className="space-y-3 mb-8">
                 {[
                   "Domain registration & hosting",
-                  "30 minutes free changes per month",
+                  "1 hour free changes per month",
                   "Security & performance updates",
                   "Monthly backups",
                   "Priority support",
@@ -387,7 +387,7 @@ const WebDesignPage = () => {
                 <ChevronDown className="w-5 h-5 text-neutral-400 transition-transform group-open:rotate-180" />
               </summary>
               <div className="px-6 pb-6 text-sm text-neutral-600 leading-relaxed space-y-3">
-                <p>Your monthly fee includes up to 30 minutes of website changes per month (content updates, minor layout modifications, and bug fixes).</p>
+                <p>Your monthly fee includes up to 1 hour of website changes per month (content updates, minor layout modifications, and bug fixes).</p>
                 <p>Additional changes beyond this allowance will be billed at <strong className="text-neutral-800">R890 per hour</strong>.</p>
               </div>
             </details>

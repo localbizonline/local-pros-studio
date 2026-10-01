@@ -48,7 +48,7 @@ const packages = [
     name: "Premium Custom",
     price: "From R19,500",
     subtitle: "Once-Off",
-    monthlyFee: "R350/month",
+    monthlyFee: "R290/month",
     description: "Ideal for established businesses with multiple service lines or unique requirements who need a fully customised web presence with self-management capabilities.",
     timeline: "5+ days development time",
     features: [
@@ -56,7 +56,7 @@ const packages = [
       "WhatsApp integration",
       "Professional content writing",
       "Custom photos and images",
-      "R350/month hosting and management",
+      "R290/month hosting and management",
       "Admin dashboard for self-updates",
       "Advanced customization options",
       "Advanced SEO setup",

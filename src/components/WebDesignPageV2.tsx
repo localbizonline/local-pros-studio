@@ -135,7 +135,7 @@ const packageItems = [
   'Reviews and social integration where access allows',
   'Basic on-page SEO for your brand, main service, and area',
   'Domain, SSL, hosting, backups, and security upkeep',
-  '30 minutes of small changes each month',
+  '1 hour of small changes each month',
   '2-day revision period after delivery',
 ];
 
@@ -158,7 +158,7 @@ const faqs = [
   {
     question: 'Can I edit it myself?',
     answer:
-      'You will not have direct editing access under this package. We handle changes so the site stays consistent and working. Your monthly plan includes 30 minutes of small changes.',
+      'You will not have direct editing access under this package. We handle changes so the site stays consistent and working. Your monthly plan includes 1 hour of small changes.',
   },
   {
     question: 'Will it rank first on Google?',
@@ -198,7 +198,7 @@ const terms = [
     title: 'Maintenance, changes, and revisions',
     content: (
       <>
-        <p>Your monthly fee includes up to 30 minutes of small website changes per month.</p>
+        <p>Your monthly fee includes up to 1 hour of small website changes per month.</p>
         <p>Additional work is billed at R890 per hour. A 2-day revision period is provided after delivery for minor corrections.</p>
       </>
     ),
@@ -480,7 +480,7 @@ const WebDesignPageV2 = () => {
               <h2 className="text-3xl font-black leading-tight text-white md:text-5xl">Everything your business needs to look credible online.</h2>
               <div className="mt-8 border-y border-neutral-800 py-7">
                 <p className="text-4xl font-black tracking-tight text-white md:text-5xl">R9,900 <span className="text-xl text-neutral-400">once-off</span></p>
-                <p className="mt-3 text-3xl font-black text-yellow-400">+ R350<span className="text-base text-neutral-400">/month</span></p>
+                <p className="mt-3 text-3xl font-black text-yellow-400">+ R290<span className="text-base text-neutral-400">/month</span></p>
                 <p className="mt-2 text-sm text-neutral-500">Hosting and ongoing management</p>
               </div>
               <div className="mt-8">
