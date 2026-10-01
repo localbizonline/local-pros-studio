@@ -12,6 +12,7 @@ import FieldCardPage from './components/FieldCardPage';
 import SocialMediaPage from './components/SocialMediaPage';
 import WebDesignPage from './components/WebDesignPage';
 import WebDesignPageV2 from './components/WebDesignPageV2';
+import WebDesignAdsPage from './components/WebDesignAdsPage';
 import AboutPage from './components/AboutPage';
 import MobileCTA from './components/MobileCTA';
 import GoogleAdsPage from './components/GoogleAdsPage';
@@ -34,7 +35,7 @@ import logo from './assets/images/Compressed/Local Pros Studio logo transparent.
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isWebDesignPreview = location.pathname === '/web-design-v2';
+  const isWebDesignPreview = ['/web-design', '/web-design-v2'].includes(location.pathname);
 
   const navLinks = [
     { name: 'Reviews', href: '/reviews' },
@@ -187,7 +188,7 @@ const AppContent = () => {
   ].includes(location.pathname);
 
   // Standalone pages that ship their own navigation, footer and type system
-  const isStandalonePage = ['/autopilot'].includes(location.pathname);
+  const isStandalonePage = ['/autopilot', '/website-opus5', '/website-opus5-light'].includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -202,8 +203,12 @@ const AppContent = () => {
           <Route path="/social-media-posting-service" element={<SocialPostingPageV2 />} />
           <Route path="/social-posting-v2" element={<SocialPostingPageV2 />} />
           <Route path="/sales" element={<HomeSalesLetterPage />} />
-          <Route path="/web-design" element={<WebDesignPage />} />
+          <Route path="/web-design" element={<WebDesignAdsPage variant="site" />} />
+          {/* Archived 1 Oct 2026: previous main web design page, replaced by WebDesignAdsPage */}
+          <Route path="/web-design-archive" element={<WebDesignPage />} />
           <Route path="/web-design-v2" element={<WebDesignPageV2 />} />
+          <Route path="/website-opus5" element={<WebDesignAdsPage />} />
+          <Route path="/website-opus5-light" element={<WebDesignAdsPage theme="light" />} />
           <Route path="/fieldcard" element={<FieldCardPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />

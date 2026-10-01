@@ -182,7 +182,7 @@ const SpecialOfferOpusPage = () => {
                 <span className="text-amber-400 font-bold text-sm">12-MONTH COMMITMENT</span>
               </div>
               <p className="text-neutral-400 text-base mb-2">
-                <span className="line-through">Normally R4,130/month + R12,000 website</span>
+                <span className="line-through">Normally R4,070/month + R12,000 website</span>
               </p>
               <p className="text-4xl md:text-5xl font-black text-white mb-3">
                 R2,500<span className="text-neutral-400 text-xl font-normal">/month</span>
@@ -255,7 +255,7 @@ const SpecialOfferOpusPage = () => {
           <div className="space-y-4">
             <div className="bg-neutral-700 rounded-xl p-5 border-l-4 border-red-500">
               <p className="text-white font-bold mb-1">A website</p>
-              <p className="text-neutral-300 text-sm">R9,900+ once-off, then R350/month hosting</p>
+              <p className="text-neutral-300 text-sm">R9,900+ once-off, then R290/month hosting</p>
             </div>
             <div className="bg-neutral-700 rounded-xl p-5 border-l-4 border-red-500">
               <p className="text-white font-bold mb-1">Review collection system</p>
@@ -272,7 +272,7 @@ const SpecialOfferOpusPage = () => {
           </div>
 
           <p className="text-xl md:text-2xl font-bold text-white">
-            That's <span className="text-red-400">R4,130/month</span> plus a R12,000 website build.
+            That's <span className="text-red-400">R4,070/month</span> plus a R12,000 website build.
           </p>
 
           <p className="text-lg md:text-xl text-neutral-300">
@@ -434,7 +434,7 @@ const SpecialOfferOpusPage = () => {
               </div>
               <div className="flex justify-between items-center py-3 border-b border-neutral-800">
                 <span className="text-neutral-300">Website Hosting</span>
-                <span className="text-white font-bold">R350/month</span>
+                <span className="text-white font-bold">R290/month</span>
               </div>
               <div className="flex justify-between items-center py-3 border-b border-neutral-800">
                 <span className="text-neutral-300">FieldCard Team Access</span>
@@ -448,7 +448,7 @@ const SpecialOfferOpusPage = () => {
 
             <div className="flex justify-between items-center py-4 bg-neutral-800 rounded-xl px-4 mb-4">
               <span className="text-neutral-300 font-bold">Total monthly value</span>
-              <span className="text-red-400 font-black text-2xl line-through">R4,130+</span>
+              <span className="text-red-400 font-black text-2xl line-through">R4,070+</span>
             </div>
 
             <div className="bg-gradient-to-r from-green-900/60 to-green-800/40 border-2 border-green-500/50 rounded-xl p-6 text-center">

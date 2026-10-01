@@ -70,6 +70,8 @@ export default {
         'mascot-bob': 'mascotBob 3.6s ease-in-out infinite',
         'mascot-blink': 'mascotBlink 5.2s steps(1, end) infinite',
         'star-pop': 'starPop 4s ease-in-out infinite',
+        // Portfolio browser mockups: slow scroll down a full-page screenshot and back
+        'site-pan': 'sitePan 26s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -83,6 +85,12 @@ export default {
         fadeInDown: {
           '0%': { opacity: '0', transform: 'translateY(-20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        // Screenshots are 1:3 and the frame is 16:10, so -79% lands on the bottom edge
+        sitePan: {
+          '0%, 12%': { transform: 'translateY(0)' },
+          '48%, 62%': { transform: 'translateY(-79%)' },
+          '98%, 100%': { transform: 'translateY(0)' },
         },
         scrollLeft: {
           '0%': { transform: 'translateX(0)' },
