@@ -29,7 +29,7 @@ import SpecialOfferOpusPage from './components/SpecialOfferOpusPage';
 import RecurringServicesLetterPage from './components/RecurringServicesLetterPage';
 import AutopilotLandingPage from './components/AutopilotLandingPage';
 import WebDesignAdsPage from './components/WebDesignAdsPage';
-import { PrivacyPage, RefundsCancellationsPage, TermsPage } from './components/LegalPages';
+import { PrivacyPage, RefundsCancellationsPage, TermsPage, WebsiteFaqPage } from './components/LegalPages';
 import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
 import { whatsAppUrlForPath } from './whatsapp';
 
@@ -213,6 +213,7 @@ const AppContent = () => {
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds-cancellations" element={<RefundsCancellationsPage />} />
+          <Route path="/website-faq" element={<WebsiteFaqPage />} />
           <Route path="/google-ads" element={<GoogleAdsPage />} />
           <Route path="/web-design-alt" element={<AlternativeWebDesignPage />} />
           <Route path="/reachmax" element={<ReachMaxPage />} />

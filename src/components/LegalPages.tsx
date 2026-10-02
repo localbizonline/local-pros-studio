@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { SITE_WHATSAPP_URL } from '../whatsapp';
+import { SITE_WHATSAPP_URL, WHATSAPP_NUMBER } from '../whatsapp';
 
 const EFFECTIVE_DATE = '26 August 2026';
 
@@ -14,6 +14,7 @@ type LegalPageProps = {
   title: string;
   introduction: string;
   sections: LegalSection[];
+  effectiveDate?: string;
 };
 
 const ContactDetails = () => (
@@ -36,7 +37,7 @@ const ContactDetails = () => (
   </div>
 );
 
-const LegalPage = ({ eyebrow, title, introduction, sections }: LegalPageProps) => {
+const LegalPage = ({ eyebrow, title, introduction, sections, effectiveDate = EFFECTIVE_DATE }: LegalPageProps) => {
   useEffect(() => {
     const previousTitle = document.title;
     document.title = `${title} | Local Pros Studio`;
@@ -52,7 +53,7 @@ const LegalPage = ({ eyebrow, title, introduction, sections }: LegalPageProps) =
           <span className="badge-dark mb-5">{eyebrow}</span>
           <h1 className="max-w-3xl text-4xl font-bold text-white md:text-5xl">{title}</h1>
           <p className="mt-5 max-w-2xl text-lg text-neutral-300">{introduction}</p>
-          <p className="mt-4 text-sm text-neutral-500">Effective date: {EFFECTIVE_DATE}</p>
+          <p className="mt-4 text-sm text-neutral-500">Effective date: {effectiveDate}</p>
         </div>
       </header>
 
@@ -68,6 +69,9 @@ const LegalPage = ({ eyebrow, title, introduction, sections }: LegalPageProps) =
             </Link>
             <Link className="block text-neutral-600 hover:text-neutral-950" to="/refunds-cancellations">
               Refunds and Cancellations
+            </Link>
+            <Link className="block text-neutral-600 hover:text-neutral-950" to="/website-faq">
+              Website Terms and FAQ
             </Link>
           </nav>
         </aside>
@@ -185,6 +189,7 @@ const termsSections: LegalSection[] = [
           website is supplied upfront. Where consumer law applies, a customer may cancel a fixed-term
           agreement on the notice required by law, subject only to a reasonable cancellation charge allowed
           by law. Business-specific ownership, hosting and handover terms will be stated in the accepted offer.
+          Our standard website terms are explained in our <Link to="/website-faq">Website Terms and FAQ</Link>.
         </p>
       </>
     ),
@@ -530,6 +535,188 @@ const refundSections: LegalSection[] = [
   },
 ];
 
+// Website clients' common questions after launch. Prices match the pricing on /web-design
+// (WebDesignAdsPage.tsx): change both together.
+const CLIENT_WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+const Question = ({ question, children }: { question: string; children: ReactNode }) => (
+  <div className="space-y-3">
+    <h3 className="text-lg font-bold text-neutral-950">{question}</h3>
+    {children}
+  </div>
+);
+
+const websiteFaqSections: LegalSection[] = [
+  {
+    title: '1. Changes after your website is live',
+    content: (
+      <>
+        <Question question="Can I still ask for changes after launch?">
+          <p>
+            Yes. Every website plan includes <strong>1 hour of changes every month</strong>. That covers the
+            everyday updates most businesses need, such as:
+          </p>
+          <ul>
+            <li>updating wording, prices, services or service areas;</li>
+            <li>swapping or adding photos of your work;</li>
+            <li>changing phone numbers, email addresses or business hours; and</li>
+            <li>adding a new review, project or special offer.</li>
+          </ul>
+        </Question>
+        <Question question="What counts as a bigger change?">
+          <p>
+            Work that goes beyond the monthly hour, such as a redesign, several new pages, or new features like
+            online bookings or a shop. We always quote bigger changes first and only start once you have said
+            yes, so there are no surprise invoices.
+          </p>
+        </Question>
+        <Question question="How do I ask for a change?">
+          <p>
+            Send us a <a href={CLIENT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp on +27 83 233 6716</a>{' '}
+            with what you would like changed and on which page. Screenshots and photos help. We will confirm when
+            it is done, or send a quote first if it is a bigger job.
+          </p>
+        </Question>
+      </>
+    ),
+  },
+  {
+    title: '2. Ownership, your domain and Google tools',
+    content: (
+      <>
+        <Question question="Do I own my domain name?">
+          <p>
+            Yes. Your domain name (for example <strong>yourbusiness.co.za</strong>) belongs to your business. We
+            register and manage it for you as part of hosting so that it stays renewed and connected to your
+            website.
+          </p>
+        </Question>
+        <Question question="Do I own the website?">
+          <ul>
+            <li>
+              <strong>Bought outright (R9,900):</strong> the website is yours from launch.
+            </li>
+            <li>
+              <strong>Rent to own (R450/month):</strong> the website is yours after your 24th monthly payment.
+            </li>
+            <li>
+              <strong>Free with marketing:</strong> your website stays live at no cost while you are on our
+              Social Posting + Reviews plan.
+            </li>
+          </ul>
+          <p>The wording, photos and logo you give us always remain yours.</p>
+        </Question>
+        <Question question="Can I use Google Search Console, Google Analytics and similar tools?">
+          <p>
+            Yes. You are welcome to add your website to Google Search Console, Google Analytics or Google
+            Business Profile. Send us the verification code Google gives you and we will install it, or ask us
+            to set it up and add you as an owner. You keep full access to your own Google accounts.
+          </p>
+        </Question>
+      </>
+    ),
+  },
+  {
+    title: '3. Editing your website yourself',
+    content: (
+      <>
+        <Question question="Can I make changes to the website myself?">
+          <p>
+            Yes. You can make basic changes yourself, such as wording and images. To log in, go to{' '}
+            <strong>yourbusiness.co.za/admin</strong> (using your own domain name).
+          </p>
+          <p>
+            We send your login details to you privately on WhatsApp. Keep them safe and do not share them. We
+            will never ask you to send us your password by email.
+          </p>
+        </Question>
+        <Question question="What if I make a mistake?">
+          <p>
+            The editor is set up for content changes such as wording and images, not the design or layout. If
+            something does not look right after an edit, WhatsApp us and we will sort it out. If you would rather
+            not edit it yourself, just send us the change and we will do it within your monthly hour.
+          </p>
+        </Question>
+      </>
+    ),
+  },
+  {
+    title: '4. Hosting, monthly costs and moving your website',
+    content: (
+      <>
+        <Question question="What does hosting cost after launch?">
+          <ul>
+            <li>
+              <strong>Bought outright:</strong> R290/month for hosting and care.
+            </li>
+            <li>
+              <strong>Rent to own:</strong> included in your R450/month for 24 months, then R290/month.
+            </li>
+            <li>
+              <strong>Free with marketing:</strong> included at no extra cost while you are on the Social Posting
+              + Reviews plan (R2,500/month, 6-month commitment).
+            </li>
+          </ul>
+          <p>
+            Hosting and care covers your domain renewal, hosting, SSL certificate, backups, security, support and
+            1 hour of changes every month.
+          </p>
+        </Question>
+        <Question question="What happens if I stop the marketing plan?">
+          <p>
+            After your 6-month commitment, you can keep your website live on our R290/month hosting and care, or
+            ask us to transfer your domain name to you.
+          </p>
+        </Question>
+        <Question question="Can I host my website somewhere else?">
+          <p>
+            Yes. Once your website is yours, or your commitment period has ended, let us know and we will transfer
+            your domain name to you and help with the move. Monthly hosting stops at the end of the current paid
+            month, as explained in our <Link to="/refunds-cancellations">Refund and Cancellation Policy</Link>.
+          </p>
+        </Question>
+        <Question question="I signed up under an earlier offer. Which terms apply?">
+          <p>
+            If your quote or agreement says something different from this page, for example an earlier free
+            hosting period, the terms in your written agreement apply.
+          </p>
+        </Question>
+      </>
+    ),
+  },
+  {
+    title: '5. Quote requests: WhatsApp or a form',
+    content: (
+      <Question question="Can my “Get a quote” button open WhatsApp instead of a form?">
+        <p>Yes, and for most businesses we recommend it:</p>
+        <ul>
+          <li>it is instant, so you can reply while the customer is still interested;</li>
+          <li>you get the customer's phone number straight away;</li>
+          <li>form emails can land in spam or go missing; and</li>
+          <li>forms attract spam from bots filling them in.</li>
+        </ul>
+        <p>
+          We can switch your button to WhatsApp, keep the form, or offer both. Just let us know what you prefer.
+        </p>
+      </Question>
+    ),
+  },
+  {
+    title: '6. The fine print',
+    content: (
+      <>
+        <p>
+          This page explains our standard website terms in plain language. It forms part of our{' '}
+          <Link to="/terms">Terms and Conditions</Link> and{' '}
+          <Link to="/refunds-cancellations">Refund and Cancellation Policy</Link>. If you have a question that is
+          not answered here, get in touch.
+        </p>
+        <ContactDetails />
+      </>
+    ),
+  },
+];
+
 export const TermsPage = () => (
   <LegalPage
     eyebrow="Legal"
@@ -557,3 +744,13 @@ export const RefundsCancellationsPage = () => (
   />
 );
 
+
+export const WebsiteFaqPage = () => (
+  <LegalPage
+    eyebrow="Website clients"
+    title="Website Terms and FAQ"
+    introduction="Plain answers to the questions website clients ask us most: changes, ownership, your domain, editing your site and hosting."
+    sections={websiteFaqSections}
+    effectiveDate="2 October 2026"
+  />
+);
