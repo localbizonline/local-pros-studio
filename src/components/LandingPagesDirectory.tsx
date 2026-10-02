@@ -27,9 +27,10 @@ const LandingPagesDirectory = () => {
         { name: 'Social Media', href: '/social-media-posting-service', description: 'Social media posting service' },
         { name: 'Web Design', href: '/web-design', description: 'Main web design page (dark portfolio page with site navigation)' },
         { name: 'Web Design (Archived)', href: '/web-design-archive', description: 'Previous web design page, archived 1 Oct 2026' },
+        { name: 'Web Design Alt', href: '/web-design-alt', description: 'Alternative web design page' },
+        { name: 'Website Design (Google Ads LP)', href: '/website-design', description: 'Standalone ad landing page - R9,900 offer' },
         { name: 'Web Design SA (Google Ads LP, portfolio)', href: '/website-opus5', description: 'Ad landing page version of /web-design: no site navigation' },
         { name: 'Web Design SA - Light (Google Ads LP, portfolio)', href: '/website-opus5-light', description: 'Light-mode version of the portfolio ad landing page' },
-        { name: 'Web Design Alt', href: '/web-design-alt', description: 'Alternative web design page' },
         { name: 'Google Ads', href: '/google-ads', description: 'Google Ads service page' },
       ]
     },
