@@ -4,22 +4,26 @@ import { Link } from 'react-router-dom';
 import ReputationReviewWidget from './ReputationReviewWidget';
 
 // Import images
-import reviewContractor from '../assets/images/review-contractor-happy.jpg';
-import deadBusinessNoSocials from '../assets/images/social-posting/dead business if no socials since 2021.jpg';
-import heroContractor from '../assets/images/Reviews/hero-contractor-handshake.jpg';
+import reviewContractor from '../assets/images/review-contractor-happy.webp';
+import deadBusinessNoSocials from '../assets/images/social-posting/dead business if no socials since 2021.webp';
+import heroContractor from '../assets/images/Reviews/hero-contractor-handshake.webp';
 import facebookBeforeAfterGasTablet from '../assets/images/social-posting/facebook-before-after-gas-tablet.webp';
-import beforeAfterProof from '../assets/images/Reviews/Local Pros reviews before and after.png';
+import beforeAfterProof from '../assets/images/Reviews/Local Pros reviews before and after.webp';
 import googleAiOverviewRoofingPhone from '../assets/images/social-posting/google-ai-overview-roofing-phone.webp';
 import oneUploadPostEverywhere from '../assets/images/social-posting/one-upload post everywhere.webp';
 import happyContractorLandscape from '../assets/images/social-posting/happy contractor with social posting landscape ratio.webp';
 
 // Scrolling faces images
-import contractorConfident from '../assets/images/Reviews/contractor-confident-reviews.jpg';
-import contractorPhoneCall from '../assets/images/Reviews/contractor-phone-call-sa.jpg';
-import happyBusinessOwner from '../assets/images/reviews-pro/happy-business-owner.jpg';
-import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.jpg';
-import reviewCustomer from '../assets/images/review-customer.jpg';
-import teamPhoto from '../assets/images/team.jpg';
+import {
+  avatarReviewContractor,
+  avatarContractorConfident,
+  avatarContractorPhoneCall,
+  avatarHappyBusinessOwner,
+  avatarHappyContractorInstagram,
+  avatarReviewCustomer,
+  avatarTeam,
+  avatarHeroContractor,
+} from '../assets/images/avatars';
 import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Reusable CTA Button
@@ -44,14 +48,14 @@ const CTAButton = ({ text = "Get Started Today", subtext }: { text?: string, sub
 
 // Scrolling Faces Data
 const scrollingFaces = [
-  { src: reviewContractor, alt: 'Contractor checking reviews' },
-  { src: contractorConfident, alt: 'Confident business owner' },
-  { src: contractorPhoneCall, alt: 'Contractor on phone call' },
-  { src: happyBusinessOwner, alt: 'Happy business owner' },
-  { src: happyContractorInstagram, alt: 'Contractor with phone' },
-  { src: reviewCustomer, alt: 'Happy customer' },
-  { src: teamPhoto, alt: 'Local Pros team' },
-  { src: heroContractor, alt: 'Contractor handshake' },
+  { src: avatarReviewContractor, alt: 'Contractor checking reviews' },
+  { src: avatarContractorConfident, alt: 'Confident business owner' },
+  { src: avatarContractorPhoneCall, alt: 'Contractor on phone call' },
+  { src: avatarHappyBusinessOwner, alt: 'Happy business owner' },
+  { src: avatarHappyContractorInstagram, alt: 'Contractor with phone' },
+  { src: avatarReviewCustomer, alt: 'Happy customer' },
+  { src: avatarTeam, alt: 'Local Pros team' },
+  { src: avatarHeroContractor, alt: 'Contractor handshake' },
 ];
 
 // Scrolling Faces Component
@@ -234,6 +238,7 @@ const HomeGeminiPage = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700 my-8">
             <img 
                 src={deadBusinessNoSocials} 
+                loading="lazy"
                 alt="Frustrated business owner overwhelmed by tasks" 
                 className="w-full opacity-80"
             />
@@ -298,6 +303,7 @@ const HomeGeminiPage = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-800 my-6">
             <img 
                 src={heroContractor} 
+                loading="lazy"
                 alt="Local Pros team shaking hands with client" 
                 className="w-full"
             />
@@ -384,6 +390,7 @@ const HomeGeminiPage = () => {
           <div className="mt-16 rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
              <img 
                 src={facebookBeforeAfterGasTablet} 
+                loading="lazy"
                 alt="Before and after transformation of business online presence" 
                 className="w-full"
             />
@@ -423,6 +430,7 @@ const HomeGeminiPage = () => {
           <div className="max-w-4xl mx-auto">
              <img 
                 src={beforeAfterProof} 
+                loading="lazy"
                 alt="Client results collage" 
                 className="w-full rounded-2xl shadow-2xl border border-neutral-800"
             />
@@ -458,6 +466,7 @@ const HomeGeminiPage = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700 my-6">
             <img 
                 src={googleAiOverviewRoofingPhone} 
+                loading="lazy"
                 alt="Google AI Overview showing local business summary" 
                 className="w-full"
             />
@@ -571,6 +580,7 @@ const HomeGeminiPage = () => {
           <div className="mt-12 rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
              <img 
                 src={oneUploadPostEverywhere} 
+                loading="lazy"
                 alt="One upload to rule them all" 
                 className="w-full"
             />
@@ -773,6 +783,7 @@ const HomeGeminiPage = () => {
           <div className="mt-12 rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl">
              <img 
                 src={happyContractorLandscape} 
+                loading="lazy"
                 alt="Happy contractor looking at future" 
                 className="w-full opacity-80 hover:opacity-100 transition-opacity duration-700 object-cover object-center h-48 md:h-auto"
             />

@@ -257,6 +257,7 @@ const AboutPage = () => {
           <div className="max-w-2xl mx-auto">
             <img
               src={localProsImage}
+              loading="lazy"
               alt="Local Pros Studio team working together"
               className="rounded-2xl shadow-soft-xl w-full"
               width={600}

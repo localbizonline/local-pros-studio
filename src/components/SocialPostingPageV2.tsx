@@ -2,12 +2,9 @@ import React from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 
 // Import social posting images - Before/After comparisons and AI overviews
-import facebookBeforeAfterFencing from '../assets/images/social-posting/facebook-before-after-fencing.webp';
-import facebookBeforeAfterGasDesktop from '../assets/images/social-posting/facebook-before-after-gas-desktop.webp';
 import facebookBeforeAfterGasTablet from '../assets/images/social-posting/facebook-before-after-gas-tablet.webp';
 import googleAiOverviewRenovations from '../assets/images/social-posting/google-ai-overview-renovations.webp';
 import googleAiOverviewRoofingPhone from '../assets/images/social-posting/google-ai-overview-roofing-phone.webp';
-import googleAiOverviewSearch from '../assets/images/social-posting/google-ai-overview-search.webp';
 
 // Gallery images - Real client post examples
 import socialPostFencingCarportJob from '../assets/images/social-posting/social-post-fencing-carport-job.webp';
@@ -19,34 +16,36 @@ import socialPostFencingNewYear from '../assets/images/social-posting/social-pos
 import closeupPhonePostCreator from '../assets/images/social-posting/Closeup phone using post creator.webp';
 import sideBySide3Platforms from '../assets/images/social-posting/side by side 3 platforms with lable.webp';
 import oneUploadPostEverywhere from '../assets/images/social-posting/one-upload post everywhere.webp';
-import greenbayFacebookGallery from '../assets/images/social-posting/Greenbay fencing Facebook gallery.png';
 import postCalendar from '../assets/images/social-posting/post calender.webp';
 import oneUploadEverywhereContractors from '../assets/images/social-posting/one upload everywhere for contractors.webp';
-import socialInstagramTruck from '../assets/images/social-instagram-truck.jpg';
-import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.jpg';
+import socialInstagramTruck from '../assets/images/social-instagram-truck.webp';
+import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.webp';
 import happyContractorLandscape from '../assets/images/social-posting/happy contractor with social posting landscape ratio.webp';
-import deadBusinessNoSocials from '../assets/images/social-posting/dead business if no socials since 2021.jpg';
+import deadBusinessNoSocials from '../assets/images/social-posting/dead business if no socials since 2021.webp';
 
 // Scrolling faces images (South African focused)
-import reviewContractorHappy from '../assets/images/review-contractor-happy.jpg';
-import contractorPhoneCallSA from '../assets/images/Reviews/contractor-phone-call-sa.jpg';
-import reviewCustomer from '../assets/images/review-customer.jpg';
-import teamPhoto from '../assets/images/team.jpg';
-import happyBusinessOwner from '../assets/images/reviews-pro/happy-business-owner.jpg';
-import heroContractorHandshake from '../assets/images/Reviews/hero-contractor-handshake.jpg';
-import contractorConfident from '../assets/images/Reviews/contractor-confident-reviews.jpg';
+import {
+  avatarReviewContractor,
+  avatarContractorPhoneCall,
+  avatarHappyContractorInstagram,
+  avatarReviewCustomer,
+  avatarTeam,
+  avatarHappyBusinessOwner,
+  avatarHeroContractor,
+  avatarContractorConfident,
+} from '../assets/images/avatars';
 import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Scrolling Faces Data
 const scrollingFaces = [
-  { src: reviewContractorHappy, alt: 'SA contractor checking reviews' },
-  { src: contractorPhoneCallSA, alt: 'Cape Town contractor on phone' },
-  { src: happyContractorInstagram, alt: 'Construction worker with phone' },
-  { src: reviewCustomer, alt: 'Happy customer leaving review' },
-  { src: teamPhoto, alt: 'Local Pros team' },
-  { src: happyBusinessOwner, alt: 'Happy business owner' },
-  { src: heroContractorHandshake, alt: 'Contractor meeting customer' },
-  { src: contractorConfident, alt: 'Confident business owner' },
+  { src: avatarReviewContractor, alt: 'SA contractor checking reviews' },
+  { src: avatarContractorPhoneCall, alt: 'Cape Town contractor on phone' },
+  { src: avatarHappyContractorInstagram, alt: 'Construction worker with phone' },
+  { src: avatarReviewCustomer, alt: 'Happy customer leaving review' },
+  { src: avatarTeam, alt: 'Local Pros team' },
+  { src: avatarHappyBusinessOwner, alt: 'Happy business owner' },
+  { src: avatarHeroContractor, alt: 'Contractor meeting customer' },
+  { src: avatarContractorConfident, alt: 'Confident business owner' },
 ];
 
 // Scrolling Faces Component
@@ -251,6 +250,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={deadBusinessNoSocials}
+              loading="lazy"
               alt="Business appears dead when social media hasn't been updated since 2021"
               className="w-full"
             />
@@ -297,6 +297,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={facebookBeforeAfterGasTablet}
+              loading="lazy"
               alt="Before and after comparison showing a gas installation business Facebook page transformation with professional posts"
               className="w-full aspect-[4/3] object-cover object-top"
             />
@@ -369,6 +370,7 @@ const SocialPostingPageV2 = () => {
             <div className="group relative rounded-xl overflow-hidden shadow-xl border border-neutral-700 hover:border-amber-500/50 transition-all hover:scale-[1.02]">
               <img
                 src={socialPostFencingCarportJob}
+                loading="lazy"
                 alt="Carport fencing job completion post - professional social media content"
                 className="w-full aspect-square object-cover object-top"
               />
@@ -381,6 +383,7 @@ const SocialPostingPageV2 = () => {
             <div className="group relative rounded-xl overflow-hidden shadow-xl border border-neutral-700 hover:border-amber-500/50 transition-all hover:scale-[1.02]">
               <img
                 src={socialPostFencingGallery}
+                loading="lazy"
                 alt="Fencing gallery portfolio post - showcasing recent work"
                 className="w-full aspect-square object-cover object-top"
               />
@@ -393,6 +396,7 @@ const SocialPostingPageV2 = () => {
             <div className="group relative rounded-xl overflow-hidden shadow-xl border border-neutral-700 hover:border-amber-500/50 transition-all hover:scale-[1.02]">
               <img
                 src={socialPostGasGeyserService}
+                loading="lazy"
                 alt="Gas geyser service promotion post - professional service highlight"
                 className="w-full aspect-square object-cover object-top"
               />
@@ -405,6 +409,7 @@ const SocialPostingPageV2 = () => {
             <div className="group relative rounded-xl overflow-hidden shadow-xl border border-neutral-700 hover:border-amber-500/50 transition-all hover:scale-[1.02]">
               <img
                 src={socialPostGasHobsService}
+                loading="lazy"
                 alt="Gas hobs installation service post - driving awareness"
                 className="w-full aspect-square object-cover object-top"
               />
@@ -417,6 +422,7 @@ const SocialPostingPageV2 = () => {
             <div className="group relative rounded-xl overflow-hidden shadow-xl border border-neutral-700 hover:border-amber-500/50 transition-all hover:scale-[1.02]">
               <img
                 src={socialPostFencingHoliday}
+                loading="lazy"
                 alt="Holiday greeting post - automated seasonal content"
                 className="w-full aspect-square object-cover object-top"
               />
@@ -429,6 +435,7 @@ const SocialPostingPageV2 = () => {
             <div className="group relative rounded-xl overflow-hidden shadow-xl border border-neutral-700 hover:border-amber-500/50 transition-all hover:scale-[1.02]">
               <img
                 src={socialPostFencingNewYear}
+                loading="lazy"
                 alt="New Year post - seasonal greeting content"
                 className="w-full aspect-square object-cover object-top"
               />
@@ -507,6 +514,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={closeupPhonePostCreator}
+              loading="lazy"
               alt="Close-up of business owner's hands on phone, uploading job photos through simple form"
               className="w-full aspect-[4/3] object-cover object-top"
             />
@@ -520,6 +528,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={sideBySide3Platforms}
+              loading="lazy"
               alt="Same post shown on Facebook, Instagram, and Google Business Profile - one upload to three platforms"
               className="w-full"
             />
@@ -648,6 +657,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={oneUploadPostEverywhere}
+              loading="lazy"
               alt="One photo upload spreading to Facebook, Instagram, Instagram Reel, and Google Business - one upload posts everywhere"
               className="w-full"
             />
@@ -730,6 +740,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={postCalendar}
+              loading="lazy"
               alt="Monthly post calendar showing consistent posting schedule with service posts, holiday posts, and review highlights"
               className="w-full"
             />
@@ -804,6 +815,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={socialInstagramTruck}
+              loading="lazy"
               alt="Contractor's truck with social media presence - professional business image"
               className="w-full aspect-[16/9] object-cover object-center"
             />
@@ -886,6 +898,7 @@ const SocialPostingPageV2 = () => {
             <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
               <img
                 src={googleAiOverviewRoofingPhone}
+                loading="lazy"
                 alt="Google AI Overview on mobile showing Apex Roofing business with synthesized information from social posts and reviews"
                 className="w-full"
               />
@@ -893,6 +906,7 @@ const SocialPostingPageV2 = () => {
             <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
               <img
                 src={googleAiOverviewRenovations}
+                loading="lazy"
                 alt="Google AI Overview for ABC Home Renovations - showing recent activity and social presence"
                 className="w-full aspect-[4/3] object-cover object-top"
               />
@@ -1104,6 +1118,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={oneUploadEverywhereContractors}
+              loading="lazy"
               alt="One upload posts everywhere - contractor dashboard showing scheduled posts across Facebook, Instagram, and Google"
               className="w-full"
             />
@@ -1296,6 +1311,7 @@ const SocialPostingPageV2 = () => {
           <div className="rounded-xl overflow-hidden border border-neutral-700 shadow-2xl">
             <img
               src={happyContractorLandscape}
+              loading="lazy"
               alt="Happy contractor with professional social media presence"
               className="w-full aspect-[16/9] md:aspect-auto object-cover object-center"
             />

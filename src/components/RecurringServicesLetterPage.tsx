@@ -2,34 +2,36 @@ import React from 'react';
 import { ArrowRight, Check, Star } from 'lucide-react';
 
 // Scrolling faces images
-import reviewContractorHappy from '../assets/images/review-contractor-happy.jpg';
-import contractorPhoneCallSA from '../assets/images/Reviews/contractor-phone-call-sa.jpg';
-import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.jpg';
-import reviewCustomer from '../assets/images/review-customer.jpg';
-import teamPhoto from '../assets/images/team.jpg';
-import happyBusinessOwner from '../assets/images/reviews-pro/happy-business-owner.jpg';
-import heroContractorHandshake from '../assets/images/Reviews/hero-contractor-handshake.jpg';
-import contractorConfidentReviews from '../assets/images/Reviews/contractor-confident-reviews.jpg';
 
 // Content images — unique recurring services images
 import recurringHeroContractor from '../assets/images/recurring-services/recurring-hero-contractor-calendar.jpg';
 import recurringHomeownerForgot from '../assets/images/recurring-services/recurring-homeowner-forgot.jpg';
-import recurringContractorLogging from '../assets/images/recurring-services/recurring-contractor-logging-job.jpg';
+import recurringContractorLogging from '../assets/images/recurring-services/recurring-contractor-logging-job.webp';
 import recurringWhatsappPhone from '../assets/images/recurring-services/recurring-whatsapp-phone-closeup.jpg';
-import recurringWindowCleaner from '../assets/images/recurring-services/recurring-window-cleaner-working.jpg';
+import recurringWindowCleaner from '../assets/images/recurring-services/recurring-window-cleaner-working.webp';
 import recurringContractorTablet from '../assets/images/recurring-services/recurring-contractor-tablet-schedule.jpg';
+import {
+  avatarReviewContractor,
+  avatarContractorPhoneCall,
+  avatarHappyContractorInstagram,
+  avatarReviewCustomer,
+  avatarTeam,
+  avatarHappyBusinessOwner,
+  avatarHeroContractor,
+  avatarContractorConfident,
+} from '../assets/images/avatars';
 import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Scrolling Faces Data
 const scrollingFaces = [
-  { src: reviewContractorHappy, alt: 'SA contractor checking bookings' },
-  { src: contractorPhoneCallSA, alt: 'Cape Town contractor on phone' },
-  { src: happyContractorInstagram, alt: 'Construction worker with phone' },
-  { src: reviewCustomer, alt: 'Happy customer rebooking service' },
-  { src: teamPhoto, alt: 'Local Pros team' },
-  { src: happyBusinessOwner, alt: 'Happy business owner' },
-  { src: heroContractorHandshake, alt: 'Contractor meeting customer' },
-  { src: contractorConfidentReviews, alt: 'Confident business owner' },
+  { src: avatarReviewContractor, alt: 'SA contractor checking bookings' },
+  { src: avatarContractorPhoneCall, alt: 'Cape Town contractor on phone' },
+  { src: avatarHappyContractorInstagram, alt: 'Construction worker with phone' },
+  { src: avatarReviewCustomer, alt: 'Happy customer rebooking service' },
+  { src: avatarTeam, alt: 'Local Pros team' },
+  { src: avatarHappyBusinessOwner, alt: 'Happy business owner' },
+  { src: avatarHeroContractor, alt: 'Contractor meeting customer' },
+  { src: avatarContractorConfident, alt: 'Confident business owner' },
 ];
 
 // Scrolling Faces Component
@@ -218,6 +220,7 @@ const RecurringServicesLetterPage = () => {
           <div className="relative w-full rounded-xl overflow-hidden shadow-2xl">
             <img
               src={recurringHomeownerForgot}
+              loading="lazy"
               alt="Homeowner looking out dirty window with missed rebooking notifications floating around"
               className="w-full object-cover"
             />
@@ -308,6 +311,7 @@ const RecurringServicesLetterPage = () => {
           {/* Image */}
           <img
             src={recurringContractorLogging}
+            loading="lazy"
             alt="Contractor leaning against van, logging a job on his phone"
             className="w-full rounded-xl shadow-2xl border border-neutral-800"
           />
@@ -367,6 +371,7 @@ const RecurringServicesLetterPage = () => {
           {/* WhatsApp Phone Image */}
           <img
             src={recurringWhatsappPhone}
+            loading="lazy"
             alt="Hands holding phone with WhatsApp booking conversation"
             className="w-full rounded-xl shadow-2xl"
           />
@@ -460,6 +465,7 @@ const RecurringServicesLetterPage = () => {
           {/* Image */}
           <img
             src={recurringWindowCleaner}
+            loading="lazy"
             alt="Professional window cleaner working at a suburban South African home"
             className="w-full rounded-xl shadow-2xl"
           />
@@ -520,6 +526,7 @@ const RecurringServicesLetterPage = () => {
           {/* Image */}
           <img
             src={recurringContractorTablet}
+            loading="lazy"
             alt="Smiling contractor in van checking her booking schedule on tablet"
             className="w-full rounded-xl shadow-2xl border border-neutral-700"
           />

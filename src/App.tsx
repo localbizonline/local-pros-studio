@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
-import AboutPage from './components/AboutPage';
 import MobileCTA from './components/MobileCTA';
-import ReviewsLetterPage from './components/ReviewsLetterPage';
-import SocialPostingPageV2 from './components/SocialPostingPageV2';
+// The home page loads with the site; every other page downloads only when someone opens it
 import HomeGeminiPage from './components/HomeGeminiPage';
-import SpecialOfferOpusPage from './components/SpecialOfferOpusPage';
-import RecurringServicesLetterPage from './components/RecurringServicesLetterPage';
-import AutopilotLandingPage from './components/AutopilotLandingPage';
-import WebDesignAdsPage from './components/WebDesignAdsPage';
-import { PrivacyPage, RefundsCancellationsPage, TermsPage, WebsiteFaqPage } from './components/LegalPages';
+const AboutPage = lazy(() => import('./components/AboutPage'));
+const ReviewsLetterPage = lazy(() => import('./components/ReviewsLetterPage'));
+const SocialPostingPageV2 = lazy(() => import('./components/SocialPostingPageV2'));
+const SpecialOfferOpusPage = lazy(() => import('./components/SpecialOfferOpusPage'));
+const RecurringServicesLetterPage = lazy(() => import('./components/RecurringServicesLetterPage'));
+const AutopilotLandingPage = lazy(() => import('./components/AutopilotLandingPage'));
+const WebDesignAdsPage = lazy(() => import('./components/WebDesignAdsPage'));
+const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.TermsPage })));
+const PrivacyPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.PrivacyPage })));
+const RefundsCancellationsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.RefundsCancellationsPage })));
+const WebsiteFaqPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.WebsiteFaqPage })));
 import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
 import { whatsAppUrlForPath } from './whatsapp';
 
@@ -159,6 +163,8 @@ const AppContent = () => {
       <ScrollToTop />
       {!isStandalonePage && <Navigation />}
       <main className="flex-1">
+        {/* Blank full-height space while a page downloads, so the footer stays below the fold */}
+        <Suspense fallback={<div className="min-h-screen" />}>
         <Routes>
           <Route path="/" element={<HomeGeminiPage />} />
           <Route path="/reviews" element={<ReviewsLetterPage />} />
@@ -178,6 +184,7 @@ const AppContent = () => {
           <Route path="/special-offer-bundle" element={<SpecialOfferOpusPage />} />
 
         </Routes>
+        </Suspense>
       </main>
       {!isStandalonePage && <Footer />}
       {!isStandalonePage && <MobileCTA />}

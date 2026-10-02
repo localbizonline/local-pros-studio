@@ -5,8 +5,8 @@ import ReputationReviewWidget from './ReputationReviewWidget';
 import StudioMascot from './StudioMascot';
 import ScratchToReveal from './ScratchToReveal';
 
-import beforeAfterProof from '../assets/images/Reviews/Local Pros reviews before and after.png';
-import whatsappToGoogle from '../assets/images/Reviews/review from WhatsApp to google review side by side.png';
+import beforeAfterProof from '../assets/images/Reviews/Local Pros reviews before and after.webp';
+import whatsappToGoogle from '../assets/images/Reviews/review from WhatsApp to google review side by side.webp';
 import oneUploadPostEverywhere from '../assets/images/social-posting/one-upload post everywhere.webp';
 import { SITE_WHATSAPP_URL } from '../whatsapp';
 

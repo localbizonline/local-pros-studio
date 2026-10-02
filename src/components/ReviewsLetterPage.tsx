@@ -3,25 +3,17 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Check, Star } from 'lucide-react';
 
 // Scrolling faces images (South African focused)
-import reviewContractorHappy from '../assets/images/review-contractor-happy.jpg';
-import contractorPhoneCallSA from '../assets/images/Reviews/contractor-phone-call-sa.jpg';
-import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.jpg';
-import reviewCustomer from '../assets/images/review-customer.jpg';
-import teamPhoto from '../assets/images/team.jpg';
-import happyBusinessOwner from '../assets/images/reviews-pro/happy-business-owner.jpg';
-import heroContractorHandshake from '../assets/images/Reviews/hero-contractor-handshake.jpg';
-import contractorConfidentReviews from '../assets/images/Reviews/contractor-confident-reviews.jpg';
 
 // Scrolling Faces Data
 const scrollingFaces = [
-  { src: reviewContractorHappy, alt: 'SA contractor checking reviews' },
-  { src: contractorPhoneCallSA, alt: 'Cape Town contractor on phone' },
-  { src: happyContractorInstagram, alt: 'Construction worker with phone' },
-  { src: reviewCustomer, alt: 'Happy customer leaving review' },
-  { src: teamPhoto, alt: 'Local Pros team' },
-  { src: happyBusinessOwner, alt: 'Happy business owner' },
-  { src: heroContractorHandshake, alt: 'Contractor meeting customer' },
-  { src: contractorConfidentReviews, alt: 'Confident business owner' },
+  { src: avatarReviewContractor, alt: 'SA contractor checking reviews' },
+  { src: avatarContractorPhoneCall, alt: 'Cape Town contractor on phone' },
+  { src: avatarHappyContractorInstagram, alt: 'Construction worker with phone' },
+  { src: avatarReviewCustomer, alt: 'Happy customer leaving review' },
+  { src: avatarTeam, alt: 'Local Pros team' },
+  { src: avatarHappyBusinessOwner, alt: 'Happy business owner' },
+  { src: avatarHeroContractor, alt: 'Contractor meeting customer' },
+  { src: avatarContractorConfident, alt: 'Confident business owner' },
 ];
 
 // Scrolling Faces Component
@@ -93,17 +85,26 @@ const CTAWithRating = () => (
 );
 
 // Import proof images
-import beforeAfterProof from '../assets/images/Reviews/Local Pros reviews before and after.png';
-import reviewTransformation from '../assets/images/Reviews/tile-3x2-review-transformation.png';
-import whatsappToReview from '../assets/images/Reviews/review from WhatsApp to google review side by side.png';
-import heroBackground from '../assets/images/Reviews/hero-background-phone-reviews.jpg';
-import reviewContractor from '../assets/images/review-contractor-happy.jpg';
-import heroContractor from '../assets/images/Reviews/hero-contractor-handshake.jpg';
+import beforeAfterProof from '../assets/images/Reviews/Local Pros reviews before and after.webp';
+import reviewTransformation from '../assets/images/Reviews/tile-3x2-review-transformation.webp';
+import whatsappToReview from '../assets/images/Reviews/review from WhatsApp to google review side by side.webp';
+import reviewContractor from '../assets/images/review-contractor-happy.webp';
+import heroContractor from '../assets/images/Reviews/hero-contractor-handshake.webp';
 import aiSearchNow from '../assets/images/Reviews/M6b-Ph5SpZpZyCzraej9O (1).webp';
-import aiSearchFuture from '../assets/images/Reviews/nWsKTYC36b0cx6bns6MGz (1).png';
-import contractorConfident from '../assets/images/Reviews/before and after pest control review.png';
+import aiSearchFuture from '../assets/images/Reviews/nWsKTYC36b0cx6bns6MGz (1).webp';
+import contractorConfident from '../assets/images/Reviews/before and after pest control review.webp';
 import feedbackResolution from '../assets/images/Reviews/M6-nb4_Y5cLufwXr3N9E_ copy.jpg';
 import facebookReviewPost from '../assets/images/aObjgryy3RyUZWZAcLX7g.webp';
+import {
+  avatarReviewContractor,
+  avatarContractorPhoneCall,
+  avatarHappyContractorInstagram,
+  avatarReviewCustomer,
+  avatarTeam,
+  avatarHappyBusinessOwner,
+  avatarHeroContractor,
+  avatarContractorConfident,
+} from '../assets/images/avatars';
 import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const ReviewsLetterPage = () => {
@@ -216,6 +217,7 @@ const ReviewsLetterPage = () => {
           {/* Proof Image */}
           <img
             src={beforeAfterProof}
+            loading="lazy"
             alt="Local Pros reviews growth - from under 20 to over 700 reviews"
             className="w-full rounded-xl shadow-2xl"
           />
@@ -258,6 +260,7 @@ const ReviewsLetterPage = () => {
           {/* Contractor Image */}
           <img
             src={heroContractor}
+            loading="lazy"
             alt="Happy customer with contractor after job completion"
             className="w-full rounded-xl shadow-2xl"
           />
@@ -309,6 +312,7 @@ const ReviewsLetterPage = () => {
           {/* WhatsApp to Review Image */}
           <img
             src={whatsappToReview}
+            loading="lazy"
             alt="WhatsApp message leading to Google review - the complete flow"
             className="w-full rounded-xl shadow-2xl border border-neutral-800"
           />
@@ -375,6 +379,7 @@ const ReviewsLetterPage = () => {
           {/* Transformation Image */}
           <img
             src={reviewTransformation}
+            loading="lazy"
             alt="Review transformation results - before and after"
             className="w-full rounded-xl shadow-2xl"
           />
@@ -426,11 +431,13 @@ const ReviewsLetterPage = () => {
           <div className="space-y-6">
             <img
               src={aiSearchNow}
+              loading="lazy"
               alt="Google AI Overview on desktop - reviews featured prominently"
               className="hidden md:block w-full rounded-xl shadow-2xl border border-neutral-800"
             />
             <img
               src={aiSearchFuture}
+              loading="lazy"
               alt="Google AI Overview on mobile - reviews featured prominently"
               className="w-full rounded-xl shadow-2xl border border-neutral-800"
             />
@@ -495,6 +502,7 @@ const ReviewsLetterPage = () => {
           {/* Image */}
           <img
             src={feedbackResolution}
+            loading="lazy"
             alt="Negative feedback routed privately, then resolved with a phone call"
             className="w-full rounded-xl shadow-2xl border border-neutral-700"
           />
@@ -514,6 +522,7 @@ const ReviewsLetterPage = () => {
           {/* Image */}
           <img
             src={contractorConfident}
+            loading="lazy"
             alt="Confident contractor with wall of 5-star reviews"
             className="w-full rounded-xl shadow-2xl border border-neutral-700"
           />
@@ -565,6 +574,7 @@ const ReviewsLetterPage = () => {
           {/* Image */}
           <img
             src={facebookReviewPost}
+            loading="lazy"
             alt="5-star Google review posted to Facebook as social proof"
             className="w-full rounded-xl shadow-2xl border border-neutral-800"
           />

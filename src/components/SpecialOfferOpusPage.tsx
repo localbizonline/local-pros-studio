@@ -1,30 +1,33 @@
 import React from 'react';
 import { ArrowRight, Check, Star, Globe, Share2, Calendar, Shield, Zap } from 'lucide-react';
+import {
+  avatarReviewContractor,
+  avatarContractorPhoneCall,
+  avatarHappyContractorInstagram,
+  avatarReviewCustomer,
+  avatarTeam,
+  avatarHappyBusinessOwner,
+  avatarHeroContractor,
+  avatarContractorConfident,
+} from '../assets/images/avatars';
 import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Import existing images
-import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.jpg';
+import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.webp';
 import happyContractorLandscape from '../assets/images/social-posting/happy contractor with social posting landscape ratio.webp';
-import reviewContractorHappy from '../assets/images/review-contractor-happy.jpg';
 
 // Scrolling faces images
-import contractorPhoneCallSA from '../assets/images/Reviews/contractor-phone-call-sa.jpg';
-import reviewCustomer from '../assets/images/review-customer.jpg';
-import teamPhoto from '../assets/images/team.jpg';
-import happyBusinessOwner from '../assets/images/reviews-pro/happy-business-owner.jpg';
-import heroContractorHandshake from '../assets/images/Reviews/hero-contractor-handshake.jpg';
-import contractorConfident from '../assets/images/Reviews/contractor-confident-reviews.jpg';
 
 // Scrolling Faces Data
 const scrollingFaces = [
-  { src: reviewContractorHappy, alt: 'SA contractor checking reviews' },
-  { src: contractorPhoneCallSA, alt: 'Cape Town contractor on phone' },
-  { src: happyContractorInstagram, alt: 'Construction worker with phone' },
-  { src: reviewCustomer, alt: 'Happy customer leaving review' },
-  { src: teamPhoto, alt: 'Local Pros team' },
-  { src: happyBusinessOwner, alt: 'Happy business owner' },
-  { src: heroContractorHandshake, alt: 'Contractor meeting customer' },
-  { src: contractorConfident, alt: 'Confident business owner' },
+  { src: avatarReviewContractor, alt: 'SA contractor checking reviews' },
+  { src: avatarContractorPhoneCall, alt: 'Cape Town contractor on phone' },
+  { src: avatarHappyContractorInstagram, alt: 'Construction worker with phone' },
+  { src: avatarReviewCustomer, alt: 'Happy customer leaving review' },
+  { src: avatarTeam, alt: 'Local Pros team' },
+  { src: avatarHappyBusinessOwner, alt: 'Happy business owner' },
+  { src: avatarHeroContractor, alt: 'Contractor meeting customer' },
+  { src: avatarContractorConfident, alt: 'Confident business owner' },
 ];
 
 // Scrolling Faces Component
@@ -559,6 +562,7 @@ const SpecialOfferOpusPage = () => {
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
             <img
               src={happyContractorLandscape}
+              loading="lazy"
               alt="Contractor with complete online business presence"
               className="w-full aspect-[16/9] object-cover object-center"
             />
