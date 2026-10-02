@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   Smartphone,
   Star,
+  X,
 } from 'lucide-react';
 
 import logo from '../assets/images/Compressed/Local Pros Studio logo transparent.png';
@@ -30,6 +31,10 @@ import petportDesktop from '../assets/images/portfolio/petport-desktop.webp';
 import petportMobile from '../assets/images/portfolio/petport-mobile.webp';
 import jacuzziDesktop from '../assets/images/portfolio/jacuzzipros-desktop.webp';
 import jacuzziMobile from '../assets/images/portfolio/jacuzzipros-mobile.webp';
+import winelandsDesktop from '../assets/images/portfolio/winelandsgas-desktop.webp';
+import winelandsMobile from '../assets/images/portfolio/winelandsgas-mobile.webp';
+import marambaDesktop from '../assets/images/portfolio/maramba-desktop.webp';
+import marambaMobile from '../assets/images/portfolio/maramba-mobile.webp';
 
 const WHATSAPP_URL =
   'https://wa.me/27832336716?text=Hi%2C%20I%20saw%20your%20website%20design%20page%20and%20would%20like%20a%20quote%20for%20my%20business';
@@ -64,6 +69,18 @@ const caseStudies = [
     features: ['Online quote request', 'Multi-city SEO pages', 'Live chat lead capture'],
     desktop: pavingDesktop,
     mobile: pavingMobile,
+  },
+  {
+    name: 'Winelands Gas',
+    domain: 'winelandsgas.co.za',
+    href: 'https://www.winelandsgas.co.za/',
+    industry: 'Home & commercial services · Gas installations',
+    area: 'Western Cape',
+    headline: 'Installs, repairs and COC certificates, all in one place.',
+    text: 'Residential and commercial gas services laid out clearly, with registered-installer trust signals and a quote button on every screen.',
+    features: ['Get-a-quote buttons', 'Residential + commercial pages', 'Click-to-call header'],
+    desktop: winelandsDesktop,
+    mobile: winelandsMobile,
   },
   {
     name: 'BKC Pet',
@@ -101,6 +118,52 @@ const caseStudies = [
     desktop: jacuzziDesktop,
     mobile: jacuzziMobile,
   },
+  {
+    name: 'Maramba Fence & Gates',
+    domain: 'maramba.co.za',
+    href: 'https://www.maramba.co.za/',
+    industry: 'Home services · Fencing & gates',
+    area: 'Cape Town',
+    headline: 'Google reviews up front, a quote one tap away.',
+    text: 'Live Google reviews straight under the hero, the full range of fencing options, and WhatsApp and call buttons on every screen.',
+    features: ['Live Google reviews', 'WhatsApp chat button', 'Free quote requests'],
+    desktop: marambaDesktop,
+    mobile: marambaMobile,
+  },
+];
+
+// The usual ways a business gets a website, compared with ours (shown just before pricing)
+const otherOptions = [
+  {
+    title: 'Build it yourself',
+    points: [
+      'Evenings and weekends lost to a website builder',
+      'You write every page and choose every photo',
+      'It usually looks like you built it yourself',
+    ],
+  },
+  {
+    title: 'A cheap R199/month website',
+    points: [
+      'A one-size-fits-all template with your name dropped in',
+      'Little or no wording written for your services and area',
+      'Often rebuilt properly within a year',
+    ],
+  },
+  {
+    title: 'A big agency',
+    points: [
+      'Large once-off quotes for a local business',
+      'Weeks of meetings before anything goes live',
+      'Built for corporates and priced that way',
+    ],
+  },
+];
+
+const ourOption = [
+  'Written and designed for your services and area',
+  'Live in about 7 days',
+  'From R450/month with hosting and support included',
 ];
 
 const industries = [
@@ -247,6 +310,11 @@ const faqs = [
     question: 'I already have a website. Can you redo it?',
     answer:
       'Yes. A lot of our work is rebuilding older sites that look dated, break on phones, or never bring in enquiries. We keep what works and fix what does not.',
+  },
+  {
+    question: 'What happens after launch?',
+    answer:
+      'We keep looking after your hosting, SSL, backups, security and support, plus 1 hour of free changes every month. Bigger changes beyond that are quoted before we start.',
   },
   {
     question: 'Is it a fully custom website?',
@@ -604,6 +672,27 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
           </div>
         </section>
 
+        {/* The problem, stated directly, before the proof */}
+        <section className={`border-b px-4 py-16 sm:px-6 md:py-20 ${t.border}`}>
+          <div className="mx-auto max-w-4xl">
+            <SectionLabel>The real problem</SectionLabel>
+            <h2 className={`font-display text-3xl font-extrabold leading-tight md:text-5xl ${t.heading}`}>
+              Your website is either winning you work or costing you work<span className={t.highlight}>.</span>
+            </h2>
+            <div className="mt-7 space-y-4 text-lg leading-relaxed">
+              <p className={t.body}>
+                A customer gets your name. They Google you. They open your website on their phone. Before you ever
+                speak to them, they have decided whether you look like the safer choice.
+              </p>
+              <p className={t.body}>
+                If your website is outdated, breaks on a phone, or has no obvious way to call or WhatsApp, they move on
+                to the next name on the list. You never even find out you lost the job.
+              </p>
+              <p className={`font-display text-xl font-bold ${t.heading}`}>What is that costing you every month?</p>
+            </div>
+          </div>
+        </section>
+
         {/* Portfolio: the proof, shown big */}
         <section className="px-4 py-16 sm:px-6 md:py-24">
           <div className="mx-auto max-w-7xl">
@@ -657,7 +746,16 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
               ))}
             </div>
 
-            <div className={`mt-20 rounded-3xl border px-6 py-10 text-center md:px-12 ${t.card}`}>
+            <figure className={`mx-auto mt-20 max-w-4xl rounded-3xl border-2 border-amber-400 px-6 py-10 text-center md:px-12 ${t.priceCard}`}>
+              <p className={`text-xs font-bold uppercase tracking-[0.2em] ${t.label}`}>One website, one job</p>
+              <blockquote className={`mt-4 font-display text-2xl font-extrabold leading-snug md:text-3xl ${t.heading}`}>
+                A Cape Town gas installation client landed an <span className={t.highlight}>R2 million installation job</span> through
+                the online presence we built and manage for them.
+              </blockquote>
+              <figcaption className={`mt-4 ${t.muted}`}>That one job paid for everything many times over.</figcaption>
+            </figure>
+
+            <div className={`mt-10 rounded-3xl border px-6 py-10 text-center md:px-12 ${t.card}`}>
               <p className={`font-display text-2xl font-extrabold md:text-3xl ${t.heading}`}>
                 Plus <span className={t.highlight}>500+ more</span> since 2015.
               </p>
@@ -766,6 +864,48 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Other ways to get a website, so the price has context */}
+        <section className={`border-t px-4 py-16 sm:px-6 md:py-24 ${t.border}`}>
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-3xl text-center">
+              <SectionLabel>Your options</SectionLabel>
+              <h2 className={`font-display text-3xl font-extrabold leading-tight md:text-5xl ${t.heading}`}>
+                Most businesses get a website one of three ways. We built a better one<span className={t.highlight}>.</span>
+              </h2>
+            </div>
+            <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {otherOptions.map((option) => (
+                <div key={option.title} className={`rounded-2xl border p-6 ${t.card}`}>
+                  <h3 className={`font-display text-lg font-bold ${t.heading}`}>{option.title}</h3>
+                  <ul className="mt-5 space-y-3">
+                    {option.points.map((point) => (
+                      <li key={point} className={`flex items-start gap-3 text-sm leading-relaxed ${t.muted}`}>
+                        <X className="mt-0.5 h-4 w-4 flex-none text-red-500" aria-hidden="true" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <div className={`rounded-2xl border-2 border-amber-400 p-6 ${t.priceCard}`}>
+                <h3 className={`font-display text-lg font-bold ${t.heading}`}>Local Pros Studio</h3>
+                <ul className="mt-5 space-y-3">
+                  {ourOption.map((point) => (
+                    <li key={point} className={`flex items-start gap-3 text-sm font-semibold leading-relaxed ${t.body}`}>
+                      <Check className={`mt-0.5 h-4 w-4 flex-none ${t.icon}`} aria-hidden="true" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <p className={`mx-auto mt-10 max-w-3xl text-center text-lg leading-relaxed ${t.muted}`}>
+              If price is the only thing that matters to you, we are not the right fit.{' '}
+              <span className={`font-bold ${t.heading}`}>Cheap websites usually get bought twice.</span>
+            </p>
           </div>
         </section>
 
@@ -899,8 +1039,9 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
               Your customers are searching right now. <span className={t.highlight}>Make sure they find you.</span>
             </h2>
             <p className={`mx-auto mt-6 max-w-2xl text-lg leading-relaxed ${t.body}`}>
-              Send us a WhatsApp with your business name and what you do. We will reply with examples in your industry
-              and a straight answer on whether we are a fit.
+              We take on a limited number of builds each month so every website gets proper attention. Send us a
+              WhatsApp with your business name and what you do. We will reply with examples in your industry and a
+              straight answer on whether we are a fit.
             </p>
             <div className="mt-9 flex flex-col items-center gap-5">
               <CTAButton label={`${track}_final_whatsapp`} />
@@ -919,7 +1060,7 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
         {isAd && (
           <footer className={`border-t px-4 py-8 pb-28 sm:px-6 md:pb-8 ${t.footer}`}>
             <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-sm md:flex-row">
-              <p>© {new Date().getFullYear()} Local Pros Studio · Building websites for South African businesses since 2015</p>
+              <p className={t.faint}>© {new Date().getFullYear()} Local Pros Studio · Building websites for South African businesses since 2015</p>
               <div className="flex items-center gap-6">
                 <a href="/privacy" className={t.footerLink}>Privacy</a>
                 <a href="/terms" className={t.footerLink}>Terms</a>

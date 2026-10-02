@@ -28,7 +28,6 @@ import HomeSalesLetterPage from './components/HomeSalesLetterPage';
 import SpecialOfferOpusPage from './components/SpecialOfferOpusPage';
 import RecurringServicesLetterPage from './components/RecurringServicesLetterPage';
 import AutopilotLandingPage from './components/AutopilotLandingPage';
-import WebDesignLeadsPage from './components/WebDesignLeadsPage';
 import WebDesignAdsPage from './components/WebDesignAdsPage';
 import { PrivacyPage, RefundsCancellationsPage, TermsPage } from './components/LegalPages';
 import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
@@ -189,7 +188,7 @@ const AppContent = () => {
   ].includes(location.pathname);
 
   // Standalone pages that ship their own navigation, footer and type system
-  const isStandalonePage = ['/autopilot', '/website-design', '/website-opus5', '/website-opus5-light'].includes(location.pathname);
+  const isStandalonePage = ['/autopilot', '/website-design'].includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -212,9 +211,8 @@ const AppContent = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />
           <Route path="/autopilot" element={<AutopilotLandingPage />} />
-          <Route path="/website-design" element={<WebDesignLeadsPage />} />
-          <Route path="/website-opus5" element={<WebDesignAdsPage />} />
-          <Route path="/website-opus5-light" element={<WebDesignAdsPage theme="light" />} />
+          {/* Google Ads landing page: same page as /web-design without the site navigation */}
+          <Route path="/website-design" element={<WebDesignAdsPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds-cancellations" element={<RefundsCancellationsPage />} />
