@@ -37,7 +37,7 @@ const milestones = [
 
 const services = [
   { name: "Website Design", href: "/web-design", description: "Modern, mobile-friendly websites delivered in 5-7 days" },
-  { name: "Google Ads", href: "/google-ads", description: "Targeted advertising that puts you in front of ready buyers" },
+  { name: "Google Ads", href: "/", description: "Targeted advertising that puts you in front of ready buyers" },
   { name: "Social Media", href: "/social-media-posting-service", description: "Stay visible with consistent, professional posting" },
 ];
 

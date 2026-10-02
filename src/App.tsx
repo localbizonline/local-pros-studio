@@ -2,28 +2,12 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import ScrollToTop from './components/ScrollToTop';
-import HeroSection from './components/HeroSection';
-import ServicesSection from './components/ServicesSection';
-import SocialProofSection from './components/SocialProofSection';
-import LeadGenSection from './components/LeadGenSection';
-import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
-import SocialMediaPage from './components/SocialMediaPage';
-import WebDesignPage from './components/WebDesignPage';
-import WebDesignPageV2 from './components/WebDesignPageV2';
 import AboutPage from './components/AboutPage';
 import MobileCTA from './components/MobileCTA';
-import GoogleAdsPage from './components/GoogleAdsPage';
-import AlternativeWebDesignPage from './components/AlternativeWebDesignPage';
-import ReachMaxPage from './components/ReachMaxPage';
-import ImageGallery from './components/ImageGallery';
-import ReviewCollectionProPage from './components/ReviewCollectionProPage';
-import ReviewsProClientiPage from './components/ReviewsProClientiPage';
 import ReviewsLetterPage from './components/ReviewsLetterPage';
-import LandingPagesDirectory from './components/LandingPagesDirectory';
 import SocialPostingPageV2 from './components/SocialPostingPageV2';
 import HomeGeminiPage from './components/HomeGeminiPage';
-import HomeSalesLetterPage from './components/HomeSalesLetterPage';
 import SpecialOfferOpusPage from './components/SpecialOfferOpusPage';
 import RecurringServicesLetterPage from './components/RecurringServicesLetterPage';
 import AutopilotLandingPage from './components/AutopilotLandingPage';
@@ -35,7 +19,7 @@ import { whatsAppUrlForPath } from './whatsapp';
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isWebDesignPreview = ['/web-design', '/web-design-v2'].includes(location.pathname);
+  const isWebDesignPreview = location.pathname === '/web-design';
   const whatsAppUrl = whatsAppUrlForPath(location.pathname);
 
   const navLinks = [
@@ -164,24 +148,8 @@ const Navigation = () => {
   );
 };
 
-// Original HomePage with Services
-const HomePage = () => (
-  <>
-    <HeroSection />
-    <ServicesSection />
-    <SocialProofSection />
-    <LeadGenSection />
-    <CallToAction />
-  </>
-);
-
 const AppContent = () => {
   const location = useLocation();
-
-  // Landing pages that should NOT show footer or mobile CTA (but we'll show Nav for switching)
-  const isSpecialLandingPage = [
-    '/pages',
-  ].includes(location.pathname);
 
   // Standalone pages that ship their own navigation, footer and type system
   const isStandalonePage = ['/autopilot', '/website-design'].includes(location.pathname);
@@ -194,15 +162,8 @@ const AppContent = () => {
         <Routes>
           <Route path="/" element={<HomeGeminiPage />} />
           <Route path="/reviews" element={<ReviewsLetterPage />} />
-          <Route path="/reviews-pro" element={<ReviewCollectionProPage />} />
-          <Route path="/reviews-clienti" element={<ReviewsProClientiPage />} />
           <Route path="/social-media-posting-service" element={<SocialPostingPageV2 />} />
-          <Route path="/social-posting-v2" element={<SocialPostingPageV2 />} />
-          <Route path="/sales" element={<HomeSalesLetterPage />} />
           <Route path="/web-design" element={<WebDesignAdsPage variant="site" />} />
-          {/* Archived 1 Oct 2026: previous main web design page, replaced by WebDesignAdsPage */}
-          <Route path="/web-design-archive" element={<WebDesignPage />} />
-          <Route path="/web-design-v2" element={<WebDesignPageV2 />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />
           <Route path="/autopilot" element={<AutopilotLandingPage />} />
@@ -212,20 +173,14 @@ const AppContent = () => {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds-cancellations" element={<RefundsCancellationsPage />} />
           <Route path="/website-faq" element={<WebsiteFaqPage />} />
-          <Route path="/google-ads" element={<GoogleAdsPage />} />
-          <Route path="/web-design-alt" element={<AlternativeWebDesignPage />} />
-          <Route path="/reachmax" element={<ReachMaxPage />} />
-          <Route path="/gallery" element={<ImageGallery />} />
-          <Route path="/pages" element={<LandingPagesDirectory />} />
 
           {/* Special Landing Pages */}
           <Route path="/special-offer-bundle" element={<SpecialOfferOpusPage />} />
 
-          {/* Legacy routes */}
         </Routes>
       </main>
-      {!isSpecialLandingPage && !isStandalonePage && <Footer />}
-      {!isSpecialLandingPage && !isStandalonePage && <MobileCTA />}
+      {!isStandalonePage && <Footer />}
+      {!isStandalonePage && <MobileCTA />}
     </div>
   );
 };
