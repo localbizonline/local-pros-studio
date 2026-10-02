@@ -620,7 +620,7 @@ const HomeGeminiPage = () => {
              />
              <AccordionItem 
                 question='Q: "I have been burned by agencies before."' 
-                answer="A: So have we. That's why reviews come with a 30-day money-back guarantee. Reviews (R1,200) and posting (R2,000) on their own are month-to-month. The R2,500 plan is a 6-month commitment, because that's how long it takes Google to notice steady reviews and activity, and it includes a free website if you need one." 
+                answer="A: So have we. That's why reviews come with a 30-day money-back guarantee. Reviews (R1,200) and posting (R2,000) on their own are month-to-month. The R2,500 plan is a 6-month commitment, because that's how long it takes Google to notice steady reviews and activity, and it includes a free website if you need one (12-month commitment with the website)." 
              />
               <AccordionItem 
                 question='Q: "Is this only for contractors?"' 
@@ -704,7 +704,7 @@ const HomeGeminiPage = () => {
                         <span className="text-3xl font-black text-white">R2,500</span>
                         <span className="text-neutral-400">/mo</span>
                     </div>
-                    <p className="text-green-400 text-sm font-bold mt-2">6 months · free website if you need one</p>
+                    <p className="text-green-400 text-sm font-bold mt-2">6 months · free website on 12 months</p>
                 </div>
                 <ul className="space-y-3 mb-8 flex-1">
                     <li className="flex items-start gap-3 text-neutral-300 text-sm">

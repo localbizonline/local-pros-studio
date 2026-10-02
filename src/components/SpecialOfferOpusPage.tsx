@@ -90,8 +90,8 @@ const bundleItems = [
 // FAQ Items
 const faqItems = [
   {
-    question: 'Why is there a 6-month commitment?',
-    answer: 'Google rewards steady reviews and regular activity, and that takes a few months to show. Six months also lets us build your website (worth R9,900) without charging you for it upfront.',
+    question: 'How long is the commitment?',
+    answer: 'Six months for reviews and posting, because Google rewards steady reviews and regular activity and that takes a few months to show. If you take the free website (worth R9,900), the commitment is 12 months, because we build it without charging you upfront. After the 12 months the website is yours.',
   },
   {
     question: 'How does the money-back guarantee work?',
@@ -99,7 +99,7 @@ const faqItems = [
   },
   {
     question: 'What happens to my website if I cancel?',
-    answer: 'The website is part of the plan, so it stays live while you are subscribed. If you cancel the plan, the website and its hosting end with it.',
+    answer: 'Hosting is included while you are on the plan. Once you have completed your 12 months, the website is yours. If you then stop the plan, you keep it and move to our R290/month hosting and management, which includes 1 hour of changes every month.',
   },
   {
     question: 'Can I start with just reviews or social?',
@@ -132,7 +132,7 @@ const CTAButton = () => (
         Start the R2,500 Plan
         <ArrowRight className="w-5 h-5 md:w-7 md:h-7" />
       </span>
-      <span className="text-sm font-bold opacity-80 mt-1">6-month commitment · 30-day money-back guarantee on reviews</span>
+      <span className="text-sm font-bold opacity-80 mt-1">6-month commitment (12 with the website) · 30-day money-back guarantee on reviews</span>
     </a>
 
     <div className="flex flex-col items-center justify-center gap-1 mt-5 md:mt-6">
@@ -177,7 +177,7 @@ const SpecialOfferOpusPage = () => {
             {/* Price Display */}
             <div className="mb-8">
               <div className="inline-block bg-amber-500/20 border border-amber-500/40 rounded-full px-4 py-1 mb-3">
-                <span className="text-amber-400 font-bold text-sm">6-MONTH COMMITMENT</span>
+                <span className="text-amber-400 font-bold text-sm">6-MONTH COMMITMENT · 12 WITH THE WEBSITE</span>
               </div>
               <p className="text-neutral-400 text-base mb-2">
                 <span className="line-through">R3,200/month bought separately + R9,900 website</span>
@@ -201,7 +201,7 @@ const SpecialOfferOpusPage = () => {
                 Start the R2,500 Plan
                 <ArrowRight className="w-6 h-6" />
               </span>
-              <span className="text-sm font-bold opacity-80">6-month commitment</span>
+              <span className="text-sm font-bold opacity-80">6-month commitment, 12 with the website</span>
             </a>
 
             {/* Trust Indicators */}
@@ -329,7 +329,7 @@ const SpecialOfferOpusPage = () => {
             <div className="mt-6 pt-6 border-t border-green-500/30">
               <p className="text-neutral-300">All of this for:</p>
               <p className="text-3xl md:text-4xl font-black text-green-400">R2,500/month</p>
-              <p className="text-neutral-400 text-sm mt-1">6-month commitment</p>
+              <p className="text-neutral-400 text-sm mt-1">6-month commitment, 12 with the website</p>
             </div>
           </div>
 
@@ -440,7 +440,7 @@ const SpecialOfferOpusPage = () => {
             <div className="bg-gradient-to-r from-green-900/60 to-green-800/40 border-2 border-green-500/50 rounded-xl p-6 text-center">
               <p className="text-green-400 text-sm font-bold uppercase tracking-wide mb-2">With a 6-Month Commitment</p>
               <p className="text-white font-black text-4xl md:text-5xl mb-2">R2,500<span className="text-xl text-neutral-400 font-normal">/month</span></p>
-              <p className="text-green-400 font-bold">+ free website worth R9,900, hosting included</p>
+              <p className="text-green-400 font-bold">+ free website worth R9,900 on a 12-month commitment, hosting included</p>
             </div>
 
             <p className="text-center text-neutral-300 text-lg mt-6">
@@ -662,9 +662,10 @@ const SpecialOfferOpusPage = () => {
           {/* Fine Print */}
           <div className="pt-8 border-t border-neutral-800">
             <p className="text-neutral-600 text-xs leading-relaxed">
-              * 6-month commitment. The 30-day money-back guarantee covers review collection. The website (worth R9,900)
-              is included as part of the plan and stays live while you are subscribed; if you cancel the plan, website access
-              and hosting end with it. Standard terms and conditions apply.
+              * 6-month commitment, or 12 months if you take the free website. The 30-day money-back guarantee covers review
+              collection. The website (worth R9,900) is hosted free while you are on the plan and becomes yours after the 12
+              months; if you then stop the plan, you keep it and move to R290/month hosting and management. Standard terms and
+              conditions apply.
             </p>
           </div>
 

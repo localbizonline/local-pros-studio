@@ -660,7 +660,7 @@ const ReviewsLetterPage = () => {
 
           <p className="text-neutral-500 text-sm italic">
             Want weekly social posts too? The <Link to="/special-offer-bundle" className="underline hover:text-white">R2,500 plan</Link> adds
-            posting and a free website worth R9,900 (6-month commitment).
+            posting and a free website worth R9,900 (6-month commitment, or 12 months with the website).
           </p>
         </div>
       </section>

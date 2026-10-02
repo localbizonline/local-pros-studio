@@ -1211,7 +1211,7 @@ const SocialPostingPageV2 = () => {
                 <p className="text-green-400 text-sm font-bold mt-2">
                   Save R700/month, plus a free website worth R9,900
                 </p>
-                <p className="text-neutral-400 text-xs mt-1">6-month commitment · 30-day money-back guarantee on reviews</p>
+                <p className="text-neutral-400 text-xs mt-1">6-month commitment (12 months with the free website) · 30-day money-back guarantee on reviews</p>
               </div>
 
               {/* Features List */}
@@ -1263,7 +1263,7 @@ const SocialPostingPageV2 = () => {
             </svg>
             <div>
               <p className="text-white font-bold text-base md:text-lg">Clear Terms</p>
-              <p className="text-neutral-300 text-xs md:text-sm">Social Posting is month-to-month. The R2,500 plan is a 6-month commitment, with a 30-day money-back guarantee on reviews.</p>
+              <p className="text-neutral-300 text-xs md:text-sm">Social Posting is month-to-month. The R2,500 plan is a 6-month commitment, or 12 months if you take the free website, with a 30-day money-back guarantee on reviews.</p>
             </div>
           </div>
 

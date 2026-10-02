@@ -210,7 +210,7 @@ const GOOGLE_REVIEWS_URL =
   'https://www.google.com/search?q=local+pros#lrd=0x1efa235edd61726f:0x2d27a3ca84715414,1,,,,';
 
 // Three ways to pay. Terms confirmed by Jeremy (1 Oct 2026); the free website comes with the R2,500 plan
-// (6-month commitment, 2 Oct 2026). Every button sends this page's one WhatsApp message (see src/whatsapp.ts).
+// (12-month commitment with the website, then it is theirs; 2 Oct 2026). Every button sends this page's one WhatsApp message (see src/whatsapp.ts).
 const pricingOptions = [
   {
     key: 'buy',
@@ -255,7 +255,7 @@ const pricingOptions = [
     points: [
       'Weekly posts to Facebook, Instagram and Google',
       'Automatic Google review requests by WhatsApp and email',
-      '6-month commitment. The website (worth R9,900) stays live while you are subscribed',
+      '12-month commitment, then the website (worth R9,900) is yours',
     ],
     cta: 'Get It Free',
     featured: false,
@@ -284,7 +284,7 @@ const faqs = [
   {
     question: 'How much does a website cost?',
     answer:
-      'Three options: buy it for R9,900 once-off plus R290/month for hosting, support and 1 hour of free changes; rent to own for R450/month all-in over 24 months, then R290/month; or get it free (worth R9,900) with our Social Posting + Reviews plan at R2,500/month on a 6-month commitment. No surprise invoices.',
+      'Three options: buy it for R9,900 once-off plus R290/month for hosting, support and 1 hour of free changes; rent to own for R450/month all-in over 24 months, then R290/month; or get it free (worth R9,900) with our Social Posting + Reviews plan at R2,500/month on a 12-month commitment, after which the website is yours. No surprise invoices.',
   },
   {
     question: 'How long does it take?',
