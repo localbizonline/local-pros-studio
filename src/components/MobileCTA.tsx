@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { X } from 'lucide-react';
+import { whatsAppUrlForPath } from '../whatsapp';
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -14,6 +16,7 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 const MobileCTA = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +47,7 @@ const MobileCTA = () => {
 
         {/* WhatsApp button */}
         <a
-          href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20Local%20Pros%20Studio"
+          href={whatsAppUrlForPath(pathname)}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-4 py-3 bg-[#25D366] text-white rounded-full shadow-soft-xl hover:bg-[#128C7E] transition-colors"

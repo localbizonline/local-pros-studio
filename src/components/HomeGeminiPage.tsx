@@ -20,12 +20,13 @@ import happyBusinessOwner from '../assets/images/reviews-pro/happy-business-owne
 import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.jpg';
 import reviewCustomer from '../assets/images/review-customer.jpg';
 import teamPhoto from '../assets/images/team.jpg';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Reusable CTA Button
 const CTAButton = ({ text = "Get Started Today", subtext }: { text?: string, subtext?: string }) => (
   <div className="py-8 md:py-10">
     <a
-      href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20getting%20started%20with%20Local%20Pros%20Studio"
+      href={SITE_WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center justify-center gap-2 md:gap-3 w-full bg-yellow-400 text-black font-black text-lg md:text-2xl lg:text-3xl px-6 md:px-10 py-5 md:py-6 rounded-full hover:scale-105 transition-all shadow-xl shadow-yellow-400/30 uppercase tracking-tight"
@@ -148,7 +149,7 @@ const HomeGeminiPage = () => {
 
           <div className="max-w-md mx-auto mb-8">
             <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20getting%20started%20with%20Local%20Pros%20Studio"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 md:gap-3 w-full bg-yellow-400 text-black font-black text-lg md:text-2xl px-6 py-5 rounded-full hover:scale-105 transition-all shadow-xl shadow-yellow-400/30 uppercase tracking-tight"
@@ -303,7 +304,7 @@ const HomeGeminiPage = () => {
           </div>
 
           <div className="pt-4">
-             <a href="https://wa.me/27832336716" target="_blank" rel="noopener noreferrer" className="text-amber-400 font-bold text-lg hover:text-white transition-colors border-b-2 border-amber-400 hover:border-white pb-1">
+             <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-amber-400 font-bold text-lg hover:text-white transition-colors border-b-2 border-amber-400 hover:border-white pb-1">
                 Chat with us on WhatsApp →
              </a>
           </div>
@@ -619,7 +620,7 @@ const HomeGeminiPage = () => {
              />
              <AccordionItem 
                 question='Q: "I have been burned by agencies before."' 
-                answer="A: So have we. That's why we have: No long contracts. Cancel anytime. 30-day money-back guarantee on reviews. You're never locked in." 
+                answer="A: So have we. That's why reviews come with a 30-day money-back guarantee. Reviews (R1,200) and posting (R2,000) on their own are month-to-month. The R2,500 plan is a 6-month commitment, because that's how long it takes Google to notice steady reviews and activity, and it includes a free website if you need one." 
              />
               <AccordionItem 
                 question='Q: "Is this only for contractors?"' 
@@ -703,7 +704,7 @@ const HomeGeminiPage = () => {
                         <span className="text-3xl font-black text-white">R2,500</span>
                         <span className="text-neutral-400">/mo</span>
                     </div>
-                    <p className="text-green-400 text-sm font-bold mt-2">Best Value Bundle</p>
+                    <p className="text-green-400 text-sm font-bold mt-2">6 months · free website if you need one</p>
                 </div>
                 <ul className="space-y-3 mb-8 flex-1">
                     <li className="flex items-start gap-3 text-neutral-300 text-sm">
@@ -716,7 +717,7 @@ const HomeGeminiPage = () => {
                         <Check className="w-5 h-5 text-green-400 shrink-0" /> Strategy calls
                     </li>
                 </ul>
-                <a href="https://wa.me/27832336716?text=Hi%2C%20I%20want%20the%20Complete%20Package" target="_blank" rel="noopener noreferrer" className="block w-full py-4 rounded-xl bg-amber-500 text-black font-bold text-center hover:bg-amber-400 transition-colors shadow-lg">
+                <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="block w-full py-4 rounded-xl bg-amber-500 text-black font-bold text-center hover:bg-amber-400 transition-colors shadow-lg">
                     Get Started
                 </a>
             </div>
@@ -801,9 +802,8 @@ const HomeGeminiPage = () => {
           <CTAButton text="Get Started Today — WhatsApp Us Now" />
 
           <div className="mt-12 flex flex-wrap justify-center gap-6 text-neutral-400 text-sm font-medium">
-             <span className="flex items-center gap-2"><Check className="w-4 h-4 text-green-500"/> 30-Day Guarantee</span>
-             <span className="flex items-center gap-2"><Check className="w-4 h-4 text-green-500"/> No Contracts</span>
-             <span className="flex items-center gap-2"><Check className="w-4 h-4 text-green-500"/> Cancel Anytime</span>
+             <span className="flex items-center gap-2"><Check className="w-4 h-4 text-green-500"/> 30-Day Money-Back Guarantee on Reviews</span>
+             <span className="flex items-center gap-2"><Check className="w-4 h-4 text-green-500"/> Single Services Month-to-Month</span>
              <span className="flex items-center gap-2"><Check className="w-4 h-4 text-green-500"/> WhatsApp Support</span>
           </div>
 

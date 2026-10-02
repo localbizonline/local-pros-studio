@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Check, Star } from 'lucide-react';
 
 // Scrolling faces images (South African focused)
@@ -67,7 +68,7 @@ const CTAWithRating = () => (
   <div className="py-8 md:py-10">
     {/* Big Amber CTA Button */}
     <a
-      href="https://wa.me/27832336716?text=Hi%2C%20I'm%20ready%20to%20get%20started%20with%20the%20Review%20Collection%20service"
+      href={SITE_WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center justify-center gap-2 md:gap-3 w-full bg-yellow-400 text-black font-black text-lg md:text-2xl lg:text-3xl px-6 md:px-10 py-5 md:py-6 rounded-full hover:scale-105 transition-all shadow-xl shadow-yellow-400/30 uppercase tracking-tight"
@@ -103,6 +104,7 @@ import aiSearchFuture from '../assets/images/Reviews/nWsKTYC36b0cx6bns6MGz (1).p
 import contractorConfident from '../assets/images/Reviews/before and after pest control review.png';
 import feedbackResolution from '../assets/images/Reviews/M6-nb4_Y5cLufwXr3N9E_ copy.jpg';
 import facebookReviewPost from '../assets/images/aObjgryy3RyUZWZAcLX7g.webp';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const ReviewsLetterPage = () => {
   return (
@@ -122,9 +124,9 @@ const ReviewsLetterPage = () => {
 
             {/* Main Headline */}
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
-              Get Five-Star Reviews{' '}
-              <span className="text-yellow-400">In The Next 14 Days...</span>{' '}
-              <span className="text-white block md:inline">Or You Don't Pay</span>
+              Get New Five-Star Reviews{' '}
+              <span className="text-yellow-400">In Your First 30 Days...</span>{' '}
+              <span className="text-white block md:inline">Or Your Money Back</span>
             </h1>
 
             {/* Subheadline */}
@@ -143,7 +145,7 @@ const ReviewsLetterPage = () => {
 
             {/* CTA Button */}
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20ready%20to%20get%20started%20with%20the%20Review%20Collection%20service"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black text-xl md:text-2xl px-10 py-5 rounded-full shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 hover:scale-105 transition-all"
@@ -160,7 +162,7 @@ const ReviewsLetterPage = () => {
             <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 mt-8 text-neutral-400 text-sm">
               <div className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                <span>No Long Contracts</span>
+                <span>Month-to-Month</span>
               </div>
               <div className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
@@ -598,21 +600,20 @@ const ReviewsLetterPage = () => {
             {/* Glow Effect - hidden on mobile */}
             <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
 
-            {/* 50% Off Badge */}
+            {/* Badge */}
             <div className="mb-6 md:mb-8 relative">
               <span className="inline-block bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black px-4 md:px-6 py-2 md:py-3 rounded-full uppercase tracking-wide text-xs md:text-sm shadow-lg">
-                🔥 50% Off First Month
+                Month-to-Month
               </span>
             </div>
 
             {/* Price Display */}
             <div className="mb-6 md:mb-8 relative">
               <div className="flex flex-wrap items-baseline gap-2">
-                <span className="text-lg md:text-2xl text-neutral-500 line-through">R1,200</span>
-                <span className="text-4xl md:text-6xl lg:text-7xl font-black text-white">R600</span>
+                <span className="text-4xl md:text-6xl lg:text-7xl font-black text-white">R1,200</span>
                 <span className="text-lg md:text-xl text-neutral-400">/mo</span>
               </div>
-              <p className="text-sm md:text-base text-neutral-400 mt-2">for your first month, then R1,200/mo</p>
+              <p className="text-sm md:text-base text-neutral-400 mt-2">Month-to-month. Cancel anytime.</p>
             </div>
 
             {/* Features List */}
@@ -635,7 +636,7 @@ const ReviewsLetterPage = () => {
 
             {/* CTA Button */}
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20ready%20to%20get%20started%20with%20the%20Review%20Collection%20service"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 md:gap-3 bg-yellow-400 text-black font-black text-base md:text-xl px-6 md:px-10 py-4 md:py-5 rounded-full hover:scale-105 transition-all w-full shadow-lg shadow-yellow-400/30"
@@ -658,7 +659,8 @@ const ReviewsLetterPage = () => {
           </div>
 
           <p className="text-neutral-500 text-sm italic">
-            Setup fee: R2,500 (waived with 6-month commitment)
+            Want weekly social posts too? The <Link to="/special-offer-bundle" className="underline hover:text-white">R2,500 plan</Link> adds
+            posting and a free website worth R9,900 (6-month commitment).
           </p>
         </div>
       </section>

@@ -35,6 +35,7 @@ import teamPhoto from '../assets/images/team.jpg';
 import happyBusinessOwner from '../assets/images/reviews-pro/happy-business-owner.jpg';
 import heroContractorHandshake from '../assets/images/Reviews/hero-contractor-handshake.jpg';
 import contractorConfident from '../assets/images/Reviews/contractor-confident-reviews.jpg';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Scrolling Faces Data
 const scrollingFaces = [
@@ -92,19 +93,19 @@ const CTAWithRating = () => (
   <div className="py-8 md:py-10">
     {/* Big Amber CTA Button */}
     <a
-      href="https://wa.me/27832336716?text=Hi%2C%20I%20want%20to%20claim%20my%20spot%20for%20Social%20Posting%20at%20R2%2C000%2Fmonth"
+      href={SITE_WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center justify-center gap-2 md:gap-3 w-full bg-yellow-400 text-black font-black text-lg md:text-2xl lg:text-3xl px-6 md:px-10 py-5 md:py-6 rounded-full hover:scale-105 transition-all shadow-xl shadow-yellow-400/30 uppercase tracking-tight"
     >
-      Claim Your Spot
+      Get Started
       <ArrowRight className="w-5 h-5 md:w-7 md:h-7" />
     </a>
 
-    {/* Scarcity Message Below */}
+    {/* Capacity Message Below */}
     <div className="flex flex-col items-center justify-center gap-2 mt-5 md:mt-6">
       <p className="text-amber-400 font-bold text-sm md:text-base">
-        ⚡ Limited to first 50 signups at this price
+        We take on about 12 new clients a month
       </p>
     </div>
   </div>
@@ -141,9 +142,8 @@ const SocialPostingPageV2 = () => {
               We take your job photos and turn them into scroll-stopping posts for Facebook, Instagram, and Google — <span className="text-white font-semibold">published for you every week.</span>
             </p>
 
-            {/* Price Anchor + Discount */}
+            {/* Price */}
             <div className="mb-8">
-              <p className="text-neutral-400 text-base mb-2 line-through">Normally R3,500/month</p>
               <p className="text-4xl md:text-5xl font-black text-white mb-3">
                 R2,000<span className="text-neutral-400 text-xl font-normal">/month</span>
               </p>
@@ -151,21 +151,21 @@ const SocialPostingPageV2 = () => {
 
             {/* Main CTA with scarcity built in */}
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I%20want%20to%20claim%20my%20spot%20for%20Social%20Posting%20at%20R2%2C000%2Fmonth"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex flex-col items-center bg-yellow-400 text-black px-10 py-5 rounded-full shadow-lg shadow-yellow-400/30 hover:shadow-yellow-400/50 hover:scale-105 transition-all mb-4"
             >
               <span className="flex items-center gap-3 font-black text-xl md:text-2xl">
-                Claim Your Spot Now
+                Get Started
                 <ArrowRight className="w-6 h-6" />
               </span>
-              <span className="text-sm font-bold opacity-80">⚡ Launch price — first 50 only</span>
+              <span className="text-sm font-bold opacity-80">Month-to-month</span>
             </a>
 
             {/* Risk Reversal */}
             <p className="text-neutral-400 text-sm mb-6">
-              No contracts. Cancel anytime. See results or don't pay.
+              Month-to-month. Cancel anytime. Or add reviews with the R2,500 plan.
             </p>
 
             {/* Scrolling Faces Section */}
@@ -999,7 +999,7 @@ const SocialPostingPageV2 = () => {
                 </p>
                 <p className="text-neutral-200 flex items-start">
                   <span className="text-green-400 mr-3">✓</span>
-                  No long contracts — cancel anytime
+                  Month-to-month — cancel anytime
                 </p>
                 <p className="text-neutral-200 flex items-start">
                   <span className="text-green-400 mr-3">✓</span>
@@ -1121,17 +1121,17 @@ const SocialPostingPageV2 = () => {
           <div className="flex items-center gap-4 mb-4">
             <div className="h-px bg-gradient-to-r from-amber-500 to-transparent flex-1 max-w-[60px]"></div>
             <p className="text-amber-400 text-xs tracking-[0.3em] uppercase font-black">
-              Limited Offer
+              Pricing
             </p>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-black text-white leading-tight tracking-tight">
-            Claim Your Spot<br />
-            <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Before Prices Go Up</span>
+            Pick Your<br />
+            <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Package</span>
           </h2>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            This is <strong className="text-white">insane value</strong> — and we know it. That's why we're only offering this price to our first 50 signups.
+            Posting on its own, or posting and Google reviews together on the <strong className="text-white">R2,500 plan</strong>, with a free website if you need one.
           </p>
 
           {/* Pricing Cards Grid */}
@@ -1143,15 +1143,12 @@ const SocialPostingPageV2 = () => {
               {/* Price Display */}
               <div className="mb-6">
                 <p className="text-amber-400 text-sm font-bold uppercase tracking-wide mb-2">Social Posting</p>
-                <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                  <span className="text-neutral-500 line-through text-lg">R3,500</span>
-                </div>
                 <div className="flex flex-wrap items-baseline gap-2">
                   <span className="text-3xl md:text-4xl font-black text-white">R2,000</span>
                   <span className="text-neutral-400">/month</span>
                 </div>
                 <p className="text-green-400 text-sm font-bold mt-2">
-                  Save R1,500/month
+                  Month-to-month
                 </p>
               </div>
 
@@ -1175,12 +1172,12 @@ const SocialPostingPageV2 = () => {
 
               {/* CTA Button */}
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I%20want%20to%20claim%20my%20spot%20for%20Social%20Posting%20at%20R2%2C000%2Fmonth"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-neutral-800 border-2 border-amber-500/50 text-white font-bold text-base px-6 py-4 rounded-full hover:bg-neutral-700 transition-all w-full"
               >
-                Claim Your Spot
+                Get Started
                 <ArrowRight className="w-5 h-5" />
               </a>
             </div>
@@ -1198,7 +1195,7 @@ const SocialPostingPageV2 = () => {
 
               {/* Price Display */}
               <div className="mb-6 relative">
-                <p className="text-amber-400 text-sm font-bold uppercase tracking-wide mb-2">Complete Package</p>
+                <p className="text-amber-400 text-sm font-bold uppercase tracking-wide mb-2">R2,500 Plan</p>
                 <div className="flex flex-wrap items-center justify-center gap-2 mb-4 bg-neutral-800 border border-neutral-600 rounded-lg px-4 py-3">
                   <span className="text-amber-400 font-black text-sm">Social Posting</span>
                   <span className="text-white font-black">+</span>
@@ -1212,8 +1209,9 @@ const SocialPostingPageV2 = () => {
                   <span className="text-neutral-400">/month</span>
                 </div>
                 <p className="text-green-400 text-sm font-bold mt-2">
-                  Save R700/month — both services bundled
+                  Save R700/month, plus a free website worth R9,900
                 </p>
+                <p className="text-neutral-400 text-xs mt-1">6-month commitment · 30-day money-back guarantee on reviews</p>
               </div>
 
               {/* Features List */}
@@ -1236,24 +1234,24 @@ const SocialPostingPageV2 = () => {
 
               {/* CTA Button */}
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I%20want%20the%20Complete%20Package%20(Social%20%2B%20Reviews)%20at%20R2%2C500%2Fmonth"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-black font-black text-base px-6 py-4 rounded-full hover:scale-105 transition-all w-full shadow-lg shadow-yellow-400/30"
               >
-                Get The Complete Package
+                Get The R2,500 Plan
                 <ArrowRight className="w-5 h-5" />
               </a>
             </div>
           </div>
 
-          {/* Urgency Message */}
+          {/* Capacity Message */}
           <div className="text-center bg-neutral-900/50 border border-neutral-700 rounded-xl p-6">
             <p className="text-amber-400 font-bold text-sm md:text-base">
-              ⚡ Limited to first 50 signups at these prices
+              We take on about 12 new clients a month
             </p>
             <p className="text-neutral-500 text-sm mt-1">
-              Lock in this price forever — even when it goes up
+              So every setup gets proper attention
             </p>
           </div>
 
@@ -1264,14 +1262,11 @@ const SocialPostingPageV2 = () => {
               <path d="M24 32L30 38L42 26" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <div>
-              <p className="text-white font-bold text-base md:text-lg">No Long Contracts</p>
-              <p className="text-neutral-300 text-xs md:text-sm">Cancel anytime. No lock-in. No hassle.</p>
+              <p className="text-white font-bold text-base md:text-lg">Clear Terms</p>
+              <p className="text-neutral-300 text-xs md:text-sm">Social Posting is month-to-month. The R2,500 plan is a 6-month commitment, with a 30-day money-back guarantee on reviews.</p>
             </div>
           </div>
 
-          <p className="text-neutral-400 text-sm text-center">
-            Setup fee: R2,500 <span className="text-amber-400 font-medium">(waived with 6-month commitment)</span>
-          </p>
         </div>
       </section>
 
@@ -1287,8 +1282,7 @@ const SocialPostingPageV2 = () => {
           </h2>
 
           <p className="text-2xl md:text-3xl font-black text-white text-center">
-            <span className="text-neutral-500 line-through text-xl md:text-2xl">R3,500</span>{' '}
-            R2,000/month. <span className="text-amber-400">First 50 only.</span>
+            R2,000/month. <span className="text-amber-400">Month-to-month.</span>
           </p>
 
           {/* Final CTA */}

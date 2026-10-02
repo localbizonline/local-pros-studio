@@ -3,6 +3,7 @@ import { ArrowRight, Check, Star, Shield, Clock, Zap, TrendingUp, Users, AlertTr
 
 // Import hero image
 import heroImage from '../assets/images/review-screen-focus.jpg';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // =============================================================================
 // DATA ARRAYS
@@ -183,7 +184,7 @@ const ReviewCollectionProPage = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20Review%20Collection"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"
@@ -342,7 +343,7 @@ const ReviewCollectionProPage = () => {
               Discover how <strong>outsourcing your review collection</strong> can transform your business:
             </p>
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20book%20a%20call%20about%20Review%20Collection"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
@@ -463,7 +464,7 @@ const ReviewCollectionProPage = () => {
               Our clients see results <strong className="text-white">right out the gate</strong>.
             </p>
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20book%20a%20call%20about%20Review%20Collection"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"
@@ -523,7 +524,7 @@ const ReviewCollectionProPage = () => {
           
           <div className="text-center mt-8">
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20speed%20up%20my%20review%20collection"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
@@ -628,7 +629,7 @@ const ReviewCollectionProPage = () => {
           
           <div className="text-center mt-12">
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20learn%20about%20your%20negative%20review%20safeguards"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"
@@ -713,7 +714,7 @@ const ReviewCollectionProPage = () => {
               </p>
             </div>
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20get%20started%20with%20Review%20Collection"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
@@ -805,7 +806,7 @@ const ReviewCollectionProPage = () => {
               </ul>
               
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%20Monthly%20Review%20Collection%20plan"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary w-full justify-center bg-neutral-950 text-white hover:bg-neutral-800"
@@ -850,7 +851,7 @@ const ReviewCollectionProPage = () => {
               </ul>
               
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%206-Month%20Review%20Collection%20plan"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100 w-full justify-center"
@@ -901,7 +902,7 @@ const ReviewCollectionProPage = () => {
             
             <div>
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20get%20guaranteed%20results%20with%20Review%20Collection"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"
@@ -982,7 +983,7 @@ const ReviewCollectionProPage = () => {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20start%20getting%20more%20reviews"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"

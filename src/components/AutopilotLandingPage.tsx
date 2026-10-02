@@ -8,6 +8,7 @@ import ScratchToReveal from './ScratchToReveal';
 import beforeAfterProof from '../assets/images/Reviews/Local Pros reviews before and after.png';
 import whatsappToGoogle from '../assets/images/Reviews/review from WhatsApp to google review side by side.png';
 import oneUploadPostEverywhere from '../assets/images/social-posting/one-upload post everywhere.webp';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 /* ------------------------------------------------------------------
    Palette used on this page (mirrors the reference landing page):
@@ -16,12 +17,7 @@ import oneUploadPostEverywhere from '../assets/images/social-posting/one-upload 
    Type: Inter Tight, weight 500 headings, tight tracking, generous air.
    ------------------------------------------------------------------ */
 
-const WA = (msg: string) =>
-  `https://wa.me/27832336716?text=${encodeURIComponent(msg)}`;
-
-const WA_MAIN = WA(
-  "Hi Jeremy, I'd like an Online Presence Review for my business."
-);
+const WA_MAIN = SITE_WHATSAPP_URL;
 
 const track = (label: string) => {
   if (typeof window !== 'undefined' && window.gtag) {
@@ -1049,9 +1045,7 @@ const AutopilotLandingPage = () => {
                 </ul>
 
                 <a
-                  href={WA(
-                    `Hi Jeremy, I'm interested in the ${p.name} package (${p.price}/month).`
-                  )}
+                  href={WA_MAIN}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track(`autopilot_pricing_${p.name}`)}

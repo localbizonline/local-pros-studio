@@ -12,6 +12,7 @@ import aiSearchFuture from '../assets/images/Reviews/nWsKTYC36b0cx6bns6MGz (1).p
 import contractorConfident from '../assets/images/Reviews/before and after pest control review.png';
 import feedbackResolution from '../assets/images/Reviews/M6-nb4_Y5cLufwXr3N9E_ copy.jpg';
 import facebookReviewPost from '../assets/images/aObjgryy3RyUZWZAcLX7g.webp';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const ReviewsProClientiPage = () => {
   const faqs = [
@@ -69,7 +70,7 @@ const ReviewsProClientiPage = () => {
 
           <div className="flex flex-col gap-3 md:gap-4 justify-center max-w-md mx-auto sm:max-w-none sm:flex-row">
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20ready%20to%20get%20started%20with%20the%20Review%20Collection%20service"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black text-base md:text-xl lg:text-2xl px-6 md:px-10 py-4 md:py-5 rounded-full shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 hover:scale-105 transition-all"
@@ -150,7 +151,7 @@ const ReviewsProClientiPage = () => {
           </div>
 
           <a
-            href="https://wa.me/27832336716?text=Hi%2C%20I'm%20ready%20to%20get%20started%20with%20the%20Review%20Collection%20service"
+            href={SITE_WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black text-base md:text-lg lg:text-xl px-6 md:px-10 py-4 md:py-5 rounded-full shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 hover:scale-105 transition-all"
@@ -277,7 +278,7 @@ const ReviewsProClientiPage = () => {
           </p>
 
           <a
-            href="https://wa.me/27832336716?text=Hi%2C%20I'm%20ready%20to%20get%20started%20with%20the%20Review%20Collection%20service"
+            href={SITE_WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black text-base md:text-lg lg:text-xl px-6 md:px-10 py-4 md:py-5 rounded-full shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 hover:scale-105 transition-all"
@@ -344,7 +345,7 @@ const ReviewsProClientiPage = () => {
 
           <div className="text-center">
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20ready%20to%20get%20started%20with%20the%20Review%20Collection%20service"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black text-base md:text-lg lg:text-xl px-6 md:px-10 py-4 md:py-5 rounded-full shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 hover:scale-105 transition-all"
@@ -529,7 +530,7 @@ const ReviewsProClientiPage = () => {
             {/* CTA Button */}
             <div className="text-center mb-8 md:mb-10">
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20ready%20to%20get%20started%20with%20the%20Review%20Collection%20service"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black text-lg md:text-xl lg:text-2xl px-8 md:px-12 py-4 md:py-6 rounded-full shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 hover:scale-105 transition-all w-full sm:w-auto"

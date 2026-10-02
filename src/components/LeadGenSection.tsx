@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const packages = [
   {
@@ -57,7 +58,7 @@ const LeadGenSection = () => {
             </p>
 
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20getting%20a%20free%20digital%20marketing%20audit"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-full bg-indigo-600 text-white px-4 sm:px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors text-base sm:text-lg"

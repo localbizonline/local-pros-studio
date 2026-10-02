@@ -1,16 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, LayoutGrid } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import logo from '../assets/images/Compressed/Local Pros Studio logo transparent.png';
+import { whatsAppUrlForPath } from '../whatsapp';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { pathname } = useLocation();
 
   const services = [
     { name: 'Review Collection', href: '/reviews' },
     { name: 'Social Media Posting', href: '/social-media-posting-service' },
     { name: 'Web Design', href: '/web-design' },
-    { name: 'Special Offer Bundle', href: '/special-offer-bundle' },
+    { name: 'R2,500 Plan', href: '/special-offer-bundle' },
   ];
 
   const tools = [
@@ -111,7 +113,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="https://wa.me/27832336716"
+                  href={whatsAppUrlForPath(pathname)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center text-neutral-400 hover:text-white transition-colors text-sm"
@@ -140,18 +142,9 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-neutral-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-3">
-              <p className="text-neutral-500 text-sm">
-                © {currentYear} Local Pros Studio. All rights reserved.
-              </p>
-              <Link
-                to="/pages"
-                className="text-neutral-700 hover:text-neutral-400 transition-colors"
-                title="All Pages"
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+            <p className="text-neutral-500 text-sm">
+              © {currentYear} Local Pros Studio. All rights reserved.
+            </p>
             <Link
               to="/about"
               className="text-neutral-500 hover:text-white transition-colors text-sm"

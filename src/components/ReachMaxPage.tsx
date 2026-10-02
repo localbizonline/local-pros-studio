@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Check, MessageSquare, Users, Zap, BarChart3, Bot, Send, ExternalLink } from 'lucide-react';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const stats = [
   { value: '10+', label: 'Years of Experience' },
@@ -104,7 +105,7 @@ const ReachMaxPage = () => {
                 <ExternalLink className="ml-2 w-4 h-4" />
               </a>
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20ReachMax%20WhatsApp%20automation"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary border-emerald-500/50 text-white hover:bg-emerald-500/20 hover:border-emerald-400"
@@ -434,7 +435,7 @@ const ReachMaxPage = () => {
               <ExternalLink className="ml-2 w-4 h-4" />
             </a>
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20book%20a%20ReachMax%20demo"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary border-emerald-500/50 text-white hover:bg-emerald-500/20 hover:border-emerald-400"

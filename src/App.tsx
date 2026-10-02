@@ -31,18 +31,19 @@ import AutopilotLandingPage from './components/AutopilotLandingPage';
 import WebDesignAdsPage from './components/WebDesignAdsPage';
 import { PrivacyPage, RefundsCancellationsPage, TermsPage } from './components/LegalPages';
 import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
+import { whatsAppUrlForPath } from './whatsapp';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const isWebDesignPreview = ['/web-design', '/web-design-v2'].includes(location.pathname);
+  const whatsAppUrl = whatsAppUrlForPath(location.pathname);
 
   const navLinks = [
     { name: 'Reviews', href: '/reviews' },
     { name: 'Social Media', href: '/social-media-posting-service' },
     { name: 'Web Design', href: '/web-design' },
-    { name: 'Recurring Services', href: '/recurring-service-booking-system' },
-    { name: 'Special Offer', href: '/special-offer-bundle' },
+    { name: 'R2,500 Plan', href: '/special-offer-bundle' },
   ];
 
   const isActive = (href: string) => {
@@ -85,9 +86,7 @@ const Navigation = () => {
           {/* CTA Button */}
           <div className="hidden md:flex items-center">
             <a
-              href={isWebDesignPreview
-                ? "https://wa.me/27832336716?text=Hi%2C%20I%20want%20a%20website%20that%20helps%20my%20business%20win%20more%20enquiries"
-                : "https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20getting%20more%20reviews%20and%20growing%20my%20social%20presence"}
+              href={whatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
@@ -140,9 +139,7 @@ const Navigation = () => {
               ))}
 
               <a
-                href={isWebDesignPreview
-                  ? "https://wa.me/27832336716?text=Hi%2C%20I%20want%20a%20website%20that%20helps%20my%20business%20win%20more%20enquiries"
-                  : "https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20getting%20more%20reviews%20and%20growing%20my%20social%20presence"}
+                href={whatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary mt-4 mx-4"

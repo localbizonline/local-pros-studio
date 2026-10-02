@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 
 import logo from '../assets/images/Compressed/Local Pros Studio logo transparent.png';
+import { WHATSAPP_MESSAGES, whatsAppLink } from '../whatsapp';
 import { formatReviewDate, getInitials, useReputationReviews, type WidgetReview } from './reputationReviews';
 import logoDarkText from '../assets/images/Compressed/Local Pros Studio logo dark text.png';
 import pavingDesktop from '../assets/images/portfolio/pavingpros-desktop.webp';
@@ -36,8 +37,6 @@ import winelandsMobile from '../assets/images/portfolio/winelandsgas-mobile.webp
 import marambaDesktop from '../assets/images/portfolio/maramba-desktop.webp';
 import marambaMobile from '../assets/images/portfolio/maramba-mobile.webp';
 
-const WHATSAPP_URL =
-  'https://wa.me/27832336716?text=Hi%2C%20I%20saw%20your%20website%20design%20page%20and%20would%20like%20a%20quote%20for%20my%20business';
 const PHONE_URL = 'tel:+27832336716';
 
 const trackCTA = (label: string) => {
@@ -210,9 +209,8 @@ const buildPillars = [
 const GOOGLE_REVIEWS_URL =
   'https://www.google.com/search?q=local+pros#lrd=0x1efa235edd61726f:0x2d27a3ca84715414,1,,,,';
 
-const whatsAppLink = (message: string) => `https://wa.me/27832336716?text=${encodeURIComponent(message)}`;
-
-// Three ways to pay. Terms confirmed by Jeremy (1 Oct 2026); the free-website terms match /special-offer-bundle.
+// Three ways to pay. Terms confirmed by Jeremy (1 Oct 2026); the free website comes with the R2,500 plan
+// (6-month commitment, 2 Oct 2026). Every button sends this page's one WhatsApp message (see src/whatsapp.ts).
 const pricingOptions = [
   {
     key: 'buy',
@@ -228,7 +226,6 @@ const pricingOptions = [
       '1 hour of free changes every month',
     ],
     cta: 'Buy Now',
-    href: whatsAppLink('Hi, I would like to buy a website outright (R9,900 once-off).'),
     featured: false,
   },
   {
@@ -245,7 +242,6 @@ const pricingOptions = [
       'After 24 months you own it and move to R290/month hosting',
     ],
     cta: 'Rent to Own',
-    href: whatsAppLink('Hi, I am interested in the Rent to Own website at R450/month.'),
     featured: true,
   },
   {
@@ -259,10 +255,9 @@ const pricingOptions = [
     points: [
       'Weekly posts to Facebook, Instagram and Google',
       'Automatic Google review requests by WhatsApp and email',
-      '12-month commitment. The website stays live while you are subscribed',
+      '6-month commitment. The website (worth R9,900) stays live while you are subscribed',
     ],
     cta: 'Get It Free',
-    href: whatsAppLink('Hi, I am interested in the free website with the Social Posting + Reviews package (R2,500/month).'),
     featured: false,
   },
 ];
@@ -289,7 +284,7 @@ const faqs = [
   {
     question: 'How much does a website cost?',
     answer:
-      'Three options: buy it for R9,900 once-off plus R290/month for hosting, support and 1 hour of free changes; rent to own for R450/month all-in over 24 months, then R290/month; or get it free with our Social Posting + Reviews package at R2,500/month on a 12-month commitment. No surprise invoices.',
+      'Three options: buy it for R9,900 once-off plus R290/month for hosting, support and 1 hour of free changes; rent to own for R450/month all-in over 24 months, then R290/month; or get it free (worth R9,900) with our Social Posting + Reviews plan at R2,500/month on a 6-month commitment. No surprise invoices.',
   },
   {
     question: 'How long does it take?',
@@ -513,14 +508,16 @@ const ReviewCard = ({ review, className = '' }: { review: WidgetReview; classNam
   );
 };
 
-const CTAButton = ({ label, children = 'Get a Free Website Quote', className = '', href = WHATSAPP_URL }: {
+// The WhatsApp link for this version of the page: Google Ads page or /web-design
+const WhatsAppUrlContext = createContext<string>(whatsAppLink(WHATSAPP_MESSAGES.webDesign));
+
+const CTAButton = ({ label, children = 'Get a Free Website Quote', className = '' }: {
   label: string;
   children?: React.ReactNode;
   className?: string;
-  href?: string;
 }) => (
   <a
-    href={href}
+    href={useContext(WhatsAppUrlContext)}
     target="_blank"
     rel="noopener noreferrer"
     onClick={() => trackCTA(label)}
@@ -543,6 +540,8 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
   const isAd = variant === 'ad';
   // Separate analytics labels per version so ad traffic and site traffic can be compared
   const track = !isAd ? 'wd_site' : theme === 'light' ? 'wd_ads_light' : 'wd_ads';
+  // Separate WhatsApp first message per version so ad chats and site chats can be counted apart
+  const whatsAppUrl = whatsAppLink(isAd ? WHATSAPP_MESSAGES.googleAds : WHATSAPP_MESSAGES.webDesign);
   // Live Google reviews from the same ReputationHub feed as the home page.
   // The longest review is featured beside the price; the rest fill the grid.
   const { reviews, isLoading: reviewsLoading } = useReputationReviews();
@@ -556,6 +555,7 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
 
   return (
     <ThemeContext.Provider value={t}>
+    <WhatsAppUrlContext.Provider value={whatsAppUrl}>
       <div className={`min-h-screen font-sans selection:bg-amber-400/30 ${t.page}`}>
         {/* Minimal header: no site navigation so ad traffic stays on this page */}
         {isAd && (
@@ -572,7 +572,7 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
                   083 233 6716
                 </a>
                 <a
-                  href={WHATSAPP_URL}
+                  href={whatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackCTA(`${track}_header_whatsapp`)}
@@ -947,7 +947,7 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
                     ))}
                   </ul>
                   <div className="mt-8">
-                    <CTAButton label={`${track}_pricing_${option.key}`} href={option.href} className="sm:w-full">
+                    <CTAButton label={`${track}_pricing_${option.key}`} className="sm:w-full">
                       {option.cta}
                     </CTAButton>
                   </div>
@@ -1083,7 +1083,7 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
                 <Phone className={`h-5 w-5 ${t.icon}`} aria-hidden="true" />
               </a>
               <a
-                href={WHATSAPP_URL}
+                href={whatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackCTA(`${track}_sticky_whatsapp`)}
@@ -1096,6 +1096,7 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
           </div>
         )}
       </div>
+    </WhatsAppUrlContext.Provider>
     </ThemeContext.Provider>
   );
 };

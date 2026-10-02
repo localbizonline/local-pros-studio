@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const EFFECTIVE_DATE = '26 August 2026';
 
@@ -442,7 +443,7 @@ const refundSections: LegalSection[] = [
         <p>
           You may cancel a month-to-month service at any time by emailing{' '}
           <a href="mailto:hello@localpros.co.za">hello@localpros.co.za</a> or sending a written WhatsApp message
-          to <a href="https://wa.me/27832336716">+27 83 233 6716</a>.
+          to <a href={SITE_WHATSAPP_URL}>+27 83 233 6716</a>.
         </p>
         <p>
           Cancellation takes effect at the end of the current paid billing period. To prevent the next

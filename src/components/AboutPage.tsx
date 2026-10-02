@@ -3,6 +3,7 @@ import { ArrowRight, Check, Users, Target, Heart, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import teamImage from '../assets/images/Compressed/TinyPNG Feb 10 174841.jpg';
 import localProsImage from '../assets/images/mockups/localprospeople.jpg';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const values = [
   {
@@ -62,7 +63,7 @@ const AboutPage = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20learn%20more%20about%20Local%20Pros%20Studio"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"
@@ -237,7 +238,7 @@ const AboutPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20discuss%20my%20business%20needs"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"

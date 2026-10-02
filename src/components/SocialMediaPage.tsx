@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check, Camera, Calendar, TrendingUp, Zap, Clock, Image, Video, Sparkles } from 'lucide-react';
 import SocialProofSection from './SocialProofSection';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const benefits = [
   {
@@ -114,7 +115,7 @@ const SocialMediaPage = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20Social%20Posting"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"
@@ -342,7 +343,7 @@ const SocialMediaPage = () => {
               Want review collection too? Get both services for less.
             </p>
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%20Complete%20Reputation%20Package"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center text-neutral-900 font-medium hover:underline"

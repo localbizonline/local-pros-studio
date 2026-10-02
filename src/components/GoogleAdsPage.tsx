@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Check, Target, TrendingUp, BarChart3, Users } from 'lucide-react';
 import SocialProofSection from './SocialProofSection';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const benefits = [
   {
@@ -93,7 +94,7 @@ const GoogleAdsPage = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20Google%20Ads%20management"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"
@@ -268,7 +269,7 @@ const GoogleAdsPage = () => {
               </div>
 
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20Google%20Ads%20management%20for%20my%20business"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100 w-full justify-center"
@@ -319,7 +320,7 @@ const GoogleAdsPage = () => {
             Let's discuss your advertising goals and create a strategy that works for your business.
           </p>
           <a
-            href="https://wa.me/27832336716?text=Hi%2C%20I'd%20like%20to%20discuss%20Google%20Ads%20for%20my%20business"
+            href={SITE_WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100"

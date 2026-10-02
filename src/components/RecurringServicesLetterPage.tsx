@@ -18,6 +18,7 @@ import recurringContractorLogging from '../assets/images/recurring-services/recu
 import recurringWhatsappPhone from '../assets/images/recurring-services/recurring-whatsapp-phone-closeup.jpg';
 import recurringWindowCleaner from '../assets/images/recurring-services/recurring-window-cleaner-working.jpg';
 import recurringContractorTablet from '../assets/images/recurring-services/recurring-contractor-tablet-schedule.jpg';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Scrolling Faces Data
 const scrollingFaces = [
@@ -61,7 +62,7 @@ const ScrollingFaces = () => (
 const CTAWithRating = () => (
   <div className="py-8 md:py-10">
     <a
-      href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%20Recurring%20Services%20booking%20system.%20Please%20add%20me%20to%20the%20waitlist."
+      href={SITE_WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center justify-center gap-2 md:gap-3 w-full bg-yellow-400 text-black font-black text-lg md:text-2xl lg:text-3xl px-6 md:px-10 py-5 md:py-6 rounded-full hover:scale-105 transition-all shadow-xl shadow-yellow-400/30 uppercase tracking-tight"
@@ -136,7 +137,7 @@ const RecurringServicesLetterPage = () => {
 
             {/* CTA Button */}
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%20Recurring%20Services%20booking%20system.%20Please%20add%20me%20to%20the%20waitlist."
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black text-xl md:text-2xl px-10 py-5 rounded-full shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 hover:scale-105 transition-all"
@@ -667,7 +668,7 @@ const RecurringServicesLetterPage = () => {
 
             {/* CTA Button */}
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%20Recurring%20Services%20booking%20system.%20Please%20add%20me%20to%20the%20waitlist."
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 md:gap-3 bg-yellow-400 text-black font-black text-base md:text-xl px-6 md:px-10 py-4 md:py-5 rounded-full hover:scale-105 transition-all w-full shadow-lg shadow-yellow-400/30"

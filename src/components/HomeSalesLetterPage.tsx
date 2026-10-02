@@ -10,13 +10,14 @@ import googleAiOverviewSearch from '../assets/images/social-posting/google-ai-ov
 import oneUploadEverywhereContractors from '../assets/images/social-posting/one upload everywhere for contractors.webp';
 import beforeAfterReviews from '../assets/images/reviews-pro/before-after-reviews.jpg';
 import contractorConfidentReviews from '../assets/images/Reviews/contractor-confident-reviews.jpg';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Reusable CTA Button with WhatsApp link
 const CTAWithRating = () => (
   <div className="py-8 md:py-10">
     {/* Big Amber CTA Button */}
     <a
-      href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20getting%20started%20with%20Local%20Pros%20Studio"
+      href={SITE_WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center justify-center gap-2 md:gap-3 w-full bg-yellow-400 text-black font-black text-lg md:text-2xl lg:text-3xl px-6 md:px-10 py-5 md:py-6 rounded-full hover:scale-105 transition-all shadow-xl shadow-yellow-400/30 uppercase tracking-tight"
@@ -76,7 +77,7 @@ const HomeSalesLetterPage = () => {
 
             {/* Main CTA */}
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20getting%20started%20with%20Local%20Pros%20Studio"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-yellow-400 text-black px-10 py-5 rounded-full shadow-lg shadow-yellow-400/30 hover:shadow-yellow-400/50 hover:scale-105 transition-all mb-4"
@@ -758,7 +759,7 @@ const HomeSalesLetterPage = () => {
                 ))}
               </div>
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%20Essential%20package%20(Reviews)%20at%20R1%2C200%2Fmonth"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-neutral-800 border-2 border-amber-500/50 text-white font-bold text-base px-6 py-4 rounded-full hover:bg-neutral-700 transition-all w-full"
@@ -789,7 +790,7 @@ const HomeSalesLetterPage = () => {
                 ))}
               </div>
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%20Growth%20package%20(Social%20Posting)%20at%20R2%2C000%2Fmonth"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-neutral-800 border-2 border-amber-500/50 text-white font-bold text-base px-6 py-4 rounded-full hover:bg-neutral-700 transition-all w-full"
@@ -827,7 +828,7 @@ const HomeSalesLetterPage = () => {
                 ))}
               </div>
               <a
-                href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20the%20Complete%20package%20(Reviews%20%2B%20Social)%20at%20R2%2C500%2Fmonth"
+                href={SITE_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-black font-black text-base px-6 py-4 rounded-full hover:scale-105 transition-all w-full shadow-lg shadow-yellow-400/30"
@@ -871,7 +872,7 @@ const HomeSalesLetterPage = () => {
           {/* Big CTA */}
           <div className="pt-4">
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I'm%20interested%20in%20getting%20started%20with%20Local%20Pros%20Studio"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-yellow-400 text-black px-12 py-6 rounded-full shadow-xl shadow-yellow-400/30 hover:shadow-yellow-400/50 hover:scale-105 transition-all"

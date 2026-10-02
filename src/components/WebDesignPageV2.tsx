@@ -19,9 +19,9 @@ import winelandsMockup from '../assets/images/Compressed/MacBook iPhone 8 Mockup
 import marambaMockup from '../assets/images/Compressed/MacBook iPhone 8 Mockup (2).png';
 import petportMockup from '../assets/images/Compressed/MacBook iPhone 8 mockup (5).png';
 import contractorHandshake from '../assets/images/Reviews/hero-contractor-handshake.jpg';
+import { WHATSAPP_MESSAGES, whatsAppLink } from '../whatsapp';
 
-const WHATSAPP_URL =
-  "https://wa.me/27832336716?text=Hi%2C%20I%20want%20a%20website%20that%20helps%20my%20business%20win%20more%20enquiries";
+const WHATSAPP_URL = whatsAppLink(WHATSAPP_MESSAGES.webDesign);
 
 const trustItems = [
   { icon: MapPin, label: 'Built for South African businesses' },

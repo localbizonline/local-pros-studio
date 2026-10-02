@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowRight, Check, Star, Globe, Share2, Smartphone, Calendar, Shield, Zap, Clock } from 'lucide-react';
+import { ArrowRight, Check, Star, Globe, Share2, Calendar, Shield, Zap } from 'lucide-react';
+import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 // Import existing images
 import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.jpg';
@@ -66,7 +67,7 @@ const bundleItems = [
   {
     icon: Star,
     title: 'Review Collection',
-    description: 'Automated review requests via WhatsApp & email. Smart filtering catches unhappy customers privately.',
+    description: 'Automated review requests via WhatsApp & email. Smart filtering catches unhappy customers privately. 30-day money-back guarantee.',
     value: 'R1,200/month',
     features: ['WhatsApp + email requests', 'Smart filtering', 'AI review responses', 'Real-time alerts'],
   },
@@ -80,40 +81,37 @@ const bundleItems = [
   {
     icon: Globe,
     title: 'Professional Website',
-    description: 'Mobile-friendly, SEO-optimised website designed to convert visitors into customers.',
-    value: 'R12,000',
-    features: ['Custom design', 'Mobile responsive', 'SEO optimised', 'WhatsApp integration'],
-  },
-  {
-    icon: Smartphone,
-    title: 'FieldCard Team Access',
-    description: 'Job management app for quotes, invoices, and job cards. As simple as WhatsApp.',
-    value: 'R580/month',
-    features: ['Instant quotes', 'Digital job cards', 'Team scheduling', 'Customer sign-off'],
+    description: 'Free if you need one. Mobile-friendly, written for your services and area, with hosting looked after while you are on the plan.',
+    value: 'R9,900',
+    features: ['Written and designed for you', 'Mobile first', 'Basic on-page SEO', 'Click-to-call and WhatsApp'],
   },
 ];
 
 // FAQ Items
 const faqItems = [
   {
-    question: 'Why is there a 12-month commitment?',
-    answer: 'We\'re including a R12,000 website at no extra cost. The 12-month commitment ensures we can deliver this value without charging you upfront for the website build.',
+    question: 'Why is there a 6-month commitment?',
+    answer: 'Google rewards steady reviews and regular activity, and that takes a few months to show. Six months also lets us build your website (worth R9,900) without charging you for it upfront.',
+  },
+  {
+    question: 'How does the money-back guarantee work?',
+    answer: 'It covers reviews. If we don\'t get you any new 5-star reviews in your first 30 days, you get your money back.',
   },
   {
     question: 'What happens to my website if I cancel?',
-    answer: 'The website is included as part of the bundle at no extra cost. If you cancel the subscription, website access ends because it\'s part of what makes this offer possible. You\'d need to purchase a standalone website separately.',
+    answer: 'The website is part of the plan, so it stays live while you are subscribed. If you cancel the plan, the website and its hosting end with it.',
   },
   {
     question: 'Can I start with just reviews or social?',
-    answer: 'This bundle is specifically for contractors who want the complete solution. If you only need one service, check out our individual offerings on the main site.',
+    answer: 'Yes. Reviews on their own are R1,200/month and posting on its own is R2,000/month, both month-to-month. The free website only comes with the R2,500 plan.',
   },
   {
     question: 'How quickly can I get started?',
-    answer: 'We can have your review collection and social posting live within 7 days. Your website typically takes 2-3 weeks for custom design and build.',
+    answer: 'Review collection and social posting are live within 7 days. Most websites go live within 5–7 business days once we have your details.',
   },
   {
     question: 'What\'s included in the website hosting?',
-    answer: 'SSL certificate, regular backups, security updates, performance monitoring, and unlimited content updates — all included in your monthly fee.',
+    answer: 'Domain, SSL, hosting, backups, security and support, plus 1 hour of website changes every month. All included while you are on the plan.',
   },
   {
     question: 'Do I need to provide content for social posts?',
@@ -125,21 +123,21 @@ const faqItems = [
 const CTAButton = () => (
   <div className="py-8 md:py-10">
     <a
-      href="https://wa.me/27832336716?text=Hi%2C%20I%20want%20to%20claim%20the%20Complete%20Business%20Bundle%20at%20R2%2C500%2Fmonth%20(12-month%20commitment)"
+      href={SITE_WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex flex-col items-center justify-center w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 md:px-10 py-5 md:py-6 rounded-full hover:scale-105 transition-all shadow-xl shadow-yellow-400/30"
     >
       <span className="flex items-center gap-2 md:gap-3 font-black text-lg md:text-2xl lg:text-3xl uppercase tracking-tight">
-        Claim This Bundle
+        Start the R2,500 Plan
         <ArrowRight className="w-5 h-5 md:w-7 md:h-7" />
       </span>
-      <span className="text-sm font-bold opacity-80 mt-1">12-Month Commitment</span>
+      <span className="text-sm font-bold opacity-80 mt-1">6-month commitment · 30-day money-back guarantee on reviews</span>
     </a>
 
     <div className="flex flex-col items-center justify-center gap-1 mt-5 md:mt-6">
       <p className="text-amber-400 font-bold text-sm md:text-base">
-        Offer ends March 2026
+        We take on about 12 new clients a month
       </p>
     </div>
   </div>
@@ -159,56 +157,56 @@ const SpecialOfferOpusPage = () => {
           <div className="text-center">
 
             {/* Urgency Badge */}
-            <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500/40 text-red-400 text-xs md:text-sm font-bold px-4 py-2 rounded-full mb-6">
-              <Clock className="w-4 h-4" />
-              Limited Offer — Ends March 2026
+            <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs md:text-sm font-bold px-4 py-2 rounded-full mb-6">
+              <Calendar className="w-4 h-4" />
+              About 12 new clients a month
             </div>
 
             {/* Big Promise Headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
-              Everything You Need to<br />
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Dominate Online</span>
+              Google Reviews and Weekly Posts,<br />
+              <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Done For You</span>
             </h1>
 
             {/* Subhead */}
             <p className="text-xl md:text-2xl text-neutral-300 mb-4 max-w-3xl mx-auto">
-              Website. Reviews. Social Media. Job Management.<br />
-              <span className="text-white font-semibold">One price. Zero hassle.</span>
+              Reviews collected for you. Your jobs posted every week. Plus a free website if you need one.<br />
+              <span className="text-white font-semibold">One plan. One price.</span>
             </p>
 
             {/* Price Display */}
             <div className="mb-8">
               <div className="inline-block bg-amber-500/20 border border-amber-500/40 rounded-full px-4 py-1 mb-3">
-                <span className="text-amber-400 font-bold text-sm">12-MONTH COMMITMENT</span>
+                <span className="text-amber-400 font-bold text-sm">6-MONTH COMMITMENT</span>
               </div>
               <p className="text-neutral-400 text-base mb-2">
-                <span className="line-through">Normally R4,070/month + R12,000 website</span>
+                <span className="line-through">R3,200/month bought separately + R9,900 website</span>
               </p>
               <p className="text-4xl md:text-5xl font-black text-white mb-3">
                 R2,500<span className="text-neutral-400 text-xl font-normal">/month</span>
               </p>
               <p className="text-green-400 font-bold text-lg">
-                Website included FREE + over 50% off monthly services
+                Free website worth R9,900 + save R700 every month
               </p>
             </div>
 
             {/* Main CTA */}
             <a
-              href="https://wa.me/27832336716?text=Hi%2C%20I%20want%20to%20claim%20the%20Complete%20Business%20Bundle%20at%20R2%2C500%2Fmonth%20(12-month%20commitment)"
+              href={SITE_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex flex-col items-center bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-10 py-5 rounded-full shadow-lg shadow-yellow-400/30 hover:shadow-yellow-400/50 hover:scale-105 transition-all mb-4"
             >
               <span className="flex items-center gap-3 font-black text-xl md:text-2xl">
-                Claim This Bundle Now
+                Start the R2,500 Plan
                 <ArrowRight className="w-6 h-6" />
               </span>
-              <span className="text-sm font-bold opacity-80">12-month commitment</span>
+              <span className="text-sm font-bold opacity-80">6-month commitment</span>
             </a>
 
             {/* Trust Indicators */}
             <p className="text-neutral-500 text-sm mb-8">
-              Everything included. No hidden fees. Cancel policy applies.
+              30-day money-back guarantee on reviews. No hidden fees.
             </p>
 
             {/* Scrolling Faces */}
@@ -244,18 +242,18 @@ const SpecialOfferOpusPage = () => {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-black text-white leading-tight tracking-tight">
-            You're paying for 4 different services.<br />
-            <span className="text-amber-400">And none of them talk to each other.</span>
+            Your online presence needs three things.<br />
+            <span className="text-amber-400">Most business owners don't have time for any of them.</span>
           </h2>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            Right now, if you want to run your business properly online, you need:
+            When someone does their homework on your business, this is what they look at:
           </p>
 
           <div className="space-y-4">
             <div className="bg-neutral-700 rounded-xl p-5 border-l-4 border-red-500">
               <p className="text-white font-bold mb-1">A website</p>
-              <p className="text-neutral-300 text-sm">R9,900+ once-off, then R290/month hosting</p>
+              <p className="text-neutral-300 text-sm">R9,900 once-off, then R290/month hosting</p>
             </div>
             <div className="bg-neutral-700 rounded-xl p-5 border-l-4 border-red-500">
               <p className="text-white font-bold mb-1">Review collection system</p>
@@ -265,22 +263,18 @@ const SpecialOfferOpusPage = () => {
               <p className="text-white font-bold mb-1">Social media management</p>
               <p className="text-neutral-300 text-sm">R2,000/month for consistent posting</p>
             </div>
-            <div className="bg-neutral-700 rounded-xl p-5 border-l-4 border-red-500">
-              <p className="text-white font-bold mb-1">Job management software</p>
-              <p className="text-neutral-300 text-sm">R580/month for quotes and job cards</p>
-            </div>
           </div>
 
           <p className="text-xl md:text-2xl font-bold text-white">
-            That's <span className="text-red-400">R4,070/month</span> plus a R12,000 website build.
+            That's <span className="text-red-400">R3,200/month</span> plus a R9,900 website build.
           </p>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            Four different logins. Four different invoices. Four different support teams to chase.
+            And it only works if you stay constant and stay active, month after month.
           </p>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            Most contractors give up before they even start — or they try to DIY it and waste <strong className="text-white">hours every week</strong> on admin instead of doing actual work.
+            Most contractors give up before they start, or lose <strong className="text-white">hours every week</strong> trying to do it themselves instead of doing actual work.
           </p>
 
         </div>
@@ -305,7 +299,7 @@ const SpecialOfferOpusPage = () => {
           </h2>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            We bundled everything a contractor needs to succeed online into <strong className="text-white">one simple package</strong>.
+            We put reviews, posting and your website into <strong className="text-white">one plan</strong>. We do the heavy lifting; you send us job photos.
           </p>
 
           <p className="text-lg md:text-xl text-neutral-300">
@@ -313,33 +307,29 @@ const SpecialOfferOpusPage = () => {
           </p>
 
           <div className="bg-green-900/40 border-2 border-green-500/50 rounded-2xl p-6 md:p-8 shadow-lg">
-            <p className="text-green-400 font-black text-lg mb-4">The Complete Business Bundle:</p>
+            <p className="text-green-400 font-black text-lg mb-4">The R2,500 Plan:</p>
             <div className="space-y-3">
               <p className="text-neutral-200 flex items-start">
                 <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                <span><strong className="text-white">Professional Website</strong> — custom designed, mobile-friendly, SEO-ready</span>
+                <span><strong className="text-white">Free Website</strong> (worth R9,900, if you need one): mobile-friendly, written for your services and area</span>
               </p>
               <p className="text-neutral-200 flex items-start">
                 <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                <span><strong className="text-white">Website Hosting</strong> — SSL, backups, updates, all included</span>
+                <span><strong className="text-white">Website Hosting</strong>: SSL, backups, security and 1 hour of changes a month</span>
               </p>
               <p className="text-neutral-200 flex items-start">
                 <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                <span><strong className="text-white">Review Collection</strong> — automated requests via WhatsApp & email</span>
+                <span><strong className="text-white">Review Collection</strong>: automated requests via WhatsApp & email, with a 30-day money-back guarantee</span>
               </p>
               <p className="text-neutral-200 flex items-start">
                 <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                <span><strong className="text-white">Social Media Posting</strong> — weekly posts to 3 platforms</span>
-              </p>
-              <p className="text-neutral-200 flex items-start">
-                <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                <span><strong className="text-white">FieldCard Team Access</strong> — quotes, invoices, job management</span>
+                <span><strong className="text-white">Social Media Posting</strong>: weekly posts to Facebook, Instagram and Google</span>
               </p>
             </div>
             <div className="mt-6 pt-6 border-t border-green-500/30">
               <p className="text-neutral-300">All of this for:</p>
               <p className="text-3xl md:text-4xl font-black text-green-400">R2,500/month</p>
-              <p className="text-neutral-400 text-sm mt-1">12-month commitment</p>
+              <p className="text-neutral-400 text-sm mt-1">6-month commitment</p>
             </div>
           </div>
 
@@ -363,11 +353,11 @@ const SpecialOfferOpusPage = () => {
 
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl md:text-4xl font-black text-white leading-tight tracking-tight mb-4">
-              Four Powerful Services.<br />
-              <span className="text-amber-400">One Unbeatable Price.</span>
+              Three Services.<br />
+              <span className="text-amber-400">One Plan.</span>
             </h2>
             <p className="text-lg text-neutral-300">
-              Here's exactly what you get in the bundle — and what each piece is worth on its own.
+              Here's exactly what you get on the plan, and what each piece costs on its own.
             </p>
           </div>
 
@@ -437,28 +427,24 @@ const SpecialOfferOpusPage = () => {
                 <span className="text-white font-bold">R290/month</span>
               </div>
               <div className="flex justify-between items-center py-3 border-b border-neutral-800">
-                <span className="text-neutral-300">FieldCard Team Access</span>
-                <span className="text-white font-bold">R580/month</span>
-              </div>
-              <div className="flex justify-between items-center py-3 border-b border-neutral-800">
                 <span className="text-neutral-300">Website Build (once-off)</span>
-                <span className="text-white font-bold">R12,000</span>
+                <span className="text-white font-bold">R9,900</span>
               </div>
             </div>
 
             <div className="flex justify-between items-center py-4 bg-neutral-800 rounded-xl px-4 mb-4">
               <span className="text-neutral-300 font-bold">Total monthly value</span>
-              <span className="text-red-400 font-black text-2xl line-through">R4,070+</span>
+              <span className="text-red-400 font-black text-2xl line-through">R3,490</span>
             </div>
 
             <div className="bg-gradient-to-r from-green-900/60 to-green-800/40 border-2 border-green-500/50 rounded-xl p-6 text-center">
-              <p className="text-green-400 text-sm font-bold uppercase tracking-wide mb-2">With 12-Month Commitment</p>
+              <p className="text-green-400 text-sm font-bold uppercase tracking-wide mb-2">With a 6-Month Commitment</p>
               <p className="text-white font-black text-4xl md:text-5xl mb-2">R2,500<span className="text-xl text-neutral-400 font-normal">/month</span></p>
-              <p className="text-green-400 font-bold">+ FREE R12,000 website included</p>
+              <p className="text-green-400 font-bold">+ free website worth R9,900, hosting included</p>
             </div>
 
             <p className="text-center text-neutral-300 text-lg mt-6">
-              Lock in this price for 12 months and save <span className="text-green-400 font-bold">over 50%</span> on everything.
+              Save <span className="text-green-400 font-bold">R700 a month</span> on reviews and posting, get the R9,900 website free, and pay nothing extra for hosting.
             </p>
           </div>
 
@@ -481,39 +467,39 @@ const SpecialOfferOpusPage = () => {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-black text-white leading-tight tracking-tight">
-            This offer won't last forever.
+            Google is changing how people find contractors.
           </h2>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            We're offering this bundle at an <strong className="text-white">introductory price</strong> to get more contractors set up for success in 2026.
+            Google's AI now recommends businesses based on how many reviews they have, how recent they are, and whether the business looks <strong className="text-white">active</strong>.
           </p>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            Once we've onboarded our target clients, the price goes up — and the free website inclusion goes away.
+            Businesses that keep collecting reviews and posting their work climb the ladder. The ones that go quiet get pushed down.
           </p>
 
           <div className="bg-red-900/40 border-2 border-red-500/50 rounded-2xl p-6 md:p-8">
             <div className="flex items-center gap-4 mb-4">
               <Calendar className="w-8 h-8 text-red-400" />
               <div>
-                <p className="text-white font-black text-xl">Offer Expires March 2026</p>
-                <p className="text-neutral-300">After that, standard pricing applies</p>
+                <p className="text-white font-black text-xl">About 12 new clients a month</p>
+                <p className="text-neutral-300">So every setup gets proper attention</p>
               </div>
             </div>
             <p className="text-neutral-300">
-              Lock in R2,500/month now, and you keep this rate for as long as you stay subscribed — even when new customers pay more.
+              When we're full for the month, new clients start the following month. WhatsApp us to check if there's a spot.
             </p>
           </div>
 
           <div className="space-y-4">
             <p className="text-lg md:text-xl text-neutral-300">
-              <strong className="text-amber-400">Google AI is changing how people find contractors.</strong>
+              <strong className="text-amber-400">What is the cost of doing nothing?</strong>
             </p>
             <p className="text-lg md:text-xl text-neutral-300">
               Businesses with fresh reviews, active social media, and modern websites get featured in AI search results. Dormant businesses get buried.
             </p>
             <p className="text-lg md:text-xl text-neutral-300">
-              The contractors who set up now will have a <strong className="text-white">12-month head start</strong> on everyone else.
+              The contractors who start now will have a <strong className="text-white">head start</strong> on everyone who waits.
             </p>
           </div>
 
@@ -542,8 +528,8 @@ const SpecialOfferOpusPage = () => {
               <div className="flex items-start gap-4">
                 <span className="bg-amber-500 text-black font-black text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">1</span>
                 <div>
-                  <p className="text-white font-black text-lg mb-1">WhatsApp us to claim your spot</p>
-                  <p className="text-neutral-300">Quick chat to confirm you're a good fit for the bundle.</p>
+                  <p className="text-white font-black text-lg mb-1">WhatsApp us</p>
+                  <p className="text-neutral-300">A quick Online Presence Review to see where you stand and if the plan fits.</p>
                 </div>
               </div>
             </div>
@@ -553,7 +539,7 @@ const SpecialOfferOpusPage = () => {
                 <span className="bg-amber-500 text-black font-black text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">2</span>
                 <div>
                   <p className="text-white font-black text-lg mb-1">We set everything up</p>
-                  <p className="text-neutral-300">Review collection and social posting live in 7 days. Website design starts immediately.</p>
+                  <p className="text-neutral-300">Review collection and social posting live in 7 days. Your website, if you need one, goes live within 5–7 business days of getting your details.</p>
                 </div>
               </div>
             </div>
@@ -628,7 +614,7 @@ const SpecialOfferOpusPage = () => {
           </h2>
 
           <p className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto">
-            We've been working with South African contractors for over 10 years. We built this bundle because we know exactly what you need to succeed online — and we know you don't have time to figure it out yourself.
+            We've been working with South African contractors for over 10 years. We built this plan because we know what gets a business found and chosen online, and we know you don't have time to do it yourself.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-neutral-400">
@@ -656,7 +642,7 @@ const SpecialOfferOpusPage = () => {
         <div className="max-w-3xl mx-auto px-6 md:px-8 text-center space-y-8">
 
           <h2 className="text-3xl md:text-4xl font-black text-white leading-tight tracking-tight">
-            Stop juggling four different services.
+            Make it easy for customers to choose you.
           </h2>
 
           <p className="text-2xl md:text-3xl font-black text-white">
@@ -664,21 +650,21 @@ const SpecialOfferOpusPage = () => {
           </p>
 
           <p className="text-lg text-neutral-400">
-            Website. Reviews. Social Media. Job Management.
+            Reviews. Weekly posts. A free website if you need one.
           </p>
 
           <CTAButton />
 
           <p className="text-neutral-500 text-center italic">
-            Questions? WhatsApp us anytime — we're real people, not bots.
+            Questions? WhatsApp us anytime.
           </p>
 
           {/* Fine Print */}
           <div className="pt-8 border-t border-neutral-800">
             <p className="text-neutral-600 text-xs leading-relaxed">
-              * 12-month commitment required. The website is included as part of the bundle subscription. 
-              If you cancel your subscription, website access and hosting ends as it is part of the bundled services. 
-              Standard terms and conditions apply. Offer valid until March 2026 or while capacity lasts.
+              * 6-month commitment. The 30-day money-back guarantee covers review collection. The website (worth R9,900)
+              is included as part of the plan and stays live while you are subscribed; if you cancel the plan, website access
+              and hosting end with it. Standard terms and conditions apply.
             </p>
           </div>
 
