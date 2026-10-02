@@ -553,8 +553,8 @@ const websiteFaqSections: LegalSection[] = [
       <>
         <Question question="Can I still ask for changes after launch?">
           <p>
-            Yes. Every website plan includes <strong>1 hour of changes every month</strong>. That covers the
-            everyday updates most businesses need, such as:
+            Yes. Your hosting and management includes <strong>1 hour of changes every month</strong>. That covers
+            the everyday updates most businesses need, such as:
           </p>
           <ul>
             <li>updating wording, prices, services or service areas;</li>
@@ -581,43 +581,7 @@ const websiteFaqSections: LegalSection[] = [
     ),
   },
   {
-    title: '2. Ownership, your domain and Google tools',
-    content: (
-      <>
-        <Question question="Do I own my domain name?">
-          <p>
-            Yes. Your domain name (for example <strong>yourbusiness.co.za</strong>) belongs to your business. We
-            register and manage it for you as part of hosting so that it stays renewed and connected to your
-            website.
-          </p>
-        </Question>
-        <Question question="Do I own the website?">
-          <ul>
-            <li>
-              <strong>Bought outright (R9,900):</strong> the website is yours from launch.
-            </li>
-            <li>
-              <strong>Rent to own (R450/month):</strong> the website is yours after your 24th monthly payment.
-            </li>
-            <li>
-              <strong>Free with marketing:</strong> your website stays live at no cost while you are on our
-              Social Posting + Reviews plan.
-            </li>
-          </ul>
-          <p>The wording, photos and logo you give us always remain yours.</p>
-        </Question>
-        <Question question="Can I use Google Search Console, Google Analytics and similar tools?">
-          <p>
-            Yes. You are welcome to add your website to Google Search Console, Google Analytics or Google
-            Business Profile. Send us the verification code Google gives you and we will install it, or ask us
-            to set it up and add you as an owner. You keep full access to your own Google accounts.
-          </p>
-        </Question>
-      </>
-    ),
-  },
-  {
-    title: '3. Editing your website yourself',
+    title: '2. Editing your website yourself',
     content: (
       <>
         <Question question="Can I make changes to the website myself?">
@@ -641,78 +605,161 @@ const websiteFaqSections: LegalSection[] = [
     ),
   },
   {
-    title: '4. Hosting, monthly costs and moving your website',
+    title: '3. Ownership, your domain and Google tools',
     content: (
       <>
-        <Question question="What does hosting cost after launch?">
+        <Question question="Do I own my domain name?">
+          <p>
+            Yes. Your domain name (for example <strong>yourbusiness.co.za</strong>) belongs to your business. We
+            register and manage it for you as part of hosting and management so that it stays renewed and
+            connected to your website.
+          </p>
+        </Question>
+        <Question question="When does the website become mine?">
           <ul>
             <li>
-              <strong>Bought outright:</strong> R290/month for hosting and care.
+              <strong>Bought outright (R9,900):</strong> the website is yours from launch.
             </li>
             <li>
-              <strong>Rent to own:</strong> included in your R450/month for 24 months, then R290/month.
+              <strong>Rent to own (R450/month):</strong> the website is yours after your 24th monthly payment.
             </li>
             <li>
-              <strong>Free with marketing:</strong> included at no extra cost while you are on the Social Posting
-              + Reviews plan (R2,500/month, 6-month commitment).
+              <strong>Free with our marketing plan:</strong> the website is yours once you have completed your
+              12-month commitment on Social Posting + Reviews. It stays yours even if you stop the marketing plan
+              after that.
             </li>
           </ul>
-          <p>
-            Hosting and care covers your domain renewal, hosting, SSL certificate, backups, security, support and
-            1 hour of changes every month.
-          </p>
+          <p>The wording, photos and logo you give us always remain yours.</p>
         </Question>
-        <Question question="What happens if I stop the marketing plan?">
+        <Question question="Can I use Google Search Console, Google Analytics and similar tools?">
           <p>
-            After your 6-month commitment, you can keep your website live on our R290/month hosting and care, or
-            ask us to transfer your domain name to you.
-          </p>
-        </Question>
-        <Question question="Can I host my website somewhere else?">
-          <p>
-            Yes. Once your website is yours, or your commitment period has ended, let us know and we will transfer
-            your domain name to you and help with the move. Monthly hosting stops at the end of the current paid
-            month, as explained in our <Link to="/refunds-cancellations">Refund and Cancellation Policy</Link>.
-          </p>
-        </Question>
-        <Question question="I signed up under an earlier offer. Which terms apply?">
-          <p>
-            If your quote or agreement says something different from this page, for example an earlier free
-            hosting period, the terms in your written agreement apply.
+            Yes. You are welcome to add your website to Google Search Console, Google Analytics or Google
+            Business Profile. Send us the verification code Google gives you and we will install it, or ask us
+            to set it up and add you as an owner. You keep full access to your own Google accounts.
           </p>
         </Question>
       </>
     ),
   },
   {
-    title: '5. Quote requests: WhatsApp or a form',
+    title: '4. Hosting and management: what keeps your website working',
     content: (
-      <Question question="Can my “Get a quote” button open WhatsApp instead of a form?">
-        <p>Yes, and for most businesses we recommend it:</p>
-        <ul>
-          <li>it is instant, so you can reply while the customer is still interested;</li>
-          <li>you get the customer's phone number straight away;</li>
-          <li>form emails can land in spam or go missing; and</li>
-          <li>forms attract spam from bots filling them in.</li>
-        </ul>
+      <>
+        <Question question="Why is there a monthly hosting and management fee?">
+          <p>
+            Owning a website and keeping it working are two different things. A website is not a once-off
+            brochure. It needs a home on the internet, a domain that never lapses, security that keeps up with new
+            threats and someone who fixes things when they go wrong. Without that, websites quietly break: the
+            domain expires, browsers start showing a “Not secure” warning, or the site goes offline. You usually
+            only find out when the phone stops ringing.
+          </p>
+          <p>
+            That is why <strong>every website we look after has a hosting and management fee</strong>, including
+            websites that were bought outright. It is what keeps your website fast, safe and bringing in work.
+          </p>
+        </Question>
+        <Question question="What do I get for R290/month?">
+          <ul>
+            <li>
+              <strong>Domain renewal:</strong> we renew your domain name every year so it never lapses. A lapsed
+              domain takes your website offline and someone else can register it.
+            </li>
+            <li>
+              <strong>Fast, reliable hosting:</strong> your website loads quickly, especially on the phones most of
+              your customers use.
+            </li>
+            <li>
+              <strong>SSL certificate:</strong> the padlock in the address bar. Without it, browsers warn visitors
+              that your site is not secure.
+            </li>
+            <li>
+              <strong>Security and updates:</strong> we keep your website protected and up to date.
+            </li>
+            <li>
+              <strong>Backups:</strong> if something goes wrong, we can restore your website.
+            </li>
+            <li>
+              <strong>Real support:</strong> a person you can WhatsApp, not a ticket system.
+            </li>
+            <li>
+              <strong>1 hour of changes every month:</strong> keep your prices, photos and services up to date
+              without paying extra.
+            </li>
+          </ul>
+          <p>
+            That is less than R10 a day. A single job won through your website usually covers it many times over.
+          </p>
+        </Question>
+        <Question question="When do I pay the R290/month fee?">
+          <ul>
+            <li>
+              <strong>Bought outright:</strong> from launch.
+            </li>
+            <li>
+              <strong>Rent to own:</strong> hosting and management is included in your R450/month. After your 24th
+              payment the website is yours and you move to the lower R290/month fee.
+            </li>
+            <li>
+              <strong>Free with our marketing plan:</strong> hosting and management is included while you are on
+              Social Posting + Reviews. If you stop the marketing plan after your 12-month commitment, the website
+              is yours and you move to R290/month.
+            </li>
+          </ul>
+        </Question>
+      </>
+    ),
+  },
+  {
+    title: '5. Email',
+    content: (
+      <Question question="Do you host my business email?">
         <p>
-          We can switch your button to WhatsApp, keep the form, or offer both. Just let us know what you prefer.
+          No, and that is on purpose. Email is too important to your business to bundle with website hosting. We
+          recommend a dedicated email provider, so your email stays reliable, backed up and working even if
+          anything changes with your website. You can still use an address on your own domain, such as{' '}
+          <strong>info@yourbusiness.co.za</strong>.
         </p>
+        <p>We are happy to point you in the right direction and help you choose a provider that suits you.</p>
       </Question>
     ),
   },
   {
-    title: '6. The fine print',
+    title: '6. Moving your website or leaving',
     content: (
       <>
-        <p>
-          This page explains our standard website terms in plain language. It forms part of our{' '}
-          <Link to="/terms">Terms and Conditions</Link> and{' '}
-          <Link to="/refunds-cancellations">Refund and Cancellation Policy</Link>. If you have a question that is
-          not answered here, get in touch.
-        </p>
-        <ContactDetails />
+        <Question question="Can I host my website somewhere else?">
+          <p>
+            Yes. Once the website is yours, let us know and we will transfer your domain name to you and help with
+            the move. Your monthly fee stops at the end of the current paid month, as explained in our{' '}
+            <Link to="/refunds-cancellations">Refund and Cancellation Policy</Link>.
+          </p>
+        </Question>
+        <Question question="What if I cancel before the website is mine?">
+          <p>
+            If you cancel a rent-to-own agreement or the marketing plan before the end of the term, the fixed-term
+            cancellation terms in our <Link to="/refunds-cancellations">Refund and Cancellation Policy</Link>{' '}
+            apply.
+          </p>
+        </Question>
+        <Question question="I signed up under an earlier offer. Which terms apply?">
+          <p>
+            If your quote or agreement says something different from this page, the terms in your written
+            agreement apply.
+          </p>
+        </Question>
       </>
+    ),
+  },
+  {
+    title: '7. The fine print',
+    content: (
+      <p>
+        This page explains our standard website terms in plain language. It forms part of our{' '}
+        <Link to="/terms">Terms and Conditions</Link> and{' '}
+        <Link to="/refunds-cancellations">Refund and Cancellation Policy</Link>. If you have a question that is not
+        answered here, <a href={CLIENT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp us</a> or
+        email <a href="mailto:hello@localpros.co.za">hello@localpros.co.za</a>.
+      </p>
     ),
   },
 ];
@@ -749,7 +796,7 @@ export const WebsiteFaqPage = () => (
   <LegalPage
     eyebrow="Website clients"
     title="Website Terms and FAQ"
-    introduction="Plain answers to the questions website clients ask us most: changes, ownership, your domain, editing your site and hosting."
+    introduction="Plain answers to the questions website clients ask us most: changes, editing your site, ownership, your domain, hosting and email."
     sections={websiteFaqSections}
     effectiveDate="2 October 2026"
   />
