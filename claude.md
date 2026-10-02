@@ -22,7 +22,6 @@ src/
 │   ├── ReviewCollectionPage.tsx  # Review collection service
 │   ├── SocialMediaPage.tsx       # Social posting service
 │   ├── WebDesignPage.tsx         # Web design service (R9,900)
-│   ├── FieldCardPage.tsx         # FieldCard product reference
 │   ├── AboutPage.tsx             # About page
 │   ├── Footer.tsx                # Site footer
 │   ├── MobileCTA.tsx             # Mobile floating CTA
@@ -39,7 +38,6 @@ src/
 | `/reviews` | ReviewCollectionPage | Review collection service |
 | `/social-media` | SocialMediaPage | Social posting service |
 | `/web-design` | WebDesignPage | Web design service |
-| `/fieldcard` | FieldCardPage | FieldCard product page |
 | `/about` | AboutPage | Company info |
 
 ## Key Services & Pricing
@@ -147,4 +145,3 @@ Primary CTA links to: `wa.me/27832336716`
 
 ## Related Projects
 - Original full-service site: `../localprosstudio`
-- FieldCard: https://www.fieldcard.app/

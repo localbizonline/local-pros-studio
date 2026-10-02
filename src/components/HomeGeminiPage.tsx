@@ -332,7 +332,7 @@ const HomeGeminiPage = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Pillar 1 */}
             <div className="bg-neutral-900 border border-neutral-700 p-8 rounded-2xl hover:border-amber-500/50 transition-colors group">
                 <div className="w-14 h-14 bg-amber-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-500 group-hover:text-black transition-colors text-amber-500">
@@ -364,7 +364,7 @@ const HomeGeminiPage = () => {
             </div>
 
             {/* Pillar 3 */}
-            <div className="bg-neutral-900 border border-neutral-700 p-8 rounded-2xl hover:border-amber-500/50 transition-colors group">
+            <div className="bg-neutral-900 border border-neutral-700 p-8 rounded-2xl md:col-span-2 lg:col-span-1 hover:border-amber-500/50 transition-colors group">
                 <div className="w-14 h-14 bg-amber-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-500 group-hover:text-black transition-colors text-amber-500">
                     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -379,21 +379,6 @@ const HomeGeminiPage = () => {
                 </Link>
             </div>
 
-            {/* Pillar 4 - FieldCard */}
-            <div className="bg-neutral-900 border border-neutral-700 p-8 rounded-2xl hover:border-amber-500/50 transition-colors group">
-                <div className="w-14 h-14 bg-amber-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-500 group-hover:text-black transition-colors text-amber-500">
-                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                <h3 className="text-2xl font-black text-white mb-4">FieldCard App</h3>
-                <p className="text-neutral-400 mb-6 leading-relaxed">
-                    The simplest job management app for contractors. Create quotes, send invoices, and manage jobs from your phone.
-                </p>
-                <Link to="/fieldcard" className="text-white font-bold text-sm uppercase tracking-wide border-b border-amber-500 pb-1 hover:text-amber-400 transition-colors">
-                    See FieldCard →
-                </Link>
-            </div>
           </div>
           
           <div className="mt-16 rounded-xl overflow-hidden shadow-2xl border border-neutral-700">
@@ -642,7 +627,7 @@ const HomeGeminiPage = () => {
              <h2 className="text-3xl md:text-5xl font-black text-white">Everything You Need To Grow</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* Essential */}
             <div className="bg-neutral-900 border border-neutral-700 rounded-2xl p-6 md:p-8 flex flex-col hover:border-amber-500/30 transition-colors">
@@ -744,32 +729,6 @@ const HomeGeminiPage = () => {
                     </li>
                 </ul>
                 <Link to="/web-design" className="block w-full py-4 rounded-xl border border-neutral-600 text-white font-bold text-center hover:bg-neutral-800 transition-colors">
-                    View Details
-                </Link>
-            </div>
-
-            {/* FieldCard */}
-            <div className="bg-neutral-900 border border-neutral-700 rounded-2xl p-6 md:p-8 flex flex-col hover:border-red-500/30 transition-colors">
-                <div className="mb-6">
-                    <h3 className="text-red-400 font-bold text-lg uppercase tracking-wide">FieldCard</h3>
-                    <div className="flex items-baseline gap-1 mt-2">
-                        <span className="text-3xl font-black text-white">R290-R590</span>
-                        <span className="text-neutral-400">pm</span>
-                    </div>
-                    <p className="text-neutral-400 text-sm mt-2">Job Management App</p>
-                </div>
-                <ul className="space-y-3 mb-8 flex-1">
-                    <li className="flex items-start gap-3 text-neutral-300 text-sm">
-                        <Check className="w-5 h-5 text-red-500 shrink-0" /> Quotes & Invoices
-                    </li>
-                    <li className="flex items-start gap-3 text-neutral-300 text-sm">
-                        <Check className="w-5 h-5 text-red-500 shrink-0" /> Job Cards
-                    </li>
-                    <li className="flex items-start gap-3 text-neutral-300 text-sm">
-                        <Check className="w-5 h-5 text-red-500 shrink-0" /> Client Management
-                    </li>
-                </ul>
-                <Link to="/fieldcard" className="block w-full py-4 rounded-xl border border-neutral-600 text-white font-bold text-center hover:bg-neutral-800 transition-colors">
                     View Details
                 </Link>
             </div>

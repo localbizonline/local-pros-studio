@@ -36,7 +36,6 @@ const LandingPagesDirectory = () => {
       title: 'Products',
       icon: Layout,
       pages: [
-        { name: 'FieldCard', href: '/fieldcard', description: 'FieldCard product page' },
         { name: 'ReachMax', href: '/reachmax', description: 'ReachMax product page' },
       ]
     },

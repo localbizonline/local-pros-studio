@@ -8,7 +8,6 @@ import SocialProofSection from './components/SocialProofSection';
 import LeadGenSection from './components/LeadGenSection';
 import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
-import FieldCardPage from './components/FieldCardPage';
 import SocialMediaPage from './components/SocialMediaPage';
 import WebDesignPage from './components/WebDesignPage';
 import WebDesignPageV2 from './components/WebDesignPageV2';
@@ -204,7 +203,6 @@ const AppContent = () => {
           {/* Archived 1 Oct 2026: previous main web design page, replaced by WebDesignAdsPage */}
           <Route path="/web-design-archive" element={<WebDesignPage />} />
           <Route path="/web-design-v2" element={<WebDesignPageV2 />} />
-          <Route path="/fieldcard" element={<FieldCardPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />
           <Route path="/autopilot" element={<AutopilotLandingPage />} />

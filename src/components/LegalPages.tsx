@@ -100,8 +100,8 @@ const termsSections: LegalSection[] = [
       <>
         <p>
           Local Pros Studio is the digital-services trading division of <strong>Local Biz (Pty) Ltd</strong>.
-          We supply our own digital marketing, website, SEO, social-media, reputation-management and
-          business-software services directly to customers.
+          We supply our own digital marketing, website, SEO, social-media and reputation-management
+          services directly to customers.
         </p>
         <p>
           Payments made to Local Pros Studio are for services supplied by Local Biz (Pty) Ltd. We do not
@@ -139,8 +139,7 @@ const termsSections: LegalSection[] = [
           <li>SEO, content and digital-marketing services;</li>
           <li>social-media content creation, scheduling and management;</li>
           <li>review collection and reputation-management services;</li>
-          <li>Google Ads setup and management;</li>
-          <li>FieldCard and related business tools; and</li>
+          <li>Google Ads setup and management; and</li>
           <li>other services described in a quotation, proposal or on this website.</li>
         </ul>
         <p>
