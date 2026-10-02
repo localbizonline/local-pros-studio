@@ -37,8 +37,9 @@ const milestones = [
 
 const services = [
   { name: "Website Design", href: "/web-design", description: "Modern, mobile-friendly websites delivered in 5-7 days" },
-  { name: "Google Ads", href: "/", description: "Targeted advertising that puts you in front of ready buyers" },
   { name: "Social Media", href: "/social-media-posting-service", description: "Stay visible with consistent, professional posting" },
+  { name: "Google Reviews", href: "/reviews", description: "Automated review requests so new customers see steady 5-star reviews" },
+  { name: "R2,500 Plan", href: "/special-offer-bundle", description: "Reviews and weekly posts in one plan, with a free website if you need one" },
 ];
 
 const AboutPage = () => {
@@ -118,7 +119,7 @@ const AboutPage = () => {
                 </p>
                 <p>
                   Today, we offer a complete suite of digital marketing services: 
-                  websites, Google Ads, social media management, and reputation tools. 
+                  websites, Google reviews, social media posting and reputation tools. 
                   Everything a local business needs to compete and win online.
                 </p>
               </div>
