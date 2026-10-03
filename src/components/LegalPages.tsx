@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { SITE_WHATSAPP_URL, WHATSAPP_NUMBER } from '../whatsapp';
 
@@ -38,14 +38,6 @@ const ContactDetails = () => (
 );
 
 const LegalPage = ({ eyebrow, title, introduction, sections, effectiveDate = EFFECTIVE_DATE }: LegalPageProps) => {
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = `${title} | Local Pros Studio`;
-    return () => {
-      document.title = previousTitle;
-    };
-  }, [title]);
-
   return (
     <div className="bg-neutral-50">
       <header className="border-b border-neutral-800 bg-neutral-950 py-16 text-white md:py-20">

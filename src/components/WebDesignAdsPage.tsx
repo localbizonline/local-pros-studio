@@ -549,10 +549,6 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
   const featuredReview = [...fiveStarReviews].sort((a, b) => b.comment.length - a.comment.length)[0];
   const gridReviews = fiveStarReviews.filter((review) => review !== featuredReview).slice(0, 9);
 
-  useEffect(() => {
-    document.title = 'Website Design South Africa | 500+ Sites Built Since 2015 | Local Pros Studio';
-  }, []);
-
   return (
     <ThemeContext.Provider value={t}>
     <WhatsAppUrlContext.Provider value={whatsAppUrl}>

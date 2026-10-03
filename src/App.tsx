@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import ScrollToTop from './components/ScrollToTop';
@@ -19,6 +19,42 @@ const RefundsCancellationsPage = lazy(() => import('./components/LegalPages').th
 const WebsiteFaqPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.WebsiteFaqPage })));
 import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
 import { whatsAppUrlForPath } from './whatsapp';
+import { canonicalUrl, seoForPath } from './seo';
+
+const setHeadTag = (selector: string, create: () => HTMLElement, attr: string, value: string) => {
+  let el = document.head.querySelector<HTMLElement>(selector);
+  if (!el) {
+    el = create();
+    document.head.appendChild(el);
+  }
+  el.setAttribute(attr, value);
+};
+
+const metaTag = (attrName: 'name' | 'property', key: string) => () => {
+  const el = document.createElement('meta');
+  el.setAttribute(attrName, key);
+  return el;
+};
+
+// Keeps the tab title and search tags right as people click between pages.
+// The first page load already arrives with them, written by scripts/prerender.mjs from the same list.
+const PageMeta = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const seo = seoForPath(pathname);
+    const url = canonicalUrl(pathname);
+    document.title = seo.title;
+    setHeadTag('meta[name="description"]', metaTag('name', 'description'), 'content', seo.description);
+    setHeadTag('link[rel="canonical"]', () => Object.assign(document.createElement('link'), { rel: 'canonical' }), 'href', url);
+    setHeadTag('meta[name="robots"]', metaTag('name', 'robots'), 'content', seo.noindex ? 'noindex' : 'index, follow');
+    setHeadTag('meta[property="og:title"]', metaTag('property', 'og:title'), 'content', seo.title);
+    setHeadTag('meta[property="og:description"]', metaTag('property', 'og:description'), 'content', seo.description);
+    setHeadTag('meta[property="og:url"]', metaTag('property', 'og:url'), 'content', url);
+  }, [pathname]);
+
+  return null;
+};
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -152,7 +188,7 @@ const Navigation = () => {
   );
 };
 
-const AppContent = () => {
+export const AppContent = () => {
   const location = useLocation();
 
   // Standalone pages that ship their own navigation, footer and type system
@@ -161,6 +197,7 @@ const AppContent = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <ScrollToTop />
+      <PageMeta />
       {!isStandalonePage && <Navigation />}
       <main className="flex-1">
         {/* Blank full-height space while a page downloads, so the footer stays below the fold */}
