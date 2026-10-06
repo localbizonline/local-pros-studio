@@ -4,8 +4,23 @@
     {
       "name": "lp-studio-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 5173
+    },
+    {
+      "name": "lp-studio-built",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "--yes",
+        "serve@14",
+        "dist",
+        "-l",
+        "4173"
+      ],
+      "port": 4173
     }
   ]
 }

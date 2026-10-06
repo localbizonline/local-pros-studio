@@ -17,6 +17,8 @@ const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ de
 const PrivacyPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.PrivacyPage })));
 const RefundsCancellationsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.RefundsCancellationsPage })));
 const WebsiteFaqPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.WebsiteFaqPage })));
+// Temporary noindex review pages for choosing the site-wide design direction
+const DesignDirections = lazy(() => import('./components/design-directions/DesignDirections'));
 import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
 import { whatsAppUrlForPath } from './whatsapp';
 import { canonicalUrl, seoForPath } from './seo';
@@ -192,7 +194,8 @@ export const AppContent = () => {
   const location = useLocation();
 
   // Standalone pages that ship their own navigation, footer and type system
-  const isStandalonePage = ['/autopilot', '/website-design'].includes(location.pathname);
+  const isStandalonePage =
+    ['/autopilot', '/website-design'].includes(location.pathname) || location.pathname.startsWith('/design-directions');
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -219,6 +222,8 @@ export const AppContent = () => {
 
           {/* Special Landing Pages */}
           <Route path="/special-offer-bundle" element={<SpecialOfferOpusPage />} />
+
+          <Route path="/design-directions/:id" element={<DesignDirections />} />
 
         </Routes>
         </Suspense>

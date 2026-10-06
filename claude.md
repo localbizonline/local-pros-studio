@@ -14,37 +14,26 @@ A React/TypeScript marketing website for Local Pros Studio, focused on reputatio
 ## Project Structure
 ```
 src/
-├── App.tsx                 # Main app with navigation and routing
-├── main.tsx               # Entry point
-├── index.css              # Tailwind + custom styles
-├── components/
-│   ├── Home2Page.tsx      # Homepage - reviews & social focus
-│   ├── ReviewCollectionPage.tsx  # Review collection service
-│   ├── SocialMediaPage.tsx       # Social posting service
-│   ├── WebDesignPage.tsx         # Web design service (R9,900)
-│   ├── AboutPage.tsx             # About page
-│   ├── Footer.tsx                # Site footer
-│   ├── MobileCTA.tsx             # Mobile floating CTA
-│   ├── ScrollToTop.tsx           # Scroll restoration
-│   ├── SocialProofSection.tsx    # Testimonials/reviews
-│   └── PortfolioGallery.tsx      # Portfolio for web design
-└── assets/images/         # Logo, mockups, service images
+├── App.tsx            # Navigation, routes, PageMeta (per-page search tags)
+├── seo.ts             # Every page's title, description and canonical: the only place
+├── entry-server.tsx   # Build-time render used by scripts/prerender.mjs
+├── whatsapp.ts        # WhatsApp number and first message per door
+├── components/        # One file per page plus shared Footer, MobileCTA, ScrollToTop
+│   └── design-directions/  # Noindex reference page for the chosen look (/design-directions/a)
+└── assets/images/
+scripts/prerender.mjs  # Saves each page in seo.ts as finished HTML, writes sitemap.xml and robots.txt
 ```
 
 ## Routes
-| Path | Component | Description |
-|------|-----------|-------------|
-| `/` | Home2Page | Main landing - reputation services |
-| `/reviews` | ReviewCollectionPage | Review collection service |
-| `/social-media` | SocialMediaPage | Social posting service |
-| `/web-design` | WebDesignPage | Web design service |
-| `/about` | AboutPage | Company info |
+Routes live in `src/App.tsx`. Every public route needs an entry in `src/seo.ts`, or it ships with the homepage's title and is kept out of Google. `/autopilot` and `/website-design` are standalone ad landing pages with their own header and footer.
 
 ## Key Services & Pricing
-- **Review Collection**: R1,200/month
-- **Social Posting**: R2,000/month
-- **Complete Package**: R1,250/month (50% beta discount)
-- **Web Design**: R9,900 once-off
+- **Google reviews**: R1,200/month
+- **Social media posting**: R2,000/month
+- **R2,500 plan**: reviews + social posting, 6-month commitment; free website on a 12-month commitment
+- **Web design**: R9,900 once-off
+
+Check the live pages before quoting a price; prices are still repeated across several page files.
 
 ## Commands
 ```bash
@@ -56,89 +45,9 @@ npm run preview  # Preview production build
 ---
 
 ## Design System
+Read `DESIGN-SYSTEM.md` before building, rewriting or reviewing any page. It holds the chosen look (direction A, "light and calm", picked 5 October 2026), the page-building rules and the pre-ship checks.
 
-### Design Philosophy
-Following the [Frontend Aesthetics Cookbook](https://github.com/anthropics/claude-cookbooks/blob/main/coding/prompting_for_frontend_aesthetics.ipynb) principles to avoid generic "AI slop" aesthetics. This design uses bold, distinctive choices with a cohesive warm palette.
-
-### Typography
-**Fonts** (loaded from Google Fonts):
-- **Headings**: Bricolage Grotesque (400-800 weight) - distinctive, bold display font
-- **Body**: Source Sans 3 (400-700 weight) - clean, readable body text
-
-**Avoid**: Inter, Roboto, Arial, system fonts (generic AI defaults)
-
-**Sizing**:
-- H1: 4xl/5xl/6xl with extrabold weight
-- H2: 3xl/4xl with bold weight
-- Body: base size with relaxed line height
-
-### Color Palette
-
-**Primary Accent - Warm Amber** (complements logo):
-```
-amber-50:  #fffbeb  (backgrounds)
-amber-100: #fef3c7  (light accents)
-amber-400: #fbbf24  (badges, highlights)
-amber-500: #f59e0b  (primary buttons, CTAs)
-amber-700: #b45309  (text on light backgrounds)
-```
-
-**Neutrals** (dark-first approach):
-```
-neutral-950: #0a0a0a (darkest backgrounds)
-neutral-900: #171717 (dark sections)
-neutral-800: #262626 (borders, cards on dark)
-neutral-400: #a3a3a3 (muted text)
-neutral-100: #f5f5f5 (light backgrounds)
-```
-
-**Never use**: Purple gradients, blue/indigo accents, evenly-distributed pastel palettes
-
-### Backgrounds
-Use atmospheric gradients instead of flat colors:
-
-```css
-/* Dark sections with warm glow */
-.bg-dark-warm {
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 100%, rgba(180, 83, 9, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 50% at 90% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-    linear-gradient(to bottom, #0a0a0a, #171717);
-}
-
-/* Light sections with subtle warmth */
-.bg-warm-gradient {
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 50% at 80% 60%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
-}
-```
-
-### Component Classes
-```css
-.btn-primary     /* Dark/amber buttons with Bricolage font */
-.btn-secondary   /* Outline buttons */
-.badge           /* Amber-100 bg, amber-800 text */
-.badge-dark      /* Dark bg, amber-400 text */
-.card            /* White with soft shadow */
-.section         /* Vertical padding py-16/24/32 */
-.container-lg    /* Max 7xl with responsive padding */
-```
-
-### Motion
-Focus on high-impact moments:
-- Staggered fade-in-up on page load (delay-100 through delay-500)
-- Subtle hover transforms on cards (translateY -2px)
-- CSS-only animations for performance
-
-### Icons
-Use Lucide React. Common icons:
-- Star, Share2, Zap (services)
-- Check (feature lists)
-- ArrowRight (CTAs)
-- Phone, Mail, MapPin (contact)
-
----
+Pages not yet rebuilt still use the older dark, gradient-heavy styles in `src/index.css` and `tailwind.config.js`. Do not copy those patterns into new work.
 
 ## WhatsApp Contact
 Primary CTA links to: `wa.me/27832336716`
