@@ -17,7 +17,7 @@ Status: direction A ("light and calm") chosen by Jeremy on 5 October 2026 over a
 2. **One search phrase per page, in the H1.** The H1 can be a small line above a bigger value headline. Title about 60 characters, description about 155, both unique, set in `src/seo.ts` (the only place).
 3. **Literal headlines.** Say what the service does: "Get more Google reviews after every job." No slogans, no "hell of a lot easier".
 4. **Lead with the result the buyer pays for,** then how it works. Name the task: request a review, post a job, rebook a customer.
-5. **Show the real moment instead of describing it.** A code-built WhatsApp review request, a Google review appearing, a week of posts. Small loops, no play buttons, never moving the page.
+5. **Show the change with real-looking images.** Jeremy prefers the photographic before/after images on the current homepage (for example our own Google profile, 29 to 789 reviews) over code-built phone and screen mock-ups, which he found looked generated, unreal and repetitive (7 October 2026). Use at most one code-built mock-up on a page, only where an exact interaction needs showing, and never the same kind twice.
 6. **Let readers find themselves.** A "Popular with" list of about 20 trades on service pages, plus who it suits less, said once.
 7. **Prices live on one page.** Other pages explain the value and link to pricing. (Today prices are repeated in nine files; fix as each page is rebuilt.)
 8. **Combine pages that do the same job;** delete review and test pages when a choice is made, with a 301 in `public/_redirects`.
@@ -123,7 +123,7 @@ Until the homepage is rebuilt, these values live in `src/components/design-direc
 - **One container width,** consistent section padding, a light line only between two light sections.
 - **No** emoji, decorative icon grids, glows, blobs, gradient text, glassmorphism, fake browser chrome or stock-looking illustration sets. Functional icons only where they help.
 - **Different sections have different jobs.** The personal note from Jeremy looks different from the feature rows; not every section is a card grid.
-- **Images:** real job photos and real screenshots first. Generated images only when chosen, in one consistent style. Never captions like "illustrative" or "example only".
+- **Images:** real job photos, real screenshots and the photographic before/after style of the current homepage first. Code-built mock-ups sparingly (see section 2, point 5). Generated images only when chosen, in one consistent style. Never captions like "illustrative" or "example only".
 - **FAQ:** closed accordions, real questions, answer in the first sentence.
 - **Motion:** small and functional, respects reduced-motion, never shifts the layout.
 
@@ -153,3 +153,4 @@ When Jeremy picks an option (a divider, a section style, a button), record it he
 |---|---|---|
 | 3 Oct 2026 | Every page gets its own title, description and pre-built HTML from `src/seo.ts` | `scripts/prerender.mjs` |
 | 5 Oct 2026 | Direction A, light and calm, for the whole site (over B warm dark and C site signage) | section 3, `/design-directions/a` |
+| 7 Oct 2026 | Homepage stays as it is: its copy and images beat six rebuilt versions (three review-led, three full-offer). Code-built mock-ups looked generated and repetitive | section 2, point 5; review-led drafts kept at `/review-versions/1-3` for the /reviews rebuild |
