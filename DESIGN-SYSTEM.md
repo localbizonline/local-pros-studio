@@ -69,6 +69,20 @@ Each section has one job: it answers the next question a buyer has. Use this ord
 - **Our own result (29 to 789 reviews) shows we use the system ourselves.** Client results still matter more.
 - **Never fill proof with invented clients.** Empty slots stay visibly marked as drafts until real ones arrive.
 
+### Make the decision quick
+
+Learned from localpros.co.za/join/reviews-and-social (7 October 2026). Worked example: `/review-versions/home-c`.
+
+- **Answer the price from the first screen.** The second button in the opening section is "See what it costs", and the first section after it ends with the price in one line.
+- **Lead with one package.** Single services go in one line of small print under it.
+- **Say what we do in two plain sentences,** for example "We'll get you 5-star Google reviews. We'll keep your Facebook and Instagram busy."
+- **Explain why it matters with two reasons:** your customers check you first, and so does Google.
+- **Keep all the proof in one section:** results before and after, real posts made for clients, our own review count.
+- **Put a rating badge on the opening photo,** using real numbers with their source ("789 Google reviews, our own profile").
+- **List everything included in the price card,** grouped by service, with what is free and what it is worth.
+- **Close with the offer as a checklist** beside the button, and say what the button does: "Opens WhatsApp. A real person replies."
+- **Aim for about seven sections.** Merge or cut before adding.
+
 ### Objections every FAQ answers
 
 How is this different from doing it myself or using someone else? How much of my time does it take? Can I trust you with my customers? Does it work with what I already use? What happens when something goes wrong? Is there a contract?
@@ -221,6 +235,7 @@ When Jeremy picks an option (a divider, a section style, a button), record it he
 |---|---|---|
 | 3 Oct 2026 | Every page gets its own title, description and pre-built HTML from `src/seo.ts` | `scripts/prerender.mjs` |
 | 5 Oct 2026 | Direction A, light and calm, for the whole site (over B warm dark and C site signage) | section 4, `/design-directions/a` |
+| 7 Oct 2026 | Quick-decision format from localpros.co.za/join: price from the first screen, one package, proof in one place, closing checklist, say what the button does | section 2; /review-versions/home-c |
 | 7 Oct 2026 | Positioning and page flow learned from aevaai.com apply to every page: five-second test, one page one thing, proof early, one button label | section 2; /review-versions/4 |
 | 7 Oct 2026 | Audience is any trust-based service business with a Google Business Profile and customers on WhatsApp, not only trades | section 1; /review-versions/4 |
 | 7 Oct 2026 | Homepage stays as it is: its copy and images beat six rebuilt versions (three review-led, three full-offer). Code-built mock-ups looked generated and repetitive | section 3, point 5; review-led drafts kept at `/review-versions/1-3` for the /reviews rebuild |
