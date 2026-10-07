@@ -5,7 +5,7 @@ import ReputationReviewWidget from './ReputationReviewWidget';
 
 // Import images
 import reviewContractor from '../assets/images/review-contractor-happy.webp';
-import deadBusinessNoSocials from '../assets/images/social-posting/dead business if no socials since 2021.webp';
+import alsoTheMarketingDepartment from '../assets/images/social-posting/tradesman-also-the-marketing-department.webp';
 import heroContractor from '../assets/images/Reviews/hero-contractor-handshake.webp';
 import facebookBeforeAfterGasTablet from '../assets/images/social-posting/facebook-before-after-gas-tablet.webp';
 import beforeAfterProof from '../assets/images/Reviews/Local Pros reviews before and after.webp';
@@ -236,17 +236,19 @@ const HomeGeminiPage = () => {
           </p>
           
           <div className="rounded-xl overflow-hidden shadow-2xl border border-neutral-700 my-8">
-            <img 
-                src={deadBusinessNoSocials} 
+            <img
+                src={alsoTheMarketingDepartment}
                 loading="lazy"
-                alt="Frustrated business owner overwhelmed by tasks" 
-                className="w-full opacity-80"
+                width={1248}
+                height={832}
+                alt="Tradesman in his bakkie with sticky notes for marketing jobs next to his quotes and payments"
+                className="w-full h-auto"
             />
           </div>
 
           <div className="bg-white text-neutral-900 p-8 rounded-xl shadow-xl transform rotate-1">
             <p className="text-xl md:text-2xl font-black text-center leading-tight">
-              "You're not failing because you don't work hard enough. 
+              "You're not failing because you don't work hard enough.{' '}
               <br className="hidden md:block" />
               You're failing because you're trying to do everything yourself."
             </p>
