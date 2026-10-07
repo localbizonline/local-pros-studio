@@ -45,7 +45,7 @@ npm run preview  # Preview production build
 ---
 
 ## Design System
-Read `DESIGN-SYSTEM.md` before building, rewriting or reviewing any page. It holds the chosen look (direction A, "light and calm", picked 5 October 2026), the page-building rules and the pre-ship checks.
+Read `DESIGN-SYSTEM.md` before building, rewriting or reviewing any page. It holds the positioning and page-flow rules (section 2, learned from aevaai.com on 7 October 2026: start every page there), the chosen look (direction A, "light and calm", picked 5 October 2026), the page-building rules and the pre-ship checks.
 
 Pages not yet rebuilt still use the older dark, gradient-heavy styles in `src/index.css` and `tailwind.config.js`. Do not copy those patterns into new work.
 

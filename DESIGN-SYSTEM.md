@@ -7,11 +7,77 @@ Status: direction A ("light and calm") chosen by Jeremy on 5 October 2026 over a
 
 ## 1. Who the pages are for
 
-- South African trades and home-service businesses first (plumbers, electricians, roofers, pool cleaners, pest control, cleaners and so on), UK later.
+- South African service businesses that people have to trust, with a Google Business Profile and customers on WhatsApp (UK later). Trades and home services are one group among several: pet shippers and vets, accountants and attorneys, beauty and fitness, mechanics, driving schools and so on. Write for that situation, not for trades only (Jeremy, 7 October 2026).
 - The owner is busy, on a phone, and does not know marketing jargon. They want more work, not "digital presence".
 - Name software they actually use (Google Business Profile, WhatsApp, Facebook, Instagram, Xero, Sage). Never US-only tools (Jobber, ServiceM8, HubSpot, Zendesk).
 
-## 2. How a page is built
+## 2. Positioning and page flow
+
+Learned from aevaai.com (AI phone answering for allied-health clinics), studied on 7 October 2026. Its look is not ours; its positioning, flow and copy are the model for every page. Worked example: `/review-versions/4`.
+
+### The five-second test
+
+Someone who only sees the first screen of the page on a phone must be able to say:
+
+1. **What it is:** the service, in plain words.
+2. **Who it is for:** the situation, for example "a business people need to trust, with a Google profile and customers on WhatsApp".
+3. **Why it matters to them:** the problem in customers or money, in one line.
+4. **What to do next:** one button.
+
+If any of the four needs a scroll or a second read, rewrite the hero before touching anything else.
+
+### Positioning
+
+- **One page sells one thing.** A page selling three services is a menu: send people to each service's own page.
+- **Name the service and the customer in the headline.** Aeva: "The Standard for AI Phone Answering in Allied Health." Ours: "More Google reviews for businesses people need to trust."
+- **Then the problem in one plain line,** in customers or money. Aeva: "Missed calls mean missed bookings."
+- **Speak to the situation, not one industry** (section 1). Focus on one type of business goes on its own page (for example "Google reviews for pet shippers"), linked from a "works well for" list. Aeva links a page per specialty from its footer.
+- **Say who it is not for.** An honest "not ideal for" list earns more trust than another claim.
+
+### Page flow
+
+Each section has one job: it answers the next question a buyer has. Use this order and leave out what a page does not need. Add a section outside it only with a reason.
+
+| # | Section | The buyer's question |
+|---|---|---|
+| 1 | Offer strip (optional): price from, no contract, guarantee, in one line | Is it risky? |
+| 2 | Hero: what, who, the problem line, one main button, small print. The right side shows the product or lets them try it | Is this for me? |
+| 3 | Works with: the tools they already use, as plain words or real logos | Will it fit how I work? |
+| 4 | Proof, early: real name, business, type of business, town and result. Before features, not after | Does it work for people like me? |
+| 5 | Why now (optional): what changed, shown with images rather than told | Why bother now? |
+| 6 | How it works: three or four numbered steps beside one image, showing how little the owner does | How much work is it for me? |
+| 7 | Numbers: a calculator or worked example using their own inputs | Is it worth the money? |
+| 8 | Fit: ideal for, not ideal for, and a grouped "works well for" list | Is it really for me? |
+| 9 | Price: one card, what is included, the guarantee | What does it cost? |
+| 10 | FAQ: the objections, each answered in its first sentence | What could go wrong? |
+| 11 | Closing band: one line, one button | Ready? |
+
+### Section rules
+
+- **One headline, one or two sentences, one visual, one button at most.** A section that needs two visuals or six bullets is two sections, or too much.
+- **Headlines state the outcome:** "Turn missed calls into new bookings", never "Features" or "Our solution".
+- **Three or four items at most** in a list or a row of steps.
+- **One button label across the page.** Aeva says "Book A Demo Call" in every section. Ours is "Chat to us on WhatsApp"; a "Try it" button appears only in the hero.
+- **Vary the layout** so neighbouring sections look different: text beside an image, then centred, then a dark band. Never three card grids in a row.
+- **Leave room.** Generous space between sections (section 4 values) is what makes a page look calm and sure of itself. Never squeeze spacing to fit more in; cut content instead.
+
+### Proof
+
+- **Proof from the same kind of customer beats bigger proof from anyone.** Show name, role, business, town and the result.
+- **Short quotes high up** (one line each), longer stories lower down, with the phrase that matters highlighted.
+- **Every number has its source beside it,** for example "in 6 weeks at one client's business". No source, no number.
+- **Our own result (29 to 789 reviews) shows we use the system ourselves.** Client results still matter more.
+- **Never fill proof with invented clients.** Empty slots stay visibly marked as drafts until real ones arrive.
+
+### Objections every FAQ answers
+
+How is this different from doing it myself or using someone else? How much of my time does it take? Can I trust you with my customers? Does it work with what I already use? What happens when something goes wrong? Is there a contract?
+
+### What not to copy from Aeva
+
+Blue gradients, glass panels, cartoon illustrations, carousels and "Read more" toggles that hide the point. The look stays direction A (section 4).
+
+## 3. How a page is built
 
 1. **Start from the page's intent, not the previous version.** Who arrives, what did they search, what do they need to decide? Old copy is reference only: keep facts that are still true.
 2. **One search phrase per page, in the H1.** The H1 can be a small line above a bigger value headline. Title about 60 characters, description about 155, both unique, set in `src/seo.ts` (the only place).
@@ -22,7 +88,7 @@ Status: direction A ("light and calm") chosen by Jeremy on 5 October 2026 over a
 7. **Prices live on one page.** Other pages explain the value and link to pricing. (Today prices are repeated in nine files; fix as each page is rebuilt.)
 8. **Combine pages that do the same job;** delete review and test pages when a choice is made, with a 301 in `public/_redirects`.
 
-## 3. The look: light and calm
+## 4. The look: light and calm
 
 ### In five lines
 
@@ -115,7 +181,7 @@ Focus: a visible 3px outline in deep amber. Hover changes take 0.15s.
 
 Until the homepage is rebuilt, these values live in `src/components/design-directions/directions.css` (on `.dd-a`). The first real rebuild moves them into `tailwind.config.js` as named colours (`ink`, `body`, `accent` and so on) and shared components, so pages use names, never hex codes.
 
-## 4. Visual rules (all directions)
+## 5. Visual rules (all directions)
 
 - **One type scale.** Hero headline is the largest text on the page, then section headline, card title, body. Nothing between tiers.
 - **Section head:** small uppercase eyebrow, headline, one-sentence subtitle. Centred.
@@ -123,34 +189,38 @@ Until the homepage is rebuilt, these values live in `src/components/design-direc
 - **One container width,** consistent section padding, a light line only between two light sections.
 - **No** emoji, decorative icon grids, glows, blobs, gradient text, glassmorphism, fake browser chrome or stock-looking illustration sets. Functional icons only where they help.
 - **Different sections have different jobs.** The personal note from Jeremy looks different from the feature rows; not every section is a card grid.
-- **Images:** real job photos, real screenshots and the photographic before/after style of the current homepage first. Code-built mock-ups sparingly (see section 2, point 5). Generated images only when chosen, in one consistent style. Never captions like "illustrative" or "example only".
+- **Images:** real job photos, real screenshots and the photographic before/after style of the current homepage first. Code-built mock-ups sparingly (see section 3, point 5). Generated images only when chosen, in one consistent style. Never captions like "illustrative" or "example only".
 - **FAQ:** closed accordions, real questions, answer in the first sentence.
 - **Motion:** small and functional, respects reduced-motion, never shifts the layout.
 
-## 5. Copy rules
+## 6. Copy rules
 
 - "We" and "our" always mean Local Pros Studio; "you" and "your" mean the reader.
 - Two sentences per paragraph at most. Short lines that start with the words that matter.
 - No made-up numbers, no superlatives, no "hidden fees" claims. A figure in a headline needs a source on the page.
 - South African English. Confident selling copy; genuine limits once, plainly, in the FAQ.
 
-## 6. Shared parts
+## 7. Shared parts
 
 Header, footer, WhatsApp button and closing call-to-action are shared components: change once, change everywhere. Page-specific headers (Google Ads landing pages) are the only exception and are listed in `App.tsx` as standalone pages.
 
-## 7. Checking a page before it ships
+## 8. Checking a page before it ships
 
+- The five-second test (section 2) passes on a phone screenshot of the first screen.
+- Sections follow the page flow in section 2, and each one has a single job.
 - Desktop and phone screenshots, top to bottom. No sideways scroll, tap targets 44px, hero headline within four lines on a phone.
 - `npm run build` passes. It pre-builds every page in `src/seo.ts` as real HTML and writes `sitemap.xml`; check the page's title, description and H1 in `dist/`.
 - Whole-page read for tone, names, claims and repeated layouts, not just the section that changed.
 - Say where it stands: local, committed, pushed, live.
 
-## 8. Logged choices
+## 9. Logged choices
 
 When Jeremy picks an option (a divider, a section style, a button), record it here with the date so it is reused, not reinvented.
 
 | Date | Choice | Where |
 |---|---|---|
 | 3 Oct 2026 | Every page gets its own title, description and pre-built HTML from `src/seo.ts` | `scripts/prerender.mjs` |
-| 5 Oct 2026 | Direction A, light and calm, for the whole site (over B warm dark and C site signage) | section 3, `/design-directions/a` |
-| 7 Oct 2026 | Homepage stays as it is: its copy and images beat six rebuilt versions (three review-led, three full-offer). Code-built mock-ups looked generated and repetitive | section 2, point 5; review-led drafts kept at `/review-versions/1-3` for the /reviews rebuild |
+| 5 Oct 2026 | Direction A, light and calm, for the whole site (over B warm dark and C site signage) | section 4, `/design-directions/a` |
+| 7 Oct 2026 | Positioning and page flow learned from aevaai.com apply to every page: five-second test, one page one thing, proof early, one button label | section 2; /review-versions/4 |
+| 7 Oct 2026 | Audience is any trust-based service business with a Google Business Profile and customers on WhatsApp, not only trades | section 1; /review-versions/4 |
+| 7 Oct 2026 | Homepage stays as it is: its copy and images beat six rebuilt versions (three review-led, three full-offer). Code-built mock-ups looked generated and repetitive | section 3, point 5; review-led drafts kept at `/review-versions/1-3` for the /reviews rebuild |
