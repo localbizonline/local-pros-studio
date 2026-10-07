@@ -235,6 +235,7 @@ When Jeremy picks an option (a divider, a section style, a button), record it he
 |---|---|---|
 | 3 Oct 2026 | Every page gets its own title, description and pre-built HTML from `src/seo.ts` | `scripts/prerender.mjs` |
 | 5 Oct 2026 | Direction A, light and calm, for the whole site (over B warm dark and C site signage) | section 4, `/design-directions/a` |
+| 7 Oct 2026 | Section library started: sections Jeremy picks from drafts are saved as components and shown together; start new pages from it. First: How it works with the animated phone (from draft 1, whose other sections he did not like) | `src/components/section-library/`, /review-versions/sections |
 | 7 Oct 2026 | Quick-decision format from localpros.co.za/join: price from the first screen, one package, proof in one place, closing checklist, say what the button does | section 2; /review-versions/home-c |
 | 7 Oct 2026 | Positioning and page flow learned from aevaai.com apply to every page: five-second test, one page one thing, proof early, one button label | section 2; /review-versions/4 |
 | 7 Oct 2026 | Audience is any trust-based service business with a Google Business Profile and customers on WhatsApp, not only trades | section 1; /review-versions/4 |
