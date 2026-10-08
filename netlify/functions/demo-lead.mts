@@ -114,7 +114,11 @@ function buildFields(body: Record<string, unknown>): Record<string, unknown> | n
     fields[F.gbpName] = name;
     fields[F.gbpPlaceId] = placeId;
     const mapsUrl = webUrl(body.mapsUri);
-    if (mapsUrl && isGoogleMapsUrl(mapsUrl)) fields[F.gbpUrl] = mapsUrl;
+    if (mapsUrl && isGoogleMapsUrl(mapsUrl)) {
+      // Google's link carries tracking extras; the listing id (cid) is all the team needs
+      const cid = new URL(mapsUrl).searchParams.get('cid');
+      fields[F.gbpUrl] = cid && /^\d+$/.test(cid) ? `https://maps.google.com/?cid=${cid}` : mapsUrl;
+    }
     const category = text(body.category, 120);
     if (category) fields[F.gbpCategory] = category;
     const website = webUrl(body.website);
