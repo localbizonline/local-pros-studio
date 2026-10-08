@@ -22,6 +22,7 @@ import {
 
 import logo from '../assets/images/Compressed/Local Pros Studio logo transparent.png';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../whatsapp';
+import DemoPopup from './demo-popup/DemoPopup';
 import { formatReviewDate, getInitials, useReputationReviews, type WidgetReview } from './reputationReviews';
 import logoDarkText from '../assets/images/Compressed/Local Pros Studio logo dark text.png';
 import pavingDesktop from '../assets/images/portfolio/pavingpros-desktop.webp';
@@ -1091,6 +1092,9 @@ const WebDesignAdsPage = ({ theme = 'dark', variant = 'ad' }: { theme?: keyof ty
             </div>
           </div>
         )}
+
+        {/* "Free demo website" chat popup, Google Ads page only (8 Oct 2026) */}
+        {isAd && <DemoPopup trackPrefix={`${track}_demo_popup`} />}
       </div>
     </WhatsAppUrlContext.Provider>
     </ThemeContext.Provider>
