@@ -474,14 +474,39 @@ function ChatWindow({
     setManual(false);
   };
 
-  return (
+  // Opened from a button (a plan picked): a centred window over a darkened page, so it's clear what the
+  // click did and what to do next (Jeremy, 8 Oct 2026). Opened by itself (the free demo offer): the corner chat.
+  const modal = !!plan;
+
+  // Keep the page behind still while the centred window is open
+  useEffect(() => {
+    if (!modal || !open) return;
+    const before = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = before;
+    };
+  }, [modal, open]);
+
+  const close = () => {
+    onClose();
+    track(`${trackPrefix}_closed`);
+  };
+
+  const windowEl = (
     <div
       role="dialog"
       aria-label="Chat with Local Pros Studio"
+      aria-modal={modal || undefined}
       hidden={!open}
-      className="fixed inset-x-3 bottom-[84px] z-[60] mx-auto max-w-[380px] animate-[demoPopIn_.35s_ease-out] rounded-2xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45)] md:inset-x-auto md:bottom-6 md:right-6"
+      className={
+        modal
+          ? 'relative w-full max-w-[520px] animate-[demoPopIn_.3s_ease-out] rounded-2xl shadow-[0_32px_80px_-16px_rgba(0,0,0,0.6)]'
+          : 'fixed inset-x-3 bottom-[84px] z-[60] mx-auto max-w-[380px] animate-[demoPopIn_.35s_ease-out] rounded-2xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45)] md:inset-x-auto md:bottom-6 md:right-6'
+      }
     >
       <style>{`@keyframes demoPopIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+        @keyframes demoFadeIn{from{opacity:0}to{opacity:1}}
         @media (prefers-reduced-motion: reduce){[aria-label="Chat with Local Pros Studio"]{animation:none!important}}
         .demo-gbp gmp-place-autocomplete{display:block;width:100%;color-scheme:light;background:#fff;border:1px solid #b9dfb2;border-radius:6px;font-size:15px}
         .demo-gbp gmp-place-autocomplete:focus-within{border-color:#008069}
@@ -501,10 +526,7 @@ function ChatWindow({
         </div>
         <button
           type="button"
-          onClick={() => {
-            onClose();
-            track(`${trackPrefix}_closed`);
-          }}
+          onClick={close}
           className="rounded-full p-1.5 text-white/90 hover:bg-white/10"
           aria-label="Close"
         >
@@ -513,7 +535,7 @@ function ChatWindow({
       </div>
 
       {/* Chat body */}
-      <div ref={chatRef} className="max-h-[52vh] space-y-2 overflow-y-auto bg-[#efeae2] px-3 py-3" aria-live="polite">
+      <div ref={chatRef} className={`${modal ? 'min-h-[300px] max-h-[62vh] px-4 py-4 md:min-h-[340px] md:px-5' : 'max-h-[52vh] px-3 py-3'} space-y-2 overflow-y-auto bg-[#efeae2]`} aria-live="polite">
         {typed.map((line, i) => (
           <Bubble key={i}>{line}</Bubble>
         ))}
@@ -621,7 +643,7 @@ function ChatWindow({
       </div>
 
       {/* One button: opens WhatsApp with the message filled in */}
-      <div className={`rounded-b-2xl bg-[#efeae2] px-3 pb-3 pt-1 transition-opacity duration-300 ${finished ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+      <div className={`rounded-b-2xl bg-[#efeae2] ${modal ? 'px-4 pb-4 md:px-5' : 'px-3 pb-3'} pt-1 transition-opacity duration-300 ${finished ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
         <a
           href={ready ? href : undefined}
           target="_blank"
@@ -643,6 +665,15 @@ function ChatWindow({
         </a>
         <p className="mt-1.5 text-center text-[11px] text-neutral-500">Opens WhatsApp. A real person replies.{plan ? '' : ' No cost, no obligation.'}</p>
       </div>
+    </div>
+  );
+
+  if (!modal) return windowEl;
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-3 md:p-6" hidden={!open}>
+      {/* Darkened page behind; a tap outside the chat closes it */}
+      <div className="absolute inset-0 bg-[#1C1917]/70 backdrop-blur-[2px] animate-[demoFadeIn_.2s_ease-out]" onClick={close} aria-hidden="true" />
+      {windowEl}
     </div>
   );
 }
