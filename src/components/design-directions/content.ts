@@ -35,7 +35,7 @@ export const DEMO = {
     },
     {
       title: 'Your customer gets a WhatsApp',
-      body: 'We ask how the job went. Unhappy customers go to a private form, so you can call them first.',
+      body: 'It thanks them and asks for a Google review. If something went wrong, they can reply and you hear about it straight away.',
     },
     {
       title: 'They leave a Google review',
@@ -54,7 +54,7 @@ export const SERVICES = [
   {
     name: 'Google reviews',
     price: 'R1,200 a month',
-    body: 'We send a WhatsApp review request after every job, with a one-tap link and a reminder. Unhappy customers reach you privately before anything goes public.',
+    body: 'We send a WhatsApp review request after every job, with a one-tap link and a reminder. If a customer is unhappy, they can reply and you hear about it straight away.',
     note: 'Month-to-month · 30-day money-back guarantee',
     link: { label: 'How Google reviews work', to: '/reviews' },
   },
@@ -134,7 +134,7 @@ export const FAQ_HEAD = {
 export const FAQ = [
   {
     q: 'What if a customer is unhappy?',
-    a: 'Before anyone leaves a review, we ask how the job went. Unhappy customers go to a private feedback form and you are notified straight away, so you can call and sort it out.',
+    a: 'Every customer gets the same Google link. If something went wrong, they can reply on the same WhatsApp and you are notified straight away, so you can call and sort it out.',
   },
   {
     q: 'How do you know when I have finished a job?',

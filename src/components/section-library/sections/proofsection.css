@@ -1,0 +1,383 @@
+/* "The proof" (ProofSection.tsx), on the .dd-a tokens. Scoped to .prf. One sideways row per service
+   (option C, picked 8 Oct 2026). */
+
+.prf {
+  background: #f5f5f4;
+  border-top: 0;
+}
+
+/* ---------- Shared parts ---------- */
+
+.prf-group-head {
+  max-width: 40em;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.prf-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.prf-title {
+  margin-top: 6px;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.prf-line {
+  margin-top: 8px;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+.prf-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 700;
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+.prf-shot {
+  margin: 0;
+}
+
+.prf-shot button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  cursor: zoom-in;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.prf-shot button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.prf-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prf-shot img.is-top {
+  object-position: top;
+}
+
+.prf-shot figcaption {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--body);
+}
+
+.prf-shot.is-phone button {
+  border-radius: 18px;
+  border: 5px solid var(--ink);
+}
+
+/* Review cards from the live Google feed */
+.prf-feed {
+  margin-top: 40px;
+}
+
+.prf-feed-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 16px;
+  max-width: 40em;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--body);
+  text-align: left;
+}
+
+.prf-feed-head strong {
+  color: var(--ink);
+}
+
+.prf-g {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.prf-review {
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.prf-review-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prf-stars {
+  color: #fbbc04;
+  letter-spacing: 1px;
+  font-size: 15px;
+}
+
+.prf-review-date {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.prf-review blockquote {
+  margin: 10px 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.prf-review figcaption {
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--body);
+}
+
+/* Full-size view */
+.prf-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 56px 16px 24px;
+  background: rgba(28, 25, 23, 0.88);
+  overflow-y: auto;
+}
+
+.prf-lightbox-body {
+  max-width: min(960px, 100%);
+}
+
+.prf-lightbox-body img {
+  display: block;
+  max-width: 100%;
+  max-height: none;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+.prf-lightbox-body p {
+  margin-top: 12px;
+  text-align: center;
+  color: #fafaf9;
+  font-size: 1rem;
+}
+
+.prf-lightbox-close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: #fafaf9;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* ---------- Rows ---------- */
+
+.prf-rails-group + .prf-rails-group {
+  margin-top: 56px;
+}
+
+.prf-rail-wrap {
+  position: relative;
+}
+
+.prf-rail {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 2px 4px 12px;
+  margin: 0 -4px;
+  scrollbar-width: none;
+}
+
+.prf-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.prf-rail > * {
+  flex: none;
+}
+
+/* Each picture keeps roughly its own shape at the rail's height, set before it loads */
+.prf-rail .prf-shot {
+  width: min-content;
+}
+
+.prf-rail .prf-shot button {
+  width: auto;
+  height: 300px;
+}
+
+.prf-rail .prf-shot.is-wide button {
+  aspect-ratio: 1.52;
+}
+
+.prf-rail .prf-shot.is-square button {
+  aspect-ratio: 1;
+}
+
+.prf-rail .prf-shot.is-tall button {
+  aspect-ratio: 0.86;
+}
+
+.prf-rail .prf-shot.is-phone {
+  width: 160px;
+}
+
+.prf-rail .prf-shot.is-phone button {
+  height: 338px;
+}
+
+.prf-rail .prf-review {
+  width: 320px;
+}
+
+.prf-rail-foot {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.prf-swipe {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.prf-swipe .is-back {
+  transform: scaleX(-1);
+}
+
+/* How far along the row: the dark part is what is on screen now */
+.prf-track {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  overflow: hidden;
+}
+
+.prf-track span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+  background: var(--ink);
+}
+
+.prf-rail-arrows {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+
+.prf-rail-arrows button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.prf-rail-arrows button:hover {
+  border-color: var(--ink);
+}
+
+/* ---------- Phone ---------- */
+
+@media (max-width: 767px) {
+  .prf-shot figcaption {
+    font-size: 0.875rem;
+  }
+
+  /* Rails bleed to the screen edge so the next picture peeks in */
+  .prf-rail {
+    margin: 0 -20px;
+    padding: 2px 20px 12px;
+  }
+
+  /* Shorter pictures on a phone, so the next one always shows at the edge */
+  .prf-rail .prf-shot button {
+    height: 196px;
+  }
+
+  .prf-rail .prf-review {
+    width: 272px;
+  }
+
+  .prf-rail .prf-shot.is-phone {
+    width: 132px;
+  }
+
+  .prf-rail .prf-shot.is-phone button {
+    height: 280px;
+  }
+
+  .prf-rail-arrows {
+    display: none;
+  }
+
+  .prf-swipe {
+    display: inline-flex;
+  }
+
+  .prf-rail-foot {
+    margin-top: 2px;
+  }
+
+  .prf-feed {
+    margin-top: 28px;
+  }
+}

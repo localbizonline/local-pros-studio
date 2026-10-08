@@ -209,6 +209,7 @@ ol) {
   font-weight: 700;
   color: var(--link);
   text-decoration: underline;
+  text-decoration-color: var(--accent);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 4px;
   padding: 10px 0;
@@ -230,6 +231,22 @@ ol) {
   text-transform: uppercase;
   line-height: 1.45;
   color: var(--eyebrow);
+}
+
+/* Section labels: near-black with a short amber line in front (picked by Jeremy, 7 Oct 2026) */
+.dd-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dd-eyebrow::before {
+  content: '';
+  flex-shrink: 0;
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
 }
 
 .dd-display {
@@ -352,7 +369,7 @@ ol) {
 }
 
 .dd-demo .dd-eyebrow {
-  color: var(--accent-on-dark);
+  color: var(--on-dark);
 }
 
 .dd-demo .dd-sub {
@@ -1202,21 +1219,22 @@ ol) {
   --surface-2: #fafaf9;
   --accent: #f59e0b;
   --accent-hover: #d97706;
-  --accent-deep: #92400e;
+  /* Was a deep amber-brown; Jeremy dropped brown everywhere on 7 Oct 2026, so it is now ink */
+  --accent-deep: #1c1917;
   --accent-soft: #fef3c7;
   --dark: #1c1917;
   --on-dark: #fafaf9;
   --on-dark-body: #d6d3d1;
   --accent-on-dark: #fbbf24;
   --cream: #fbf6ec;
-  --focus: #92400e;
+  --focus: #1c1917;
 
   --header-bg: #ffffff;
   --header-border: 1px solid var(--line);
   --nav: #44403c;
-  --eyebrow: var(--accent-deep);
-  --link: var(--accent-deep);
-  --price: var(--accent-deep);
+  --eyebrow: #1c1917;
+  --link: #1c1917;
+  --price: #1c1917;
 
   --btn-bg: #f59e0b;
   --btn-bg-hover: #fbbf24;
@@ -1225,9 +1243,10 @@ ol) {
   --btn2-ink: #1c1917;
   --btn2-line: #d6d3d1;
   --btn2-line-hover: #1c1917;
-  --inv-bg: #fbf6ec;
-  --inv-bg-hover: #fef3c7;
-  --inv-ink: #78350f;
+  /* Closing button: amber, like every primary button (the deep brown was dropped on 7 Oct 2026) */
+  --inv-bg: #f59e0b;
+  --inv-bg-hover: #fbbf24;
+  --inv-ink: #1c1917;
 
   --step-active-bg: rgba(250, 250, 249, 0.06);
   --step-active-line: #44403c;
@@ -1237,9 +1256,10 @@ ol) {
   --tag-ink: #1c1917;
   --sign-line: #f59e0b;
 
-  --closing-bg: #78350f;
-  --closing-ink: #fbf6ec;
-  --closing-body: #f5e6cc;
+  /* Closing band: warm cream instead of deep brown (Jeremy, 7 Oct 2026) */
+  --closing-bg: #fbf6ec;
+  --closing-ink: #1c1917;
+  --closing-body: #44403c;
 
   --footer-bg: #1c1917;
   --footer-ink: #d6d3d1;

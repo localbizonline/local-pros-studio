@@ -1,0 +1,77 @@
+/* "Is this for your business?" section (FitCheck.tsx), on the .dd-a tokens. Scoped to .fit. */
+
+.fit-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.fit-col {
+  padding: 28px;
+  border-radius: var(--r-frame);
+  border: 1px solid var(--line);
+}
+
+.fit-col ul {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.fit-col li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 12px;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.fit-col svg {
+  margin-top: 3px;
+}
+
+.fit-yes {
+  color: var(--accent-deep);
+}
+
+.fit-no {
+  color: var(--muted);
+}
+
+.fit-groups {
+  max-width: 960px;
+  margin: 40px auto 0;
+}
+
+.fit-groups .dd-tags-label {
+  margin-bottom: 12px;
+}
+
+.fit-groups ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 40px;
+}
+
+.fit-groups li {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+.fit-groups strong {
+  color: var(--ink);
+}
+
+@media (max-width: 767px) {
+  .fit-cols,
+  .fit-groups ul {
+    grid-template-columns: 1fr;
+  }
+
+  .fit-groups {
+    margin-top: 32px;
+  }
+}

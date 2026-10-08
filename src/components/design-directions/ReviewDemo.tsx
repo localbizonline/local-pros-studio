@@ -1,7 +1,8 @@
 import { useEffect, useState, type RefObject } from 'react';
 
 // A small looping product moment: a WhatsApp review request arrives after a job, the customer
-// taps through and a 5-star Google review appears. Every element is always rendered and only
+// taps through and a 5-star Google review appears. Every customer gets the same request and link
+// (no "how did we do?" step that only sends happy customers to Google; fixed 7 Oct 2026). Every element is always rendered and only
 // fades in, inside a fixed-size phone, so the page never changes height. The phone carries its
 // own WhatsApp/Google micro-palette; it is a screen, not part of the page palette.
 
@@ -105,7 +106,7 @@ export default function ReviewPhone({ phase }: { phase: number }) {
   const typed = useTyped(REVIEW_TEXT, phase === 6, phase >= 7);
 
   return (
-    <div className="ddp-phone" role="img" aria-label="A WhatsApp message asks a customer how the job went, she taps Great, follows the review link and posts a 5-star Google review">
+    <div className="ddp-phone" role="img" aria-label="A WhatsApp message asks a customer for a Google review; she taps the link and posts a 5-star review">
       <div className="ddp-screen">
         <div className="ddp-status">
           <span>14:32</span>
@@ -137,33 +138,21 @@ export default function ReviewPhone({ phase }: { phase: number }) {
                 <i />
                 <i />
               </div>
+              {/* Every customer gets the same request and link: no "how did we do?" filter first */}
               <div className={`ddp-bubble in ${show(1)}`}>
-                Hi Thandi, thanks for choosing Mokoena Plumbing today. How did we do?
+                Hi Thandi, thanks for choosing Mokoena Plumbing today. Would you mind leaving us a quick Google review? It
+                really helps a small business like ours.
+                <span className={`ddp-link ${phase === 4 ? 'is-tapped' : ''}`}>
+                  <GoogleG size={14} /> Leave a Google review
+                  {phase === 4 && <b className="ddp-tap" aria-hidden="true" />}
+                </span>
                 <span className="ddp-time">14:31</span>
               </div>
             </div>
-            <div className={`ddp-replies ${show(1)}`}>
-              <span className={phase >= 2 ? 'is-tapped' : ''}>
-                Great
-                {phase === 2 && <b className="ddp-tap" aria-hidden="true" />}
-              </span>
-              <span>Could be better</span>
-            </div>
 
-            <div className={`ddp-bubble out ${show(2)}`}>
-              Great
-              <span className="ddp-time">
-                14:32 <Ticks />
-              </span>
-            </div>
-
-            <div className={`ddp-bubble in ${show(3)}`}>
-              Thank you! Would you mind leaving us a Google review? It helps a small business like ours.
-              <span className={`ddp-link ${phase === 4 ? 'is-tapped' : ''}`}>
-                <GoogleG size={14} /> Leave a Google review
-                {phase === 4 && <b className="ddp-tap" aria-hidden="true" />}
-              </span>
-              <span className="ddp-time">14:32</span>
+            <div className={`ddp-bubble in ${show(2)}`}>
+              If anything wasn't right, just reply here and we'll sort it out.
+              <span className="ddp-time">14:31</span>
             </div>
           </div>
           <div className="ddp-wa-input" aria-hidden="true">

@@ -1,0 +1,61 @@
+/* Section library page: the intro and the label above each saved section. The sections bring
+   their own styles; anything a section needs that directions.css lacks goes here, prefixed sl-. */
+
+.sl-intro {
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sl-intro .dd-eyebrow {
+  margin-bottom: 10px;
+}
+
+.sl-intro p:last-child {
+  margin-top: 12px !important;
+  font-size: 1.125rem;
+}
+
+.sl-label {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--accent-soft);
+  border-bottom: 1px solid #fde68a;
+}
+
+.sl-label-in {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.sl-num {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+
+.sl-label-in div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.sl-label-in strong {
+  color: var(--ink);
+}
+
+.sl-label-in span {
+  font-size: 0.875rem;
+  color: var(--accent-deep);
+}

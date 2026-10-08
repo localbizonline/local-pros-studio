@@ -352,9 +352,9 @@ const AutopilotLandingPage = () => {
                 d: 'Most people mean to leave a review. They just forget. We remind them.',
               },
               {
-                k: 'Bad feedback',
-                v: 'Caught first',
-                d: 'Unhappy customers come to you privately, not to your Google profile.',
+                k: 'Problems',
+                v: 'Straight to you',
+                d: 'If something went wrong, the customer can reply on the same WhatsApp and you get an alert straight away.',
               },
             ].map((s) => (
               <div
@@ -643,7 +643,7 @@ const AutopilotLandingPage = () => {
             </span>
           </SectionHeading>
           <Lede>
-            We ask, follow up, filter, post, reply and report — without adding
+            We ask, follow up, flag problems, post, reply and report — without adding
             another thing to your week.
           </Lede>
 
@@ -658,8 +658,8 @@ const AutopilotLandingPage = () => {
                 d: "Three tiers of reminders. Most people meant to leave a review and simply forgot.",
               },
               {
-                t: 'Filters the unhappy ones',
-                d: 'Negative feedback comes to you first, privately, so you can fix it before it becomes a one-star.',
+                t: 'Flags problems straight away',
+                d: 'Every customer gets the same Google link. If something went wrong, they can reply on the same WhatsApp and you get an alert, so you can phone them and sort it out.',
               },
               {
                 t: 'Posts your work weekly',
@@ -895,7 +895,6 @@ const AutopilotLandingPage = () => {
                 {[
                   { r: 'Runs every week without you', c: [true, true, true, false] },
                   { r: 'Sounds like your business, not an agency', c: [true, true, false, true] },
-                  { r: 'Bad feedback caught before it goes public', c: [true, false, false, false] },
                   { r: 'Every review replied to', c: [true, false, true, false] },
                   { r: 'Built for South African trades', c: [true, false, false, true] },
                   { r: 'Under R2,500 a month', c: [true, false, false, true] },
@@ -957,7 +956,7 @@ const AutopilotLandingPage = () => {
                 features: [
                   'WhatsApp review requests after every job',
                   'Three-tier follow-up system',
-                  'Negative feedback caught privately',
+                  'Alerts if a customer is unhappy',
                   'Every review replied to for you',
                   'Live review widget on your website',
                   'Google, Facebook and Hello Peter',
@@ -1166,7 +1165,7 @@ const AutopilotLandingPage = () => {
               },
               {
                 q: 'Is this just an automated review blaster?',
-                a: 'No. There\'s a three-tier follow-up system, negative feedback gets routed to you privately before it reaches your public profile, and every review that comes in gets a written response on your behalf. The automation is the delivery. The judgement is ours.',
+                a: 'No. There\'s a three-tier follow-up system, unhappy customers can reply on the same WhatsApp so you hear about problems straight away, and every review that comes in gets a written response on your behalf. The automation is the delivery. The judgement is ours.',
               },
               {
                 q: 'Why not just ask customers myself?',
@@ -1182,7 +1181,7 @@ const AutopilotLandingPage = () => {
               },
               {
                 q: 'What if I get a bad review?',
-                a: 'The system is designed to catch unhappy customers before they get to Google. If one does slip through, we write the response — and a well-handled one-star does more for your credibility than a wall of perfect fives.',
+                a: 'If a customer is unhappy, they can reply on the same WhatsApp and you get an alert straight away, so you can phone them and sort it out. If a bad review does go up, we write the response — and a well-handled one-star does more for your credibility than a wall of perfect fives.',
               },
               {
                 q: 'How long before I see something?',

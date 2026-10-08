@@ -4,8 +4,9 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import MobileCTA from './components/MobileCTA';
-// The home page loads with the site; every other page downloads only when someone opens it
-import HomeGeminiPage from './components/HomeGeminiPage';
+// The home page loads with the site; every other page downloads only when someone opens it.
+// Since 8 Oct 2026 the homepage is the light "join" page (src/components/join-light/), with its own header and footer.
+import JoinLight from './components/join-light/JoinLight';
 const AboutPage = lazy(() => import('./components/AboutPage'));
 const ReviewsLetterPage = lazy(() => import('./components/ReviewsLetterPage'));
 const SocialPostingPageV2 = lazy(() => import('./components/SocialPostingPageV2'));
@@ -200,9 +201,9 @@ export const AppContent = () => {
     applyTeamDeviceLink();
   }, []);
 
-  // Standalone pages that ship their own navigation, footer and type system
+  // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/autopilot', '/website-design'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/autopilot', '/website-design'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (
@@ -214,7 +215,7 @@ export const AppContent = () => {
         {/* Blank full-height space while a page downloads, so the footer stays below the fold */}
         <Suspense fallback={<div className="min-h-screen" />}>
         <Routes>
-          <Route path="/" element={<HomeGeminiPage />} />
+          <Route path="/" element={<JoinLight />} />
           <Route path="/reviews" element={<ReviewsLetterPage />} />
           <Route path="/social-media-posting-service" element={<SocialPostingPageV2 />} />
           <Route path="/web-design" element={<WebDesignAdsPage variant="site" />} />

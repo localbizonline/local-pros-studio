@@ -1234,7 +1234,7 @@ const SocialPostingPageV2 = () => {
                 <p className="text-amber-400 text-xs font-bold uppercase tracking-wide">Everything in Social Posting, plus:</p>
                 {[
                   "Automatic Review Requests (WhatsApp + Email)",
-                  "Smart Filtering for Unhappy Customers",
+                  "Alerts If a Customer Is Unhappy",
                   "Real-Time Alerts for All Reviews",
                   "AI-Generated Review Responses",
                   "Review Highlights Posted Automatically",

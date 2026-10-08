@@ -83,6 +83,7 @@ export const useReputationReviews = () => {
   const [reviews, setReviews] = useState<WidgetReview[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [writeReviewLink, setWriteReviewLink] = useState<string | null>(null);
+  const [summary, setSummary] = useState<{ total: number; rating: number } | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -99,6 +100,7 @@ export const useReputationReviews = () => {
 
         setReviews(data.reviews.filter((review) => review.comment?.trim()));
         setWriteReviewLink(data.templateData.locationReviewLink ?? null);
+        setSummary({ total: data.aggregateData.totalReviews, rating: data.aggregateData.totalRating });
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -113,5 +115,5 @@ export const useReputationReviews = () => {
     };
   }, []);
 
-  return { reviews, isLoading, writeReviewLink };
+  return { reviews, isLoading, writeReviewLink, summary };
 };

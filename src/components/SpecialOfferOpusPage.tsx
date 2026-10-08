@@ -70,9 +70,9 @@ const bundleItems = [
   {
     icon: Star,
     title: 'Review Collection',
-    description: 'Automated review requests via WhatsApp & email. Smart filtering catches unhappy customers privately. 30-day money-back guarantee.',
+    description: 'Automated review requests via WhatsApp & email. Instant alert if a customer is unhappy. 30-day money-back guarantee.',
     value: 'R1,200/month',
-    features: ['WhatsApp + email requests', 'Smart filtering', 'AI review responses', 'Real-time alerts'],
+    features: ['WhatsApp + email requests', 'Unhappy-customer alerts', 'AI review responses', 'Real-time alerts'],
   },
   {
     icon: Share2,

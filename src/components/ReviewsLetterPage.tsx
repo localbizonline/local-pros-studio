@@ -249,7 +249,7 @@ const ReviewsLetterPage = () => {
           </p>
 
           <p className="text-neutral-400 italic text-base border-l-2 border-amber-500/50 pl-4 bg-neutral-900/50 py-3 pr-4 rounded-r-lg">
-            (And yes, we'll sidestep negative reviews too — all while staying fully compliant with Google and Facebook guidelines.)
+            (And if a customer is unhappy, you'll hear about it straight away, so you can phone them and put it right.)
           </p>
 
           <p className="text-2xl md:text-3xl font-black text-white">
@@ -457,7 +457,7 @@ const ReviewsLetterPage = () => {
       </section>
 
       {/* ============================================
-          SECTION 5: NEGATIVE REVIEW SAFEGUARDS
+          SECTION 5: WHAT ABOUT NEGATIVE REVIEWS
           ============================================ */}
       <section className="py-16 md:py-24 bg-neutral-800">
         <div className="max-w-3xl mx-auto px-6 md:px-8 text-left space-y-8 leading-relaxed">
@@ -466,7 +466,7 @@ const ReviewsLetterPage = () => {
           <div className="flex items-center gap-4 mb-4">
             <div className="h-px bg-gradient-to-r from-amber-500 to-transparent flex-1 max-w-[60px]"></div>
             <p className="text-amber-400 text-xs tracking-[0.3em] uppercase font-black">
-              🛡️ Built-In Protection
+              🛡️ When a Job Goes Wrong
             </p>
           </div>
 
@@ -480,30 +480,30 @@ const ReviewsLetterPage = () => {
           </p>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            That's why we built safeguards directly into the system.
+            So the system makes it easy for an unhappy customer to tell you directly.
           </p>
 
           <h3 className="text-2xl md:text-3xl font-black text-white pt-4">
-            Unhappy customers never reach Google.
+            Every customer gets the same Google link.
           </h3>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            Before anyone leaves a review, they're asked a simple question: <strong className="text-white">"How was your experience?"</strong>
+            We don't pick and choose who gets asked. Google doesn't allow that, and it wouldn't build real trust anyway.
           </p>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            If they indicate anything less than satisfied, they're directed to a <strong className="text-white">private feedback form</strong> instead of a public review site.
+            If something went wrong, they can also <strong className="text-white">reply on the same WhatsApp</strong>.
           </p>
 
           <p className="text-xl md:text-2xl font-bold text-white">
-            You get notified immediately — giving you the chance to <span className="text-amber-400">call and resolve the issue</span> before it ever becomes public.
+            You get an alert straight away, so you can <span className="text-amber-400">phone them and sort it out</span> while it's still fresh.
           </p>
 
           {/* Image */}
           <img
             src={feedbackResolution}
             loading="lazy"
-            alt="Negative feedback routed privately, then resolved with a phone call"
+            alt="WhatsApp complaint alert, then the owner phones the customer to sort it out"
             className="w-full rounded-xl shadow-2xl border border-neutral-700"
           />
 
@@ -516,7 +516,7 @@ const ReviewsLetterPage = () => {
           </p>
 
           <p className="text-lg md:text-xl text-neutral-300">
-            Not because we hide bad reviews — but because we help you <strong className="text-white">fix problems before they go public</strong>.
+            Not because we hide bad reviews — but because <strong className="text-white">every customer gets asked</strong>, and problems get sorted quickly.
           </p>
 
           {/* Image */}
@@ -530,7 +530,7 @@ const ReviewsLetterPage = () => {
           <div className="space-y-4 bg-amber-950/20 border border-amber-900/30 rounded-2xl p-6">
             <p className="text-neutral-200 flex items-center text-lg font-medium">
               <Check className="w-6 h-6 text-amber-400 mr-4 flex-shrink-0" />
-              100% compliant with Google & Facebook
+              Every customer asked, not just the happy ones
             </p>
             <p className="text-neutral-200 flex items-center text-lg font-medium">
               <Check className="w-6 h-6 text-amber-400 mr-4 flex-shrink-0" />
@@ -631,7 +631,7 @@ const ReviewsLetterPage = () => {
               {[
                 "High-Response Review Requests",
                 "Automated Follow-Up System",
-                "Negative Review Safeguards",
+                "Alerts If a Customer Is Unhappy",
                 "Real-Time Review Alerts",
                 "AI-Powered Review Responses",
                 "Full Dashboard Access",

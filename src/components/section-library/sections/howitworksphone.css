@@ -1,0 +1,16 @@
+/* How it works with the animated phone (HowItWorksPhone.tsx). The phone and the steps use the
+   shared .dd-demo styles in design-directions/directions.css. */
+
+.hiw-posts {
+  margin-top: 16px !important;
+  padding: 16px 20px;
+  border-radius: var(--r-card);
+  border: 1px dashed #57534e;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--on-dark-body);
+}
+
+.hiw-posts strong {
+  color: var(--on-dark);
+}

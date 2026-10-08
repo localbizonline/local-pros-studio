@@ -1,0 +1,127 @@
+/* The join page's "simple" base styles (localpros-join/src/styles/simple.css) in the Local Pros
+   Studio look: Bricolage Grotesque headings, Source Sans 3 body, amber buttons, deep amber labels. */
+
+.jl {
+  font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.jl h2,
+.jl h3,
+.jl .jl-head,
+.jl .display,
+.jl .section-title {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+}
+
+.jl .measure {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.jl .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 15px 26px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.jl .btn-primary {
+  background: #f59e0b;
+  color: #1c1917;
+}
+
+.jl .btn-primary:hover {
+  background: #fbbf24;
+}
+
+.jl .btn-secondary {
+  background: #fff;
+  color: #1c1917;
+  border: 1.5px solid #d6d3d1;
+  padding: 14px 24px;
+  font-weight: 600;
+}
+
+.jl .btn-secondary:hover {
+  border-color: #1c1917;
+}
+
+.jl .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1c1917;
+}
+
+/* Short amber line in front of every section label (Jeremy, 7 Oct 2026) */
+.jl .eyebrow::before {
+  content: '';
+  flex-shrink: 0;
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: #f59e0b;
+}
+
+.jl .display {
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: #1c1917;
+}
+
+.jl .section-title {
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  color: #1c1917;
+}
+
+/* Platform logos set inside the "What we do" heading */
+.jl .jl-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15em;
+  height: 1.15em;
+  margin: 0 0.12em;
+  border-radius: 0.28em;
+  background: #fff;
+  border: 1px solid #e7e5e4;
+  vertical-align: -0.22em;
+}
+
+.jl .jl-icon svg {
+  width: 0.72em;
+  height: 0.72em;
+}
+
+.jl details summary::-webkit-details-marker {
+  display: none;
+}
+
+.jl details[open] .chev {
+  transform: rotate(180deg);
+}
+
+.jl :focus-visible {
+  outline: 3px solid #1c1917;
+  outline-offset: 4px;
+  box-shadow: none;
+}
+

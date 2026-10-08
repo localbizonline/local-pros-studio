@@ -65,7 +65,7 @@ Each section has one job: it answers the next question a buyer has. Use this ord
 - **One headline, one or two sentences, one visual, one button at most.** A section that needs two visuals or six bullets is two sections, or too much.
 - **Headlines state the outcome:** "Turn missed calls into new bookings", never "Features" or "Our solution".
 - **Three or four items at most** in a list or a row of steps.
-- **One button label across the page.** Aeva says "Book A Demo Call" in every section. Ours is "Chat to us on WhatsApp"; a "Try it" button appears only in the hero.
+- **One button label across the page.** Aeva says "Book A Demo Call" in every section. Ours is "WhatsApp us" (8 Oct 2026, replacing "Chat to us on WhatsApp", "Talk to us on WhatsApp" and "Get started"), amber like every primary button; a "Try it" button appears only in the hero.
 - **Vary the layout** so neighbouring sections look different: text beside an image, then centred, then a dark band. Never three card grids in a row.
 - **Leave room.** Generous space between sections (section 4 values) is what makes a page look calm and sure of itself. Never squeeze spacing to fit more in; cut content instead.
 
@@ -74,7 +74,7 @@ Each section has one job: it answers the next question a buyer has. Use this ord
 - **Proof from the same kind of customer beats bigger proof from anyone.** Show name, role, business, town and the result.
 - **Short quotes high up** (one line each), longer stories lower down, with the phrase that matters highlighted.
 - **Every number has its source beside it,** for example "in 6 weeks at one client's business". No source, no number.
-- **Our own result (29 to 789 reviews) shows we use the system ourselves.** Client results still matter more.
+- **Our own result shows we use the system ourselves.** The Local Pros Google profile went from 29 to 789 reviews in its first 18 months and had 1,491 at 4.7 stars on 8 Oct 2026 (say "over 1,400"). The Local Pros Studio profile is a separate, newer listing (11 reviews at 5.0 on 8 Oct 2026, the live feed on the page). Always name which profile a number comes from. Client results still matter more.
 - **Never fill proof with invented clients.** Empty slots stay visibly marked as drafts until real ones arrive.
 
 ### Make the decision quick
@@ -86,7 +86,7 @@ Learned from localpros.co.za/join/reviews-and-social (7 October 2026). Worked ex
 - **Say what we do in two plain sentences,** for example "We'll get you 5-star Google reviews. We'll keep your Facebook and Instagram busy."
 - **Explain why it matters with two reasons:** your customers check you first, and so does Google.
 - **Keep all the proof in one section:** results before and after, real posts made for clients, our own review count.
-- **Put a rating badge on the opening photo,** using real numbers with their source ("789 Google reviews, our own profile").
+- **Put a rating badge on the opening photo,** using real numbers with their source ("1,400+ Google reviews at 4.7 stars, Local Pros profile").
 - **List everything included in the price card,** grouped by service, with what is free and what it is worth.
 - **Close with the offer as a checklist** beside the button, and say what the button does: "Opens WhatsApp. A real person replies."
 - **Aim for about seven sections.** Merge or cut before adding.
@@ -204,11 +204,12 @@ Focus: a visible 3px outline in ink. Hover changes take 0.15s.
 - **Product demo:** dark band, code-built phone looping through the real moment, three steps beside it that light up in time. Best on the /reviews page, where the review request is the whole product (`HowItWorksPhone`).
 - **Services (rows):** one row per service, photo + small label + heading + one or two sentences; the photo side swaps each row on desktop, photo first on a phone. Show several real client sites, not one screenshot (the join page fans out three client sites on phones). Shared component: `ServiceRows`.
 - **Services (cards):** white cards with title, price badge, two sentences, small print and a text link, when prices belong on the page.
-- **Hero with service cards:** big centred statement, three literal service cards (name + one plain line), buttons, wide photo. On a phone the buttons come before the cards so they sit on the first screen. Shared component: `HeroServiceCards`.
+- **Hero with three services:** the search phrase as a small H1 line, then three short literal lines naming what we do ("More Google reviews. Social media posts. A better website.", each service underlined in amber, one line each on a phone), one sentence on how, primary plus secondary button, the price in one line of small print, wide photo. Button and photo both on the first phone screen. Shared component: `HeroThreeServices`.
 - **Your reputation path:** the five steps a customer takes before getting in touch, the three we handle tagged; animated so each step lights up as the visitor scrolls. Shared component: `ReputationStory` (variant `follow`).
 - **Popular with:** about 20 trade labels in soft grey pills, clearly not buttons.
 - **Personal note:** cream background, plain text, signature-style name, one button.
 - **FAQ:** closed accordions with hairline rules.
+- **The proof:** real numbers from SP2 with their source and date, a wall of real client posts (mostly done-for-you, a few from job photos, each labelled with its type and a "See it on Facebook" link), the top 5 client review gains as rows, our own Google numbers and reviews feed, then websites as numbers over one montage picture. Shared component: `ProofSection`; data in `clientProof.ts`.
 - **Closing band:** cream, one headline, one amber button, one line of small print. A closing card (photo plus checklist) is near-black on the cream band.
 
 Until the homepage is rebuilt, these values live in `src/components/design-directions/directions.css` (on `.dd-a`). The first real rebuild moves them into `tailwind.config.js` as named colours (`ink`, `body`, `accent` and so on) and shared components, so pages use names, never hex codes.
@@ -270,3 +271,16 @@ When Jeremy picks an option (a divider, a section style, a button), record it he
 | 7 Oct 2026 | Positioning and page flow learned from aevaai.com apply to every page: five-second test, one page one thing, proof early, one button label | section 2; /review-versions/4 |
 | 7 Oct 2026 | Audience is any trust-based service business with a Google Business Profile and customers on WhatsApp, not only trades | section 1; /review-versions/4 |
 | 7 Oct 2026 | Homepage stays as it is: its copy and images beat six rebuilt versions (three review-led, three full-offer). Code-built mock-ups looked generated and repetitive | section 3, point 5; review-led drafts kept at `/review-versions/1-3` for the /reviews rebuild |
+| 8 Oct 2026 | Join page hero: "More Google reviews. Social media posts. A better website." over the search phrase as a small H1, one sentence on how (including "a new website or refresh the one you have"), price in small print. Picked over nine others: a problem-first headline, short service cards, the search phrase as the only title and three styled longer titles. Service cards in the hero repeated the "What we do" rows | section 4, `HeroThreeServices` |
+| 8 Oct 2026 | One WhatsApp button label, "WhatsApp us", in amber, on every button that opens WhatsApp (header, hero, price card, closing card). Green WhatsApp buttons were considered and held back: a second loud colour beside amber, and the icon already says WhatsApp | section 2 "Section rules"; join page |
+| 8 Oct 2026 | Proof section: one sideways row per service with our live Google reviews (option C), over tabs (hid two thirds of the proof) and a picture wall (5 phone screens). A self-moving row was tried and dropped as distracting; static swipe cues instead. Our count is checked on Google: 1,491 at 4.7 stars | section 4, `ProofSection`; join page |
+| 8 Oct 2026 | Hero services each underlined in amber (not a marker highlight, not two-tone); on a phone each service fits on one line. This is the one exception to "one amber-underlined phrase" | section 4 "Section patterns"; `HeroThreeServices` |
+| 8 Oct 2026 | Closing headline stays "Start growing your business this month.": the hero already says literally what we do, so the close can be general | join page |
+| 8 Oct 2026 | Reputation path ends "They WhatsApp or call the business that looks best.", then "They check your competitors the same way. Make sure you're the one they pick." | `ReputationStory` |
+| 8 Oct 2026 | Services always in the hero's order: reviews, social, website. The website line says "a new website, or refresh the one you have" | `ServiceRows`, `HeroThreeServices` |
+| 8 Oct 2026 | Price card titled "Reviews + social media posts"; the "Only need one?" line adds "a website R9,900 once-off (plus R290 a month for hosting)", checked against the live web design page. New FAQ: "I already have a website. Can you refresh it?" | join page |
+| 8 Oct 2026 | "What we do" and "The proof" stay two separate sections with different jobs (what we do, then that it works). Three merged versions were tried and turned down, even though merging saved about 2 phone screens | join page |
+| 8 Oct 2026 | Price section: "Take the full package, or pick one service". Package card first, then each service on its own with its price and terms (over a "your whole reputation" breakdown and a tick-what-you-need calculator). The website is an optional extra inside the package, free on a 12-month commitment, worth R9,900, for anyone with no website or one that needs a refresh | `Pricing`; join page |
+| 8 Oct 2026 | Proof section uses real SP2 data: totals with their source and date, a wall of 12 client posts (mostly done-for-you: tips, service and public holiday posts; a few from job photos, each labelled), client review results, every client logo. Picked over numbers-and-logos-first and client-story cards. Numbers come from `clientProof.ts`, never typed by hand | `ProofSection`, `clientProof.ts`; join page |
+| 8 Oct 2026 | Proof section trimmed: no logo wall (the post cards already show each logo); reviews as the top 5 client gains in rows (logo, Google mark, number; progress bars tried and dropped), then our own Local Pros row; websites as numbers in text above one montage picture of client sites | `ProofSection`; join page |
+| 8 Oct 2026 | Website montage: a row of five phones in light frames (no black bodies), with smaller, softer rows of more client sites behind, so it reads as lots of websites. Every screen ends cleanly (at a section edge, or faded out), never cut mid-picture. Phones get their own picture with three bigger phones. Example designs are named as examples in the caption | `ProofSection`, `portfolio/websites-montage*.webp` |

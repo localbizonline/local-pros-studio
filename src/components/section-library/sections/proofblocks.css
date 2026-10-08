@@ -1,0 +1,537 @@
+/* Real-data proof parts (ProofBlocks.tsx) inside the proof section (.prf), on the .dd-a tokens. */
+
+.pb-source {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--muted);
+  text-align: center;
+}
+
+.pb-sub {
+  margin: 28px 0 12px;
+  text-align: center;
+}
+
+/* ---------- Numbers ---------- */
+
+.pb-numbers {
+  max-width: 1000px;
+  margin: 0 auto 48px;
+}
+
+.pb-numbers dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  overflow: hidden;
+}
+
+.pb-numbers dl > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 22px 24px;
+}
+
+.pb-numbers dl > div + div {
+  border-left: 1px solid var(--line);
+}
+
+.pb-numbers dd {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.pb-numbers dt {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--body);
+}
+
+/* ---------- Logos ---------- */
+
+
+
+
+
+
+/* ---------- Avatars, result cards and stories ---------- */
+
+.pb-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.pb-avatar img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------- Posts shown like a feed ---------- */
+
+.pb-post {
+  margin: 0;
+  padding: 12px 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.prf-rail .pb-post {
+  width: 268px;
+}
+
+.pb-post-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pb-post .pb-avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.pb-post-type {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--accent-soft);
+}
+
+.pb-post-type.is-ugc {
+  background: #f5f5f4;
+}
+
+.pb-post-img {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-2, #fafaf9);
+  cursor: zoom-in;
+}
+
+.pb-post-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top;
+}
+
+.pb-post-cap {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--body);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pb-post-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.pb-post-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+/* ---------- Phone ---------- */
+
+@media (max-width: 860px) {
+
+  .pb-post-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pb-numbers {
+    margin-bottom: 36px;
+  }
+
+  .pb-numbers dl {
+    grid-template-columns: 1fr;
+  }
+
+  .pb-numbers dl > div {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+  }
+
+  .pb-numbers dl > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .pb-numbers dd {
+    min-width: 2.6em;
+    font-size: 2rem;
+  }
+
+  .pb-numbers dt {
+    font-size: 0.9375rem;
+  }
+
+
+
+
+
+
+
+
+
+  .pb-post-grid .pb-post {
+    padding: 8px 8px 10px;
+  }
+
+  .pb-post-grid .pb-post .pb-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .pb-post-grid .pb-post-who strong {
+    font-size: 0.8125rem;
+  }
+
+  .pb-post-grid .pb-post-who span,
+  .pb-post-grid .pb-post-cap,
+  .pb-post-grid .pb-post-link {
+    display: none;
+  }
+
+  .prf-rail .pb-post {
+    width: 240px;
+  }
+}
+
+/* ---------- Top 5 client review gains ---------- */
+
+.pb-top5 {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.pb-top5 ol {
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.pb-top5 li {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  grid-template-areas:
+    'logo who num'
+    'logo meta meta';
+  column-gap: 14px;
+  row-gap: 4px;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.pb-top5 li + li {
+  border-top: 1px solid var(--line);
+}
+
+.pb-top5-logo {
+  grid-area: logo;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  align-self: start;
+}
+
+.pb-top5-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.pb-top5-who {
+  grid-area: who;
+  min-width: 0;
+}
+
+.pb-top5-who strong {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.pb-top5-who span {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.pb-top5-num {
+  grid-area: num;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.pb-g {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+
+
+.pb-top5-meta {
+  grid-area: meta;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.pb-star {
+  color: #fbbc04;
+}
+
+.pb-own {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  margin-top: 12px;
+  padding: 14px 20px;
+  border-radius: var(--r-frame);
+  background: var(--cream);
+  border: 1px solid var(--line);
+}
+
+.pb-own .pb-top5-logo {
+  align-self: center;
+  padding: 0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pb-own p {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--body);
+}
+
+.pb-own strong {
+  color: var(--ink);
+}
+
+.pb-own .prf-link {
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ---------- Websites: numbers, then the montage ---------- */
+
+.pb-web-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 760px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.pb-web-stats > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+}
+
+.pb-web-stats dd {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.pb-web-stats dt {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--body);
+}
+
+.pb-montage {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  overflow: hidden;
+  background: var(--cream);
+  cursor: zoom-in;
+}
+
+.pb-montage picture,
+.pb-montage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .pb-top5 li {
+    grid-template-columns: 44px 1fr auto;
+    column-gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .pb-top5-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pb-top5-num {
+    font-size: 1.5rem;
+  }
+
+  .pb-own {
+    grid-template-columns: 44px 1fr;
+    padding: 14px 16px;
+  }
+
+  .pb-own .prf-link {
+    grid-column: 2;
+  }
+
+  .pb-web-stats {
+    gap: 10px;
+  }
+
+  .pb-web-stats dt {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Fixes (8 Oct 2026): wider logo tiles so wide logos read; our own row lays out on its own grid;
+   website numbers sit on top of their labels, level with each other */
+.pb-top5 li {
+  grid-template-columns: 76px 1fr auto;
+}
+
+.pb-top5-logo {
+  width: 76px;
+  height: 52px;
+}
+
+.pb-own .pb-top5-logo {
+  grid-area: auto;
+  width: 52px;
+  height: 52px;
+  justify-self: center;
+}
+
+.pb-own {
+  grid-template-columns: 76px 1fr auto;
+}
+
+.pb-web-stats > div {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.pb-web-stats dd {
+  order: -1;
+}
+
+@media (max-width: 767px) {
+  .pb-top5 li {
+    grid-template-columns: 64px 1fr auto;
+  }
+
+  .pb-top5-logo {
+    width: 64px;
+    height: 46px;
+  }
+
+  .pb-own {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .pb-own .pb-top5-logo {
+    width: 46px;
+    height: 46px;
+  }
+}

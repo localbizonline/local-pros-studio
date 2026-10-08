@@ -1,0 +1,91 @@
+/* Hero with three services (HeroThreeServices.tsx), on the .dd-a tokens. Scoped to .hsc. */
+
+.hsc {
+  padding: 80px 0 var(--sec);
+  text-align: center;
+}
+
+.hsc .hsc-kw {
+  margin: 0 auto 22px;
+}
+
+.hsc .hsc-title {
+  max-width: 15em;
+  margin: 0 auto;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5.6vw, 4.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+/* Each line balances on its own, so a phone never leaves one word alone on a line */
+.hsc-line {
+  display: block;
+  text-wrap: balance;
+}
+
+/* Each service underlined in amber, so all three get the same weight */
+.hsc-u {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.12em;
+  text-decoration-skip-ink: none;
+}
+
+.hsc-lede {
+  max-width: 34em;
+  margin: 22px auto 0;
+  font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--body);
+  text-wrap: pretty;
+}
+
+.hsc .hsc-actions {
+  justify-content: center;
+}
+
+.hsc-small {
+  margin: 14px auto 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.hsc-media {
+  max-width: 1040px;
+  margin: 48px auto 0;
+}
+
+.hsc-media img {
+  width: 100%;
+  border-radius: var(--r-frame);
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+@media (max-width: 767px) {
+  .hsc {
+    padding-top: 56px;
+  }
+
+  /* Each service fits on one line on a phone: three lines, one per service */
+  .hsc .hsc-title {
+    font-size: 8.4vw;
+  }
+
+  .hsc-lede {
+    margin-top: 16px;
+    font-size: 1.0625rem;
+  }
+
+  .hsc .hsc-actions {
+    margin-top: 28px;
+  }
+
+  .hsc-media {
+    margin-top: 32px;
+  }
+}
