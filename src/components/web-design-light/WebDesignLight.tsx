@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Check, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import '../design-directions/directions.css';
 import './webdesignlight.css';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
@@ -9,11 +9,12 @@ import SiteFooter from '../section-library/sections/SiteFooter';
 import FitCheck from '../section-library/sections/FitCheck';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import SiteChat from '../demo-popup/DemoPopup';
-import { openSiteChat } from '../demo-popup/openSiteChat';
-import petportPhone from '../../assets/images/portfolio/petport-mobile.webp';
-import pavingPhone from '../../assets/images/portfolio/pavingpros-mobile.webp';
-import winelandsPhone from '../../assets/images/portfolio/winelandsgas-mobile.webp';
-import montage from '../../assets/images/portfolio/websites-montage-mobile.webp';
+import RecentWork from './RecentWork';
+import ClientReviews, { GoogleG, GOOGLE_REVIEWS_URL } from './ClientReviews';
+import PriceThreeWays from './PriceThreeWays';
+import FreeDemoBand from './FreeDemoBand';
+// Closing picture: three sites up front with more behind, from design/web-montage (rows layout, 8 Oct 2026)
+import montage from '../../assets/images/portfolio/web-closing-montage.webp';
 // Montage of client sites and example designs, built from design/web-montage (8 Oct 2026)
 import heroWide from '../../assets/images/portfolio/web-hero-wide.webp';
 import heroPhone from '../../assets/images/portfolio/web-hero-phone.webp';
@@ -25,28 +26,17 @@ import ownerCall from './img/owner-short-call.webp';
 // Website design page in the light look (8 Oct 2026), replacing the dark /website-design Google Ads
 // page. Built from the page flow in DESIGN-SYSTEM.md section 2 and the shared sections, with the copy
 // and photos of the 7 Oct draft Jeremy liked: for established businesses and teams, headline "A website
-// that turns Google searches into new customers", proof led by PETport, Paving Pros and Winelands Gas.
+// that turns Google searches into new customers" (changed on 8 Oct to "A new website for your business, live in
+// about 7 days"), proof led by PETport, Paving Pros and Winelands Gas.
 // Prices and terms are the live page's (confirmed by Jeremy on 1 Oct 2026).
 // Ad page: no site menu, so ad visitors stay here. The site chat opens once per visit with the free demo.
 
 const HERO_ALT =
-  'Websites we built on phones, for many kinds of business: gas installers, paving, fencing, pet transport, a nail studio, accountants, a vet clinic, attorneys, a driving school and more';
+  'Websites we built on phones, each for a different business: paving, gas, pet transport, fencing, a vet clinic, attorneys, a driving school, plumbers, an estate agent, a guest house, pool cleaning, dog grooming, tutoring, a panel beater and more';
 
 // Same analytics event and labels as the old page (wd_ads_*, wd_site_*), so clicks can still be compared week on week
 const trackClick = (prefix: string, label: string) =>
   window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: `${prefix}_${label}`, value: 1 });
-
-// Our own Google profile, for the rating line under the buttons (DESIGN-SYSTEM.md section 2: checked 8 Oct 2026)
-const GOOGLE_REVIEWS_URL = 'https://www.google.com/search?q=local+pros#lrd=0x1efa235edd61726f:0x2d27a3ca84715414,1,,,,';
-
-const GoogleG = () => (
-  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z" />
-    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z" />
-    <path fill="#FBBC05" d="M5.84 14.09A6.6 6.6 0 0 1 5.5 12c0-.73.13-1.43.34-2.09V7.07H2.18A11 11 0 0 0 1 12c0 1.78.43 3.45 1.18 4.93l3.66-2.84Z" />
-    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A10.96 10.96 0 0 0 12 1 11 11 0 0 0 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38Z" />
-  </svg>
-);
 
 const WhatsAppIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -56,37 +46,6 @@ const WhatsAppIcon = () => (
     />
   </svg>
 );
-
-// Bigger clients first, so the page does not read as one-person businesses only (7 Oct draft)
-const WORK = [
-  {
-    name: 'PETport',
-    href: 'https://www.petport.co.za/',
-    domain: 'petport.co.za',
-    type: 'Pet transport, local and international',
-    area: 'Offices in four cities',
-    line: 'A separate path for local moves, export consults and crate fittings, with an online estimate tool.',
-    img: petportPhone,
-  },
-  {
-    name: 'Paving Pros',
-    href: 'https://www.pavingpros.co.za/',
-    domain: 'pavingpros.co.za',
-    type: 'Paving',
-    area: 'Johannesburg, Pretoria, Durban and Cape Town',
-    line: 'One brand in four cities: a page for each service and each city, with a quote button on every screen.',
-    img: pavingPhone,
-  },
-  {
-    name: 'Winelands Gas',
-    href: 'https://www.winelandsgas.co.za/',
-    domain: 'winelandsgas.co.za',
-    type: 'Gas for homes and businesses',
-    area: 'Western Cape',
-    line: 'Homes and businesses each get their own pages, with call and WhatsApp buttons always in reach.',
-    img: winelandsPhone,
-  },
-];
 
 // What every website does, beside a photo instead of an icon grid
 const OUTCOMES = [
@@ -134,16 +93,6 @@ const NOT_A_FIT = [
   'You need an online shop with a product catalogue and checkout',
   'You want to design every page yourself',
   'You need a website live tomorrow',
-];
-
-const INCLUDED = [
-  'Up to 10 pages for your services and areas',
-  'The wording and photos, done for you',
-  'Designed for phones first, then computers',
-  'WhatsApp, call and quote buttons on every page',
-  'Set up for Google: a page per service, titles and descriptions',
-  'Domain, hosting, security and backups',
-  '1 hour of changes every month',
 ];
 
 const FAQ = [
@@ -246,7 +195,7 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           <div className="dd-container">
             <h1 className="dd-kw">Website design for South African businesses</h1>
             <p className="dd-display wdl-display">
-              A website that turns Google searches into <span className="wdl-u">new customers</span>
+              A new website for your business, <span className="wdl-u">live in about 7 days</span>
             </p>
             <p className="dd-lede">
               We write, build and look after websites for South African businesses. Your customers look you up on their phone first,
@@ -261,7 +210,7 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
                 See what it costs
               </a>
             </div>
-            <p className="dd-hero-note">R9,900 once-off, or R450 a month. Live in about 7 days.</p>
+            <p className="dd-hero-note">R9,900 once-off, or R450 a month. A real person replies.</p>
             <a
               href={GOOGLE_REVIEWS_URL}
               target="_blank"
@@ -288,44 +237,9 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           </div>
         </section>
 
-        {/* PROOF, EARLY: real client sites, bigger businesses first */}
-        <section className="dd-sec wdl-work" id="work">
-          <div className="dd-container">
-            <div className="dd-head">
-              <p className="dd-eyebrow">Websites we've built</p>
-              <h2 className="dd-h2">Real websites for South African businesses</h2>
-              <p className="dd-sub">
-                More than 500 since 2015, from one-person businesses to companies with offices in several cities. Every one here is live.
-              </p>
-            </div>
-            <ul className="wdl-work-list">
-              {WORK.map((w) => (
-                <li key={w.name} className="wdl-work-card">
-                  <a href={w.href} target="_blank" rel="noopener noreferrer" className="wdl-work-shot" onClick={() => track(`work_${w.domain}`)}>
-                    <img src={w.img} alt={`The ${w.name} website on a phone`} width={585} height={1266} loading="lazy" />
-                  </a>
-                  <div className="wdl-work-body">
-                    <p className="wdl-work-meta">{w.type}</p>
-                    <h3 className="dd-h3">{w.name}</h3>
-                    <p className="wdl-work-area">{w.area}</p>
-                    <p className="wdl-work-line">{w.line}</p>
-                    <a href={w.href} target="_blank" rel="noopener noreferrer" className="dd-link wdl-work-link" onClick={() => track(`work_${w.domain}`)}>
-                      Visit {w.name}
-                      <ArrowUpRight size={16} aria-hidden="true" />
-                    </a>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <figure className="wdl-result">
-              <blockquote>
-                A Cape Town gas installation client landed an <span className="wdl-u">R2 million installation job</span> through the online
-                presence we built and manage for them.
-              </blockquote>
-              <figcaption>One client's result. That one job paid for everything many times over.</figcaption>
-            </figure>
-          </div>
-        </section>
+        {/* PROOF, EARLY: recent work, one row per client site, then our Google reviews (both from the old page, 8 Oct 2026) */}
+        <RecentWork onVisit={(d) => track(`work_${d}`)} />
+        <ClientReviews onGoogle={() => track('reviews_google')} />
 
         {/* WHAT EVERY WEBSITE DOES: the dark band, a real-looking moment instead of an icon grid */}
         <section className="dd-sec dd-demo wdl-get">
@@ -374,16 +288,6 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
                   </li>
                 ))}
               </ol>
-              <button
-                type="button"
-                className="dd-link wdl-demo-link"
-                onClick={() => {
-                  track('how_demo');
-                  openSiteChat();
-                }}
-              >
-                Get my free demo
-              </button>
             </div>
             <div className="wdl-split-media">
               <img
@@ -397,6 +301,10 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           </div>
         </section>
 
+        {/* FREE DEMO: a Google search box that opens the chat, with the ReachMax-style pointer (version C, 8 Oct 2026; after How it works,
+            whose first step is the demo) */}
+        <FreeDemoBand variant="c" onOpen={() => track('demo_band')} />
+
         {/* FIT: who it suits and who it does not, in the shared fit section */}
         <FitCheck
           title="Is a new website right for you?"
@@ -405,71 +313,8 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           notAFit={NOT_A_FIT}
         />
 
-        {/* PRICE: the website card, then the package as the other way to get it */}
-        <section id="pricing" className="dd-sec wdl-price">
-          <div className="dd-container">
-            <div className="dd-head">
-              <p className="dd-eyebrow">What it costs</p>
-              <h2 className="dd-h2">Pay once, or spread it monthly</h2>
-              <p className="dd-sub">Every website is written, designed and built for you, with hosting and support included.</p>
-            </div>
-            <div className="wdl-price-grid">
-              <div className="wdl-card is-main">
-                <h3 className="wdl-card-name">Your new website</h3>
-                <p className="wdl-price-big">
-                  <strong>R9,900</strong> <span>once-off</span>
-                </p>
-                <p className="wdl-price-after">Plus R290 a month for hosting and support. Yours from day one.</p>
-                <p className="wdl-price-or">
-                  <strong>Or rent to own:</strong> R450 a month for 24 months, hosting included. Then it is yours.
-                </p>
-                <ul className="wdl-ticks">
-                  {INCLUDED.map((t) => (
-                    <li key={t}>
-                      <Check size={18} strokeWidth={2.5} aria-hidden="true" />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  type="button"
-                  className="dd-btn dd-btn-primary wdl-card-btn"
-                  onClick={() => {
-                    track('price_website');
-                    openSiteChat('website');
-                  }}
-                >
-                  Start now
-                </button>
-                <p className="wdl-terms">Live in 5 to 7 working days. A real person replies on WhatsApp.</p>
-              </div>
-              <div className="wdl-card">
-                <p className="wdl-card-tag">Or free with the package</p>
-                <h3 className="wdl-card-name">Google reviews + social media posts</h3>
-                <p className="wdl-price-big is-small">
-                  <strong>R2,500</strong> <span>a month</span>
-                </p>
-                <p className="wdl-card-line">
-                  We collect your Google reviews and make your Facebook and Instagram posts for you. On a 12-month commitment we build your
-                  website at no extra cost (worth R9,900), and after 12 months it is yours.
-                </p>
-                <button
-                  type="button"
-                  className="dd-btn dd-btn-secondary wdl-card-btn"
-                  onClick={() => {
-                    track('price_package');
-                    openSiteChat('package');
-                  }}
-                >
-                  Start with the package
-                </button>
-              </div>
-            </div>
-            <p className="wdl-price-more">
-              <strong>Need more than 10 pages or online bookings?</strong> Tell us what you need and we will quote it.
-            </p>
-          </div>
-        </section>
+        {/* PRICE: three ways to pay, from the old page (Jeremy liked it, 8 Oct 2026) */}
+        <PriceThreeWays onStart={(k) => track(`price_${k}`)} />
 
         {/* FAQ: the objections, each answered in its first sentence */}
         <section className="dd-sec" id="faq">
@@ -493,7 +338,7 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           photo={montage}
           photoAlt="Websites we built for South African businesses, shown on phones"
           photoFit="contain"
-          photoSize={[1080, 820]}
+          photoSize={[1080, 1000]}
           href={WA_URL}
           onClick={() => track('final_whatsapp')}
         />

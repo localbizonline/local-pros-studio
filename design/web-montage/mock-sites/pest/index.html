@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marula Pest Control, Polokwane</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Saira+Stencil+One&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --khaki:#ECE5D1; --khaki-2:#E1D8BF; --ink:#1D2215; --olive:#3E4A25; --soft:#585C4C; --red:#C2361F; --red-dk:#9B2914; --cream:#FAF7EE; --line:#CFC5A8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--khaki);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  .blk{font-family:"Archivo Black",system-ui,sans-serif;font-weight:400}
+
+  header{border-bottom:2px solid var(--ink)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:80px;gap:24px}
+  .mark{display:flex;align-items:center;gap:12px}
+  .seal{width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--khaki);display:grid;place-items:center;flex:none}
+  .seal svg{width:26px;height:26px}
+  .mark b{display:block;font-family:"Archivo Black",sans-serif;font-weight:400;font-size:23px;line-height:1;letter-spacing:-.01em;text-transform:uppercase}
+  .mark small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-top:4px}
+  nav{display:flex;gap:28px;font-size:15px;font-weight:600}
+  .head-right{display:flex;align-items:center;gap:18px}
+  .phone{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px}
+  .phone svg{width:18px;height:18px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--red);color:#fff;border-radius:4px;padding:17px 28px;font-size:16.5px;font-weight:700;white-space:nowrap;text-transform:uppercase;letter-spacing:.03em}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:10px 16px;font-size:13.5px;background:var(--ink)}
+
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-top:56px;padding-bottom:64px}
+  h1{font-family:"Saira Stencil One",sans-serif;font-weight:400;font-size:clamp(48px,5.6vw,84px);line-height:.98;letter-spacing:0;text-transform:uppercase}
+  h1 span{color:var(--red)}
+  .pests{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .pests li{list-style:none;border:2px solid var(--ink);border-radius:999px;padding:5px 14px;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .sub{margin-top:20px;font-size:19px;color:var(--soft);max-width:28em}
+  .actions{margin-top:28px}
+  .rating{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:15.5px;color:var(--soft)}
+  .stars{display:flex;gap:2px;color:#D6901C}
+  .stars svg{width:18px;height:18px}
+  .rating strong{color:var(--ink)}
+  .hero-photo{position:relative}
+  .hero-photo img{width:100%;aspect-ratio:4/4.3;object-fit:cover;object-position:42% 50%;border:2px solid var(--ink);border-radius:6px}
+  .stripe{position:absolute;left:-14px;right:-14px;bottom:36px;height:44px;background:repeating-linear-gradient(-45deg,var(--red) 0 18px,var(--cream) 18px 36px);border:2px solid var(--ink);transform:rotate(-3deg)}
+  .stamp{position:absolute;right:-18px;top:-22px;width:128px;height:128px;border-radius:50%;background:var(--ink);color:var(--khaki);display:grid;place-items:center;text-align:center;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;line-height:1.15;transform:rotate(10deg);border:4px double var(--khaki)}
+  .stamp b{display:block;font-family:"Archivo Black",sans-serif;font-weight:400;font-size:34px;letter-spacing:0;color:#F2C14E}
+
+  .services{background:var(--ink);color:#E8E3D2;padding:88px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:40px}
+  h2{font-family:"Saira Stencil One",sans-serif;font-weight:400;font-size:clamp(32px,3.6vw,50px);line-height:1;text-transform:uppercase;letter-spacing:-.01em}
+  .services h2{color:#fff}
+  .sec-head p{color:#B9B6A6;max-width:28em}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .tile{position:relative;border-radius:6px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end}
+  .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,18,10,0) 30%,rgba(15,18,10,.9) 100%)}
+  .tile .body{position:relative;z-index:1;padding:22px;width:100%}
+  .tile h3{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:24px;text-transform:uppercase;line-height:1.05;color:#fff}
+  .tile p{font-size:15px;color:#D2CDBA;margin-top:4px}
+  .tile .price{position:absolute;z-index:1;top:16px;right:16px;background:#F2C14E;color:var(--ink);font-weight:700;font-size:15px;padding:6px 12px;border-radius:4px}
+
+  .reviews{padding:88px 0}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+  .quote{background:var(--cream);border:2px solid var(--ink);border-radius:6px;padding:26px;box-shadow:6px 6px 0 var(--ink)}
+  .quote p{font-size:17.5px;margin:12px 0 14px}
+  .who{font-size:14px;color:var(--soft)}
+  .who b{color:var(--ink)}
+
+  .band{background:var(--red);color:#fff;padding:72px 0 30px}
+  .band-grid{display:flex;justify-content:space-between;align-items:center;gap:40px}
+  .band h2{max-width:13em}
+  .band .btn{background:var(--ink)}
+  .fine{margin-top:56px;padding-top:20px;border-top:1px solid rgba(255,255,255,.3);display:flex;justify-content:space-between;font-size:13.5px;color:#F8D9D2}
+
+  @media (max-width:1100px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 18px}
+    .bar{height:66px}
+    .seal{width:38px;height:38px}
+    .seal svg{width:22px;height:22px}
+    .mark b{font-size:19px}
+    .mark small{font-size:9.5px;letter-spacing:.16em}
+    .phone span{display:none}
+    .phone{width:40px;height:40px;border:2px solid var(--ink);border-radius:4px;justify-content:center}
+    .head-right{gap:8px}
+    .btn-sm{padding:9px 12px;font-size:12.5px;gap:6px}
+    .btn-sm svg{width:16px;height:16px}
+    .hero{grid-template-columns:1fr;gap:0;padding-top:24px;padding-bottom:48px}
+    h1{font-size:47px;line-height:.98}
+    .pests{margin-top:14px;gap:6px}
+    .pests li{font-size:11.5px;padding:3px 10px}
+    .hero-photo{order:2;margin-top:22px}
+    .hero-text{display:contents}
+    .hero-photo img{aspect-ratio:16/10}
+    .stripe{height:28px;bottom:18px;left:-8px;right:-8px}
+    .stamp{width:92px;height:92px;font-size:9.5px;right:-6px;top:-18px}
+    .stamp b{font-size:24px}
+    .sub,.actions,.rating{order:3}
+    .sub{font-size:16px;margin-top:16px}
+    .actions{margin-top:16px}
+    .actions .btn{width:100%;padding:16px 18px;font-size:15px}
+    .rating{margin-top:14px;font-size:14.5px}
+    .services{padding:56px 0}
+    .sec-head{flex-direction:column;align-items:start;gap:10px;margin-bottom:24px}
+    .sec-head p{font-size:15px}
+    .tiles{grid-template-columns:1fr;gap:18px}
+    .tile{min-height:258px}
+    .tile h3{font-size:21px}
+    .reviews{padding:56px 0}
+    .quotes{grid-template-columns:1fr;gap:18px;margin-top:24px}
+    .band{padding:56px 0 26px}
+    .band-grid{flex-direction:column;align-items:start;gap:22px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6l-8-3Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="seal"><svg><use href="#shield"/></svg></span><span><b>Marula</b><small>Pest Control</small></span></a>
+    <nav><a href="#treatments">Treatments</a><a href="#reviews">Reviews</a><a href="#contact">Areas</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#"><svg><use href="#phone"/></svg><span>010 000 0000</span></a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div class="hero-text">
+      <h1>Pest control in <span>Polokwane</span></h1>
+      <ul class="pests"><li>Cockroaches</li><li>Ants</li><li>Termites</li><li>Rats</li><li>Bedbugs</li></ul>
+      <p class="sub">Homes, flats and restaurants treated with registered products. A 90-day guarantee in writing on every job.</p>
+      <div class="actions"><a class="btn" href="#"><svg><use href="#wa"/></svg>Book on WhatsApp</a></div>
+      <div class="rating">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <span><strong>4.7 on Google</strong> · 180+ reviews</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/hero.jpg" alt="Technician spraying along a passage skirting board">
+      <div class="stripe"></div>
+      <div class="stamp"><span><b>90</b>day<br>guarantee</span></div>
+    </div>
+  </section>
+
+  <section class="services" id="treatments">
+    <div class="wrap">
+      <div class="sec-head"><h2>Treatments and prices</h2><p>Prices are for a three-bedroom house. Flats are less, businesses are quoted after a free inspection.</p></div>
+      <div class="tiles">
+        <article class="tile"><img src="images/kitchen.jpg" alt="Gel bait applied inside a kitchen cupboard"><span class="price">R850</span><div class="body"><h3>Cockroaches and ants</h3><p>Gel and spray, whole house</p></div></article>
+        <article class="tile"><img src="images/termite.jpg" alt="Termite damage on a roof beam"><span class="price">R650</span><div class="body"><h3>Termite inspection</h3><p>Roof, walls and garden, with a report</p></div></article>
+        <article class="tile"><img src="images/rodent.jpg" alt="Bait station against an outside wall"><span class="price">from R720</span><div class="body"><h3>Rats and mice</h3><p>Lockable bait stations, safe for pets</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <h2>What Polokwane says</h2>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Two weeks later and not one cockroach. They explained what was safe for the kids and the dog.</p><div class="who"><b>Refilwe M.</b> · Bendor</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Found termites in our roof before they did real damage. Clear report with photos.</p><div class="who"><b>Danie K.</b> · Fauna Park</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>We use them every quarter for the restaurant. Always on time, always the paperwork.</p><div class="who"><b>Lerato S.</b> · Polokwane CBD</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band" id="contact">
+  <div class="wrap">
+    <div class="band-grid">
+      <h2>Seen something crawling? Send us a photo.</h2>
+      <a class="btn" href="#"><svg><use href="#wa"/></svg>Book on WhatsApp</a>
+    </div>
+    <div class="fine"><span>© 2026 Marula Pest Control · 010 000 0000</span><span>Polokwane, Seshego, Mankweng and Westenburg</span></div>
+  </div>
+</footer>
+</body>
+</html>

@@ -106,107 +106,6 @@
   color: var(--ink);
 }
 
-/* ---------- Proof: client websites ---------- */
-
-.wdl-work {
-  background: #f5f5f4;
-}
-
-.wdl-work-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.wdl-work-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--r-frame);
-  background: #fff;
-  border: 1px solid var(--line);
-  overflow: hidden;
-  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
-}
-
-/* The phone screen sits in a light frame on a warm panel, cut off cleanly at the bottom */
-.wdl-work-shot {
-  display: block;
-  height: 340px;
-  padding: 28px 0 0;
-  overflow: hidden;
-  background: var(--cream);
-  border-bottom: 1px solid var(--line);
-}
-
-.wdl-work-shot img {
-  width: 200px;
-  margin: 0 auto;
-  border: 6px solid #fff;
-  border-bottom: 0;
-  border-radius: 26px 26px 0 0;
-  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
-}
-
-.wdl-work-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 24px 24px 12px;
-}
-
-.wdl-work-meta {
-  margin-bottom: 6px !important;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.wdl-work-area {
-  margin-top: 2px !important;
-  font-size: 0.9375rem;
-  color: var(--muted);
-}
-
-.wdl-work-line {
-  margin-top: 12px !important;
-  font-size: 1.0625rem;
-  line-height: 1.55;
-}
-
-.wdl-work-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: auto;
-  padding-top: 14px;
-  align-self: flex-start;
-}
-
-.wdl-result {
-  max-width: 820px;
-  margin: 48px auto 0;
-  text-align: center;
-}
-
-.wdl-result blockquote {
-  margin: 0;
-  font-family: var(--font-head);
-  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.3;
-  color: var(--ink);
-  text-wrap: balance;
-}
-
-.wdl-result figcaption {
-  margin-top: 12px;
-  font-size: 0.9375rem;
-  color: var(--muted);
-}
-
 /* ---------- Text beside one photo (dark band and how it works) ---------- */
 
 .wdl-split {
@@ -280,15 +179,6 @@
   border: 1.5px solid var(--line-strong);
 }
 
-.wdl-demo-link {
-  margin-top: 24px;
-  margin-left: 56px;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
 
 /* ---------- Price ---------- */
 
@@ -297,134 +187,9 @@
   scroll-margin-top: 72px;
 }
 
-.wdl .dd-sec.wdl-price {
+.wdl .dd-sec.wdl-price,
+.wdl .dd-sec.cr {
   border-top: 0;
-}
-
-.wdl-price-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
-  align-items: start;
-}
-
-.wdl-card {
-  padding: 32px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-frame);
-  background: #fff;
-  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
-}
-
-.wdl-card.is-main {
-  border: 2px solid var(--ink);
-}
-
-.wdl-card-tag {
-  display: inline-block;
-  margin-bottom: 14px !important;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-
-.wdl .wdl-card-name {
-  font-family: var(--font-head);
-  font-size: 1.625rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: var(--ink);
-}
-
-.wdl-price-big {
-  margin-top: 14px !important;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 8px;
-  color: var(--ink);
-}
-
-.wdl-price-big strong {
-  font-family: var(--font-head);
-  font-size: clamp(2.75rem, 5vw, 3.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.wdl-price-big.is-small strong {
-  font-size: 2.25rem;
-}
-
-.wdl-price-big span {
-  font-size: 1.125rem;
-  color: var(--muted);
-}
-
-.wdl-price-after {
-  margin-top: 10px !important;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.wdl-price-or {
-  margin-top: 16px !important;
-  padding: 14px 16px;
-  border-radius: var(--r-card);
-  background: var(--surface-2);
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.wdl-price-or strong {
-  color: var(--ink);
-}
-
-.wdl-ticks {
-  display: grid;
-  gap: 10px;
-  margin-top: 22px !important;
-}
-
-.wdl-ticks li {
-  display: flex;
-  gap: 10px;
-  font-size: 1rem;
-  line-height: 1.45;
-}
-
-.wdl-ticks svg {
-  flex: none;
-  margin-top: 2px;
-  color: var(--ink);
-}
-
-.wdl-card-line {
-  margin-top: 14px !important;
-  font-size: 1.0625rem;
-  line-height: 1.55;
-}
-
-.wdl-card-btn {
-  width: 100%;
-  margin-top: 24px;
-}
-
-.wdl-terms {
-  margin-top: 10px !important;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--muted);
 }
 
 .wdl-price-more {
@@ -443,43 +208,9 @@
 /* ---------- Tablet and phone ---------- */
 
 @media (max-width: 1023px) {
-  .wdl-work-list {
-    grid-template-columns: 1fr;
-    max-width: 640px;
-    margin: 0 auto;
-  }
-
-  /* Each client becomes a row: phone screen on the left, words on the right */
-  .wdl-work-card {
-    flex-direction: row;
-  }
-
-  .wdl-work-shot {
-    flex: none;
-    width: 38%;
-    max-width: 200px;
-    height: auto;
-    padding: 18px 14px 0;
-    border-bottom: 0;
-    border-right: 1px solid var(--line);
-  }
-
-  .wdl-work-shot img {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    object-position: top;
-    border-width: 4px;
-    border-radius: 18px 18px 0 0;
-  }
-
-  .wdl-work-body {
-    padding: 18px 18px 8px;
-  }
 
   .wdl-split,
-  .wdl-split.is-flipped,
-  .wdl-price-grid {
+  .wdl-split.is-flipped {
     grid-template-columns: 1fr;
     gap: 40px;
   }
@@ -515,23 +246,838 @@
     font-size: 1.125rem;
   }
 
-  .wdl-work-line {
-    font-size: 1rem;
-  }
-
-  .wdl-work-area {
-    font-size: 0.875rem;
-  }
-
-  .wdl-result {
-    margin-top: 36px;
-  }
-
   .wdl-how .wdl-split-media img {
     aspect-ratio: 4 / 3;
   }
+}
 
-  .wdl-card {
-    padding: 24px;
+/* ---------- Recent work (RecentWork.tsx): one row per client, from the old page ---------- */
+
+.rw {
+  background: #f5f5f4;
+}
+
+.rw-list {
+  display: grid;
+  gap: 96px;
+}
+
+.rw-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.rw-row:nth-child(even) .rw-screens {
+  order: 2;
+}
+
+/* The site on a computer, with the phone version in front at the bottom right */
+.rw-screens {
+  position: relative;
+  padding: 0 44px 40px 0;
+}
+
+.rw-desk {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+.rw-bar {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--muted);
+}
+
+.rw-desk-view {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.rw-desk-view img {
+  position: absolute;
+  inset: 0 0 auto 0;
+  width: 100%;
+  height: auto;
+}
+
+/* Scrolls once through the client's homepage and back, slowly (the old page's site-pan) */
+.rw-desk-view img.is-panning {
+  animation: rw-pan 26s ease-in-out infinite;
+}
+
+@keyframes rw-pan {
+  0%, 12% { transform: translateY(0); }
+  48%, 62% { transform: translateY(-79%); }
+  98%, 100% { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rw-desk-view img.is-panning {
+    animation: none;
+  }
+}
+
+.rw-phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 28%;
+  padding: 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 18px 40px -20px rgba(28, 25, 23, 0.5);
+}
+
+.rw-phone img {
+  width: 100%;
+  border-radius: 17px;
+}
+
+.rw-industry {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.wdl .rw-name {
+  margin-top: 8px;
+  font-family: var(--font-head);
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.rw-area {
+  margin-top: 4px !important;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.rw-headline {
+  margin-top: 18px !important;
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.rw-text {
+  margin-top: 10px !important;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.rw-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px !important;
+}
+
+.rw-tags li {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.rw-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.rw-result {
+  max-width: 820px;
+  margin: 96px auto 0;
+  padding: 40px 32px;
+  border-radius: var(--r-frame);
+  background: #fff;
+  border: 2px solid var(--accent);
+  text-align: center;
+}
+
+.rw-result-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.rw-result blockquote {
+  margin: 14px 0 0;
+  font-family: var(--font-head);
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.rw-result figcaption {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+/* ---------- Our reviews (ClientReviews.tsx), from the old page ---------- */
+
+.cr-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.cr-head .dd-h2 {
+  margin-top: 14px !important;
+}
+
+.cr-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.cr-badge > span {
+  display: grid;
+  gap: 2px;
+}
+
+.cr-badge strong {
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.cr-badge small {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.cr-stars {
+  color: var(--accent);
+  letter-spacing: 2px;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.cr-feed-note {
+  margin-bottom: 24px !important;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.cr-grid {
+  columns: 3;
+  column-gap: 20px;
+}
+
+.cr-card {
+  break-inside: avoid;
+  margin: 0 0 20px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.cr-card.is-loading {
+  height: 180px;
+  background: var(--surface-2);
+}
+
+.cr-card-top {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.cr-avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-family: var(--font-head);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.cr-card figcaption {
+  display: grid;
+  line-height: 1.3;
+}
+
+.cr-card figcaption strong {
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.cr-card figcaption small {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.cr-card blockquote {
+  margin: 10px 0 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+.cr-more {
+  margin-top: 8px !important;
+  text-align: center;
+}
+
+.cr-more .dd-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---------- Price: three ways to pay (PriceThreeWays.tsx), from the old page ---------- */
+
+.p3-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.p3-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.p3-card.is-featured {
+  border: 2px solid var(--ink);
+}
+
+.p3-tag {
+  position: absolute;
+  top: -13px;
+  left: 28px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.p3-card.is-featured .p3-tag {
+  background: var(--accent);
+}
+
+.wdl .p3-name {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--body);
+}
+
+.p3-price {
+  margin-top: 12px !important;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  color: var(--ink);
+}
+
+.p3-price strong {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.p3-price span {
+  font-size: 1.0625rem;
+  color: var(--muted);
+}
+
+.p3-terms {
+  margin-top: 8px !important;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.p3-summary {
+  margin-top: 12px !important;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.p3-points {
+  display: grid;
+  gap: 10px;
+  flex: 1;
+  margin-top: 18px !important;
+}
+
+.p3-points li,
+.p3-included li {
+  display: flex;
+  gap: 10px;
+  font-size: 0.9875rem;
+  line-height: 1.45;
+}
+
+.p3-points svg,
+.p3-included svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--ink);
+}
+
+.p3-btn {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.p3-included {
+  margin-top: 24px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+}
+
+.p3-included-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 20px;
+  margin-bottom: 18px;
+}
+
+.wdl .p3-included-head h3 {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.p3-included-head p {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.p3-included ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px 24px;
+}
+
+@media (max-width: 1023px) {
+  .rw-row {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .rw-row:nth-child(even) .rw-screens {
+    order: 0;
+  }
+
+  .rw-list {
+    gap: 72px;
+  }
+
+  .cr-grid {
+    columns: 2;
+  }
+
+  .p3-grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin: 0 auto;
+    gap: 28px;
+  }
+
+  /* The easiest start first on a phone */
+  .p3-card.is-featured {
+    order: -1;
+  }
+
+  .p3-included {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .p3-included ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .rw-list {
+    gap: 56px;
+  }
+
+  .rw-screens {
+    padding: 0 28px 28px 0;
+  }
+
+  .rw-phone {
+    width: 30%;
+    padding: 3px;
+    border-radius: 14px;
+  }
+
+  .rw-phone img {
+    border-radius: 11px;
+  }
+
+  .rw-result {
+    margin-top: 64px;
+    padding: 28px 20px;
+  }
+
+  .cr-grid {
+    columns: 1;
+  }
+
+  /* Four reviews on a phone; the link reads the rest on Google */
+  .cr-card:nth-child(n + 5) {
+    display: none;
+  }
+
+  .cr-badge {
+    width: 100%;
+  }
+
+  .p3-card {
+    padding: 28px 22px 22px;
+  }
+
+  .p3-included {
+    padding: 22px;
+  }
+
+  .p3-included ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Free demo band (FreeDemoBand.tsx): three versions, 8 Oct 2026 ---------- */
+
+.fd {
+  background: #f5f5f4;
+}
+
+.fd-head {
+  margin-bottom: 32px;
+}
+
+.wdl .fd .dd-h2 {
+  text-wrap: balance;
+}
+
+.fd-center {
+  text-align: center;
+}
+
+.fd-btn {
+  min-width: 260px;
+}
+
+.fd-small {
+  margin-top: 12px !important;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* b: words beside the WhatsApp message */
+.fd-b-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 420px);
+  gap: 64px;
+  align-items: center;
+  max-width: 1000px;
+}
+
+.wdl .fd-title {
+  margin-top: 14px !important;
+  max-width: 12em;
+}
+
+.fd-steps {
+  display: grid;
+  gap: 14px;
+  margin: 28px 0 32px !important;
+}
+
+.fd-steps li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.fd-steps span {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid var(--line-strong);
+  font-family: var(--font-head);
+  font-weight: 800;
+}
+
+.fd-b .fd-small {
+  text-align: left;
+}
+
+/* WhatsApp's own colours inside the mock-up only (DESIGN-SYSTEM.md section 4) */
+.fd-wa {
+  padding: 18px 16px;
+  border-radius: 24px;
+  background: #efeae2;
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: #111b21;
+}
+
+.fd-wa-day {
+  width: max-content;
+  margin: 0 auto 12px !important;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.75rem;
+  color: #54656f;
+}
+
+.fd-wa-in {
+  position: relative;
+  max-width: 88%;
+  padding: 8px 10px 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.fd-wa-in {
+  background: #fff;
+}
+
+.fd-wa-in > p + * ,
+.fd-wa-card + p {
+  margin-top: 8px !important;
+}
+
+.fd-wa time {
+  position: absolute;
+  right: 10px;
+  bottom: 4px;
+  font-size: 0.6875rem;
+  color: #667781;
+}
+
+.fd-wa-card {
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f0f2f5;
+}
+
+.fd-wa-card img {
+  width: 100%;
+  height: auto;
+}
+
+.fd-wa-card p {
+  display: grid;
+  padding: 8px 10px;
+}
+
+.fd-wa-card small {
+  font-size: 0.8125rem;
+  color: #667781;
+}
+
+/* c: a Google search box that starts the chat */
+.fd-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 640px;
+  min-height: 68px;
+  margin: 0 auto;
+  padding: 8px 8px 8px 20px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.35);
+  font: inherit;
+  cursor: text;
+  transition: border-color 0.15s ease;
+}
+
+.fd-search:hover {
+  border-color: var(--ink);
+}
+
+.fd-search-text {
+  flex: 1;
+  text-align: left;
+  font-size: 1.125rem;
+  color: var(--muted);
+}
+
+.fd-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: 999px;
+  background: var(--accent);
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .fd-b-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .fd-btn {
+    width: 100%;
+  }
+
+  .fd-search {
+    flex-wrap: wrap;
+    border-radius: 20px;
+    padding: 14px;
+  }
+
+  .fd-search-text {
+    font-size: 1.0625rem;
+  }
+
+  .fd-search-btn {
+    width: 100%;
+    justify-content: center;
+    border-radius: 12px;
+  }
+}
+
+/* c: the floating pointer and note (from ReachMax's DemoClickGuide) */
+.fd-search-wrap {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.fd-guide {
+  position: absolute;
+  right: 54px;
+  top: calc(100% - 22px);
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+}
+
+.fd-guide-arrow {
+  display: block;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+  transform-origin: 10px 8px;
+  animation: fd-guide-float 5.5s ease-in-out infinite;
+}
+
+.fd-guide-label {
+  position: absolute;
+  top: 38px;
+  right: -12px;
+  width: max-content;
+  padding: 8px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(28, 25, 23, 0.1);
+  font-size: 15px;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ink);
+  white-space: nowrap;
+  transform: rotate(-3deg);
+}
+
+@keyframes fd-guide-float {
+  0%, 100% { transform: translate(3px, 4px) rotate(-4deg); }
+  50% { transform: translate(-5px, -5px) rotate(-8deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fd-guide-arrow {
+    animation: none;
+  }
+}
+
+/* Room under the box for the pointer and its note */
+.fd .fd-small-c {
+  margin-top: 84px !important;
+}
+
+@media (max-width: 767px) {
+  .fd-guide {
+    right: 36px;
   }
 }

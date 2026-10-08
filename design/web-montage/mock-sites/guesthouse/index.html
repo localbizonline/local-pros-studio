@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saltmarsh House, Knysna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400,100;0,9..144,600,100;1,9..144,400,100&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#F3E9DA; --shell:#FBF6EE; --ink:#16363F; --ink-2:#245160; --soft:#5C6A6C; --terra:#C0603A; --terra-dk:#9E4A2A; --line:#E2D4BF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--sand);color:var(--ink);font-family:"Nunito Sans",system-ui,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  .fr{font-family:"Fraunces",Georgia,serif}
+
+  .topline{border-bottom:1px solid var(--line);font-size:13.5px;color:var(--soft)}
+  .topline .wrap{display:flex;justify-content:center;gap:28px;height:38px;align-items:center}
+  .topline b{color:var(--ink);font-weight:700}
+  header .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:86px}
+  nav{display:flex;gap:28px;font-size:15px;color:var(--soft)}
+  .mark{text-align:center;line-height:1}
+  .mark b{display:block;font-family:"Fraunces",serif;font-weight:600;font-size:30px;letter-spacing:-.01em}
+  .mark small{display:block;font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--terra-dk);margin-top:6px;font-weight:700}
+  .head-right{display:flex;justify-content:flex-end;align-items:center;gap:18px}
+  .phone{font-weight:700;font-size:15px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--terra);color:#fff;border-radius:999px;padding:16px 30px;font-size:16.5px;font-weight:700;white-space:nowrap}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:10px 18px;font-size:14.5px;background:var(--ink)}
+
+  .hero{text-align:center;padding:44px 0 0}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra-dk)}
+  h1{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(44px,5vw,68px);line-height:1.02;letter-spacing:-.02em;max-width:13em;margin:18px auto 0}
+  h1 em{font-style:italic;color:var(--terra)}
+  .sub{margin:20px auto 0;font-size:19px;color:var(--soft);max-width:31em}
+  .actions{margin-top:30px}
+  .rating{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:20px;font-size:15px;color:var(--soft)}
+  .stars{display:flex;gap:2px;color:#D89A2B}
+  .stars svg{width:17px;height:17px}
+  .rating strong{color:var(--ink)}
+  .panorama{margin-top:44px;position:relative}
+  .panorama img{width:100%;height:300px;object-fit:cover;object-position:50% 38%;border-radius:28px}
+  .rate{position:absolute;right:56px;top:-26px;width:124px;height:124px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;text-align:center;line-height:1.15;font-size:13px;transform:rotate(8deg)}
+  .rate b{display:block;font-family:"Fraunces",serif;font-size:27px;font-weight:600;color:#F7D7A8}
+
+  .incl{padding:64px 0 8px}
+  .incl ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+  .incl li{font-size:15px;color:var(--soft)}
+  .incl li b{display:block;font-family:"Fraunces",serif;font-weight:600;font-size:21px;color:var(--ink);margin-bottom:2px}
+  .incl i{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--shell);color:var(--terra);margin:0 auto 12px}
+  .incl i svg{width:24px;height:24px}
+  .rooms{background:var(--shell);padding:96px 0;margin-top:72px}
+  .sec-head{text-align:center;max-width:36em;margin:0 auto 52px}
+  h2{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(34px,3.6vw,52px);line-height:1.05;letter-spacing:-.015em}
+  h2 em{font-style:italic;color:var(--terra)}
+  .sec-head p{color:var(--soft);margin-top:14px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .card{background:#fff;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+  .card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .card .body{padding:22px 24px 24px}
+  .card h3{font-family:"Fraunces",serif;font-weight:600;font-size:25px}
+  .card p{color:var(--soft);font-size:15.5px;margin-top:4px}
+  .card .price{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;font-size:15px;color:var(--soft)}
+  .card .price b{font-family:"Fraunces",serif;font-size:22px;color:var(--terra-dk)}
+
+  .reviews{padding:96px 0}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px}
+  .quote{background:var(--shell);border-radius:22px;padding:30px}
+  .quote p{font-family:"Fraunces",serif;font-size:21px;line-height:1.4;margin:14px 0 16px}
+  .who{font-size:14px;color:var(--soft)}
+  .who b{color:var(--ink)}
+
+  .band{background:var(--ink);color:#DCE7E8;padding:84px 0 32px;text-align:center}
+  .band h2{color:#fff;max-width:15em;margin:0 auto}
+  .band h2 em{color:#F7D7A8}
+  .band .btn{margin-top:28px}
+  .band p.info{margin-top:22px;font-size:15px}
+  .fine{margin-top:60px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;font-size:13px;color:#9FB4B7}
+
+  @media (max-width:1000px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    .topline .wrap{height:34px;font-size:12.5px;gap:14px}
+    .topline .hide-m{display:none}
+    header .bar{grid-template-columns:auto 1fr;height:66px}
+    nav{display:none}
+    .mark{text-align:left}
+    .mark b{font-size:24px}
+    .mark small{font-size:8.5px;letter-spacing:.3em;margin-top:5px}
+    .phone{display:none}
+    .btn-sm{padding:9px 14px;font-size:14px;gap:7px}
+    .btn-sm svg{width:17px;height:17px}
+    .hero{padding-top:28px}
+    .eyebrow{font-size:11px;letter-spacing:.26em}
+    h1{font-size:40px;margin-top:12px}
+    .sub{font-size:16.5px;margin-top:14px}
+    .actions{margin-top:22px}
+    .actions .btn{width:100%;padding:16px 20px}
+    .rating{margin-top:14px;font-size:14.5px}
+    .panorama{margin-top:26px}
+    .panorama img{height:400px;border-radius:0;object-position:58% 45%}
+    .panorama.wrap{padding:0}
+    .rate{right:16px;top:-20px;width:92px;height:92px;font-size:11px}
+    .rate b{font-size:20px}
+    .incl{padding:60px 0 0}
+    .incl ul{grid-template-columns:1fr 1fr;gap:22px 12px}
+    .incl li{font-size:13.5px;line-height:1.4}
+    .incl li b{font-size:18px}
+    .incl i{width:42px;height:42px;margin-bottom:8px}
+    .incl i svg{width:20px;height:20px}
+    .rooms{padding:52px 0 60px;margin-top:80px}
+    .sec-head{margin-bottom:28px}
+    .sec-head p{display:none}
+    .cards{grid-template-columns:1fr;gap:22px}
+    .reviews{padding:60px 0}
+    .quotes{grid-template-columns:1fr;gap:16px}
+    .band{padding:60px 0 28px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+</svg>
+
+<div class="topline"><div class="wrap"><span>Bookings <b>010 000 0000</b></span><span class="hide-m">Check-in from 14:00</span><span>Free parking · Wi-Fi</span></div></div>
+<header>
+  <div class="wrap bar">
+    <nav><a href="#rooms">Rooms</a><a href="#reviews">Reviews</a><a href="#find">Find us</a></nav>
+    <a class="mark" href="#"><b>Saltmarsh House</b><small>Knysna Lagoon</small></a>
+    <div class="head-right">
+      <a class="phone" href="#">010 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Guest house · Knysna</p>
+      <h1>Lagoon-view rooms in Knysna, <em>breakfast included</em></h1>
+      <p class="sub">Five quiet rooms above the water, ten minutes from the Waterfront. Send your dates and we'll reply with what's open.</p>
+      <div class="actions"><a class="btn" href="#"><svg><use href="#wa"/></svg>Check dates on WhatsApp</a></div>
+      <div class="rating">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <span><strong>4.9 on Google</strong> · 310+ reviews</span>
+      </div>
+    </div>
+    <div class="wrap panorama">
+      <img src="images/hero.jpg" alt="Deck with two chairs overlooking the Knysna lagoon at sunset">
+      <div class="rate"><span><b>R1,850</b>a night<br>for two</span></div>
+    </div>
+  </section>
+
+  <section class="incl">
+    <div class="wrap">
+      <ul>
+        <li><i><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9ZM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3v3M12 3v3"/></svg></i><b>Breakfast</b>cooked or continental</li>
+        <li><i><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 19c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M12 3v6M9 6h6"/></svg></i><b>Lagoon views</b>from every room</li>
+        <li><i><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M10 16.5v-9h3a2.6 2.6 0 0 1 0 5.2h-3"/></svg></i><b>Free parking</b>off-street, gated</li>
+        <li><i><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/></svg></i><b>Fast Wi-Fi</b>fibre, good for work</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rooms" id="rooms">
+    <div class="wrap">
+      <div class="sec-head"><h2>Rooms and <em>rates</em></h2><p>All rooms have a king bed, a private bathroom and a heater for winter. Rates are for two people and include breakfast.</p></div>
+      <div class="cards">
+        <article class="card"><img src="images/room.jpg" alt="Bedroom with a balcony over the lagoon"><div class="body"><h3>Lagoon Room</h3><p>Balcony over the water, king bed.</p><div class="price"><span>per night, two people</span><b>R1,850</b></div></div></article>
+        <article class="card"><img src="images/garden.jpg" alt="Garden suite with a private patio"><div class="body"><h3>Garden Suite</h3><p>Private patio in the milkwoods, sleeps four.</p><div class="price"><span>per night, two people</span><b>R2,200</b></div></div></article>
+        <article class="card"><img src="images/breakfast.jpg" alt="Breakfast tray on the deck"><div class="body"><h3>Breakfast on the deck</h3><p>Included for guests, open to friends too.</p><div class="price"><span>visitors, per person</span><b>R165</b></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="sec-head"><h2>Guests who came back</h2></div>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>We watched the sunset from the deck every night. The breakfasts alone are worth the drive.</p><div class="who"><b>Nomsa &amp; Kagiso</b> · Johannesburg</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Spotless, quiet and the hosts sent us a list of where to eat before we arrived.</p><div class="who"><b>Ruth P.</b> · Cape Town</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Third year in a row. The Lagoon Room is the one to ask for.</p><div class="who"><b>Gerhard V.</b> · Pretoria</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band" id="find">
+  <div class="wrap">
+    <h2>Send us your dates and we'll <em>hold a room</em> for 24 hours</h2>
+    <a class="btn" href="#"><svg><use href="#wa"/></svg>Check dates on WhatsApp</a>
+    <p class="info">Off George Rex Drive, Knysna · 010 000 0000</p>
+    <div class="fine"><span>© 2026 Saltmarsh House</span><span>Graded guest house · Free cancellation up to 7 days</span></div>
+  </div>
+</footer>
+</body>
+</html>

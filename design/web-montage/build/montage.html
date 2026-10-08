@@ -34,7 +34,7 @@ const stage = document.getElementById('stage');
 const S = '../screens/', M = '../mock-sites/';
 const SITES = {
   topspec:   [S + 'topspec-mobile-done.png', 'Gas installer', 'East Rand'],
-  willa:     [S + 'willa-mobile-done.png', 'Nail and lash studio', 'Parkhurst'],
+  willa:     [M + 'willa-mobile.png', 'Nail and lash studio', 'Parkhurst'],
   reachmax:  [S + 'reachmax-mobile-done.png', 'WhatsApp software', 'SA and UK'],
   ridgeway:  [S + 'ridgeway-mobile-done.png', 'Accountants', 'Claremont'],
   maramba:   [S + 'maramba-mobile-done.png', 'Fencing and gates', 'Cape Town'],
@@ -49,7 +49,16 @@ const SITES = {
   driving:   [M + 'driving-mobile.png', 'Driving school', 'Soweto'],
   mechanic:  [M + 'mechanic-mobile.png', 'Car services', 'Gqeberha'],
   fitness:   [M + 'fitness-mobile.png', 'Personal training', 'Sea Point'],
+  plumber:   [M + 'plumber-mobile.png', 'Plumber', 'Bloemfontein'],
+  estate:    [M + 'estate-mobile.png', 'Estate agent', 'Stellenbosch'],
+  guesthouse:[M + 'guesthouse-mobile.png', 'Guest house', 'Knysna'],
+  pest:      [M + 'pest-mobile.png', 'Pest control', 'Polokwane'],
+  groomer:   [M + 'groomer-mobile.png', 'Dog grooming', 'Fourways'],
+  pools:     [M + 'pools-mobile.png', 'Pool cleaning', 'Umhlanga'],
+  tutor:     [M + 'tutor-mobile.png', 'Tutoring', 'Rondebosch'],
+  panel:     [M + 'panel-mobile.png', 'Panel beater', 'East London'],
 };
+// Every site appears once in a picture, never twice (Jeremy, 8 Oct 2026: repeats looked fake)
 // Only use sites whose screenshot exists (the example sites arrive later)
 const has = (k) => new Promise((ok) => { const i = new Image(); i.onload = () => ok(true); i.onerror = () => ok(false); i.src = SITES[k][0]; });
 
@@ -92,8 +101,8 @@ const rowXs = (W, n, w, g) => { const tot = n * w + (n - 1) * g; const x0 = (W -
     const nF = size === 'wide' ? 7 : 3, wF = size === 'wide' ? 196 : 300, gF = size === 'wide' ? 18 : 22;
     const nB = size === 'wide' ? 9 : 5, wB = size === 'wide' ? 150 : 190;
     const front0 = FRONT.slice(0, nF);
-    const back = [...keys.filter((k) => !front0.includes(k)), ...front0.slice().reverse()].slice(0, nB);
-    rowXs(W, nB, wB, 22).forEach((x, i) => phone(back[i], x, size === 'wide' ? 26 : 30, wB));
+    const back = keys.filter((k) => !front0.includes(k)).slice(0, nB);
+    rowXs(W, back.length, wB, 22).forEach((x, i) => phone(back[i], x, size === 'wide' ? 26 : 30, wB));
     fade('linear-gradient(to bottom, rgba(252,246,237,.35), rgba(252,246,237,.75) 40%, rgba(252,246,237,.95))');
     const front = FRONT.slice(0, nF);
     const yF = size === 'wide' ? 190 : 270;
@@ -109,18 +118,23 @@ const rowXs = (W, n, w, g) => { const tot = n * w + (n - 1) * g; const x0 = (W -
 
   if (layout === 'wall') {
     // B: a tilted wall of phones running off the edges, so it feels like hundreds
-    const cols = size === 'wide' ? 9 : 6, rows = 3, w = size === 'wide' ? 190 : 210, g = size === 'wide' ? 26 : 28;
+    // As many columns as there are sites for, so no site fills two slots
+    const rows = 3, w = size === 'wide' ? 190 : 210, g = size === 'wide' ? 26 : 28;
+    const cols = Math.min(size === 'wide' ? 9 : 6, Math.floor(keys.length / rows));
     const h = Math.round(w * 844 / 390) + 14;
     const wall = document.createElement('div');
     wall.className = 'wall';
     const ww = cols * (w + 14) + (cols - 1) * g, wh = rows * h + (rows - 1) * g;
     wall.style.cssText = `width:${ww}px;height:${wh}px;margin-left:${-ww / 2}px;margin-top:${-wh / 2}px;transform:perspective(2400px) rotateX(22deg) rotateZ(-14deg) scale(${size === 'wide' ? 0.92 : 0.9});`;
     stage.appendChild(wall);
-    let n = 0;
-    const order = [...FRONT, ...keys.filter((k) => !FRONT.includes(k))];
+    // WALL_ORDER spreads look-alike sites apart; anything not listed goes at the end
+    const WALL_ORDER = ['vet', 'paving', 'estate', 'driving', 'ridgeway', 'panel', 'willa', 'solar', 'pools',
+      'topspec', 'groomer', 'attorneys', 'mechanic', 'guesthouse', 'petport', 'fitness', 'tutor', 'maramba',
+      'pest', 'winelands', 'plumber', 'reachmax', 'bkc', 'jacuzzi'];
+    const order = [...WALL_ORDER.filter((k) => keys.includes(k)), ...keys.filter((k) => !WALL_ORDER.includes(k))];
     for (let r = 0; r < rows; r++)
       for (let c = 0; c < cols; c++) {
-        const k = order[(r * cols + c + r * 3) % order.length]; n++;
+        const k = order[r * cols + c];
         phone(k, c * (w + 14 + g), r * (h + g) + (c % 2 ? h * 0.32 : 0), w, { parent: wall });
       }
     fade('radial-gradient(ellipse at center, rgba(252,246,237,0) 55%, rgba(252,246,237,.9) 92%)');

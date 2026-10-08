@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naval Hill Plumbing, Bloemfontein</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F1EA; --white:#FFFFFF; --char:#24272C; --char-2:#33373D; --soft:#5D6168;
+    --copper:#B4552D; --copper-dk:#8E3F1F; --copper-lt:#F1DCCF; --line:#DDD5C8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--char);font-family:"Work Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  .slab{font-family:"Zilla Slab",Georgia,serif}
+
+  .topline{background:var(--char);color:#E9E4DB;font-size:14px}
+  .topline .wrap{display:flex;justify-content:space-between;align-items:center;height:40px;gap:16px}
+  .topline b{color:#fff;font-weight:600}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#5BC27A;margin-right:8px;vertical-align:1px}
+
+  header{background:var(--white);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:82px;gap:24px}
+  .mark{display:flex;align-items:center;gap:12px}
+  .badge{width:44px;height:44px;border-radius:10px;background:var(--copper);color:#fff;display:grid;place-items:center;flex:none}
+  .badge svg{width:24px;height:24px}
+  .mark b{display:block;font-family:"Zilla Slab",serif;font-weight:700;font-size:26px;line-height:1;letter-spacing:-.01em}
+  .mark small{display:block;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--copper-dk);margin-top:5px}
+  nav{display:flex;gap:30px;font-size:15.5px;font-weight:500;color:var(--soft)}
+  .head-right{display:flex;align-items:center;gap:20px}
+  .phone{display:flex;align-items:center;gap:8px;font-weight:600;font-size:16px}
+  .phone svg{width:18px;height:18px;color:var(--copper)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--copper);color:#fff;border-radius:8px;padding:16px 26px;font-size:16.5px;font-weight:600;white-space:nowrap;box-shadow:0 3px 0 var(--copper-dk)}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:11px 18px;font-size:15px}
+
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:640px;background:var(--white)}
+  .hero-text{padding:72px 64px 72px max(40px, calc((100vw - 1240px)/2 + 40px));align-self:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--copper-dk);background:var(--copper-lt);padding:7px 12px;border-radius:6px;margin-bottom:22px}
+  h1{font-family:"Zilla Slab",serif;font-weight:700;font-size:clamp(40px,4.6vw,64px);line-height:1.02;letter-spacing:-.015em}
+  h1 span{color:var(--copper)}
+  .sub{margin-top:22px;font-size:19px;color:var(--soft);max-width:28em}
+  .actions{margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .rating{display:flex;align-items:center;gap:10px;margin-top:26px;font-size:15.5px;color:var(--soft)}
+  .stars{display:flex;gap:2px;color:#E0A11B}
+  .stars svg{width:18px;height:18px}
+  .rating strong{color:var(--char);font-weight:600}
+  .hero-photo{position:relative;min-height:100%}
+  .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:35% 50%}
+  .callout{position:absolute;left:28px;bottom:28px;background:var(--char);color:#fff;border-radius:10px;padding:16px 20px;display:flex;gap:14px;align-items:center;box-shadow:0 14px 30px rgba(0,0,0,.25)}
+  .callout b{display:block;font-family:"Zilla Slab",serif;font-size:24px;line-height:1.1}
+  .callout span{font-size:14px;color:#C9C3BA}
+  .callout i{width:40px;height:40px;border-radius:50%;background:var(--copper);display:grid;place-items:center;flex:none}
+  .callout i svg{width:20px;height:20px}
+
+  .facts{background:var(--char);color:#EDE8DF}
+  .facts .wrap{display:grid;grid-template-columns:repeat(3,1fr)}
+  .fact{padding:26px 0;display:flex;gap:14px;align-items:center;font-size:15.5px}
+  .fact+.fact{padding-left:32px;border-left:1px solid rgba(255,255,255,.12)}
+  .fact b{font-family:"Zilla Slab",serif;font-size:28px;color:#F0B08F;line-height:1}
+
+  .services{padding:96px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:44px}
+  h2{font-family:"Zilla Slab",serif;font-weight:700;font-size:clamp(32px,3.4vw,46px);line-height:1.05;letter-spacing:-.01em}
+  .sec-head p{color:var(--soft);max-width:28em}
+  .list{display:grid;gap:16px}
+  .row{display:grid;grid-template-columns:220px 1fr auto;gap:28px;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;padding-right:32px}
+  .row img{width:220px;height:150px;object-fit:cover}
+  .row h3{font-family:"Zilla Slab",serif;font-size:26px;line-height:1.1}
+  .row p{color:var(--soft);font-size:16px;margin-top:6px}
+  .price{text-align:right}
+  .price small{display:block;font-size:13px;color:var(--soft);text-transform:uppercase;letter-spacing:.12em}
+  .price b{font-family:"Zilla Slab",serif;font-size:30px;color:var(--copper-dk);white-space:nowrap}
+
+  .reviews{background:var(--white);border-top:1px solid var(--line);padding:88px 0}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+  .quote{border-left:4px solid var(--copper);padding:6px 0 6px 22px}
+  .quote p{font-size:18px;margin:12px 0 14px}
+  .who{font-size:14.5px;color:var(--soft)}
+  .who b{color:var(--char)}
+
+  .band{background:var(--copper);color:#fff;padding:72px 0 30px}
+  .band-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center}
+  .band h2{max-width:14em}
+  .band .btn{background:var(--char);box-shadow:none}
+  .band p{color:#FBE7DC}
+  .fine{margin-top:56px;padding-top:20px;border-top:1px solid rgba(255,255,255,.25);display:flex;justify-content:space-between;font-size:13.5px;color:#F6D6C5}
+
+  @media (max-width:1100px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 18px}
+    .topline .wrap{height:36px;font-size:13px}
+    .hide-m{display:none}
+    .bar{height:66px}
+    .badge{width:38px;height:38px;border-radius:9px}
+    .badge svg{width:21px;height:21px}
+    .mark b{font-size:22px}
+    .mark small{font-size:9.5px;letter-spacing:.14em;margin-top:4px}
+    .phone{display:none}
+    .btn-sm{padding:9px 13px;font-size:14px;gap:7px}
+    .btn-sm svg{width:17px;height:17px}
+    .hero{grid-template-columns:1fr;min-height:0}
+    .hero-text{padding:24px 18px 22px}
+    .eyebrow{font-size:11.5px;padding:6px 10px;margin-bottom:14px}
+    h1{font-size:37px;line-height:1.04}
+    .sub{font-size:16.5px;margin-top:12px}
+    .actions{margin-top:20px}
+    .actions .btn{width:100%;padding:15px 20px}
+    .rating{margin-top:16px;font-size:14.5px}
+    .hero-photo{height:280px}
+    .callout{left:14px;bottom:14px;padding:11px 14px;gap:10px}
+    .callout b{font-size:19px}
+    .callout span{font-size:12.5px}
+    .callout i{width:32px;height:32px}
+    .facts .wrap{grid-template-columns:1fr 1fr 1fr;gap:0}
+    .fact{flex-direction:column;align-items:start;gap:6px;padding:18px 0;font-size:12.5px;line-height:1.35}
+    .fact+.fact{padding-left:12px}
+    .fact b{font-size:22px}
+    .services{padding:56px 0 56px}
+    .sec-head{flex-direction:column;align-items:start;gap:8px;margin-bottom:22px}
+    .sec-head p{display:none}
+    h2{font-size:31px}
+    .list{gap:14px}
+    .row{grid-template-columns:96px 1fr;gap:0 14px;padding-right:14px}
+    .row img{width:96px;height:100%;min-height:104px;grid-row:span 2}
+    .row h3{font-size:19px;align-self:end;padding-top:12px}
+    .row p{display:none}
+    .price{text-align:left;align-self:start;padding-bottom:12px}
+    .price small{display:inline;font-size:11px;margin-right:6px}
+    .price b{font-size:20px}
+    .reviews{padding:56px 0}
+    .quotes{grid-template-columns:1fr;gap:22px;margin-top:24px}
+    .band{padding:56px 0 26px}
+    .band-grid{grid-template-columns:1fr;gap:24px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="drop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" d="M12 2.8s-6.5 7.1-6.5 11.6a6.5 6.5 0 0 0 13 0C18.5 9.9 12 2.8 12 2.8Z"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M9 14.5a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 7v5l3 2"/></symbol>
+</svg>
+
+<div class="topline"><div class="wrap"><span><span class="dot"></span>Burst geyser? We answer <b>24 hours</b></span><span><b>010 000 0000</b><span class="hide-m"> · Bloemfontein and surrounds</span></span></div></div>
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="badge"><svg><use href="#drop"/></svg></span><span><b>Naval Hill</b><small>Plumbing<span class="hide-m"> · Bloemfontein</span></small></span></a>
+    <nav><a href="#services">Services</a><a href="#prices">Prices</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#"><svg><use href="#phone"/></svg>010 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">PIRB registered plumbers</p>
+    <h1>Burst geysers, leaks and blocked drains fixed in <span>Bloemfontein</span></h1>
+    <p class="sub">R450 call-out anywhere in town. We send a photo of the problem and the price before we start.</p>
+    <div class="actions"><a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp a plumber</a></div>
+    <div class="rating">
+      <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+      <span><strong>4.8 on Google</strong> · 260+ reviews</span>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="images/hero.jpg" alt="Plumber tightening a fitting under a kitchen sink">
+    <div class="callout"><i><svg><use href="#clock"/></svg></i><div><b>Most geysers in a day</b><span>Fitted with a COC</span></div></div>
+  </div>
+</section>
+
+<div class="facts"><div class="wrap">
+  <div class="fact"><b>R450</b>call-out in town</div>
+  <div class="fact"><b>2 hrs</b>average arrival time</div>
+  <div class="fact"><b>COC</b>on every geyser</div>
+</div></div>
+
+<main>
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="sec-head"><h2>What we fix, and what it costs</h2><p>Prices include labour and are for a standard house. Anything extra we photograph and price on WhatsApp first.</p></div>
+      <div class="list" id="prices">
+        <article class="row"><img src="images/geyser.jpg" alt="New geyser fitted in a roof"><div><h3>Geyser replacement</h3><p>150 litre electric geyser, drip tray and valves, with a COC.</p></div><div class="price"><small>from</small><b>R8,900</b></div></article>
+        <article class="row"><img src="images/drain.jpg" alt="Plumber clearing an outside drain with a machine"><div><h3>Blocked drains</h3><p>Kitchen, toilet and outside drains cleared with a drain machine.</p></div><div class="price"><small>from</small><b>R950</b></div></article>
+        <article class="row"><img src="images/leak.jpg" alt="Plumber replacing a tap cartridge"><div><h3>Leaks and taps</h3><p>Dripping taps, running toilets and hidden leaks found and fixed.</p></div><div class="price"><small>from</small><b>R450</b></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <h2>Bloemfontein homes we've helped</h2>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Geyser burst at 6am. They were here by 8 and we had hot water that evening.</p><div class="who"><b>Marietjie V.</b> · Brandwag</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Sent a photo of the leak on WhatsApp, got a price in ten minutes. No surprises on the invoice.</p><div class="who"><b>Thabo M.</b> · Langenhoven Park</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Cleared a drain two other plumbers couldn't. Neat, polite and cleaned up after.</p><div class="who"><b>Johan B.</b> · Fichardt Park</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band" id="contact">
+  <div class="wrap">
+    <div class="band-grid">
+      <h2>Water where it shouldn't be? Send us a photo.</h2>
+      <div><p>We reply within 15 minutes, 7 days a week.<br>Tel 010 000 0000</p><a class="btn" href="#" style="margin-top:18px"><svg><use href="#wa"/></svg>WhatsApp a plumber</a></div>
+    </div>
+    <div class="fine"><span>© 2026 Naval Hill Plumbing</span><span>PIRB registered · Public liability insured</span></div>
+  </div>
+</footer>
+</body>
+</html>

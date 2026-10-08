@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Woolly Dog Grooming, Fourways</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF7F1; --peach:#FFE4D6; --pink:#F7B6C8; --pink-dk:#E2789A; --mint:#C6EBDD; --butter:#FBE7A6; --choc:#4A2C22; --soft:#7A5F55; --line:#F1D6C8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--choc);font-family:"Nunito",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px}
+
+  header .bar{display:flex;align-items:center;justify-content:space-between;height:84px;gap:20px}
+  .mark{display:flex;align-items:center;gap:10px}
+  .paw{width:44px;height:44px;border-radius:16px;background:var(--choc);color:var(--pink);display:grid;place-items:center;transform:rotate(-8deg);flex:none}
+  .paw svg{width:26px;height:26px}
+  .mark b{font-family:"Fredoka",sans-serif;font-weight:700;font-size:28px;line-height:1;letter-spacing:-.01em}
+  .mark small{display:block;font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink-dk);margin-top:3px}
+  nav{display:flex;gap:26px;font-weight:700;font-size:15.5px}
+  .head-right{display:flex;align-items:center;gap:16px}
+  .phone{display:flex;align-items:center;gap:7px;font-weight:800;font-size:15.5px}
+  .phone svg{width:17px;height:17px;color:var(--pink-dk)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--choc);color:#fff;border-radius:20px;padding:17px 28px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:18px;white-space:nowrap}
+  .btn svg{width:21px;height:21px;flex:none}
+  .btn-sm{padding:10px 18px;font-size:15.5px;border-radius:14px;background:var(--pink-dk)}
+
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding-top:40px;padding-bottom:80px}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:var(--mint);border-radius:999px;padding:6px 14px;font-weight:800;font-size:13.5px}
+  h1{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(44px,5.2vw,72px);line-height:1.02;letter-spacing:-.015em;margin-top:18px}
+  h1 mark{background:none;color:var(--pink-dk)}
+  .sub{margin-top:18px;font-size:19px;color:var(--soft);max-width:26em}
+  .actions{margin-top:28px}
+  .rating{display:flex;align-items:center;gap:10px;margin-top:18px;font-weight:600;font-size:15.5px;color:var(--soft)}
+  .stars{display:flex;gap:2px;color:#F2A43A}
+  .stars svg{width:18px;height:18px}
+  .rating strong{color:var(--choc);font-weight:800}
+  .hero-photo{position:relative;padding:20px}
+  .hero-photo::before{content:"";position:absolute;inset:0 10px 30px 30px;background:var(--pink);border-radius:62% 38% 46% 54% / 48% 56% 44% 52%;transform:rotate(-6deg)}
+  .hero-photo img{position:relative;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:60% 40%;border-radius:56% 44% 52% 48% / 45% 55% 45% 55%}
+  .bubble{position:absolute;border-radius:50%;background:#fff;opacity:.85;border:2px solid var(--line)}
+  .b1{width:34px;height:34px;left:0;top:18%}.b2{width:18px;height:18px;left:8%;top:8%}.b3{width:24px;height:24px;right:4%;bottom:18%}
+  .sticker{position:absolute;right:0;bottom:6%;background:var(--butter);border-radius:22px;padding:12px 18px;transform:rotate(6deg);box-shadow:0 10px 24px rgba(74,44,34,.15);font-weight:700;font-size:14px;line-height:1.2}
+  .sticker b{display:block;font-family:"Fredoka",sans-serif;font-size:26px}
+
+  .services{padding:88px 0;background:#fff;border-radius:48px 48px 0 0}
+  .sec-head{text-align:center;margin-bottom:44px}
+  h2{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(34px,3.6vw,50px);line-height:1.05}
+  .sec-head p{color:var(--soft);margin-top:10px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{border-radius:30px;padding:26px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .card:nth-child(1){background:var(--peach)}.card:nth-child(2){background:var(--mint)}.card:nth-child(3){background:var(--butter)}
+  .card img{width:150px;height:150px;border-radius:50%;object-fit:cover;border:6px solid #fff}
+  .card h3{font-family:"Fredoka",sans-serif;font-weight:600;font-size:25px;margin-top:14px}
+  .card p{color:var(--soft);font-size:15.5px}
+  .card .price{margin-top:12px;background:#fff;border-radius:999px;padding:6px 16px;font-weight:800;font-size:15px}
+
+  .reviews{background:#fff;padding:24px 0 88px}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:8px}
+  .quote{position:relative;background:var(--cream);border-radius:26px;padding:26px 26px 22px}
+  .quote::after{content:"";position:absolute;left:34px;bottom:-12px;width:26px;height:26px;background:var(--cream);transform:rotate(45deg);border-radius:4px}
+  .quote p{font-size:17px;margin:10px 0 12px}
+  .who{font-size:14px;color:var(--soft);font-weight:600}
+  .who b{color:var(--choc);font-weight:800}
+
+  .band{background:var(--choc);color:#F4DED4;padding:80px 0 30px;text-align:center}
+  .band h2{color:#fff;max-width:15em;margin:0 auto}
+  .band h2 mark{background:none;color:var(--pink)}
+  .band .btn{background:var(--pink);color:var(--choc);margin-top:28px}
+  .band .info{margin-top:18px;font-size:15px}
+  .fine{margin-top:56px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);display:flex;justify-content:space-between;font-size:13.5px;color:#C9AFA4}
+
+  @media (max-width:1000px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 18px}
+    header .bar{height:68px}
+    .paw{width:38px;height:38px;border-radius:13px}
+    .paw svg{width:22px;height:22px}
+    .mark b{font-size:24px}
+    .mark small{font-size:9.5px}
+    .phone span{display:none}
+    .phone{width:40px;height:40px;border-radius:13px;background:var(--peach);justify-content:center}
+    .head-right{gap:8px}
+    .btn-sm{padding:9px 13px;font-size:14.5px;gap:6px;border-radius:13px}
+    .btn-sm svg{width:17px;height:17px}
+    .hero{grid-template-columns:1fr;gap:0;padding-top:14px;padding-bottom:52px}
+    .hero-text{display:contents}
+    .chip{font-size:12px;padding:5px 12px;justify-self:start}
+    h1{font-size:41px;margin-top:12px}
+    .sub{font-size:16px;margin-top:10px}
+    .hero-photo{order:2;padding:10px 26px;margin-top:6px}
+    .hero-photo::before{inset:4px 20px 14px 34px}
+    .hero-photo img{aspect-ratio:1/.86}
+    .b1{width:26px;height:26px;left:4px;top:30%}.b2{width:14px;height:14px;left:12%;top:4%}.b3{width:18px;height:18px;right:6px;bottom:8%}
+    .sticker{right:6px;bottom:2%;padding:8px 13px;font-size:12px;border-radius:16px}
+    .sticker b{font-size:20px}
+    .actions,.rating{order:3}
+    .actions{margin-top:14px}
+    .actions .btn{width:100%;padding:16px 20px;font-size:17px}
+    .rating{margin-top:14px;font-size:14.5px}
+    .services{padding:52px 0 40px;border-radius:32px 32px 0 0}
+    .sec-head{margin-bottom:26px}
+    .sec-head p{display:none}
+    .cards{grid-template-columns:1fr;gap:16px}
+    .card{flex-direction:row;text-align:left;gap:16px;padding:16px;border-radius:24px;flex-wrap:wrap}
+    .card img{width:86px;height:86px;border-width:4px}
+    .card .txt{flex:1;min-width:0}
+    .card h3{font-size:21px;margin-top:0}
+    .card p{font-size:14px;line-height:1.4}
+    .card .price{margin-top:6px;display:inline-block;padding:3px 12px;font-size:14px}
+    .reviews{padding:16px 0 60px}
+    .quotes{grid-template-columns:1fr;gap:26px}
+    .band{padding:60px 0 26px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="paw" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="6" cy="10" rx="2.2" ry="2.8"/><ellipse cx="10" cy="6" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="6" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="10" rx="2.2" ry="2.8"/><path d="M12.2 11c-3 0-6 4.2-6 6.6 0 1.6 1.3 2.4 2.8 2.4 1.3 0 2-.6 3.2-.6s1.9.6 3.2.6c1.5 0 2.8-.8 2.8-2.4 0-2.4-3-6.6-6-6.6Z"/></g></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="paw"><svg><use href="#paw"/></svg></span><span><b>Woolly</b><small>Dog grooming</small></span></a>
+    <nav><a href="#prices">Prices</a><a href="#reviews">Happy dogs</a><a href="#visit">Visit us</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#"><svg><use href="#phone"/></svg><span>010 000 0000</span></a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div class="hero-text">
+      <span class="chip"><svg width="16" height="16"><use href="#paw"/></svg>Fourways · Cedar Road</span>
+      <h1>Dog grooming in Fourways, <mark>one dog at a time</mark></h1>
+      <p class="sub">No cages and no rush. Nervous dogs, puppies and big fluffy breeds welcome.</p>
+      <div class="actions"><a class="btn" href="#"><svg><use href="#wa"/></svg>Book a groom</a></div>
+      <div class="rating">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <span><strong>4.9 on Google</strong> · 220+ reviews</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span>
+      <img src="images/hero.jpg" alt="Fluffy white dog being blow-dried on a grooming table">
+      <div class="sticker"><b>from R280</b>bath and tidy</div>
+    </div>
+  </section>
+
+  <section class="services" id="prices">
+    <div class="wrap">
+      <div class="sec-head"><h2>Grooms and prices</h2><p>Prices for small dogs. Medium and large dogs are quoted when you book.</p></div>
+      <div class="cards">
+        <article class="card"><img src="images/fullgroom.jpg" alt="Small dog with a fresh teddy-bear cut"><div class="txt"><h3>Full groom</h3><p>Bath, cut, nails and ears</p><span class="price">from R380</span></div></article>
+        <article class="card"><img src="images/bath.jpg" alt="Dog in a bath covered in foam"><div class="txt"><h3>Bath and tidy</h3><p>Wash, blow-dry, face and feet</p><span class="price">from R280</span></div></article>
+        <article class="card"><img src="images/nails.jpg" alt="Groomer clipping a dog's nails"><div class="txt"><h3>Nails and ears</h3><p>Walk-ins welcome, 15 minutes</p><span class="price">R120</span></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="sec-head"><h2>Happy dogs, happy humans</h2></div>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Our rescue used to shake at the groomer. Here she walks in wagging.</p><div class="who"><b>Megan &amp; Pippa</b> · Lonehill</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Best teddy-bear cut we've had. They send a photo when he's ready to fetch.</p><div class="who"><b>Ayanda &amp; Milo</b> · Dainfern</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Two huskies, zero fur left at home. Fair price for big dogs too.</p><div class="who"><b>Riaan &amp; the boys</b> · Broadacres</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band" id="visit">
+  <div class="wrap">
+    <h2>Book your dog in. <mark>We'll send a photo</mark> when they're ready.</h2>
+    <a class="btn" href="#"><svg><use href="#wa"/></svg>Book a groom</a>
+    <p class="info">Cedar Road, Fourways · Tue to Sat, 8:00 to 16:00 · 010 000 0000</p>
+    <div class="fine"><span>© 2026 Woolly Dog Grooming</span><span>Free parking at the door</span></div>
+  </div>
+</footer>
+</body>
+</html>
