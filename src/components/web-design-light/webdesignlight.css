@@ -1,0 +1,537 @@
+/* Website design page (WebDesignLight.tsx), on the .dd-a tokens. Scoped to .wdl. */
+
+/* One amber-underlined phrase, as on the homepage hero */
+.wdl-u {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.12em;
+  text-decoration-skip-ink: none;
+}
+
+.wdl-inline-link {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Hero: centred words, then the wide montage (like the homepage hero) ---------- */
+
+.wdl-hero {
+  text-align: center;
+}
+
+.wdl .wdl-display {
+  max-width: 12em;
+  margin: 0 auto;
+  font-family: var(--font-head);
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.wdl-hero .dd-kw,
+.wdl-hero .dd-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wdl-hero .dd-lede {
+  text-wrap: pretty;
+}
+
+.wdl-hero .dd-actions {
+  justify-content: center;
+}
+
+.wdl-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  color: var(--body);
+}
+
+.wdl-rating strong {
+  color: var(--ink);
+}
+
+.wdl-rating:hover > span {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+.wdl-rating-src {
+  color: var(--muted);
+}
+
+.wdl-hero-media {
+  position: relative;
+  max-width: 1100px;
+  margin: 48px auto 0;
+}
+
+.wdl-hero-media img {
+  width: 100%;
+  border-radius: var(--r-frame);
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+.wdl-badge {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.12);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--body);
+}
+
+.wdl-badge strong {
+  font-family: var(--font-head);
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* ---------- Proof: client websites ---------- */
+
+.wdl-work {
+  background: #f5f5f4;
+}
+
+.wdl-work-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.wdl-work-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-frame);
+  background: #fff;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+/* The phone screen sits in a light frame on a warm panel, cut off cleanly at the bottom */
+.wdl-work-shot {
+  display: block;
+  height: 340px;
+  padding: 28px 0 0;
+  overflow: hidden;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+
+.wdl-work-shot img {
+  width: 200px;
+  margin: 0 auto;
+  border: 6px solid #fff;
+  border-bottom: 0;
+  border-radius: 26px 26px 0 0;
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+.wdl-work-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 24px 12px;
+}
+
+.wdl-work-meta {
+  margin-bottom: 6px !important;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.wdl-work-area {
+  margin-top: 2px !important;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.wdl-work-line {
+  margin-top: 12px !important;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.wdl-work-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 14px;
+  align-self: flex-start;
+}
+
+.wdl-result {
+  max-width: 820px;
+  margin: 48px auto 0;
+  text-align: center;
+}
+
+.wdl-result blockquote {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.wdl-result figcaption {
+  margin-top: 12px;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+/* ---------- Text beside one photo (dark band and how it works) ---------- */
+
+.wdl-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.wdl-split.is-flipped {
+  grid-template-columns: 1.1fr 0.9fr;
+}
+
+.wdl-split-media img {
+  width: 100%;
+  border-radius: var(--r-frame);
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+.wdl-get .wdl-split-media img {
+  aspect-ratio: 4 / 3.4;
+  object-fit: cover;
+  box-shadow: 0 40px 80px -36px rgba(0, 0, 0, 0.7);
+}
+
+.wdl-how .wdl-split-media img {
+  aspect-ratio: 4 / 4.6;
+  object-fit: cover;
+  object-position: 40% 30%;
+}
+
+.wdl .wdl-split-title {
+  margin-top: 14px !important;
+  max-width: 13em;
+}
+
+.wdl-steps {
+  display: grid;
+  gap: 24px;
+  margin-top: 36px !important;
+}
+
+.wdl-steps li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+}
+
+.wdl-steps p {
+  margin-top: 6px !important;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.wdl-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.0625rem;
+  background: var(--accent-on-dark);
+  color: #1c1917;
+}
+
+.wdl-steps.is-light .wdl-num {
+  background: #fff;
+  color: var(--ink);
+  border: 1.5px solid var(--line-strong);
+}
+
+.wdl-demo-link {
+  margin-top: 24px;
+  margin-left: 56px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ---------- Price ---------- */
+
+.wdl-price {
+  background: var(--surface-2);
+  scroll-margin-top: 72px;
+}
+
+.wdl .dd-sec.wdl-price {
+  border-top: 0;
+}
+
+.wdl-price-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.wdl-card {
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.wdl-card.is-main {
+  border: 2px solid var(--ink);
+}
+
+.wdl-card-tag {
+  display: inline-block;
+  margin-bottom: 14px !important;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.wdl .wdl-card-name {
+  font-family: var(--font-head);
+  font-size: 1.625rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.wdl-price-big {
+  margin-top: 14px !important;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  color: var(--ink);
+}
+
+.wdl-price-big strong {
+  font-family: var(--font-head);
+  font-size: clamp(2.75rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.wdl-price-big.is-small strong {
+  font-size: 2.25rem;
+}
+
+.wdl-price-big span {
+  font-size: 1.125rem;
+  color: var(--muted);
+}
+
+.wdl-price-after {
+  margin-top: 10px !important;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.wdl-price-or {
+  margin-top: 16px !important;
+  padding: 14px 16px;
+  border-radius: var(--r-card);
+  background: var(--surface-2);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.wdl-price-or strong {
+  color: var(--ink);
+}
+
+.wdl-ticks {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px !important;
+}
+
+.wdl-ticks li {
+  display: flex;
+  gap: 10px;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.wdl-ticks svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--ink);
+}
+
+.wdl-card-line {
+  margin-top: 14px !important;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.wdl-card-btn {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.wdl-terms {
+  margin-top: 10px !important;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.wdl-price-more {
+  max-width: 1000px;
+  margin: 28px auto 0;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+.wdl-price-more strong {
+  color: var(--ink);
+}
+
+/* ---------- Tablet and phone ---------- */
+
+@media (max-width: 1023px) {
+  .wdl-work-list {
+    grid-template-columns: 1fr;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Each client becomes a row: phone screen on the left, words on the right */
+  .wdl-work-card {
+    flex-direction: row;
+  }
+
+  .wdl-work-shot {
+    flex: none;
+    width: 38%;
+    max-width: 200px;
+    height: auto;
+    padding: 18px 14px 0;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .wdl-work-shot img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    object-position: top;
+    border-width: 4px;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .wdl-work-body {
+    padding: 18px 18px 8px;
+  }
+
+  .wdl-split,
+  .wdl-split.is-flipped,
+  .wdl-price-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .wdl-split {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Photo after the words in How it works, so the steps come first */
+  .wdl-how .wdl-split-media {
+    order: 2;
+  }
+}
+
+@media (max-width: 767px) {
+  .wdl .wdl-display {
+    font-size: 2.375rem;
+  }
+
+  .wdl-hero-media {
+    margin-top: 32px;
+  }
+
+  .wdl-badge {
+    left: 10px;
+    bottom: 10px;
+    padding: 6px 12px;
+    font-size: 0.875rem;
+  }
+
+  .wdl-badge strong {
+    font-size: 1.125rem;
+  }
+
+  .wdl-work-line {
+    font-size: 1rem;
+  }
+
+  .wdl-work-area {
+    font-size: 0.875rem;
+  }
+
+  .wdl-result {
+    margin-top: 36px;
+  }
+
+  .wdl-how .wdl-split-media img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .wdl-card {
+    padding: 24px;
+  }
+}

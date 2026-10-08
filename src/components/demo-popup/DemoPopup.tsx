@@ -41,6 +41,7 @@ const PLAN: Record<ChatPlan, { chat: string; whatsApp: string; showsSite: boolea
 // Each page keeps the WhatsApp opening the bot and the weekly scoreboard already count (src/whatsapp.ts)
 const OPENING: Record<ChatPage, string> = {
   'website-design': WHATSAPP_MESSAGES.googleAds,
+  'web-design': WHATSAPP_MESSAGES.webDesign,
   home: WHATSAPP_MESSAGES.site,
   join: WHATSAPP_MESSAGES.site,
 };

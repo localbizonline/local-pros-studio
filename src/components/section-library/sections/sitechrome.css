@@ -77,6 +77,11 @@
   color: var(--ink);
 }
 
+/* Minimal header (ad pages): no links, so the button sits on the right */
+.sh .sh-btn-end {
+  margin-left: auto;
+}
+
 @media (max-width: 859px) {
   .sh-menu-btn {
     display: grid;
@@ -159,4 +164,15 @@
 
 .sf .dd-footer-base {
   max-width: none;
+}
+
+/* Minimal footer (ad pages): brand, contact and the legal links only */
+.sf-grid.is-minimal {
+  grid-template-columns: 1.4fr 1fr 1fr;
+}
+
+@media (max-width: 1023px) {
+  .sf-grid.is-minimal {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

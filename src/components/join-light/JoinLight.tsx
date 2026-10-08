@@ -9,6 +9,7 @@ import SiteFooter from '../section-library/sections/SiteFooter';
 import Pricing from '../section-library/sections/Pricing';
 import SiteChat from '../demo-popup/DemoPopup';
 import ReputationStory from '../section-library/sections/ReputationStory';
+import ClosingCard from '../section-library/sections/ClosingCard';
 import closingPhoto from '../../assets/images/review-contractor-happy.webp';
 
 // localpros.co.za/join/reviews-and-social/ rebuilt section for section in the Local Pros Studio look
@@ -113,41 +114,14 @@ export default function JoinLight() {
           </div>
         </section>
 
-        {/* CLOSING CTA */}
-        <section className="py-16 md:py-24 px-6 bg-[#FBF6EC]">
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 rounded-3xl overflow-hidden bg-[#1C1917]">
-            <img
-              src={closingPhoto}
-              alt="Contractor smiling at a new 5-star Google review on his phone"
-              loading="lazy"
-              className="w-full h-full min-h-[260px] object-cover"
-            />
-            <div className="p-8 md:p-12 flex flex-col justify-center">
-              <h2 className="jl-head text-[clamp(2rem,3.6vw,2.9rem)] font-extrabold tracking-[-0.025em] leading-[1.1] text-[#FBF6EC] mb-8">
-                Start growing your business this month.
-              </h2>
-              <ul className="flex flex-col gap-3.5 mb-9">
-                {recap.map((t) => (
-                  <li key={t} className="flex items-center gap-3 text-[clamp(1.05rem,1.6vw,1.2rem)] text-[#FBF6EC] font-semibold">
-                    <span className="w-7 h-7 rounded-full bg-[#FBF6EC]/15 text-[#FBBF24] flex items-center justify-center shrink-0 text-[0.9rem]">✓</span>
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              <div>
-                <a
-                  href={CTA}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-[12px] bg-[#F59E0B] text-[#1C1917] font-bold text-[1.2rem] px-9 py-4 hover:bg-[#FBBF24] transition-colors"
-                >
-                  WhatsApp us
-                </a>
-                <p className="text-[15px] text-[#FBF6EC]/70 mt-3">Opens WhatsApp. A real person replies.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* CLOSING CTA: the shared closing card (8 Oct 2026) */}
+        <ClosingCard
+          title="Start growing your business this month."
+          items={recap}
+          photo={closingPhoto}
+          photoAlt="Contractor smiling at a new 5-star Google review on his phone"
+          href={CTA}
+        />
       </main>
 
       {/* FOOTER: the shared footer with links to every page (8 Oct 2026) */}

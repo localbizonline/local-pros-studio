@@ -33,13 +33,13 @@ export const PAGES: Record<string, PageSeo> = {
   '/web-design': {
     title: 'Website Design South Africa | Local Pros Studio',
     description:
-      'Fast, mobile-first websites for South African service businesses, set up for Google and built to turn visitors into calls, WhatsApps and quote requests.',
+      'We write, build and look after websites for South African businesses, set up for Google with WhatsApp and call buttons. Live in about 7 days, from R450 a month.',
   },
   // Google Ads landing page: same content as /web-design without the site navigation
   '/website-design': {
     title: 'Website Design South Africa | Local Pros Studio',
     description:
-      'Fast, mobile-first websites for South African service businesses, set up for Google and built to turn visitors into calls, WhatsApps and quote requests.',
+      'We write, build and look after websites for South African businesses, set up for Google with WhatsApp and call buttons. Live in about 7 days, from R450 a month.',
     canonicalPath: '/web-design',
   },
   '/special-offer-bundle': {

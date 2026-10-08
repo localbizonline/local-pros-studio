@@ -30,6 +30,12 @@ scripts/prerender.mjs  # Saves each page in seo.ts as finished HTML, writes site
 ## Routes
 Routes live in `src/App.tsx`. Every public route needs an entry in `src/seo.ts`, or it ships with the homepage's title and is kept out of Google. `/autopilot` and `/website-design` are standalone ad landing pages with their own header and footer.
 
+`/website-design` and `/web-design` are one page, `src/components/web-design-light/WebDesignLight.tsx` (light rebuild, 8 Oct 2026): `variant="ad"` has no site menu and its own WhatsApp opening for Google Ads; `variant="site"` adds the shared menu and footer. Its hero montage of client sites and example designs is built from `design/web-montage/` (see the README there).
+
+`/website-design` also opens the "free demo website" chat popup (`src/components/demo-popup/`): the visitor finds their business on Google (same search and key as the localpros.co.za/join form) and WhatsApp opens with their details. It needs `VITE_GOOGLE_MAPS_API_KEY`: set in Netlify, locally in the git-ignored `.env.local`. The key only works on studio.localpros.co.za and `http://localhost:4321`, so run the dev server on port 4321 to test it; anywhere else the popup falls back to typed boxes.
+
+The same chat opens from buttons on other pages: render `<SiteChat page="join" />` (or `"home"`, `"web-design"`) once and call `openSiteChat(plan)` from `src/components/demo-popup/openSiteChat.ts` with `package`, `reviews`, `social` or `website`. Every lead is saved to Airtable Sales CRM (Source = Website) by `netlify/functions/demo-lead.mts`; it writes only where `DEMO_LEAD_LIVE_WRITES=true` (Netlify production) and needs `AIRTABLE_TOKEN`.
+
 ## Key Services & Pricing
 - **Google reviews**: R1,200/month
 - **Social media posting**: R2,000/month

@@ -527,7 +527,7 @@ const refundSections: LegalSection[] = [
 ];
 
 // Website clients' common questions after launch. Prices match the pricing on /web-design
-// (WebDesignAdsPage.tsx): change both together.
+// (web-design-light/WebDesignLight.tsx): change both together.
 const CLIENT_WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 const Question = ({ question, children }: { question: string; children: ReactNode }) => (

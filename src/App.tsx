@@ -13,7 +13,7 @@ const SocialPostingPageV2 = lazy(() => import('./components/SocialPostingPageV2'
 const SpecialOfferOpusPage = lazy(() => import('./components/SpecialOfferOpusPage'));
 const RecurringServicesLetterPage = lazy(() => import('./components/RecurringServicesLetterPage'));
 const AutopilotLandingPage = lazy(() => import('./components/AutopilotLandingPage'));
-const WebDesignAdsPage = lazy(() => import('./components/WebDesignAdsPage'));
+const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
 const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.TermsPage })));
 const PrivacyPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.PrivacyPage })));
 const RefundsCancellationsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.RefundsCancellationsPage })));
@@ -64,7 +64,6 @@ const PageMeta = () => {
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isWebDesignPreview = location.pathname === '/web-design';
   const whatsAppUrl = whatsAppUrlForPath(location.pathname);
 
   const navLinks = [
@@ -128,7 +127,7 @@ const Navigation = () => {
                 }
               }}
             >
-              {isWebDesignPreview ? 'Build My Website' : 'Get Started'}
+              Get Started
               <ArrowRight className="ml-2 w-4 h-4" />
             </a>
           </div>
@@ -182,7 +181,7 @@ const Navigation = () => {
                   }
                 }}
               >
-                {isWebDesignPreview ? 'Build My Website' : 'Get Started'}
+                Get Started
                 <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </div>
@@ -203,7 +202,7 @@ export const AppContent = () => {
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/', '/autopilot', '/website-design'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/autopilot', '/website-design', '/web-design'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (
@@ -218,12 +217,12 @@ export const AppContent = () => {
           <Route path="/" element={<JoinLight />} />
           <Route path="/reviews" element={<ReviewsLetterPage />} />
           <Route path="/social-media-posting-service" element={<SocialPostingPageV2 />} />
-          <Route path="/web-design" element={<WebDesignAdsPage variant="site" />} />
+          <Route path="/web-design" element={<WebDesignLight variant="site" />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />
           <Route path="/autopilot" element={<AutopilotLandingPage />} />
-          {/* Google Ads landing page: same page as /web-design without the site navigation */}
-          <Route path="/website-design" element={<WebDesignAdsPage />} />
+          {/* Google Ads landing page: same page as /web-design without the site menu (light rebuild, 8 Oct 2026) */}
+          <Route path="/website-design" element={<WebDesignLight />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds-cancellations" element={<RefundsCancellationsPage />} />

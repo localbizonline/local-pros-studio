@@ -9,7 +9,18 @@ import logoLight from '../../../assets/images/Compressed/Local Pros Studio logo 
 // Google can reach the whole site from the homepage. Pages move onto it as they are rebuilt;
 // until then the older pages keep the footer in components/Footer.tsx. Change it here only.
 
-export default function SiteFooter({ pricingHref = '/#pricing', faqHref = '/#faq' }: { pricingHref?: string; faqHref?: string }) {
+// minimal: brand, contact and legal links only, for Google Ads landing pages (8 Oct 2026)
+export default function SiteFooter({
+  pricingHref = '/#pricing',
+  faqHref = '/#faq',
+  minimal = false,
+  whatsAppUrl = SITE_WHATSAPP_URL,
+}: {
+  pricingHref?: string;
+  faqHref?: string;
+  minimal?: boolean;
+  whatsAppUrl?: string;
+}) {
   const services = [
     { label: 'Google reviews', to: '/reviews' },
     { label: 'Social media posting', to: '/social-media-posting-service' },
@@ -27,20 +38,26 @@ export default function SiteFooter({ pricingHref = '/#pricing', faqHref = '/#faq
     { label: 'Refunds and cancellations', to: '/refunds-cancellations' },
     { label: 'Website terms and FAQ', to: '/website-faq' },
   ];
-  const groups = [
-    { title: 'Services', links: services },
-    { title: 'Company', links: company },
-    { title: 'Legal', links: legal },
-  ];
+  const groups = minimal
+    ? [{ title: 'Legal', links: legal }]
+    : [
+        { title: 'Services', links: services },
+        { title: 'Company', links: company },
+        { title: 'Legal', links: legal },
+      ];
 
   return (
     <footer className="dd dd-a dd-footer sf">
       <div className="dd-container">
-        <div className="sf-grid">
+        <div className={`sf-grid${minimal ? ' is-minimal' : ''}`}>
           <div className="sf-brand">
-            <Link to="/" aria-label="Local Pros Studio home">
+            {minimal ? (
               <img src={logoLight} alt="Local Pros Studio" width={124} height={28} className="sf-logo" />
-            </Link>
+            ) : (
+              <Link to="/" aria-label="Local Pros Studio home">
+                <img src={logoLight} alt="Local Pros Studio" width={124} height={28} className="sf-logo" />
+              </Link>
+            )}
             <p>Google reviews, social media posts and websites for South African businesses.</p>
           </div>
           {groups.map((g) => (
@@ -59,7 +76,7 @@ export default function SiteFooter({ pricingHref = '/#pricing', faqHref = '/#faq
             <p className="dd-footer-title">Contact</p>
             <ul>
               <li>
-                <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <a href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
                   WhatsApp 083 233 6716
                 </a>
               </li>

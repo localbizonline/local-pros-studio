@@ -1,0 +1,10 @@
+/* Closing card (ClosingCard.tsx): near-black card with a photo and checklist on the cream band. */
+
+.cc-head {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+}
+
+.cc a:focus-visible {
+  outline: 3px solid #fbf6ec;
+  outline-offset: 4px;
+}

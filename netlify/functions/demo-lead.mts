@@ -21,6 +21,7 @@ const PLAN_NOTE: Record<string, string> = {
 };
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'studio.localpros.co.za/website-design',
+  'web-design': 'studio.localpros.co.za/web-design',
   home: 'the homepage',
   join: 'the join page',
 };
@@ -28,6 +29,8 @@ const PAGE_NOTE: Record<string, string> = {
 // typecast creates the option the first time a page sends a lead.
 const PAGE_SOURCE: Record<string, string> = {
   'website-design': 'Website – website design page',
+  // The same page with the site menu, reached from the site rather than from Google Ads (8 Oct 2026)
+  'web-design': 'Website – website design page (site menu)',
   home: 'Website – homepage',
   join: 'Website – join page',
 };
@@ -125,6 +128,7 @@ function buildFields(body: Record<string, unknown>): Record<string, unknown> | n
 
 const ALERT_PAGE: Record<string, string> = {
   'website-design': 'the website design page',
+  'web-design': 'the website design page (site menu)',
   home: 'the homepage',
   join: 'the join page',
 };

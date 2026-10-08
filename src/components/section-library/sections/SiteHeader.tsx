@@ -34,9 +34,19 @@ export function NavItem({ link, onClick }: { link: NavLink; onClick?: () => void
   );
 }
 
-export default function SiteHeader({ pricingHref = '/#pricing' }: { pricingHref?: string }) {
+// minimal: logo and button only, for Google Ads landing pages, so ad visitors stay on the page (8 Oct 2026).
+// whatsAppUrl: the page's own WhatsApp opening (src/whatsapp.ts), so its chats can be counted apart.
+export default function SiteHeader({
+  pricingHref = '/#pricing',
+  minimal = false,
+  whatsAppUrl = SITE_WHATSAPP_URL,
+}: {
+  pricingHref?: string;
+  minimal?: boolean;
+  whatsAppUrl?: string;
+}) {
   const [open, setOpen] = useState(false);
-  const nav = SITE_NAV(pricingHref);
+  const nav = minimal ? [] : SITE_NAV(pricingHref);
 
   useEffect(() => {
     if (!open) return;
@@ -48,27 +58,42 @@ export default function SiteHeader({ pricingHref = '/#pricing' }: { pricingHref?
   return (
     <header className="dd dd-a dd-header sh" id="top">
       <div className="dd-container dd-header-in">
-        <Link to="/" className="sh-logo" aria-label="Local Pros Studio home">
-          <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
-        </Link>
-        <nav className="dd-nav" aria-label="Main">
-          {nav.map((l) => (
-            <NavItem key={l.label} link={l} />
-          ))}
-        </nav>
-        <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="dd-btn dd-btn-nav">
+        {minimal ? (
+          <span className="sh-logo">
+            <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
+          </span>
+        ) : (
+          <Link to="/" className="sh-logo" aria-label="Local Pros Studio home">
+            <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
+          </Link>
+        )}
+        {!minimal && (
+          <nav className="dd-nav" aria-label="Main">
+            {nav.map((l) => (
+              <NavItem key={l.label} link={l} />
+            ))}
+          </nav>
+        )}
+        <a
+          href={whatsAppUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`dd-btn dd-btn-nav${minimal ? ' sh-btn-end' : ''}`}
+        >
           WhatsApp us
         </a>
-        <button
-          type="button"
-          className="sh-menu-btn"
-          aria-expanded={open}
-          aria-controls="site-menu"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {!minimal && (
+          <button
+            type="button"
+            className="sh-menu-btn"
+            aria-expanded={open}
+            aria-controls="site-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        )}
       </div>
       {open && (
         <nav id="site-menu" className="sh-panel" aria-label="Main">

@@ -8,7 +8,7 @@ import { SITE_WHATSAPP_URL } from '../../whatsapp';
 
 export type ChatPlan = 'package' | 'reviews' | 'social' | 'website';
 // Which page the chat is on: decides the opening lines, the WhatsApp opening and the Airtable note
-export type ChatPage = 'website-design' | 'home' | 'join';
+export type ChatPage = 'website-design' | 'web-design' | 'home' | 'join';
 
 export const OPEN_CHAT_EVENT = 'lps:open-site-chat';
 

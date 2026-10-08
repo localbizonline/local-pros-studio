@@ -28,19 +28,35 @@ const BUSINESS_GROUPS = [
   { name: 'Beauty, fitness and motor', items: 'salons, hairdressers, personal trainers, mechanics, driving schools' },
 ];
 
-export default function FitCheck() {
+// Other pages pass their own lists (the website page since 8 Oct 2026); the defaults are the join page's.
+type FitCheckProps = {
+  title?: string;
+  sub?: string;
+  goodFit?: string[];
+  notAFit?: string[];
+  groups?: { name: string; items: string }[];
+};
+
+export default function FitCheck({
+  title = 'Is this for your business?',
+  sub,
+  goodFit = GOOD_FIT,
+  notAFit = NOT_A_FIT,
+  groups = BUSINESS_GROUPS,
+}: FitCheckProps) {
   return (
     <section className="dd dd-a dd-sec fit">
       <div className="dd-container">
         <div className="dd-head">
           <p className="dd-eyebrow">Who it's for</p>
-          <h2 className="dd-h2">Is this for your business?</h2>
+          <h2 className="dd-h2">{title}</h2>
+          {sub && <p className="dd-sub">{sub}</p>}
         </div>
         <div className="fit-cols">
           <div className="fit-col">
             <h3 className="dd-h3">A good fit if</h3>
             <ul>
-              {GOOD_FIT.map((t) => (
+              {goodFit.map((t) => (
                 <li key={t}>
                   <Check size={20} aria-hidden="true" className="fit-yes" />
                   <span>{t}</span>
@@ -51,7 +67,7 @@ export default function FitCheck() {
           <div className="fit-col">
             <h3 className="dd-h3">Not a fit if</h3>
             <ul>
-              {NOT_A_FIT.map((t) => (
+              {notAFit.map((t) => (
                 <li key={t}>
                   <X size={20} aria-hidden="true" className="fit-no" />
                   <span>{t}</span>
@@ -63,7 +79,7 @@ export default function FitCheck() {
         <div className="fit-groups">
           <p className="dd-tags-label">Works well for</p>
           <ul>
-            {BUSINESS_GROUPS.map((g) => (
+            {groups.map((g) => (
               <li key={g.name}>
                 <strong>{g.name}:</strong> {g.items}
               </li>
