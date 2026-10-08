@@ -44,8 +44,23 @@ const STEP_NOTE: Record<string, string> = {
   confirmed: 'confirmed it is theirs',
   number: 'gave the number we can WhatsApp them on',
   typed: 'typed their details (not found on Google)',
+  answered: 'answered the quick questions',
   sent: 'pressed send (WhatsApp opened)',
 };
+// The chat's quick questions (src/components/demo-popup/DemoPopup.tsx QUESTIONS): only these answers are kept
+const ANSWERS: Record<string, { label: string; options: Record<string, string> }> = {
+  pay: { label: 'Prefers to pay', options: { once: 'once-off (R9,900)', rent: 'rent to own (R450 a month)', package: 'free with reviews + social posts (R2,500 a month)', unsure: 'not sure yet' } },
+  site: { label: 'Website now', options: { none: 'none', 'needs-work': 'has one, needs work', fine: 'has one, it’s fine' } },
+  when: { label: 'Timing', options: { asap: 'as soon as possible', month: 'in the next month', looking: 'just looking for now' } },
+};
+const answersFrom = (body: Record<string, unknown>) => {
+  const raw = body.answers && typeof body.answers === 'object' && !Array.isArray(body.answers) ? (body.answers as Record<string, unknown>) : {};
+  return Object.keys(ANSWERS)
+    .filter((id) => typeof raw[id] === 'string' && Object.hasOwn(ANSWERS[id].options, raw[id] as string))
+    .map((id) => ({ id, text: `${ANSWERS[id].label}: ${ANSWERS[id].options[raw[id] as string]}` }));
+};
+const isHot = (body: Record<string, unknown>) => answersFrom(body).some((a) => a.id === 'when' && a.text.endsWith('as soon as possible'));
+
 const stepsFrom = (body: Record<string, unknown>) =>
   Array.isArray(body.steps) ? [...new Set(body.steps.filter((x): x is string => typeof x === 'string' && Object.hasOwn(STEP_NOTE, x)))] : [];
 
@@ -164,6 +179,8 @@ function buildFields(body: Record<string, unknown>): Record<string, unknown> | n
     fields[F.mobile] = mobile;
     fields[F.message] = `${fields[F.message]}\nWhatsApp number: ${mobile} (${body.whatsAppFrom === 'google' ? 'their Google listing number, they said yes' : 'they typed it'}).`;
   }
+  const answers = answersFrom(body);
+  if (answers.length) fields[F.message] = `${fields[F.message]}\n${answers.map((a) => a.text).join('\n')}`;
   return fields;
 }
 
@@ -195,6 +212,7 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
     fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
     typeof rating === 'number' && `Rating: ${rating} (${reviews ?? 0} reviews)`,
     body.mode === 'manual' && 'Not found on Google (typed their details).',
+    ...answersFrom(body).map((a) => a.text),
     stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
     recordId ? `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}` : 'Not saved to Airtable (error). Details above.',
   ]
@@ -217,8 +235,22 @@ const changedText = (body: Record<string, unknown>, fields: Record<string, unkno
 const numberText = (fields: Record<string, unknown>, recordId: string) =>
   `📱 ${fields[F.companyName]} can be WhatsApped on ${fields[F.mobile]}.\nAirtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`;
 
-const sentText = (fields: Record<string, unknown>, recordId: string) =>
-  `✅ ${fields[F.companyName]} pressed send: expect their WhatsApp now.\nAirtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`;
+const answersText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
+  [
+    `📝 ${isHot(body) ? '🔥 ' : ''}${fields[F.companyName]} answered the quick questions (${pageLabel(body)}, ${planLabel(body)})`,
+    ...answersFrom(body).map((a) => a.text),
+    fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
+    `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+const sentText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
+  [
+    `✅ ${isHot(body) ? '🔥 ' : ''}${fields[F.companyName]} pressed send: expect their WhatsApp now.`,
+    ...answersFrom(body).map((a) => a.text),
+    `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
+  ].join('\n');
 
 // The pass for one record: HMAC-SHA256 of its id, keyed with the server-only Airtable token
 async function passFor(recordId: string, secret: string) {
@@ -320,7 +352,8 @@ export default async (request: Request) => {
       const oldNote = typeof old[F.message] === 'string' ? (old[F.message] as string) : '';
       if (old[F.companyName] && old[F.companyName] !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
       if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
-      if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) await sendAlert('lead', sentText(fields, recordId));
+      if (stepsFrom(body).includes('answered') && !oldNote.includes(STEP_NOTE.answered)) await sendAlert('lead', answersText(body, fields, recordId));
+      if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) await sendAlert('lead', sentText(body, fields, recordId));
       return json({ ok: true }, 200);
     } catch (err) {
       console.error('Airtable update error', err instanceof Error ? err.message : String(err));

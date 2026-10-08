@@ -39,6 +39,43 @@ const PLAN: Record<ChatPlan, { chat: string; whatsApp: string }> = {
   website: { chat: 'your new website', whatsApp: 'a new website' },
 };
 
+// Quick questions after we have their number, one tap each (Jeremy, 8 Oct 2026): a feel for how they would
+// pay and how ready they are. Nothing is binding; the answers go to Airtable, the alert and the WhatsApp message.
+// Prices are the website page's (src/components/web-design-light). Never mention a posting frequency.
+type QuestionId = 'pay' | 'site' | 'when';
+const QUESTIONS: Record<QuestionId, { ask: string; options: { value: string; label: string }[] }> = {
+  pay: {
+    ask: 'Which way of paying suits you best? Just so we know: it doesn’t lock you in.',
+    options: [
+      { value: 'once', label: 'Once-off: R9,900' },
+      { value: 'rent', label: 'Rent to own: R450 a month' },
+      { value: 'package', label: 'Free with reviews + social posts (R2,500 a month)' },
+      { value: 'unsure', label: 'Not sure yet' },
+    ],
+  },
+  site: {
+    ask: 'Do you have a website now?',
+    options: [
+      { value: 'none', label: 'No' },
+      { value: 'needs-work', label: 'Yes, but it needs work' },
+      { value: 'fine', label: 'Yes, and it’s fine' },
+    ],
+  },
+  when: {
+    ask: 'When would you like to get going?',
+    options: [
+      { value: 'asap', label: 'As soon as possible' },
+      { value: 'month', label: 'In the next month' },
+      { value: 'looking', label: 'Just looking for now' },
+    ],
+  },
+};
+// The free demo and the website plan ask all three; the package skips paying; reviews or social only ask when
+const questionsFor = (plan?: ChatPlan): QuestionId[] =>
+  !plan || plan === 'website' ? ['pay', 'site', 'when'] : plan === 'package' ? ['site', 'when'] : ['when'];
+type Answers = Partial<Record<QuestionId, string>>;
+const answerLabel = (id: QuestionId, value?: string) => QUESTIONS[id].options.find((o) => o.value === value)?.label || '';
+
 // Each page keeps the WhatsApp opening the bot and the weekly scoreboard already count (src/whatsapp.ts)
 const OPENING: Record<ChatPage, string> = {
   'website-design': WHATSAPP_MESSAGES.googleAds,
@@ -56,7 +93,7 @@ const chatLines = (plan?: ChatPlan) =>
         'Find your business on Google below. We’ll build a free demo from your listing and WhatsApp it to you.',
       ];
 
-const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Business | null, name: string, link: string, whatsApp: string) =>
+const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Business | null, name: string, link: string, whatsApp: string, answers: Answers) =>
   [
     `${OPENING[page]}. ${plan ? `I’d like to start ${PLAN[plan].whatsApp}.` : 'Please send me a free demo.'}`,
     ...(business
@@ -69,6 +106,9 @@ const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Busin
         ]
       : [name.trim() && `Business name: ${name.trim()}`, link.trim() && `Facebook or website: ${link.trim()}`]),
     whatsApp && `My WhatsApp: ${showMobile(whatsApp)}`,
+    answers.pay && `Paying: ${answerLabel('pay', answers.pay)}`,
+    answers.site && `Website now: ${answerLabel('site', answers.site)}`,
+    answers.when && `When: ${answerLabel('when', answers.when)}`,
   ]
     .filter(Boolean)
     .join('\n');
@@ -115,7 +155,7 @@ const postLead = (body: Record<string, unknown>) => {
 // One Airtable record per chat (Jeremy, 8 Oct 2026): created the moment they pick their business on Google
 // (or send typed details), then updated as they confirm, change business or press send, so a visitor who
 // never presses send is still on the list. The server hands back the record id and a pass for the updates.
-type LeadStep = 'picked' | 'confirmed' | 'number' | 'typed' | 'sent';
+type LeadStep = 'picked' | 'confirmed' | 'number' | 'typed' | 'answered' | 'sent';
 const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
   const record = useRef<{ id: string; pass: string } | null>(null);
   const steps = useRef<LeadStep[]>([]);
@@ -124,7 +164,8 @@ const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
   return (newSteps: LeadStep[], lead: Record<string, unknown>) => {
     if (isTeamDevice()) return;
     // Picking a business (again) or typing details starts the story over: earlier steps were for another listing
-    steps.current = newSteps.includes('picked') || newSteps.includes('typed') ? [...newSteps] : [...new Set([...steps.current, ...newSteps])];
+    const restart = newSteps.includes('picked') || (newSteps.includes('typed') && !steps.current.includes('typed'));
+    steps.current = restart ? [...newSteps] : [...new Set([...steps.current, ...newSteps])];
     const body = { kind: 'lead', page, plan, steps: steps.current, ...lead };
     queue.current = queue.current.then(async () => {
       try {
@@ -487,6 +528,8 @@ function ChatWindow({
   const [numberInput, setNumberInput] = useState('');
   const [numberError, setNumberError] = useState('');
   const [otherNumber, setOtherNumber] = useState(false);
+  const [answers, setAnswers] = useState<Answers>({});
+  const [questions] = useState(() => questionsFor(plan));
   const chatRef = useRef<HTMLDivElement>(null);
   const saveLead = useLeadRecord(page, plan);
   const { hostRef, status, clear, focus } = useGoogleSearch(open, (b) => {
@@ -501,7 +544,7 @@ function ChatWindow({
   // Keep the newest bubble in view as the chat grows
   useEffect(() => {
     chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' });
-  }, [typed, typing, finished, pending, business, typeByHand, whatsApp, otherNumber]);
+  }, [typed, typing, finished, pending, business, typeByHand, whatsApp, otherNumber, answers]);
 
   // PostHog: the chat steps are site_chat_opened → site_chat_started → site_chat_business_found → site_chat_sent
   useEffect(() => {
@@ -516,10 +559,25 @@ function ChatWindow({
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose, trackPrefix]);
 
-  const href = whatsAppLink(chatMessage(page, plan, business, name, link, whatsApp));
+  const href = whatsAppLink(chatMessage(page, plan, business, name, link, whatsApp, answers));
   const typedMobile = normaliseMobile(numberInput);
-  const ready = (!!business && !!whatsApp) || (typeByHand && !business && !!name.trim() && !!typedMobile);
   const googleMobile = business ? normaliseMobile(business.phone) : '';
+  // We can reach them: a confirmed business with a number, or typed details with a valid number
+  const haveContact = (!!business && !!whatsApp) || (typeByHand && !business && !!name.trim() && !!typedMobile);
+  const answeredAll = questions.every((id) => answers[id]);
+  const ready = haveContact && answeredAll;
+  // What we know so far, sent with every save so the record always holds the latest
+  const leadNow = () =>
+    business
+      ? { mode: 'google', ...business, whatsApp, whatsAppFrom: whatsApp === googleMobile ? 'google' : 'typed', answers }
+      : { mode: 'manual', name: name.trim(), link: link.trim(), whatsApp: typedMobile, whatsAppFrom: 'typed', answers };
+  const answer = (id: QuestionId, value: string) => {
+    const next = { ...answers, [id]: value };
+    setAnswers(next);
+    const done = questions.every((q) => next[q]);
+    capture('site_chat_answered', { page, plan: plan || 'demo', question: id, answer: value });
+    saveLead([...(business ? [] : (['typed'] as LeadStep[])), ...(done ? (['answered'] as LeadStep[]) : [])], { ...leadNow(), answers: next });
+  };
   const searchAgain = () => {
     clear();
     setPending(null);
@@ -534,7 +592,7 @@ function ChatWindow({
     setWhatsApp(mobile);
     setNumberError('');
     capture('site_chat_number_given', { page, plan: plan || 'demo', from });
-    saveLead(['number'], { mode: 'google', ...business, whatsApp: mobile, whatsAppFrom: from });
+    saveLead(['number'], { mode: 'google', ...business, whatsApp: mobile, whatsAppFrom: from, answers });
   };
 
   // Opened from a button: a centred window over a darkened page, so it's clear what the click did and what to
@@ -751,14 +809,50 @@ function ChatWindow({
                     Change
                   </button>
                 </Bubble>
-                <Bubble>
-                  {plan
-                    ? `Thanks. Tap send and we’ll set up ${PLAN[plan].whatsApp} for ${business.name} on WhatsApp.`
-                    : `Thanks. Tap send and we’ll start on the free demo for ${business.name}.`}
-                </Bubble>
               </>
             )}
           </>
+        )}
+
+        {/* Quick questions, one tap each, once we can reach them */}
+        {haveContact &&
+          questions.map((id, i) =>
+            questions.slice(0, i).every((q) => answers[q]) ? (
+              <div key={id} className="space-y-2">
+                <Bubble>
+                  <p>{QUESTIONS[id].ask}</p>
+                  {!answers[id] && (
+                    <div className="mt-2 flex flex-col gap-1.5">
+                      {QUESTIONS[id].options.map((o) => (
+                        <button
+                          key={o.value}
+                          type="button"
+                          onClick={() => answer(id, o.value)}
+                          className="rounded-full border border-[#008069]/40 bg-white px-3 py-2 text-left text-[13px] font-semibold text-[#00634f] hover:bg-[#e7f4ef]"
+                        >
+                          {o.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </Bubble>
+                {answers[id] && (
+                  <Bubble mine>
+                    <span className="flex items-center gap-1.5 font-semibold">
+                      <Check className="h-4 w-4 flex-none text-[#008069]" aria-hidden="true" />
+                      {answerLabel(id, answers[id])}
+                    </span>
+                  </Bubble>
+                )}
+              </div>
+            ) : null,
+          )}
+        {ready && (
+          <Bubble>
+            {plan
+              ? `Thanks. Tap send and we’ll set up ${PLAN[plan].whatsApp} for ${business?.name || name.trim()} on WhatsApp.`
+              : `Thanks. Tap send and we’ll start on the free demo for ${business?.name || name.trim()}.`}
+          </Bubble>
         )}
       </div>
 
@@ -775,8 +869,7 @@ function ChatWindow({
             track(`${trackPrefix}_whatsapp`);
             capture('site_chat_sent', { page, plan: plan || 'demo', how: business ? 'google' : 'typed' });
             // Updates the record made when they picked their business, or creates it for typed details
-            if (business) saveLead(['sent'], { mode: 'google', ...business, whatsApp, whatsAppFrom: whatsApp === googleMobile ? 'google' : 'typed' });
-            else saveLead(['typed', 'sent'], { mode: 'manual', name: name.trim(), link: link.trim(), whatsApp: typedMobile, whatsAppFrom: 'typed' });
+            saveLead(business ? ['sent'] : ['typed', 'sent'], leadNow());
           }}
           className={`flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 font-display text-[15px] font-extrabold ${
             ready ? 'bg-amber-400 text-neutral-950 hover:bg-amber-300' : 'cursor-default bg-amber-400/40 text-neutral-950/50'
