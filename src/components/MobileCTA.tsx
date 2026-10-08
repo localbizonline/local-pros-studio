@@ -52,6 +52,7 @@ const MobileCTA = () => {
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-4 py-3 bg-[#25D366] text-white rounded-full shadow-soft-xl hover:bg-[#128C7E] transition-colors"
           aria-label="Chat on WhatsApp"
+          data-wa-from="floating_button"
           onClick={() => {
             if (typeof window !== 'undefined' && window.gtag) {
               window.gtag('event', 'cta_click', {

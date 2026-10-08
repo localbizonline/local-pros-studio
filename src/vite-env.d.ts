@@ -13,4 +13,10 @@ interface Window {
     }
   ) => void;
   dataLayer: unknown[];
+  // PostHog, loaded in index.html (src/analytics.ts)
+  posthog?: {
+    capture: (event: string, properties?: Record<string, unknown>) => void;
+    register: (properties: Record<string, unknown>) => void;
+    unregister: (property: string) => void;
+  };
 }

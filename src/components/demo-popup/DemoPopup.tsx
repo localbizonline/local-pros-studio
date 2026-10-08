@@ -3,6 +3,7 @@ import { ArrowRight, Check, Star, X } from 'lucide-react';
 
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import { isTeamDevice } from '../../teamDevice';
+import { capture } from '../../analytics';
 import { chatState, OPEN_CHAT_EVENT, type ChatPage, type ChatPlan } from './openSiteChat';
 
 // The site chat (8 Oct 2026). Looks like a WhatsApp chat: we "type" the opening lines, the visitor
@@ -123,6 +124,7 @@ const notifyStarted = (page: ChatPage, plan?: ChatPlan) => {
     if (startedThisLoad.has(page)) return;
   }
   startedThisLoad.add(page);
+  capture('site_chat_started', { page, plan: plan || 'demo' });
   postLead({ kind: 'started', page, plan });
 };
 
@@ -457,6 +459,11 @@ function ChatWindow({
     chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' });
   }, [typed, typing, finished, pending, business, typeByHand]);
 
+  // PostHog: the chat steps are site_chat_opened → site_chat_started → site_chat_business_found → site_chat_sent
+  useEffect(() => {
+    if (open) capture('site_chat_opened', { page, plan: plan || 'demo', how: plan ? 'button' : 'opened_by_itself' });
+  }, [open, page, plan]);
+
   useEffect(() => {
     if (!open) return;
     track(`${trackPrefix}_shown`);
@@ -601,6 +608,7 @@ function ChatWindow({
                 onClick={() => {
                   setBusiness(pending);
                   track(`${trackPrefix}_gbp_picked`);
+                  capture('site_chat_business_found', { page, plan: plan || 'demo', how: 'google', google_reviews: pending.reviewCount ?? 0 });
                   saveLead({ mode: 'google', page, plan, ...pending });
                 }}
                 className="flex-1 whitespace-nowrap rounded-full bg-[#008069] px-3 py-2 text-[13px] font-bold text-white"
@@ -650,9 +658,11 @@ function ChatWindow({
           target="_blank"
           rel="noopener noreferrer"
           aria-disabled={!ready}
+          data-wa-from="site_chat"
           onClick={() => {
             if (!ready) return;
             track(`${trackPrefix}_whatsapp`);
+            capture('site_chat_sent', { page, plan: plan || 'demo', how: business ? 'google' : 'typed' });
             // Google picks are saved when confirmed; typed details are saved here
             if (!business) saveLead({ mode: 'manual', page, plan, name: name.trim(), link: link.trim() });
           }}

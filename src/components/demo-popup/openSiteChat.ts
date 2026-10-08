@@ -1,4 +1,5 @@
 import { SITE_WHATSAPP_URL } from '../../whatsapp';
+import { capture } from '../../analytics';
 
 // Opens the site chat (DemoPopup.tsx) from any button, with a plan picked (8 Oct 2026).
 // The page must render <SiteChat page="…" /> once. Usage:
@@ -19,6 +20,7 @@ export const openSiteChat = (plan?: ChatPlan) => {
   if (chatState.mounted > 0) {
     window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { plan } }));
   } else {
+    capture('whatsapp_click', { page: window.location.pathname, from: 'chat_button_without_chat', plan });
     window.open(SITE_WHATSAPP_URL, '_blank', 'noopener,noreferrer');
   }
 };

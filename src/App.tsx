@@ -25,6 +25,7 @@ import logo from './assets/images/Compressed/Local Pros Studio logo transparent.
 import { whatsAppUrlForPath } from './whatsapp';
 import { canonicalUrl, seoForPath } from './seo';
 import { applyTeamDeviceLink } from './teamDevice';
+import { markTeamDevice, trackSectionViews, trackWhatsAppClicks } from './analytics';
 
 const setHeadTag = (selector: string, create: () => HTMLElement, attr: string, value: string) => {
   let el = document.head.querySelector<HTMLElement>(selector);
@@ -198,7 +199,12 @@ export const AppContent = () => {
   // studio.localpros.co.za/?team=on marks this browser as ours: the site chat then sends no alerts
   useEffect(() => {
     applyTeamDeviceLink();
+    markTeamDevice();
+    return trackWhatsAppClicks();
   }, []);
+
+  // Which parts of each page visitors look at, for PostHog (src/analytics.ts)
+  useEffect(() => trackSectionViews(location.pathname), [location.pathname]);
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
