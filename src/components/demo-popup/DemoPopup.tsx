@@ -102,13 +102,35 @@ const postLead = (body: Record<string, unknown>) => {
   });
 };
 
-// Saves the lead, so a visitor who never presses send in WhatsApp is still on the list. Once per business per visit.
-const savedLeads = new Set<string>();
-const saveLead = (lead: Record<string, unknown>) => {
-  const key = JSON.stringify([lead.mode, lead.plan || '', lead.placeId || lead.name, lead.link || '']);
-  if (savedLeads.has(key)) return;
-  savedLeads.add(key);
-  postLead({ kind: 'lead', ...lead });
+// One Airtable record per chat (Jeremy, 8 Oct 2026): created the moment they pick their business on Google
+// (or send typed details), then updated as they confirm, change business or press send, so a visitor who
+// never presses send is still on the list. The server hands back the record id and a pass for the updates.
+type LeadStep = 'picked' | 'confirmed' | 'typed' | 'sent';
+const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
+  const record = useRef<{ id: string; pass: string } | null>(null);
+  const steps = useRef<LeadStep[]>([]);
+  // One request at a time, so an update never overtakes the create it depends on
+  const queue = useRef<Promise<void>>(Promise.resolve());
+  return (newSteps: LeadStep[], lead: Record<string, unknown>) => {
+    if (isTeamDevice()) return;
+    // Picking a business (again) or typing details starts the story over: earlier steps were for another listing
+    steps.current = newSteps.includes('picked') || newSteps.includes('typed') ? [...newSteps] : [...new Set([...steps.current, ...newSteps])];
+    const body = { kind: 'lead', page, plan, steps: steps.current, ...lead };
+    queue.current = queue.current.then(async () => {
+      try {
+        const res = await fetch('/api/demo-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(record.current ? { ...body, recordId: record.current.id, pass: record.current.pass } : body),
+          keepalive: true,
+        });
+        const data = (await res.json()) as { record?: { id: string; pass: string } | null };
+        if (!record.current && data.record?.id && data.record.pass) record.current = data.record;
+      } catch {
+        /* the WhatsApp message still carries the details */
+      }
+    });
+  };
 };
 
 // "Someone started using the chat" alert: the first time a visitor taps into it, once per page per visit
@@ -448,9 +470,11 @@ function ChatWindow({
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
   const chatRef = useRef<HTMLDivElement>(null);
+  const saveLead = useLeadRecord(page, plan);
   const { hostRef, status, clear } = useGoogleSearch(open, (b) => {
     setBusiness(null);
     setPending(b);
+    saveLead(['picked'], { mode: 'google', ...b });
   });
   const typeByHand = manual || status === 'failed';
 
@@ -609,7 +633,7 @@ function ChatWindow({
                   setBusiness(pending);
                   track(`${trackPrefix}_gbp_picked`);
                   capture('site_chat_business_found', { page, plan: plan || 'demo', how: 'google', google_reviews: pending.reviewCount ?? 0 });
-                  saveLead({ mode: 'google', page, plan, ...pending });
+                  saveLead(['confirmed'], { mode: 'google', ...pending });
                 }}
                 className="flex-1 whitespace-nowrap rounded-full bg-[#008069] px-3 py-2 text-[13px] font-bold text-white"
               >
@@ -663,8 +687,9 @@ function ChatWindow({
             if (!ready) return;
             track(`${trackPrefix}_whatsapp`);
             capture('site_chat_sent', { page, plan: plan || 'demo', how: business ? 'google' : 'typed' });
-            // Google picks are saved when confirmed; typed details are saved here
-            if (!business) saveLead({ mode: 'manual', page, plan, name: name.trim(), link: link.trim() });
+            // Updates the record made when they picked their business, or creates it for typed details
+            if (business) saveLead(['sent'], { mode: 'google', ...business });
+            else saveLead(['typed', 'sent'], { mode: 'manual', name: name.trim(), link: link.trim() });
           }}
           className={`flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 font-display text-[15px] font-extrabold ${
             ready ? 'bg-amber-400 text-neutral-950 hover:bg-amber-300' : 'cursor-default bg-amber-400/40 text-neutral-950/50'

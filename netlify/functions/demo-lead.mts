@@ -2,6 +2,9 @@
 // /website-design, and the "Start now" chat on the join page and homepage.
 // Creates one record in Airtable "Sales CRM / Master List", the same table the localpros.co.za/join form
 // writes to (../localpros-join/workers/join-form/src/index.ts), with Source = "Website" plus the page's tag.
+// One record per chat: created when they first pick their business on Google (or send typed details),
+// then updated as they confirm, change business or press send. The create returns the record id and a
+// pass (an HMAC of the id); later calls must bring both, so nobody else can change the record.
 // Never Source = "Incoming": that starts the join form's WhatsApp opener automation.
 // It also WhatsApps Jeremy and Ashley through SP2 (POST WEBSITE_LEAD_ALERT_URL, recipients = SP2's
 // "Website leads" group): kind "started" when someone first uses the chat (alert only, nothing saved)
@@ -35,10 +38,23 @@ const PAGE_SOURCE: Record<string, string> = {
   join: 'Website – join page',
 };
 
+// How far they got, from the steps the chat reports, e.g. "picked their business on Google, pressed send"
+const STEP_NOTE: Record<string, string> = {
+  picked: 'picked their business on Google',
+  confirmed: 'confirmed it is theirs',
+  typed: 'typed their details (not found on Google)',
+  sent: 'pressed send (WhatsApp opened)',
+};
+const stepsFrom = (body: Record<string, unknown>) =>
+  Array.isArray(body.steps) ? [...new Set(body.steps.filter((x): x is string => typeof x === 'string' && Object.hasOwn(STEP_NOTE, x)))] : [];
+
 const noteFor = (body: Record<string, unknown>) => {
   const page = typeof body.page === 'string' && Object.hasOwn(PAGE_NOTE, body.page) ? PAGE_NOTE[body.page] : 'the website';
   const plan = typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan) ? PLAN_NOTE[body.plan] : '';
-  return plan ? `Start now: ${plan}, from ${page}.` : `Free demo website request, from ${page}.`;
+  const steps = stepsFrom(body).map((step) => STEP_NOTE[step]);
+  return [plan ? `Start now: ${plan}, from ${page}.` : `Free demo website request, from ${page}.`, steps.length ? `So far: ${steps.join(', ')}.` : '']
+    .filter(Boolean)
+    .join('\n');
 };
 
 // Same field ids as the join form Worker
@@ -117,9 +133,11 @@ function buildFields(body: Record<string, unknown>): Record<string, unknown> | n
     const name = text(body.name, 200);
     if (!name) return null;
     fields[F.companyName] = name;
+    // Typed by hand after picking a Google listing: that listing was not theirs, so clear it
+    for (const id of [F.gbpUrl, F.gbpPlaceId, F.gbpName, F.gbpCategory, F.gbpWebsite, F.gbpPhone, F.gbpReviewCount, F.gbpReviewScore]) fields[id] = null;
     const link = webUrl(body.link);
     if (link) fields[/facebook\.com|fb\.com|fb\.me/i.test(link) ? F.facebook : F.website] = link;
-    fields[F.message] = `${noteFor(body)}\nNot found on Google: typed their business name${link ? ' and link' : ''}.`;
+    fields[F.message] = noteFor(body);
   } else {
     return null;
   }
@@ -153,11 +171,40 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
     fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
     typeof rating === 'number' && `Rating: ${rating} (${reviews ?? 0} reviews)`,
     body.mode === 'manual' && 'Not found on Google (typed their details).',
+    stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
     recordId ? `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}` : 'Not saved to Airtable (error). Details above.',
   ]
     .filter(Boolean)
     .join('\n')
     .slice(0, 1000);
+};
+
+const changedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
+  [
+    `✏️ Website lead changed their business to: ${fields[F.companyName]}`,
+    `From ${pageLabel(body)} (${planLabel(body)})`,
+    fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
+    fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
+    `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+const sentText = (fields: Record<string, unknown>, recordId: string) =>
+  `✅ ${fields[F.companyName]} pressed send: expect their WhatsApp now.\nAirtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`;
+
+// The pass for one record: HMAC-SHA256 of its id, keyed with the server-only Airtable token
+async function passFor(recordId: string, secret: string) {
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(`demo-lead:${secret}`), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(recordId));
+  return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+const sameText = (a: string, b: string) => {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
 };
 
 // Never blocks or fails the visitor's request: a missed alert is logged, the lead is still saved
@@ -215,11 +262,42 @@ export default async (request: Request) => {
   const fields = buildFields(body);
   if (!fields) return json({ ok: false, error: 'validation' }, 400);
 
-  if (!live) return json({ ok: true, dryRun: true, airtableFields: fields, alert: leadText(body, fields, 'recDRYRUN') }, 200);
+  // A later step for a record this chat already created: needs its id and pass
+  const recordId = typeof body.recordId === 'string' && /^rec[A-Za-z0-9]{14}$/.test(body.recordId) ? body.recordId : '';
+  if (body.recordId !== undefined && !recordId) return json({ ok: false, error: 'validation' }, 400);
+
+  if (!live) {
+    return json({ ok: true, dryRun: true, update: !!recordId, airtableFields: fields, alert: recordId ? null : leadText(body, fields, 'recDRYRUN'), record: { id: recordId || 'recDRYRUN0000000', pass: 'dry-run' } }, 200);
+  }
   const token = Netlify.env.get('AIRTABLE_TOKEN');
   if (!token) {
     console.error('DEMO_LEAD_LIVE_WRITES is true but AIRTABLE_TOKEN is not set');
     return json({ ok: false, error: 'server' }, 500);
+  }
+
+  if (recordId) {
+    if (typeof body.pass !== 'string' || !sameText(body.pass, await passFor(recordId, token))) return json({ ok: false, error: 'forbidden' }, 403);
+    try {
+      // Read what it was, so the alerts only go out for a new business or a first send
+      const before = await fetch(`${AIRTABLE_URL}/${recordId}?returnFieldsByFieldId=true`, { headers: { Authorization: `Bearer ${token}` } });
+      const old = before.ok ? (((await before.json()) as { fields?: Record<string, unknown> }).fields ?? {}) : {};
+      const res = await fetch(`${AIRTABLE_URL}/${recordId}`, {
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields, typecast: true }),
+      });
+      if (!res.ok) {
+        console.error('Airtable update failed', res.status, (await res.text()).slice(0, 1000));
+        return json({ ok: false, error: 'server' }, 502);
+      }
+      const oldNote = typeof old[F.message] === 'string' ? (old[F.message] as string) : '';
+      if (old[F.companyName] && old[F.companyName] !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
+      if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) await sendAlert('lead', sentText(fields, recordId));
+      return json({ ok: true }, 200);
+    } catch (err) {
+      console.error('Airtable update error', err instanceof Error ? err.message : String(err));
+      return json({ ok: false, error: 'server' }, 502);
+    }
   }
 
   try {
@@ -234,8 +312,9 @@ export default async (request: Request) => {
       return json({ ok: false, error: 'server' }, 502);
     }
     const created = (await res.json()) as { records?: { id?: string }[] };
-    await sendAlert('lead', leadText(body, fields, created.records?.[0]?.id || null));
-    return json({ ok: true }, 200);
+    const id = created.records?.[0]?.id || null;
+    await sendAlert('lead', leadText(body, fields, id));
+    return json({ ok: true, record: id ? { id, pass: await passFor(id, token) } : null }, 200);
   } catch (err) {
     console.error('Airtable request error', err instanceof Error ? err.message : String(err));
     await sendAlert('lead', leadText(body, fields, null));
