@@ -1,7 +1,7 @@
 // POST /api/demo-lead from the site chat (src/components/demo-popup/): the free demo popup on
 // /website-design, and the "Start now" chat on the join page and homepage.
 // Creates one record in Airtable "Sales CRM / Master List", the same table the localpros.co.za/join form
-// writes to (../localpros-join/workers/join-form/src/index.ts), with Source = "Website".
+// writes to (../localpros-join/workers/join-form/src/index.ts), with Source = "Website" plus the page's tag.
 // Never Source = "Incoming": that starts the join form's WhatsApp opener automation.
 // Dry run unless DEMO_LEAD_LIVE_WRITES is exactly "true" (production only): then it returns the fields instead.
 
@@ -21,6 +21,14 @@ const PAGE_NOTE: Record<string, string> = {
   home: 'the homepage',
   join: 'the join page',
 };
+// A second Source tag per page, beside "Website", so leads can be filtered by where they came from.
+// typecast creates the option the first time a page sends a lead.
+const PAGE_SOURCE: Record<string, string> = {
+  'website-design': 'Website – website design page',
+  home: 'Website – homepage',
+  join: 'Website – join page',
+};
+
 const noteFor = (body: Record<string, unknown>) => {
   const page = typeof body.page === 'string' && Object.hasOwn(PAGE_NOTE, body.page) ? PAGE_NOTE[body.page] : 'the website';
   const plan = typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan) ? PLAN_NOTE[body.plan] : '';
@@ -73,7 +81,8 @@ const number = (value: unknown, min: number, max: number) =>
   typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max ? value : undefined;
 
 function buildFields(body: Record<string, unknown>): Record<string, unknown> | null {
-  const fields: Record<string, unknown> = { [F.source]: ['Website'] };
+  const pageSource = typeof body.page === 'string' && Object.hasOwn(PAGE_SOURCE, body.page) ? PAGE_SOURCE[body.page] : '';
+  const fields: Record<string, unknown> = { [F.source]: pageSource ? ['Website', pageSource] : ['Website'] };
 
   if (body.mode === 'google') {
     const name = text(body.name, 200);
