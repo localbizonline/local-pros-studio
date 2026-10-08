@@ -2,15 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check, Star, X } from 'lucide-react';
 
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
+import { chatState, OPEN_CHAT_EVENT, type ChatPage, type ChatPlan } from './openSiteChat';
 
-// "Free demo website" chat popup for the web design pages (draft, 8 Oct 2026).
-// Looks like a WhatsApp chat opening by itself: we "type" the offer, the visitor answers.
-// The visitor finds their business on Google inside the chat (same Google search as the
-// localpros.co.za/join/apply form, ../localpros-join/src/scripts/apply-form.ts), sees a small website
-// with their name, phone and rating, and the WhatsApp message arrives with their Google details.
-// Not on Google: business name plus Facebook page or website. Jeremy picked this version (C) on 8 Oct 2026.
+// The site chat (8 Oct 2026). Looks like a WhatsApp chat: we "type" the opening lines, the visitor
+// finds their business on Google inside the chat (same Google search as the localpros.co.za/join/apply
+// form, ../localpros-join/src/scripts/apply-form.ts), and WhatsApp opens with their Google details.
+// Not on Google: business name plus Facebook page or website. Every lead is also saved to Airtable.
+// - /website-design: opens by itself once per visit with the free demo offer (Jeremy's pick, version C).
+// - Other pages (join, homepage): opens only from a button via openSiteChat(plan), with the plan picked.
+// Render <SiteChat page="…" /> once per page.
 
 type Business = {
+  placeId: string;
   name: string;
   address: string;
   hiddenAddress: boolean;
@@ -26,15 +29,33 @@ const SEEN_KEY = 'lps_demo_popup_seen';
 // Public browser key, the same one the join form uses; its website restrictions decide where it works
 const MAPS_KEY = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
 
-const OFFER_LINES = [
-  'Hi 👋 Want to see your new website before you pay anything?',
-  'Find your business on Google below. We’ll build a free demo from your listing and WhatsApp it to you.',
-];
+// How each plan is said: in the chat, in the WhatsApp message (the Airtable wording is in demo-lead.mts)
+const PLAN: Record<ChatPlan, { chat: string; whatsApp: string; showsSite: boolean }> = {
+  package: { chat: 'the full package', whatsApp: 'the full package', showsSite: true },
+  reviews: { chat: 'your Google reviews', whatsApp: 'Google reviews', showsSite: false },
+  social: { chat: 'your weekly social media posts', whatsApp: 'social media posting', showsSite: false },
+  website: { chat: 'your new website', whatsApp: 'a new website', showsSite: true },
+};
 
-// Starts with the Google Ads opening so the WhatsApp bot and the weekly scoreboard still count it
-const demoMessage = (business: Business | null, name: string, link: string) =>
+// Each page keeps the WhatsApp opening the bot and the weekly scoreboard already count (src/whatsapp.ts)
+const OPENING: Record<ChatPage, string> = {
+  'website-design': WHATSAPP_MESSAGES.googleAds,
+  home: WHATSAPP_MESSAGES.site,
+  join: WHATSAPP_MESSAGES.site,
+};
+
+// With a plan: "start the plan you picked". Without one: the free demo offer (/website-design)
+const chatLines = (plan?: ChatPlan) =>
+  plan
+    ? [`Hi 👋 Let’s get ${PLAN[plan].chat} started.`, 'Find your business on Google below and tap send. We’ll reply on WhatsApp to set it up.']
+    : [
+        'Hi 👋 Want to see your new website before you pay anything?',
+        'Find your business on Google below. We’ll build a free demo from your listing and WhatsApp it to you.',
+      ];
+
+const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Business | null, name: string, link: string) =>
   [
-    `${WHATSAPP_MESSAGES.googleAds}. Please send me a free demo.`,
+    `${OPENING[page]}. ${plan ? `I’d like to start ${PLAN[plan].whatsApp}.` : 'Please send me a free demo.'}`,
     ...(business
       ? [
           `Business: ${business.name}`,
@@ -63,6 +84,23 @@ const usefulCategory = (label: string) => (/^services?$/i.test(label.trim()) ? '
 
 // "https://www.example.co.za/contact" → "example.co.za"
 const shortWebsite = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, '');
+
+// Saves the lead to Airtable (Sales CRM, Source = Website) through netlify/functions/demo-lead.mts,
+// so a visitor who never presses send in WhatsApp is still on the list. Once per business per visit.
+const savedLeads = new Set<string>();
+const saveLead = (lead: Record<string, unknown>) => {
+  const key = JSON.stringify([lead.mode, lead.plan || '', lead.placeId || lead.name, lead.link || '']);
+  if (savedLeads.has(key)) return;
+  savedLeads.add(key);
+  fetch('/api/demo-lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(lead),
+    keepalive: true,
+  }).catch(() => {
+    /* the WhatsApp message still carries the details */
+  });
+};
 
 const track = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: label, value: 1 });
 
@@ -95,9 +133,11 @@ const loadMaps = () => {
 };
 
 // Opens once per visit: after `delayMs`, or sooner once the visitor is 40% down the page
-const useOpenOnce = (delayMs: number, force: boolean) => {
-  const [open, setOpen] = useState(false);
+const useOpenOnce = (enabled: boolean, delayMs: number, force: boolean, show: () => void) => {
+  const showRef = useRef(show);
+  showRef.current = show;
   useEffect(() => {
+    if (!enabled) return;
     if (!force) {
       try {
         if (sessionStorage.getItem(SEEN_KEY)) return;
@@ -109,7 +149,7 @@ const useOpenOnce = (delayMs: number, force: boolean) => {
     const show = () => {
       if (done) return;
       done = true;
-      setOpen(true);
+      showRef.current();
       try {
         sessionStorage.setItem(SEEN_KEY, '1');
       } catch {
@@ -126,16 +166,20 @@ const useOpenOnce = (delayMs: number, force: boolean) => {
       window.clearTimeout(timer);
       window.removeEventListener('scroll', onScroll);
     };
-  }, [delayMs, force]);
-  return [open, setOpen] as const;
+  }, [enabled, delayMs, force]);
 };
 
 // Types the offer line by line, with a "typing…" pause before each bubble, like a real chat
 const useTypedLines = (lines: string[], active: boolean) => {
   const [typed, setTyped] = useState<string[]>([]);
   const [typing, setTyping] = useState(false);
+  // Starts the first time the chat opens; closing and reopening keeps the lines already shown
+  const [go, setGo] = useState(false);
   useEffect(() => {
-    if (!active) return;
+    if (active) setGo(true);
+  }, [active]);
+  useEffect(() => {
+    if (!go) return;
     if (prefersReducedMotion()) {
       setTyped(lines);
       return;
@@ -159,8 +203,10 @@ const useTypedLines = (lines: string[], active: boolean) => {
     })();
     return () => {
       cancelled = true;
+      setTyped([]);
+      setTyping(false);
     };
-  }, [active, lines]);
+  }, [go, lines]);
   return { typed, typing, finished: typed.length === lines.length && typed[lines.length - 1] === lines[lines.length - 1] };
 };
 
@@ -202,11 +248,12 @@ const useGoogleSearch = (enabled: boolean, onPick: (b: Business) => void) => {
           try {
             const place = placePrediction.toPlace();
             await place.fetchFields({
-              fields: ['displayName', 'isPureServiceAreaBusiness', 'formattedAddress', 'nationalPhoneNumber', 'websiteURI', 'rating', 'userRatingCount', 'primaryType', 'primaryTypeDisplayName', 'googleMapsURI'],
+              fields: ['id', 'displayName', 'isPureServiceAreaBusiness', 'formattedAddress', 'nationalPhoneNumber', 'websiteURI', 'rating', 'userRatingCount', 'primaryType', 'primaryTypeDisplayName', 'googleMapsURI'],
             });
             if (cancelled || mine !== version) return;
             setStatus('ready');
             onPickRef.current({
+              placeId: place.id || '',
               name: place.displayName || '',
               address: place.formattedAddress || '',
               // Maps JavaScript calls this isPureServiceAreaBusiness (not the REST field name)
@@ -307,18 +354,68 @@ const MiniSitePreview = ({ b }: { b: Business }) => (
 const inputClass =
   'w-full rounded-md border border-[#b9dfb2] bg-white px-2.5 py-2 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-[#008069]';
 
-export default function DemoPopup({
+export default function SiteChat({
+  page,
+  autoOpen = false,
   delayMs = 10000,
   force = false,
-  trackPrefix = 'wd_demo_popup',
+  trackPrefix = `${page}_chat`,
 }: {
+  page: ChatPage;
+  // Open by itself once per visit with the free demo offer (only /website-design does this)
+  autoOpen?: boolean;
   delayMs?: number;
   // Drafts only: ignore "already seen this visit"
   force?: boolean;
   trackPrefix?: string;
 }) {
-  const [open, setOpen] = useOpenOnce(delayMs, force);
-  const { typed, typing, finished } = useTypedLines(OFFER_LINES, open);
+  // `session` changes when a button picks a different plan, which starts a fresh chat
+  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number }>({ open: false, session: 0 });
+
+  useOpenOnce(autoOpen, delayMs, force, () => setChat((c) => (c.open ? c : { ...c, open: true })));
+
+  useEffect(() => {
+    chatState.mounted += 1;
+    const onOpen = (e: Event) => {
+      const plan = (e as CustomEvent<{ plan?: ChatPlan }>).detail?.plan;
+      setChat((c) => (c.plan === plan && c.session > 0 ? { ...c, open: true } : { open: true, plan, session: c.session + 1 }));
+    };
+    window.addEventListener(OPEN_CHAT_EVENT, onOpen);
+    return () => {
+      chatState.mounted -= 1;
+      window.removeEventListener(OPEN_CHAT_EVENT, onOpen);
+    };
+  }, []);
+
+  // Stays mounted while closed, so reopening with the same plan keeps what they typed
+  if (!chat.open && chat.session === 0) return null;
+  return (
+    <ChatWindow
+      key={chat.session}
+      page={page}
+      plan={chat.plan}
+      open={chat.open}
+      onClose={() => setChat((c) => ({ ...c, open: false }))}
+      trackPrefix={`${trackPrefix}_${chat.plan || 'demo'}`}
+    />
+  );
+}
+
+function ChatWindow({
+  page,
+  plan,
+  open,
+  onClose,
+  trackPrefix,
+}: {
+  page: ChatPage;
+  plan?: ChatPlan;
+  open: boolean;
+  onClose: () => void;
+  trackPrefix: string;
+}) {
+  const [lines] = useState(() => chatLines(plan));
+  const { typed, typing, finished } = useTypedLines(lines, open);
   const [pending, setPending] = useState<Business | null>(null); // shown as "Is this you?"
   const [business, setBusiness] = useState<Business | null>(null); // confirmed
   const [manual, setManual] = useState(false); // "Not on Google?"
@@ -339,14 +436,13 @@ export default function DemoPopup({
   useEffect(() => {
     if (!open) return;
     track(`${trackPrefix}_shown`);
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, setOpen, trackPrefix]);
+  }, [open, onClose, trackPrefix]);
 
-  if (!open) return null;
-
-  const href = whatsAppLink(demoMessage(business, name, link));
+  const href = whatsAppLink(chatMessage(page, plan, business, name, link));
+  const showsSite = !plan || PLAN[plan].showsSite;
   const ready = !!business || (typeByHand && !!name.trim());
   const searchAgain = () => {
     clear();
@@ -358,11 +454,12 @@ export default function DemoPopup({
   return (
     <div
       role="dialog"
-      aria-label="Free demo website offer"
+      aria-label="Chat with Local Pros Studio"
+      hidden={!open}
       className="fixed inset-x-3 bottom-[84px] z-[60] mx-auto max-w-[380px] animate-[demoPopIn_.35s_ease-out] rounded-2xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45)] md:inset-x-auto md:bottom-6 md:right-6"
     >
       <style>{`@keyframes demoPopIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
-        @media (prefers-reduced-motion: reduce){[aria-label="Free demo website offer"]{animation:none!important}}
+        @media (prefers-reduced-motion: reduce){[aria-label="Chat with Local Pros Studio"]{animation:none!important}}
         .demo-gbp gmp-place-autocomplete{display:block;width:100%;color-scheme:light;background:#fff;border:1px solid #b9dfb2;border-radius:6px;font-size:15px}
         .demo-gbp gmp-place-autocomplete:focus-within{border-color:#008069}
         .demo-gbp gmp-place-autocomplete::part(focus-ring){display:none}
@@ -382,7 +479,7 @@ export default function DemoPopup({
         <button
           type="button"
           onClick={() => {
-            setOpen(false);
+            onClose();
             track(`${trackPrefix}_closed`);
           }}
           className="rounded-full p-1.5 text-white/90 hover:bg-white/10"
@@ -452,6 +549,7 @@ export default function DemoPopup({
                 onClick={() => {
                   setBusiness(pending);
                   track(`${trackPrefix}_gbp_picked`);
+                  saveLead({ mode: 'google', page, plan, ...pending });
                 }}
                 className="flex-1 whitespace-nowrap rounded-full bg-[#008069] px-3 py-2 text-[13px] font-bold text-white"
               >
@@ -475,14 +573,20 @@ export default function DemoPopup({
                 Change
               </button>
             </Bubble>
-            <div className="flex justify-start">
-              <div className="flex max-w-[92%] items-center gap-3 rounded-lg rounded-tl-none bg-white p-2 shadow-[0_1px_0.5px_rgba(0,0,0,0.13)]">
-                <MiniSitePreview b={business} />
-                <p className="text-[13px] leading-snug text-neutral-800">
-                  Got it. Here’s a peek at {business.name}. The real demo uses your Google photos and reviews.
-                </p>
+            {showsSite ? (
+              <div className="flex justify-start">
+                <div className="flex max-w-[92%] items-center gap-3 rounded-lg rounded-tl-none bg-white p-2 shadow-[0_1px_0.5px_rgba(0,0,0,0.13)]">
+                  <MiniSitePreview b={business} />
+                  <p className="text-[13px] leading-snug text-neutral-800">
+                    {plan
+                      ? `Got it. Here’s a peek at ${business.name}. Tap send and we’ll set it up on WhatsApp.`
+                      : `Got it. Here’s a peek at ${business.name}. The real demo uses your Google photos and reviews.`}
+                  </p>
+                </div>
               </div>
-            </div>
+            ) : (
+              <Bubble>Got it. Tap send and we’ll set it up for {business.name} on WhatsApp.</Bubble>
+            )}
           </>
         )}
       </div>
@@ -494,16 +598,21 @@ export default function DemoPopup({
           target="_blank"
           rel="noopener noreferrer"
           aria-disabled={!ready}
-          onClick={() => ready && track(`${trackPrefix}_whatsapp`)}
+          onClick={() => {
+            if (!ready) return;
+            track(`${trackPrefix}_whatsapp`);
+            // Google picks are saved when confirmed; typed details are saved here
+            if (!business) saveLead({ mode: 'manual', page, plan, name: name.trim(), link: link.trim() });
+          }}
           className={`flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 font-display text-[15px] font-extrabold ${
             ready ? 'bg-amber-400 text-neutral-950 hover:bg-amber-300' : 'cursor-default bg-amber-400/40 text-neutral-950/50'
           }`}
         >
           <WhatsAppGlyph className="h-5 w-5" />
-          Send for my free demo
+          {plan ? 'Send to get started' : 'Send for my free demo'}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </a>
-        <p className="mt-1.5 text-center text-[11px] text-neutral-500">Opens WhatsApp. A real person replies. No cost, no obligation.</p>
+        <p className="mt-1.5 text-center text-[11px] text-neutral-500">Opens WhatsApp. A real person replies.{plan ? '' : ' No cost, no obligation.'}</p>
       </div>
     </div>
   );
