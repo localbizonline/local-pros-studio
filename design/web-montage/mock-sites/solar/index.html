@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brightveld Solar &amp; Electrical, Centurion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --char:#15171A; --char-2:#202328; --steel:#2C3036; --yellow:#FFC629; --yellow-2:#F2B400;
+    --white:#FFFFFF; --off:#F4F4F1; --ink:#15171A; --soft:#5A5F66; --line:#E2E2DD;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--off);color:var(--ink);font-family:"Barlow",system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  .cond{font-family:"Barlow Condensed",sans-serif}
+
+  header{background:var(--char);color:#fff}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:80px;gap:24px}
+  .mark{display:flex;align-items:center;gap:12px}
+  .sq{width:42px;height:42px;background:var(--yellow);display:grid;place-items:center;flex:none}
+  .sq svg{width:26px;height:26px;color:var(--char)}
+  .mark b{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:27px;line-height:.95;letter-spacing:.02em;text-transform:uppercase}
+  .mark b+span{display:block;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#A7ACB3;margin-top:3px}
+  nav{display:flex;gap:30px;font-size:15.5px;font-weight:600;color:#C9CDD2}
+  .head-right{display:flex;align-items:center;gap:20px}
+  .phone{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px}
+  .phone svg{width:17px;height:17px;color:var(--yellow)}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:var(--char);border-radius:4px;padding:16px 26px;font-size:17px;font-weight:700;white-space:nowrap}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:10px 16px;font-size:15px}
+  .btn-dark{background:var(--char);color:#fff}
+
+  .hero{position:relative;background:var(--char);color:#fff;overflow:hidden}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 40%;transform:scaleX(-1)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(21,23,26,.94) 0%,rgba(21,23,26,.82) 38%,rgba(21,23,26,.15) 72%,rgba(21,23,26,0) 100%)}
+  .hero-in{position:relative;z-index:1;padding-top:88px;padding-bottom:96px;max-width:1240px;margin:0 auto}
+  .hero-copy{max-width:600px}
+  .tag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,198,41,.6);color:var(--yellow);font-size:13.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px;border-radius:3px;margin-bottom:22px}
+  h1{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:clamp(46px,5.6vw,80px);line-height:.96;text-transform:uppercase;letter-spacing:.005em}
+  h1 span{color:var(--yellow)}
+  .sub{margin-top:22px;font-size:19px;color:#D4D7DB;max-width:30em}
+  .actions{display:flex;gap:16px;margin-top:32px;flex-wrap:wrap;align-items:center}
+  .rating{display:flex;align-items:center;gap:12px;margin-top:28px;font-size:16px;color:#C9CDD2}
+  .stars{display:flex;gap:2px;color:var(--yellow)}
+  .stars svg{width:18px;height:18px}
+  .rating strong{color:#fff}
+
+  .strip{background:var(--yellow);color:var(--char)}
+  .strip .wrap{display:grid;grid-template-columns:repeat(3,1fr)}
+  .strip div.it{display:flex;align-items:center;gap:14px;padding:24px 0;font-weight:600;font-size:16.5px}
+  .strip div.it+div.it{padding-left:32px;border-left:2px solid rgba(21,23,26,.15)}
+  .strip b{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:30px;line-height:1}
+
+  .services{padding:96px 0;background:var(--white)}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:44px}
+  h2{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:clamp(36px,3.8vw,54px);line-height:1;text-transform:uppercase}
+  .sec-head p{color:var(--soft);max-width:28em}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:var(--off);border-top:5px solid var(--yellow)}
+  .card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .card .body{padding:24px 24px 28px}
+  .card h3{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:30px;text-transform:uppercase;line-height:1.05}
+  .card p{color:var(--soft);margin:8px 0 16px;font-size:16px}
+  .from{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:14px;font-size:15px;color:var(--soft)}
+  .from b{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:28px;color:var(--ink)}
+
+  .reviews{background:var(--char);color:#fff;padding:92px 0}
+  .reviews .sec-head p{color:#A7ACB3}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .quote{background:var(--char-2);border:1px solid var(--steel);border-radius:4px;padding:28px}
+  .quote p{font-size:17.5px;margin:14px 0 20px;color:#E4E6E9}
+  .who{font-size:15px;color:#A7ACB3}
+  .who b{color:#fff}
+
+  .band{background:var(--yellow);color:var(--char);padding:76px 0 32px}
+  .band-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:56px}
+  .band .btn{margin-top:26px}
+  .band h4{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;opacity:.7}
+  .band p{line-height:1.8;font-weight:500}
+  .fine{margin-top:56px;padding-top:20px;border-top:2px solid rgba(21,23,26,.15);display:flex;justify-content:space-between;font-size:14px;font-weight:600}
+
+  /* desktop screenshot fit */
+  .hero-in{padding-top:104px;padding-bottom:110px}
+  @media (max-width:980px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    .bar{height:66px}
+    .sq{width:36px;height:36px} .sq svg{width:22px;height:22px}
+    .mark b{font-size:23px} .mark b+span{font-size:10.5px}
+    .phone{display:none}
+    .hero::after{display:none}
+    .hero-img{position:relative;height:auto;aspect-ratio:390/250;object-position:52% 45%}
+    .hero-in{padding-top:24px;padding-bottom:40px}
+    .tag{font-size:12px;padding:6px 10px;margin-bottom:14px}
+    h1{font-size:46px;line-height:.95}
+    .sub{font-size:16.5px;margin-top:14px}
+    .actions{margin-top:22px}
+    .actions .btn{width:100%;justify-content:center;padding:16px 22px}
+    .actions .ghost{display:none}
+    .rating{margin-top:18px;font-size:15px}
+    .strip .wrap{grid-template-columns:1fr}
+    .strip div.it{padding:16px 0}
+    .strip div.it+div.it{padding-left:0;border-left:0;border-top:2px solid rgba(21,23,26,.12)}
+    .strip b{font-size:26px;min-width:80px}
+    .services,.reviews{padding:60px 0}
+    .sec-head{flex-direction:column;align-items:start;gap:12px;margin-bottom:28px}
+    .cards,.quotes{grid-template-columns:1fr;gap:18px}
+    .band{padding:56px 0 28px}
+    .band-grid{grid-template-columns:1fr;gap:30px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+    /* compact service rows on phones */
+    .cards{gap:12px}
+    .card{display:grid;grid-template-columns:104px 1fr;align-items:stretch;border-top:0;border-left:5px solid var(--yellow)}
+    .card img{width:104px;height:100%;aspect-ratio:auto}
+    .card .body{padding:14px 16px}
+    .card h3{font-size:21px}
+    .card p{display:none}
+    .from{border-top:0;padding-top:6px;font-size:13.5px}
+    .from b{font-size:23px}
+    /* compact service rows on phones */
+    .strip .wrap{grid-template-columns:repeat(3,1fr);gap:10px}
+    .strip div.it{flex-direction:column;align-items:flex-start;gap:4px;padding:16px 0;font-size:13px;line-height:1.3}
+    .strip div.it+div.it{border-top:0;padding-left:10px;border-left:2px solid rgba(21,23,26,.12)}
+    .strip b{font-size:24px;min-width:0}
+    .hero-img{aspect-ratio:390/235} .hero-in{padding-bottom:32px}
+    .services{padding-top:44px} .services .sec-head p{display:none} .sec-head{margin-bottom:22px} .cards{gap:10px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 2 4 13.6h6.6L9.4 22 20 9.8h-6.8L13.5 2Z"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="sq"><svg><use href="#bolt"/></svg></span><span><b>Brightveld</b><span>Solar &amp; Electrical</span></span></a>
+    <nav><a href="#work">Solar systems</a><a href="#work">Electrical</a><a href="#reviews">Reviews</a><a href="#quote">Contact</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#"><svg><use href="#phone"/></svg>010 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <img class="hero-img" src="images/hero.jpg" alt="Installers fitting solar panels on a Centurion roof">
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <span class="tag">Centurion · Midrand · Pretoria</span>
+        <h1>Solar and backup power installed in <span>Centurion</span></h1>
+        <p class="sub">Inverters, batteries and panels sized to your bill, with a CoC on every job. Free site visit, written quote in 48 hours.</p>
+        <div class="actions">
+          <a class="btn" href="#"><svg><use href="#wa"/></svg>Get a quote on WhatsApp</a>
+        </div>
+        <div class="rating">
+          <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+          <span><strong>4.9 on Google</strong> · 160+ reviews</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="wrap">
+      <div class="it"><b>650+</b>homes and businesses installed</div>
+      <div class="it"><b>CoC</b>signed off by a registered electrician</div>
+      <div class="it"><b>5 yr</b>workmanship guarantee in writing</div>
+    </div>
+  </section>
+
+  <section class="services" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What we install</h2>
+        <p>Own teams, no subcontractors. Prices include mounting, cabling, isolators and the compliance certificate.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <img src="images/inverter.jpg" alt="Electrician fitting a hybrid inverter and battery">
+          <div class="body"><h3>Backup power</h3><p>Keeps lights, Wi-Fi, TV and the fridge running through load shedding.</p><div class="from"><span>5 kW kit, installed</span><b>R42,000</b></div></div>
+        </article>
+        <article class="card">
+          <img src="images/panels.jpg" alt="New solar panels on a roof">
+          <div class="body"><h3>Full solar systems</h3><p>Panels, hybrid inverter and lithium battery, sized from your Eskom or municipal bill.</p><div class="from"><span>8 kW system from</span><b>R89,500</b></div></div>
+        </article>
+        <article class="card">
+          <img src="images/electrical.jpg" alt="Electrician testing a distribution board">
+          <div class="body"><h3>Electrical and CoC</h3><p>Certificates for property sales, DB board upgrades, fault finding and new plugs.</p><div class="from"><span>CoC inspection from</span><b>R1,850</b></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Rated by Centurion homeowners</h2>
+        <p>4.9 stars from 160+ Google reviews.</p>
+      </div>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Install done in one day, site left spotless. Our bill dropped from R3,900 to just under R1,200.</p><div class="who"><b>Johan S.</b> · Eldoraigne</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>They talked us out of a bigger system we didn't need. Honest guys, neat wiring, CoC same day.</p><div class="who"><b>Kagiso M.</b> · Midstream</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Quote on WhatsApp in two days, installed the next week. The app shows exactly what we use.</p><div class="who"><b>Annelie P.</b> · Rooihuiskraal</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band" id="quote">
+  <div class="wrap">
+    <div class="band-grid">
+      <div>
+        <h2>Send us a photo of your electricity bill. We'll size the system for free.</h2>
+        <a class="btn btn-dark" href="#"><svg><use href="#wa"/></svg>Get a quote on WhatsApp</a>
+      </div>
+      <div><h4>Workshop</h4><p>Lyttelton Manor, Centurion<br>Serving Centurion, Midrand<br>and Pretoria</p></div>
+      <div><h4>Hours</h4><p>Mon to Fri · 07:00 to 17:00<br>Saturday · 08:00 to 12:00<br>Call 010 000 0000</p></div>
+    </div>
+    <div class="fine"><span>© 2026 Brightveld Solar &amp; Electrical</span><span>Registered electrical contractor</span></div>
+  </div>
+</footer>
+</body>
+</html>

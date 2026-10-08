@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bluegum Vet Clinic, Garsfontein, Pretoria East</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EE; --sand:#F3E7D6; --white:#FFFDF9; --ink:#22323A; --soft:#5D6A70;
+    --gum:#3B6C77; --gum-deep:#2A525B; --apricot:#E48C52; --line:#E8DCCB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:"Nunito Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px}
+
+  header{background:var(--cream)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:86px;gap:24px}
+  .mark{display:flex;align-items:center;gap:12px}
+  .paw{width:44px;height:44px;border-radius:50%;background:var(--gum);display:grid;place-items:center;flex:none}
+  .paw svg{width:24px;height:24px;color:#fff}
+  .mark b{display:block;font-family:"Fraunces",serif;font-weight:600;font-size:26px;line-height:1;letter-spacing:-.01em}
+  .mark b+span{display:block;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gum);margin-top:5px}
+  nav{display:flex;gap:32px;font-size:15.5px;font-weight:600;color:var(--soft)}
+  .head-right{display:flex;align-items:center;gap:20px}
+  .phone{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15.5px}
+  .phone svg{width:17px;height:17px;color:var(--gum)}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--gum);color:#fff;border-radius:14px;padding:15px 24px;font-size:16px;font-weight:700;white-space:nowrap}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:11px 18px;font-size:15px;border-radius:12px}
+
+  .hero{display:grid;grid-template-columns:1fr 1.08fr;gap:64px;align-items:center;padding-top:40px;padding-bottom:84px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--sand);color:var(--gum-deep);font-size:14px;font-weight:700;border-radius:999px;padding:7px 14px;margin-bottom:22px}
+  .eyebrow i{width:8px;height:8px;border-radius:50%;background:#4A9B6E}
+  h1{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(40px,4.8vw,64px);line-height:1.04;letter-spacing:-.02em}
+  h1 em{font-style:italic;color:var(--gum)}
+  .sub{margin-top:22px;font-size:18.5px;color:var(--soft);max-width:29em}
+  .actions{display:flex;align-items:center;gap:24px;margin-top:32px;flex-wrap:wrap}
+  .emerg{font-size:15.5px;color:var(--soft)}
+  .emerg b{color:var(--ink);font-weight:700;border-bottom:2px solid var(--apricot)}
+  .rating{display:flex;align-items:center;gap:12px;margin-top:30px;font-size:15.5px;color:var(--soft)}
+  .stars{display:flex;gap:2px;color:#E5A33B}
+  .stars svg{width:17px;height:17px}
+  .rating strong{color:var(--ink)}
+  .hero-photo{position:relative}
+  .hero-photo img{width:100%;aspect-ratio:4/3.4;object-fit:cover;border-radius:28px}
+  .chip{position:absolute;left:-28px;bottom:36px;background:var(--white);border-radius:18px;padding:16px 20px;box-shadow:0 14px 36px rgba(34,50,58,.14);display:flex;gap:14px;align-items:center}
+  .chip .dot{width:42px;height:42px;border-radius:12px;background:#FBE3D2;display:grid;place-items:center;color:var(--apricot)}
+  .chip .dot svg{width:22px;height:22px}
+  .chip b{display:block;font-size:16px;line-height:1.25}
+  .chip span{font-size:14px;color:var(--soft)}
+
+  .services{background:var(--white);padding:92px 0;border-top:1px solid var(--line)}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 52px}
+  h2{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(32px,3.4vw,46px);line-height:1.08;letter-spacing:-.015em}
+  .sec-head p{margin-top:14px;color:var(--soft)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .card{background:var(--cream);border-radius:22px;overflow:hidden}
+  .card img{width:100%;aspect-ratio:16/11;object-fit:cover}
+  .card .body{padding:24px 26px 28px}
+  .card h3{font-family:"Fraunces",serif;font-weight:600;font-size:25px;line-height:1.15}
+  .card p{color:var(--soft);font-size:16px;margin:8px 0 16px}
+  .price{display:inline-block;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14.5px;font-weight:700;color:var(--gum-deep)}
+
+  .reviews{padding:92px 0;background:var(--sand)}
+  .rev-head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:40px}
+  .g-line{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--soft)}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .quote{background:var(--white);border-radius:20px;padding:28px}
+  .quote p{font-size:17.5px;margin:14px 0 20px}
+  .who{display:flex;align-items:center;gap:12px;font-size:14.5px;color:var(--soft)}
+  .who i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;color:#fff;background:var(--gum)}
+  .who b{display:block;color:var(--ink)}
+
+  .band{background:var(--gum-deep);color:#DCE9EA;padding:84px 0 36px}
+  .band-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:56px}
+  .band h2{color:#fff;max-width:13em}
+  .band .btn{background:var(--apricot);color:#2B1A10;margin-top:28px}
+  .band h4{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#A9C6CA;margin-bottom:12px}
+  .band p{line-height:1.8}
+  .fine{margin-top:60px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;font-size:13.5px;color:#9DBBBF}
+
+  /* desktop screenshot fit */
+  .hero{padding-top:48px;padding-bottom:120px} .hero-photo img{aspect-ratio:4/4.3} .services{padding-top:110px}
+  @media (max-width:980px){ nav{display:none} .chip{left:16px} .hero{gap:44px} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    .bar{height:70px}
+    .paw{width:38px;height:38px} .paw svg{width:21px;height:21px}
+    .mark b{font-size:23px} .mark b+span{font-size:11px;margin-top:4px}
+    .phone{display:none}
+    .hero{grid-template-columns:1fr;gap:28px;padding-top:12px;padding-bottom:56px}
+    .eyebrow{font-size:13px;margin-bottom:16px}
+    h1{font-size:40px}
+    .sub{font-size:16.5px;margin-top:14px}
+    .actions{margin-top:22px;gap:16px}
+    .actions .btn{width:100%;justify-content:center;padding:16px 24px;font-size:16.5px}
+    .emerg{display:none}
+    .rating{margin-top:18px;font-size:15px}
+    .hero-photo img{aspect-ratio:4/3;border-radius:22px}
+    .chip{left:12px;bottom:12px;padding:10px 14px;border-radius:14px;gap:10px}
+    .chip .dot{width:34px;height:34px;border-radius:10px} .chip .dot svg{width:18px;height:18px}
+    .chip b{font-size:14.5px} .chip span{font-size:13px}
+    .services,.reviews{padding:60px 0}
+    .sec-head{margin-bottom:30px;text-align:left}
+    .cards,.quotes{grid-template-columns:1fr;gap:20px}
+    .rev-head{flex-direction:column;align-items:start;gap:12px;margin-bottom:28px}
+    .band{padding:60px 0 30px}
+    .band-grid{grid-template-columns:1fr;gap:32px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+    /* compact service rows on phones */
+    .cards{gap:12px}
+    .card{display:grid;grid-template-columns:108px 1fr;align-items:center;border-radius:18px}
+    .card img{width:108px;height:112px;aspect-ratio:auto}
+    .card .body{padding:12px 16px}
+    .card h3{font-size:19px}
+    .card p{display:none}
+    .price{margin-top:8px;font-size:13.5px;padding:4px 11px}
+    /* compact service rows on phones */
+    .hero{padding-bottom:40px} .hero-photo img{aspect-ratio:4/2.9}
+    .services{padding-top:44px} .services .sec-head p{display:none} .sec-head{margin-bottom:22px}
+    .cards{gap:10px} .card{grid-template-columns:100px 1fr} .card img{width:100px;height:96px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="paw" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="6" cy="10" rx="2.2" ry="2.8"/><ellipse cx="10" cy="6" rx="2.2" ry="2.9"/><ellipse cx="14.5" cy="6" rx="2.2" ry="2.9"/><ellipse cx="18.4" cy="10" rx="2.2" ry="2.8"/><path d="M12.2 11.2c-2.6 0-5.4 3.7-5.4 6.2 0 1.7 1.3 2.6 2.8 2.6 1.1 0 1.7-.6 2.6-.6s1.5.6 2.6.6c1.5 0 2.8-.9 2.8-2.6 0-2.5-2.8-6.2-5.4-6.2Z"/></g></symbol>
+  <symbol id="syringe" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m18 2 4 4M17 7l3-3M19 9 8.7 19.3a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4L15 5M9 11l4 4M5 19l-3 3M14 4l6 6"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="paw"><svg><use href="#paw"/></svg></span><span><b>Bluegum</b><span>Vet Clinic</span></span></a>
+    <nav><a href="#care">Services</a><a href="#reviews">Reviews</a><a href="#visit">Visit us</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#"><svg><use href="#phone"/></svg>010 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <span class="eyebrow"><i></i>Garsfontein, Pretoria East</span>
+      <h1>A caring vet for your dogs and cats in <em>Pretoria East</em></h1>
+      <p class="sub">Check-ups, vaccines, sterilisations and dental care. Most weekday bookings are seen the same day.</p>
+      <div class="actions">
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>Book on WhatsApp</a>
+        <span class="emerg">After hours? Call <b>010 000 0000</b></span>
+      </div>
+      <div class="rating">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <span><strong>4.9 on Google</strong> · 210+ reviews</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/hero.jpg" alt="Vet examining a golden retriever with its owner">
+      <div class="chip"><span class="dot"><svg><use href="#syringe"/></svg></span><span><b>Annual vaccines</b><span>from R420 with a check-up</span></span></div>
+    </div>
+  </section>
+
+  <section class="services" id="care">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Everyday care, under one roof</h2>
+        <p>Two vets and three nurses who know your pet by name. We explain every cost before we start.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <img src="images/consult.jpg" alt="Vet listening to a kitten's heart">
+          <div class="body"><h3>Consults and vaccines</h3><p>Puppy and kitten plans, yearly boosters, microchips and tick and flea advice.</p><span class="price">Consult R480</span></div>
+        </article>
+        <article class="card">
+          <img src="images/surgery.jpg" alt="Nurse comforting a dog after surgery">
+          <div class="body"><h3>Sterilisation and surgery</h3><p>Day-patient procedures with pain relief, a warm recovery ward and a call when they wake.</p><span class="price">Cat spay from R1,450</span></div>
+        </article>
+        <article class="card">
+          <img src="images/dental.jpg" alt="Vet checking a terrier's teeth">
+          <div class="body"><h3>Dental care</h3><p>Scale and polish under anaesthetic, extractions and a free dental check every six months.</p><span class="price">Scale and polish from R1,850</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="rev-head">
+        <h2>Pet owners in Pretoria East</h2>
+        <div class="g-line"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>4.9 from 210+ Google reviews</div>
+      </div>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Dr Jansen phoned me straight after Bella's op. She was home by four and wagging by supper.</p><div class="who"><i>R</i><span><b>Riana V.</b>Moreleta Park</span></div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Our cat hates the vet, but the nurses here are so patient. They gave us the quote on WhatsApp first.</p><div class="who"><i style="background:#E48C52">T</i><span><b>Tumelo M.</b>Faerie Glen</span></div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Booked in the morning, seen before lunch. Fair prices and they never push extras.</p><div class="who"><i style="background:#6E8B4E">C</i><span><b>Carla D.</b>Garsfontein</span></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band" id="visit">
+  <div class="wrap">
+    <div class="band-grid">
+      <div>
+        <h2>Send us your pet's name and what's wrong. We'll reply with a time today.</h2>
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>Book on WhatsApp</a>
+      </div>
+      <div><h4>Visit</h4><p>De Villebois Mareuil Drive<br>Garsfontein, Pretoria, 0081<br>Free parking at the door</p></div>
+      <div><h4>Hours</h4><p>Mon to Fri · 07:30 to 18:00<br>Saturday · 08:00 to 13:00<br>After hours · 010 000 0000</p></div>
+    </div>
+    <div class="fine"><span>© 2026 Bluegum Vet Clinic</span><span>Google · Facebook · Directions</span></div>
+  </div>
+</footer>
+</body>
+</html>

@@ -493,6 +493,7 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           photo={montage}
           photoAlt="Websites we built for South African businesses, shown on phones"
           photoFit="contain"
+          photoSize={[1080, 820]}
           href={WA_URL}
           onClick={() => track('final_whatsapp')}
         />

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hollis Mkhize Attorneys, Durban North</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#132030; --navy-2:#1C2D42; --stone:#F3EFE7; --white:#FFFFFF; --ink:#1A2330; --soft:#5B6470;
+    --brass:#B8965C; --brass-lt:#D8BE8E; --line:#DED7CA; --mist:#A9B3BF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--stone);color:var(--ink);font-family:"Source Sans 3",system-ui,sans-serif;font-size:17.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px}
+  .serif{font-family:"Libre Caslon Text",Georgia,serif}
+
+  .dark{background:var(--navy);color:#E6E9EE}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:88px;gap:24px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .mark{display:flex;align-items:center;gap:14px}
+  .mono{width:46px;height:46px;border:1.5px solid var(--brass);display:grid;place-items:center;font-family:"Libre Caslon Text",serif;font-size:19px;color:var(--brass-lt);letter-spacing:.02em;flex:none}
+  .mark b{display:block;font-family:"Libre Caslon Text",serif;font-weight:400;font-size:24px;line-height:1;color:#fff;letter-spacing:.01em}
+  .mark b+span{display:block;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mist);margin-top:6px;white-space:nowrap}
+  nav{display:flex;gap:32px;font-size:15.5px;color:#C5CCD5}
+  .head-right{display:flex;align-items:center;gap:22px}
+  .phone{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15.5px;color:#fff}
+  .phone svg{width:17px;height:17px;color:var(--brass)}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--brass);color:#16110A;border-radius:2px;padding:16px 26px;font-size:16px;font-weight:700;white-space:nowrap;letter-spacing:.01em}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:11px 18px;font-size:15px}
+  .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:center;padding-top:64px;padding-bottom:80px}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-lt);margin-bottom:24px}
+  h1{font-family:"Libre Caslon Text",serif;font-weight:400;font-size:clamp(38px,4.4vw,60px);line-height:1.1;letter-spacing:-.01em;color:#fff}
+  h1 em{color:var(--brass-lt)}
+  .sub{margin-top:24px;font-size:19px;color:#C5CCD5;max-width:30em}
+  .actions{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .rating{display:flex;align-items:center;gap:12px;margin-top:32px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1);font-size:15.5px;color:#C5CCD5}
+  .stars{display:flex;gap:2px;color:var(--brass)}
+  .stars svg{width:17px;height:17px}
+  .rating strong{color:#fff}
+  .hero-photo{position:relative;padding:0 0 22px 22px}
+  .hero-photo::before{content:"";position:absolute;left:0;bottom:0;width:calc(100% - 22px);height:calc(100% - 22px);border:1px solid var(--brass)}
+  .hero-photo img{position:relative;width:100%;aspect-ratio:4/4.6;object-fit:cover;object-position:50% 30%}
+
+  .services{padding:96px 0}
+  .sec-head{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:52px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8A6D3B;margin-bottom:14px}
+  h2{font-family:"Libre Caslon Text",serif;font-weight:400;font-size:clamp(30px,3.2vw,44px);line-height:1.12}
+  .sec-head p{color:var(--soft)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .card{background:var(--white);border:1px solid var(--line)}
+  .card img{width:100%;aspect-ratio:3/2;object-fit:cover}
+  .card .body{padding:28px 28px 30px}
+  .num{font-family:"Libre Caslon Text",serif;font-style:italic;color:#8A6D3B;font-size:17px}
+  .card h3{font-family:"Libre Caslon Text",serif;font-weight:400;font-size:26px;margin:6px 0 12px}
+  .card ul{list-style:none;color:var(--soft);font-size:16.5px}
+  .card li{padding:8px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
+  .card li b{color:var(--ink);font-weight:600;white-space:nowrap}
+
+  .reviews{background:var(--white);padding:96px 0;border-top:1px solid var(--line)}
+  .rev-head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:44px}
+  .g-line{display:flex;align-items:center;gap:10px;color:var(--soft);font-weight:600}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+  .quote{padding:34px 34px 6px 0}
+  .quote+.quote{padding-left:34px;border-left:1px solid var(--line)}
+  .quote p{font-family:"Libre Caslon Text",serif;font-size:20px;line-height:1.5;margin:14px 0 18px}
+  .who{font-size:15px;color:var(--soft)}
+  .who b{color:var(--ink)}
+
+  .band{padding:84px 0 36px}
+  .band-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:56px}
+  .band h2{color:#fff;max-width:14em}
+  .band .btn{margin-top:30px}
+  .band h4{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-lt);margin-bottom:12px}
+  .band p{line-height:1.8;color:#C5CCD5}
+  .fine{margin-top:60px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;font-size:13.5px;color:#8D97A3}
+
+  /* desktop screenshot fit */
+  .hero{grid-template-columns:1fr 1fr;padding-top:80px;padding-bottom:140px} .hero-photo img{aspect-ratio:4/4.8}
+  @media (max-width:980px){ nav{display:none} .hero{gap:48px} }
+  @media (max-width:760px){
+    body{font-size:16.5px}
+    .wrap{padding:0 20px}
+    .bar{height:72px}
+    .mono{width:40px;height:40px;font-size:16px}
+    .mark b{font-size:21px} .mark b+span{font-size:10px;letter-spacing:.16em;margin-top:5px}
+    .phone{display:none}
+    .btn-sm{padding:10px 14px;font-size:14.5px}
+    .hero{grid-template-columns:1fr;gap:34px;padding-top:30px;padding-bottom:56px}
+    .eyebrow{font-size:12px;margin-bottom:14px}
+    h1{font-size:35px;line-height:1.14}
+    .sub{font-size:17px;margin-top:14px}
+    .actions{margin-top:22px}
+    .actions .btn{width:100%;justify-content:center;padding:16px 22px}
+    .actions .btn-ghost{display:none}
+    .rating{margin-top:20px;padding-top:0;border-top:0;font-size:15px}
+    .hero-photo{padding:0 0 14px 14px}
+    .hero-photo::before{width:calc(100% - 14px);height:calc(100% - 14px)}
+    .hero-photo img{aspect-ratio:4/3.3;object-position:50% 22%}
+    .services,.reviews{padding:60px 0}
+    .sec-head{grid-template-columns:1fr;gap:12px;margin-bottom:30px}
+    .cards{grid-template-columns:1fr;gap:20px}
+    .rev-head{flex-direction:column;align-items:start;gap:12px;margin-bottom:24px}
+    .quotes{grid-template-columns:1fr}
+    .quote,.quote+.quote{padding:24px 0 8px;border-left:0}
+    .quote+.quote{border-top:1px solid var(--line)}
+    .band{padding:60px 0 30px}
+    .band-grid{grid-template-columns:1fr;gap:32px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+    /* compact service rows on phones */
+    .cards{gap:12px}
+    .card{display:grid;grid-template-columns:100px 1fr;align-items:stretch}
+    .card img{width:100px;height:100%;aspect-ratio:auto}
+    .card .body{padding:14px 16px 10px}
+    .num{font-size:14px}
+    .card h3{font-size:20px;margin:0 0 4px}
+    .card ul{font-size:14.5px}
+    .card li{padding:4px 0}
+    .card li:nth-child(n+3){display:none}
+    .mono{width:36px;height:36px;font-size:14px}
+    .mark{gap:10px}
+    .mark b{font-size:19px} .mark b+span{font-size:9.5px;letter-spacing:.12em}
+    .btn-sm{padding:9px 12px;font-size:14px;gap:7px}
+    .btn-sm svg{width:17px;height:17px}
+    /* compact service rows on phones */
+    .hero{padding-bottom:36px} .hero-photo img{aspect-ratio:4/2.6}
+    .services{padding-top:44px} .services .sec-head p, .services .kicker{display:none} .sec-head{margin-bottom:22px}
+    .card li:nth-child(n+2){display:none} .card .body{padding:12px 16px}
+    /* compact service rows on phones */
+    .card .num{display:none}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+</svg>
+
+<div class="dark">
+  <header>
+    <div class="wrap bar">
+      <a class="mark" href="#"><span class="mono">HM</span><span><b>Hollis Mkhize</b><span>Attorneys · Conveyancers</span></span></a>
+      <nav><a href="#practice">Practice areas</a><a href="#reviews">Client reviews</a><a href="#contact">Contact</a></nav>
+      <div class="head-right">
+        <a class="phone" href="#"><svg><use href="#phone"/></svg>010 000 0000</a>
+        <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="wrap hero">
+    <div>
+      <p class="eyebrow">Durban North · Since 2009</p>
+      <h1>Family law, conveyancing and wills in <em>Durban North</em></h1>
+      <p class="sub">Plain advice from attorneys who return your calls. Your first 30-minute consultation is free.</p>
+      <div class="actions">
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp an attorney</a>
+        <a class="btn btn-ghost" href="#"><svg><use href="#phone"/></svg>010 000 0000</a>
+      </div>
+      <div class="rating">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <span><strong>4.8 on Google</strong> · 90+ reviews</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/hero.jpg" alt="Attorney listening to a client in a meeting room">
+    </div>
+  </section>
+</div>
+
+<main>
+  <section class="services" id="practice">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="kicker">Practice areas</p><h2>Three things, done properly</h2></div>
+        <p>We keep the practice small on purpose. You deal with the same attorney from the first call to the final signature, and you get fees in writing up front.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <img src="images/family.jpg" alt="Attorney in a consultation with a client">
+          <div class="body"><span class="num">01</span><h3>Family law</h3><ul><li>Uncontested divorce<b>from R9,500</b></li><li>Maintenance and custody<b>quoted</b></li><li>Antenuptial contracts<b>from R3,200</b></li></ul></div>
+        </article>
+        <article class="card">
+          <img src="images/property.jpg" alt="Keys held in front of a house in Durban North">
+          <div class="body"><span class="num">02</span><h3>Conveyancing</h3><ul><li>Property transfers<b>quote in 24h</b></li><li>Bond registrations<b>quoted</b></li><li>Sectional title<b>quoted</b></li></ul></div>
+        </article>
+        <article class="card">
+          <img src="images/wills.jpg" alt="Couple reviewing their wills together">
+          <div class="body"><span class="num">03</span><h3>Wills and estates</h3><ul><li>Single or joint will<b>from R1,200</b></li><li>Deceased estates<b>quoted</b></li><li>Trusts<b>from R6,500</b></li></ul></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="rev-head">
+        <div><p class="kicker">Client reviews</p><h2>In our clients' words</h2></div>
+        <div class="g-line"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>4.8 from 90+ Google reviews</div>
+      </div>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Our transfer went through in nine weeks and they told us exactly what was happening each step.</p><div class="who"><b>Priya &amp; Dev N.</b> · Glenashley</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>A hard time made easier. Ms Mkhize was calm, clear and honest about what it would cost.</p><div class="who"><b>Lindiwe Z.</b> · Umhlanga</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>We finally did our wills. One meeting, fixed fee, signed the following week.</p><div class="who"><b>Graham B.</b> · Durban North</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="dark band" id="contact">
+  <div class="wrap">
+    <div class="band-grid">
+      <div>
+        <h2>Tell us what you need help with. An attorney will reply the same working day.</h2>
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp an attorney</a>
+      </div>
+      <div><h4>Office</h4><p>Kenneth Kaunda Road<br>Durban North, 4051<br>Secure parking on site</p></div>
+      <div><h4>Hours</h4><p>Mon to Fri · 08:00 to 17:00<br>Saturday by appointment<br>Tel 010 000 0000</p></div>
+    </div>
+    <div class="fine"><span>© 2026 Hollis Mkhize Attorneys</span><span>Legal Practice Council registered</span></div>
+  </div>
+</footer>
+</body>
+</html>

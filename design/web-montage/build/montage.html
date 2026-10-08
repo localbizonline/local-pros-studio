@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Website montage builder</title>
+<!-- Builds the "lots of websites" montages for the website design page (8 Oct 2026).
+     Open with ?layout=rows|wall|labels&size=wide|phone and screenshot #stage (shoot.cjs does this).
+     Phone screens come from ../screens (real client sites, cleaned) and ../mock-sites (example designs). -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Source+Sans+3:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #888; }
+  #stage { position: relative; overflow: hidden; background: #FCF6ED; font-family: 'Source Sans 3', sans-serif; }
+  .phone { position: absolute; background: #fff; border: 1.5px solid #D6D3D1; padding: var(--b); border-radius: var(--r);
+           box-shadow: 0 30px 60px -28px rgba(28,25,23,.45), 0 4px 14px rgba(28,25,23,.06); }
+  .phone .scr { width: 100%; height: 100%; border-radius: calc(var(--r) - var(--b)); overflow: hidden; background: #fff; }
+  .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .label { position: absolute; transform: translateX(-50%); white-space: nowrap; text-align: center; line-height: 1.25;
+           font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.01em; color: #1C1917; }
+  .label span { display: block; font-family: 'Source Sans 3', sans-serif; font-weight: 600; font-size: .78em; letter-spacing: 0; color: #78716C; }
+  .fade { position: absolute; inset: 0; pointer-events: none; }
+  .wall { position: absolute; left: 50%; top: 50%; transform-origin: center; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+const q = new URLSearchParams(location.search);
+const layout = q.get('layout') || 'rows';
+const size = q.get('size') || 'wide';
+const stage = document.getElementById('stage');
+
+// slug: [image, industry label, town]
+const S = '../screens/', M = '../mock-sites/';
+const SITES = {
+  topspec:   [S + 'topspec-mobile-done.png', 'Gas installer', 'East Rand'],
+  willa:     [S + 'willa-mobile-done.png', 'Nail and lash studio', 'Parkhurst'],
+  reachmax:  [S + 'reachmax-mobile-done.png', 'WhatsApp software', 'SA and UK'],
+  ridgeway:  [S + 'ridgeway-mobile-done.png', 'Accountants', 'Claremont'],
+  maramba:   [S + 'maramba-mobile-done.png', 'Fencing and gates', 'Cape Town'],
+  winelands: [S + 'winelands-mobile-done.png', 'Gas supplier', 'Western Cape'],
+  petport:   [S + 'petport-mobile-done.png', 'Pet transport', 'Nationwide'],
+  paving:    [S + 'paving-mobile-done.png', 'Paving', 'Four cities'],
+  bkc:       [S + 'bkc-mobile-done.png', 'Pet boarding', 'Benoni'],
+  jacuzzi:   [S + 'jacuzzi-mobile-done.png', 'Hot tubs', 'Nationwide'],
+  vet:       [M + 'vet-mobile.png', 'Vet clinic', 'Pretoria East'],
+  attorneys: [M + 'attorneys-mobile.png', 'Attorneys', 'Durban North'],
+  solar:     [M + 'solar-mobile.png', 'Solar and electrical', 'Centurion'],
+  driving:   [M + 'driving-mobile.png', 'Driving school', 'Soweto'],
+  mechanic:  [M + 'mechanic-mobile.png', 'Car services', 'Gqeberha'],
+  fitness:   [M + 'fitness-mobile.png', 'Personal training', 'Sea Point'],
+};
+// Only use sites whose screenshot exists (the example sites arrive later)
+const has = (k) => new Promise((ok) => { const i = new Image(); i.onload = () => ok(true); i.onerror = () => ok(false); i.src = SITES[k][0]; });
+
+function phone(k, x, y, w, extra = {}) {
+  const h = Math.round(w * 844 / 390);
+  const el = document.createElement('div');
+  el.className = 'phone';
+  const b = Math.max(4, Math.round(w / 30)), r = Math.round(w * 0.13);
+  el.style.cssText = `left:${x}px;top:${y}px;width:${w + 2 * b}px;height:${h + 2 * b}px;--b:${b}px;--r:${r}px;` + (extra.css || '');
+  el.innerHTML = `<div class="scr"><img src="${SITES[k][0]}" alt=""></div>`;
+  (extra.parent || stage).appendChild(el);
+  return { w: w + 2 * b, h: h + 2 * b };
+}
+function label(k, cx, y, fs) {
+  const el = document.createElement('div');
+  el.className = 'label';
+  el.style.cssText = `left:${cx}px;top:${y}px;font-size:${fs}px;`;
+  el.innerHTML = `${SITES[k][1]}<span>${SITES[k][2]}</span>`;
+  stage.appendChild(el);
+}
+function fade(css) { const f = document.createElement('div'); f.className = 'fade'; f.style.background = css; stage.appendChild(f); }
+
+// Place a row of n phones of width w, centred, with gap g; returns x positions (left edges)
+const rowXs = (W, n, w, g) => { const tot = n * w + (n - 1) * g; const x0 = (W - tot) / 2; return [...Array(n)].map((_, i) => x0 + i * (w + g)); };
+
+(async () => {
+  const keys = [];
+  for (const k of Object.keys(SITES)) if (await has(k)) keys.push(k);
+  const pick = (list) => list.filter((k) => keys.includes(k));
+  const W = size === 'wide' ? 1600 : 1080;
+  const H = { rows: size === 'wide' ? 760 : 1000, wall: size === 'wide' ? 760 : 1000, labels: size === 'wide' ? 680 : 820 }[layout];
+  stage.style.width = W + 'px'; stage.style.height = H + 'px';
+
+  // Front rows: real client sites in the middle, examples beside them, so it reads as many industries
+  const FRONT = pick(['vet', 'willa', 'topspec', 'paving', 'attorneys', 'driving', 'ridgeway', 'petport', 'solar', 'mechanic', 'maramba', 'fitness']);
+  const BACK = keys.filter((k) => !FRONT.slice(0, size === 'wide' ? 7 : 3).includes(k));
+
+  if (layout === 'rows') {
+    // A: a front row of phones, with smaller, softer rows of more sites behind (the current montage, more of it)
+    const nF = size === 'wide' ? 7 : 3, wF = size === 'wide' ? 196 : 300, gF = size === 'wide' ? 18 : 22;
+    const nB = size === 'wide' ? 9 : 5, wB = size === 'wide' ? 150 : 190;
+    const front0 = FRONT.slice(0, nF);
+    const back = [...keys.filter((k) => !front0.includes(k)), ...front0.slice().reverse()].slice(0, nB);
+    rowXs(W, nB, wB, 22).forEach((x, i) => phone(back[i], x, size === 'wide' ? 26 : 30, wB));
+    fade('linear-gradient(to bottom, rgba(252,246,237,.35), rgba(252,246,237,.75) 40%, rgba(252,246,237,.95))');
+    const front = FRONT.slice(0, nF);
+    const yF = size === 'wide' ? 190 : 270;
+    // Middle phone a touch bigger, the rest step down, like the current montage
+    const mid = (nF - 1) / 2;
+    const xs = rowXs(W, nF, wF, gF);
+    front.forEach((k, i) => {
+      const s = 1 - Math.abs(i - mid) * 0.06;
+      const w = Math.round(wF * s), dx = (wF - w) / 2;
+      phone(k, xs[i] + dx, yF + (wF - w) * 1.2 - (i === mid ? 14 : 0), w, { css: `z-index:${10 - Math.abs(i - mid)}` });
+    });
+  }
+
+  if (layout === 'wall') {
+    // B: a tilted wall of phones running off the edges, so it feels like hundreds
+    const cols = size === 'wide' ? 9 : 6, rows = 3, w = size === 'wide' ? 190 : 210, g = size === 'wide' ? 26 : 28;
+    const h = Math.round(w * 844 / 390) + 14;
+    const wall = document.createElement('div');
+    wall.className = 'wall';
+    const ww = cols * (w + 14) + (cols - 1) * g, wh = rows * h + (rows - 1) * g;
+    wall.style.cssText = `width:${ww}px;height:${wh}px;margin-left:${-ww / 2}px;margin-top:${-wh / 2}px;transform:perspective(2400px) rotateX(22deg) rotateZ(-14deg) scale(${size === 'wide' ? 0.92 : 0.9});`;
+    stage.appendChild(wall);
+    let n = 0;
+    const order = [...FRONT, ...keys.filter((k) => !FRONT.includes(k))];
+    for (let r = 0; r < rows; r++)
+      for (let c = 0; c < cols; c++) {
+        const k = order[(r * cols + c + r * 3) % order.length]; n++;
+        phone(k, c * (w + 14 + g), r * (h + g) + (c % 2 ? h * 0.32 : 0), w, { parent: wall });
+      }
+    fade('radial-gradient(ellipse at center, rgba(252,246,237,0) 55%, rgba(252,246,237,.9) 92%)');
+  }
+
+  if (layout === 'labels') {
+    // C: one row of phones with the type of business and town under each, so the variety is spelled out
+    const n = size === 'wide' ? 6 : 3, w = size === 'wide' ? 212 : 290, g = size === 'wide' ? 42 : 34, fs = size === 'wide' ? 22 : 30;
+    const y0 = size === 'wide' ? 44 : 40, drop = size === 'wide' ? 36 : 0;
+    rowXs(W, n, w + 14, g).forEach((x, i) => {
+      const y = y0 + (i % 2 ? drop : 0);
+      const p = phone(FRONT[i], x, y, w);
+      label(FRONT[i], x + p.w / 2, y + p.h + 18, fs);
+    });
+  }
+  document.body.dataset.ready = '1';
+})();
+</script>
+</body>
+</html>

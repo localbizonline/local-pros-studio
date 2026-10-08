@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ridgeway Accounting, Claremont</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F3EE; --white:#FFFFFF; --ink:#18261F; --soft:#56635C; --forest:#1F4A3D;
+    --forest-2:#2C5E4F; --ochre:#B9853A; --line:#DDD8CD; --mint:#E3ECE6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+
+  /* header */
+  .top{background:var(--forest);color:#DCE7E1;font-size:13.5px}
+  .top .wrap{display:flex;justify-content:space-between;height:38px;align-items:center}
+  header.main{background:var(--paper);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:80px;gap:24px}
+  .mark{display:flex;align-items:center;gap:12px}
+  .mono{width:40px;height:40px;border-radius:6px;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:"Newsreader",serif;font-size:24px;font-weight:600;line-height:1}
+  .mark-text b{display:block;font-family:"Newsreader",serif;font-weight:600;font-size:25px;line-height:1;letter-spacing:-.01em}
+  .mark-text i{font-style:normal}
+  .mark-text span{display:block;white-space:nowrap;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-top:5px}
+  nav{display:flex;gap:30px;font-size:15px;font-weight:500;color:var(--soft)}
+  .head-right{display:flex;align-items:center;gap:20px}
+  .phone{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .phone svg{width:16px;height:16px;color:var(--forest)}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--forest);color:#fff;border-radius:6px;padding:14px 22px;font-size:15.5px;font-weight:600;white-space:nowrap}
+  .btn svg{width:19px;height:19px;flex:none}
+  .btn-sm{padding:10px 16px;font-size:14.5px}
+  .btn-line{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center;padding-top:72px;padding-bottom:80px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--forest-2);margin-bottom:22px}
+  .eyebrow::before{content:"";width:28px;height:2px;background:var(--ochre)}
+  h1{font-family:"Newsreader",serif;font-weight:500;font-size:clamp(40px,4.6vw,62px);line-height:1.06;letter-spacing:-.015em}
+  .sub{margin-top:24px;font-size:18.5px;color:var(--soft);max-width:31em}
+  .actions{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .rating{display:flex;align-items:center;gap:12px;margin-top:30px;font-size:15px;color:var(--soft)}
+  .stars{display:flex;gap:2px;color:var(--ochre)}
+  .stars svg{width:17px;height:17px}
+  .rating strong{color:var(--ink);font-weight:600}
+  .hero-photo{position:relative}
+  .hero-photo img{width:100%;aspect-ratio:4/3.2;object-fit:cover;border-radius:8px}
+  .note{position:absolute;right:-20px;bottom:-28px;background:var(--white);border:1px solid var(--line);border-radius:8px;padding:16px 20px;box-shadow:0 14px 30px rgba(24,38,31,.10);font-size:14px;color:var(--soft);max-width:260px}
+  .note b{display:block;color:var(--ink);font-size:15.5px;margin-bottom:2px}
+
+  /* proof strip */
+  .proof{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white)}
+  .proof .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+  .proof div.item{padding:26px 24px;border-left:1px solid var(--line);font-size:14.5px;color:var(--soft)}
+  .proof div.item:first-child{border-left:0;padding-left:0}
+  .proof b{display:block;font-family:"Newsreader",serif;font-size:26px;font-weight:600;color:var(--ink);line-height:1.15}
+
+  /* services */
+  .services{padding:96px 0}
+  .sec-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:48px}
+  h2{font-family:"Newsreader",serif;font-weight:500;font-size:clamp(32px,3.4vw,46px);line-height:1.08;letter-spacing:-.01em}
+  .sec-head p{color:var(--soft)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+  .card img{width:100%;aspect-ratio:16/10;object-fit:cover}
+  .card .body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
+  .card h3{font-family:"Newsreader",serif;font-weight:600;font-size:26px;line-height:1.15}
+  .card p{color:var(--soft);font-size:16px;margin:10px 0 20px}
+  .price{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;color:var(--soft)}
+  .price b{font-size:18px;color:var(--forest);font-weight:600;white-space:nowrap}
+  .also{margin-top:28px;font-size:15.5px;color:var(--soft)}
+  .also b{color:var(--ink);font-weight:600}
+
+  /* reviews */
+  .reviews{background:var(--mint);padding:88px 0}
+  .reviews .head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:40px}
+  .g-badge{display:flex;align-items:center;gap:14px;background:var(--white);border-radius:8px;padding:12px 18px;font-size:14.5px;color:var(--soft)}
+  .g-badge b{font-size:26px;color:var(--ink);font-family:"Newsreader",serif;line-height:1}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .quote{background:var(--white);border-radius:8px;padding:28px}
+  .quote p{font-size:17px;line-height:1.6;margin:14px 0 22px}
+  .who{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--soft)}
+  .av{width:38px;height:38px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none}
+  .who b{display:block;color:var(--ink);font-weight:600;font-size:15px}
+
+  /* band */
+  .band{background:var(--forest);color:#D6E2DB;padding:80px 0 36px}
+  .band-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:56px}
+  .band h2{color:#fff;max-width:13em}
+  .band .lead{margin-top:16px;max-width:30em}
+  .band .actions{margin-top:28px}
+  .band .btn{background:#fff;color:var(--forest)}
+  .band .btn-line{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+  .band h4{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#9FBDB0;font-weight:600;margin-bottom:12px}
+  .band p.small{font-size:16px;line-height:1.75}
+  .fine{margin-top:60px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;gap:16px;font-size:13px;color:#9FBDB0}
+
+  @media (max-width:1060px){
+    nav{display:none}
+    .note{right:16px}
+  }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    .top{display:none}
+    .bar{height:68px}
+    .mono{width:36px;height:36px;font-size:21px}
+    .mark-text b{font-size:22px}
+    .mark-text span{font-size:10.5px}
+    .mark-text i{display:none}
+    .phone{display:none}
+    .hero{grid-template-columns:1fr;gap:36px;padding-top:36px;padding-bottom:60px}
+    .eyebrow{margin-bottom:16px;font-size:12px}
+    h1{font-size:38px}
+    .sub{font-size:17px;margin-top:18px}
+    .actions{margin-top:26px;flex-direction:column}
+    .actions .btn{justify-content:center;padding:16px 22px;font-size:16px}
+    .rating{margin-top:22px;flex-wrap:wrap}
+    .hero-photo img{aspect-ratio:4/3.3}
+    .note{position:static;margin-top:-1px;max-width:none;border-radius:0 0 8px 8px;box-shadow:none;border-top:0}
+    .hero-photo img{border-radius:8px 8px 0 0}
+    .proof .wrap{grid-template-columns:1fr 1fr}
+    .proof div.item{padding:20px 0 20px 18px}
+    .proof div.item:nth-child(odd){border-left:0;padding-left:0}
+    .proof div.item:nth-child(n+3){border-top:1px solid var(--line)}
+    .proof b{font-size:23px}
+    .services,.reviews{padding:60px 0}
+    .sec-head{grid-template-columns:1fr;gap:12px;margin-bottom:30px}
+    .cards,.quotes{grid-template-columns:1fr;gap:20px}
+    .reviews .head{flex-direction:column;align-items:start;gap:18px;margin-bottom:28px}
+    .band{padding:60px 0 30px}
+    .band-grid{grid-template-columns:1fr;gap:34px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="tel" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></symbol>
+</svg>
+
+<div class="top"><div class="wrap"><span>Main Road, Claremont · Mon to Fri, 08:00 to 17:00</span><span>Next SARS provisional tax deadline: 28 February</span></div></div>
+<header class="main">
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="mono">R</span><span class="mark-text"><b>Ridgeway</b><span>Accounting<i> · Claremont</i></span></span></a>
+    <nav><a href="#services">Services</a><a href="#services">Fees</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#"><svg><use href="#tel"/></svg>021 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <p class="eyebrow">Small business accountants</p>
+      <h1>Bookkeeping, tax and payroll for small businesses in Cape Town.</h1>
+      <p class="sub">One fixed monthly fee and one accountant who knows your business. We keep your books up to date and file with SARS before the deadline.</p>
+      <div class="actions">
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp us</a>
+        <a class="btn btn-line" href="#">Call 021 000 0000</a>
+      </div>
+      <div class="rating">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <span><strong>4.9 on Google</strong> · 85+ reviews</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/hero.jpg" alt="Accountant going through the year's figures with two business owners">
+      <div class="note"><b>Free first meeting</b>Bring last year's statements. We'll tell you what we'd charge before you sign anything.</div>
+    </div>
+  </section>
+
+  <section class="proof">
+    <div class="wrap">
+      <div class="item"><b>Since 2011</b>in Claremont</div>
+      <div class="item"><b>240+</b>businesses on monthly plans</div>
+      <div class="item"><b>Xero &amp; Sage</b>certified team</div>
+      <div class="item"><b>Same day</b>replies on WhatsApp</div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What we do, and what it costs</h2>
+        <p>Fees are fixed per month and agreed upfront. No hourly billing, no surprise invoices when SARS sends a letter.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <img src="images/bookkeeping.jpg" alt="Bookkeeper capturing invoices on a laptop">
+          <div class="body">
+            <h3>Monthly bookkeeping</h3>
+            <p>Bank reconciliations, invoices and expenses captured in Xero or Sage. Management accounts by the 10th of each month.</p>
+            <div class="price"><span>From</span><b>R1,850 / month</b></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/tax.jpg" alt="Bakery owner in her shop holding a tablet">
+          <div class="body">
+            <h3>Tax returns and VAT</h3>
+            <p>Personal and company income tax, provisional tax and VAT201 returns. We deal with SARS queries on your behalf.</p>
+            <div class="price"><span>Personal return</span><b>R950</b></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/payroll.jpg" alt="Two accountants checking payroll on a laptop">
+          <div class="body">
+            <h3>Payroll</h3>
+            <p>Payslips, PAYE, UIF and SDL each month, plus EMP201 and EMP501 submissions and IRP5s at year end.</p>
+            <div class="price"><span>Per employee</span><b>R95 / month</b></div>
+          </div>
+        </article>
+      </div>
+      <p class="also"><b>Also:</b> company registration with CIPC, annual returns, B-BBEE affidavits and switching from your current accountant.</p>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="head">
+        <h2>Owners who moved their books to us</h2>
+        <div class="g-badge"><b>4.9</b><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><span>85+ Google reviews</span></div>
+      </div>
+      <div class="quotes">
+        <div class="quote">
+          <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+          <p>Two years of late VAT returns sorted in about six weeks. Now I get a short WhatsApp each month telling me what's due.</p>
+          <div class="who"><span class="av">SN</span><span><b>Sipho N.</b>Plumbing business, Wynberg</span></div>
+        </div>
+        <div class="quote">
+          <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+          <p>Priya explains things without jargon. The fixed fee means I actually call when I have a question.</p>
+          <div class="who"><span class="av">KR</span><span><b>Karen R.</b>Bakery owner, Kenilworth</span></div>
+        </div>
+        <div class="quote">
+          <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+          <p>They run payroll for our 14 staff and handle the EMP501 every year. Not one late penalty since we switched.</p>
+          <div class="who"><span class="av">YA</span><span><b>Yusuf A.</b>Physio practice, Rondebosch</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band" id="contact">
+  <div class="wrap">
+    <div class="band-grid">
+      <div>
+        <h2>Send us a message and we'll quote your monthly fee.</h2>
+        <p class="lead">Tell us what your business does and how many staff you have. Most quotes go out the same day.</p>
+        <div class="actions">
+          <a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp us</a>
+          <a class="btn btn-line" href="#">Call 021 000 0000</a>
+        </div>
+      </div>
+      <div>
+        <h4>Office</h4>
+        <p class="small">Main Road, Claremont<br>Cape Town, 7708<br>Parking behind the building</p>
+      </div>
+      <div>
+        <h4>Hours</h4>
+        <p class="small">Mon to Fri · 08:00 to 17:00<br>Closed weekends and public holidays<br>hello@ridgeway.example</p>
+      </div>
+    </div>
+    <div class="fine"><span>© 2026 Ridgeway Accounting</span><span>Privacy · POPIA · PAIA manual</span></div>
+  </div>
+</footer>
+</body>
+</html>

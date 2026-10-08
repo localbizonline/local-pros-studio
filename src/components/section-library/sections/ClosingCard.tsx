@@ -15,6 +15,8 @@ type ClosingCardProps = {
   note?: string;
   // 'contain' shows the whole picture on its own light background (for montages that must not be cut off)
   photoFit?: 'cover' | 'contain';
+  // The picture's size in pixels, so it has a height before it loads (a lazy picture with no height never loads)
+  photoSize?: [number, number];
 };
 
 export default function ClosingCard({
@@ -26,13 +28,14 @@ export default function ClosingCard({
   onClick,
   note = 'Opens WhatsApp. A real person replies.',
   photoFit = 'cover',
+  photoSize,
 }: ClosingCardProps) {
   return (
     <section className="cc py-16 md:py-24 px-6 bg-[#FBF6EC]">
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 rounded-3xl overflow-hidden bg-[#1C1917]">
         {photoFit === 'contain' ? (
           <div className="flex items-center bg-[#FCF6ED]">
-            <img src={photo} alt={photoAlt} loading="lazy" className="w-full h-auto" />
+            <img src={photo} alt={photoAlt} loading="lazy" width={photoSize?.[0]} height={photoSize?.[1]} className="w-full h-auto" />
           </div>
         ) : (
           <img src={photo} alt={photoAlt} loading="lazy" className="w-full h-full min-h-[260px] object-cover" />

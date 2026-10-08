@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lefa Driving School, Soweto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E3402B; --red-dk:#C2311F; --cream:#FFF6E8; --white:#FFFFFF; --ink:#171515; --soft:#5F5A55;
+    --sun:#FFD25A; --line:#EFE2CD;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:"Figtree",system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px}
+
+  header{background:var(--red);color:#fff}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:82px;gap:24px}
+  .mark{display:flex;align-items:center;gap:12px}
+  .lplate{width:42px;height:42px;background:#fff;border-radius:8px;display:grid;place-items:center;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:28px;color:var(--red);line-height:1;flex:none;box-shadow:inset 0 0 0 2.5px var(--ink)}
+  .mark b{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:27px;letter-spacing:-.02em;line-height:1}
+  .mark small{display:block;font-size:12.5px;font-weight:600;opacity:.85;margin-top:3px}
+  nav{display:flex;gap:30px;font-size:16px;font-weight:600;color:#FFE3DD}
+  .head-right{display:flex;align-items:center;gap:20px}
+  .phone{display:flex;align-items:center;gap:8px;font-weight:700}
+  .phone svg{width:17px;height:17px}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:999px;padding:16px 28px;font-size:17px;font-weight:700;white-space:nowrap}
+  .btn svg{width:21px;height:21px;flex:none}
+  .btn-sm{padding:10px 18px;font-size:15px;background:#fff;color:var(--ink)}
+  .btn-sm svg{color:#1FA855}
+
+  .hero-bg{background:var(--red);color:#fff;border-radius:0 0 44px 44px}
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding-top:44px;padding-bottom:72px}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border-radius:999px;padding:7px 14px;font-size:14.5px;font-weight:700;margin-bottom:20px}
+  h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(44px,5.4vw,76px);line-height:.98;letter-spacing:-.035em}
+  h1 mark{background:var(--sun);color:var(--ink);padding:0 .12em;border-radius:10px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .sub{margin-top:20px;font-size:19px;color:#FFE6E1;max-width:28em}
+  .actions{display:flex;align-items:center;gap:18px;margin-top:30px;flex-wrap:wrap}
+  .price-note{font-weight:600;color:#FFE6E1}
+  .price-note b{color:#fff;font-size:20px}
+  .rating{display:flex;align-items:center;gap:12px;margin-top:26px;font-size:16px;color:#FFE6E1}
+  .stars{display:flex;gap:2px;color:var(--sun)}
+  .stars svg{width:18px;height:18px}
+  .rating strong{color:#fff}
+  .hero-photo{position:relative}
+  .hero-photo img{width:100%;aspect-ratio:5/4.2;object-fit:cover;border-radius:28px;border:6px solid #fff}
+  .sticker{position:absolute;right:-14px;top:-18px;background:var(--sun);color:var(--ink);border-radius:50%;width:118px;height:118px;display:grid;place-items:center;text-align:center;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:17px;line-height:1.05;transform:rotate(8deg);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+  .sticker b{display:block;font-size:30px}
+  .sticker>span{display:block;width:84px}
+
+  .services{padding:92px 0 88px}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:40px}
+  h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(34px,3.8vw,52px);line-height:1;letter-spacing:-.03em}
+  .sec-head p{color:var(--soft);max-width:26em}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:var(--white);border-radius:26px;padding:12px;border:1px solid var(--line)}
+  .card img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px}
+  .card .body{padding:18px 12px 12px}
+  .card h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em}
+  .card p{color:var(--soft);font-size:16px;margin:6px 0 16px}
+  .cost{display:flex;align-items:baseline;justify-content:space-between;background:var(--cream);border-radius:14px;padding:12px 16px;font-weight:600;color:var(--soft);font-size:15px}
+  .cost b{font-family:"Bricolage Grotesque",sans-serif;font-size:26px;color:var(--red)}
+
+  .reviews{background:var(--white);padding:88px 0;border-radius:44px 44px 0 0}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .quote{background:var(--cream);border-radius:24px;padding:26px 26px 24px}
+  .quote p{font-size:18px;font-weight:500;margin:12px 0 18px}
+  .who{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--soft)}
+  .who i{width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:700}
+  .who b{display:block;color:var(--ink)}
+  .g-line{display:flex;gap:10px;align-items:center;font-weight:600;color:var(--soft)}
+  .g-line .stars{color:#F2A900}
+  .quote .stars{color:#F2A900}
+
+  .band{background:var(--ink);color:#E9E4DE;padding:80px 0 32px}
+  .band-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:56px}
+  .band h2{color:#fff}
+  .band h2 span{color:var(--sun)}
+  .band .btn{background:var(--red);margin-top:28px}
+  .band h4{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#A39C94;margin-bottom:10px}
+  .band p{line-height:1.8}
+  .fine{margin-top:56px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;font-size:14px;color:#9A938B}
+
+  /* desktop screenshot fit */
+  .hero{padding-top:64px;padding-bottom:140px} .hero-photo img{aspect-ratio:5/5} .services{padding-top:130px}
+  @media (max-width:980px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    .bar{height:68px}
+    .lplate{width:36px;height:36px;font-size:24px;border-radius:7px}
+    .mark b{font-size:23px} .mark small{font-size:11.5px}
+    .phone{display:none}
+    .hero-bg{border-radius:0 0 30px 30px}
+    .hero{grid-template-columns:1fr;gap:26px;padding-top:14px;padding-bottom:28px}
+    .pill{font-size:13px;margin-bottom:14px}
+    h1{font-size:44px;line-height:1}
+    h1 mark{border-radius:8px}
+    .sub{font-size:16.5px;margin-top:14px}
+    .actions{margin-top:20px;gap:12px}
+    .actions .btn{width:100%;justify-content:center;padding:16px 22px}
+    .price-note{display:none}
+    .rating{margin-top:16px;font-size:15px}
+    .hero-photo img{aspect-ratio:4/2.9;border-width:5px;border-radius:22px}
+    .sticker{width:86px;height:86px;font-size:13px;right:-4px;top:-22px}
+    .sticker b{font-size:22px}
+    .services{padding:56px 0 60px}
+    .sec-head{flex-direction:column;align-items:start;gap:12px;margin-bottom:26px}
+    .cards,.quotes{grid-template-columns:1fr;gap:16px}
+    .reviews{padding:56px 0;border-radius:30px 30px 0 0}
+    .band{padding:56px 0 28px}
+    .band-grid{grid-template-columns:1fr;gap:30px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+    /* compact service rows on phones */
+    .cards{gap:12px}
+    .card{display:grid;grid-template-columns:100px 1fr;align-items:center;gap:4px;border-radius:22px;padding:10px}
+    .card img{width:100px;height:100px;aspect-ratio:auto;border-radius:14px}
+    .card .body{padding:2px 6px 2px 10px}
+    .card h3{font-size:20px}
+    .card p{display:none}
+    .cost{margin-top:8px;padding:7px 12px;font-size:13.5px;border-radius:10px}
+    .cost b{font-size:21px}
+    /* compact service rows on phones */
+    .hero-photo img{aspect-ratio:4/2.6}
+    .services{padding-top:44px} .services .sec-head p{display:none} .sec-head{margin-bottom:20px} .cards{gap:10px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+</svg>
+
+<div class="hero-bg">
+  <header>
+    <div class="wrap bar">
+      <a class="mark" href="#"><span class="lplate">L</span><span><b>Lefa</b><small>Driving School · Soweto</small></span></a>
+      <nav><a href="#lessons">Lessons</a><a href="#lessons">Prices</a><a href="#reviews">Reviews</a></nav>
+      <div class="head-right">
+        <a class="phone" href="#"><svg><use href="#phone"/></svg>010 000 0000</a>
+        <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+      </div>
+    </div>
+  </header>
+  <section class="wrap hero">
+    <div>
+      <span class="pill">Pick-up from home in Soweto</span>
+      <h1>Driving lessons in Soweto that get you <mark>licensed</mark></h1>
+      <p class="sub">Patient instructors for Code 8 and Code 10. We fetch you, teach you K53 and take you to your test.</p>
+      <div class="actions">
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>Book a lesson on WhatsApp</a>
+        <span class="price-note">Lessons from <b>R250</b></span>
+      </div>
+      <div class="rating">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <span><strong>4.8 on Google</strong> · 300+ reviews</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/hero.jpg" alt="Learner driver smiling at the wheel with her instructor">
+      <span class="sticker"><span>Lessons from<b>R250</b></span></span>
+    </div>
+  </section>
+</div>
+
+<main>
+  <section class="services" id="lessons">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Lessons and packages</h2>
+        <p>Pay per lesson or save with a package. Every lesson is a full hour in a dual-control car.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <img src="images/code8.jpg" alt="Learner driving with an instructor">
+          <div class="body"><h3>Code 8 lessons</h3><p>Light cars, manual or automatic. Start from zero or brush up before your test.</p><div class="cost"><span>Per 1-hour lesson</span><b>R250</b></div></div>
+        </article>
+        <article class="card">
+          <img src="images/code10.jpg" alt="Learner next to a light delivery truck">
+          <div class="body"><h3>Code 10 lessons</h3><p>Trucks and taxis up to 16 tonnes. Popular for drivers looking for work.</p><div class="cost"><span>Per 1-hour lesson</span><b>R320</b></div></div>
+        </article>
+        <article class="card">
+          <img src="images/yard.jpg" alt="Car reversing between cones on a practice yard">
+          <div class="body"><h3>Test-day package</h3><p>Warm-up lesson, yard practice and our car for your test at the testing centre.</p><div class="cost"><span>Car and warm-up</span><b>R650</b></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Passed with Lefa</h2>
+        <div class="g-line"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>4.8 from 300+ Google reviews</div>
+      </div>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>I was so scared of the yard test. Bra Sipho made me practise parallel parking until it was easy. Passed first time!</p><div class="who"><i>N</i><span><b>Nomsa K.</b>Orlando East</span></div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>They picked me up after work every Tuesday. Got my Code 10 and now I drive for a courier.</p><div class="who"><i style="background:#171515">T</i><span><b>Thabo L.</b>Pimville</span></div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Fair prices and the car is always clean. Booking on WhatsApp is quick, they answer the same day.</p><div class="who"><i style="background:#2C7A4B">P</i><span><b>Palesa M.</b>Diepkloof</span></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band">
+  <div class="wrap">
+    <div class="band-grid">
+      <div>
+        <h2>Tell us your code and your area. <span>We'll send open times this week.</span></h2>
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>Book a lesson on WhatsApp</a>
+      </div>
+      <div><h4>Where we teach</h4><p>All of Soweto, Lenasia<br>and Johannesburg South<br>Pick-up from home or work</p></div>
+      <div><h4>Hours</h4><p>Mon to Sat · 06:30 to 18:00<br>Sunday by request<br>Call 010 000 0000</p></div>
+    </div>
+    <div class="fine"><span>© 2026 Lefa Driving School</span><span>Facebook · Google · TikTok</span></div>
+  </div>
+</footer>
+</body>
+</html>
