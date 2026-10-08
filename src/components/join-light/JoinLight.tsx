@@ -7,6 +7,7 @@ import ProofSection from '../section-library/sections/ProofSection';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import Pricing from '../section-library/sections/Pricing';
+import SiteChat from '../demo-popup/DemoPopup';
 import ReputationStory from '../section-library/sections/ReputationStory';
 import closingPhoto from '../../assets/images/review-contractor-happy.webp';
 
@@ -152,6 +153,10 @@ export default function JoinLight() {
 
       {/* FOOTER: the shared footer with links to every page (8 Oct 2026) */}
       <SiteFooter pricingHref="#pricing" faqHref="#faq" />
+
+      {/* The site chat: "Start now" buttons open it with the plan picked; it saves the lead to Airtable
+          and opens WhatsApp (8 Oct 2026). It never opens by itself on the homepage. */}
+      <SiteChat page="home" />
     </div>
   );
 }

@@ -8,9 +8,8 @@ import { openSiteChat, type ChatPlan } from '../../demo-popup/openSiteChat';
 // with the new website as an optional extra, free on a 12-month commitment, for anyone without a
 // website or whose website needs a refresh. Then each service on its own. Prices checked against
 // the live pages on 8 Oct 2026. Used on the join page; change it here only.
-// "Start now" buttons (8 Oct 2026, Jeremy's request) go through the site chat's openSiteChat with the
-// plan picked. The homepage doesn't render <SiteChat /> yet (Jeremy: WhatsApp for now), so they open
-// WhatsApp; adding <SiteChat page="home" /> to the page switches them to the chat.
+// "Start now" buttons (8 Oct 2026, Jeremy's request) open the site chat (src/components/demo-popup) with
+// the plan picked. The page must render <SiteChat /> once (the homepage does); without it they open WhatsApp.
 
 export type Plan = ChatPlan;
 
