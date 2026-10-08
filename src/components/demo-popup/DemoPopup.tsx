@@ -227,8 +227,9 @@ const useOpenOnce = (enabled: boolean, delayMs: number, force: boolean, show: ()
   }, [enabled, delayMs, force]);
 };
 
-// Types the offer line by line, with a "typing…" pause before each bubble, like a real chat
-const useTypedLines = (lines: string[], active: boolean) => {
+// Types the offer line by line, with a "typing…" pause before each bubble, like a real chat.
+// instant: show the lines at once (opened from a search box, where the visitor expects to type straight away)
+const useTypedLines = (lines: string[], active: boolean, instant = false) => {
   const [typed, setTyped] = useState<string[]>([]);
   const [typing, setTyping] = useState(false);
   // Starts the first time the chat opens; closing and reopening keeps the lines already shown
@@ -238,7 +239,7 @@ const useTypedLines = (lines: string[], active: boolean) => {
   }, [active]);
   useEffect(() => {
     if (!go) return;
-    if (prefersReducedMotion()) {
+    if (instant || prefersReducedMotion()) {
       setTyped(lines);
       return;
     }
@@ -264,7 +265,7 @@ const useTypedLines = (lines: string[], active: boolean) => {
       setTyped([]);
       setTyping(false);
     };
-  }, [go, lines]);
+  }, [go, lines, instant]);
   return { typed, typing, finished: typed.length === lines.length && typed[lines.length - 1] === lines[lines.length - 1] };
 };
 
@@ -346,7 +347,15 @@ const useGoogleSearch = (enabled: boolean, onPick: (b: Business) => void) => {
       /* older versions have no value setter */
     }
   };
-  return { hostRef, status, clear };
+  // Puts the cursor in Google's box, so the visitor can type straight away
+  const focus = () => {
+    try {
+      boxRef.current?.focus();
+    } catch {
+      /* not focusable in this version */
+    }
+  };
+  return { hostRef, status, clear, focus };
 };
 
 const WhatsAppGlyph = ({ className }: { className?: string }) => (
@@ -406,15 +415,25 @@ export default function SiteChat({
   trackPrefix?: string;
 }) {
   // `session` changes when a button picks a different plan, which starts a fresh chat
-  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number }>({ open: false, session: 0 });
+  // modal: opened from a button (any button, with or without a plan); the chat that opens by itself stays in the corner
+  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number; modal: boolean; focusSearch: boolean }>({
+    open: false,
+    session: 0,
+    modal: false,
+    focusSearch: false,
+  });
 
   useOpenOnce(autoOpen, delayMs, force, () => setChat((c) => (c.open ? c : { ...c, open: true })));
 
   useEffect(() => {
     chatState.mounted += 1;
     const onOpen = (e: Event) => {
-      const plan = (e as CustomEvent<{ plan?: ChatPlan }>).detail?.plan;
-      setChat((c) => (c.plan === plan && c.session > 0 ? { ...c, open: true } : { open: true, plan, session: c.session + 1 }));
+      const { plan, focusSearch = false } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean }>).detail || {};
+      setChat((c) =>
+        c.plan === plan && c.session > 0
+          ? { ...c, open: true, modal: true, focusSearch }
+          : { open: true, plan, session: c.session + 1, modal: true, focusSearch },
+      );
     };
     window.addEventListener(OPEN_CHAT_EVENT, onOpen);
     return () => {
@@ -431,6 +450,8 @@ export default function SiteChat({
       page={page}
       plan={chat.plan}
       open={chat.open}
+      modal={chat.modal}
+      focusSearch={chat.focusSearch}
       onClose={() => setChat((c) => ({ ...c, open: false }))}
       trackPrefix={`${trackPrefix}_${chat.plan || 'demo'}`}
     />
@@ -441,17 +462,21 @@ function ChatWindow({
   page,
   plan,
   open,
+  modal,
+  focusSearch,
   onClose,
   trackPrefix,
 }: {
   page: ChatPage;
   plan?: ChatPlan;
   open: boolean;
+  modal: boolean;
+  focusSearch: boolean;
   onClose: () => void;
   trackPrefix: string;
 }) {
   const [lines] = useState(() => chatLines(plan));
-  const { typed, typing, finished } = useTypedLines(lines, open);
+  const { typed, typing, finished } = useTypedLines(lines, open, focusSearch);
   const [pending, setPending] = useState<Business | null>(null); // shown as "Is this you?"
   const [business, setBusiness] = useState<Business | null>(null); // confirmed
   const [manual, setManual] = useState(false); // "Not on Google?"
@@ -464,7 +489,7 @@ function ChatWindow({
   const [otherNumber, setOtherNumber] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
   const saveLead = useLeadRecord(page, plan);
-  const { hostRef, status, clear } = useGoogleSearch(open, (b) => {
+  const { hostRef, status, clear, focus } = useGoogleSearch(open, (b) => {
     setBusiness(null);
     setPending(b);
     setWhatsApp('');
@@ -480,8 +505,8 @@ function ChatWindow({
 
   // PostHog: the chat steps are site_chat_opened → site_chat_started → site_chat_business_found → site_chat_sent
   useEffect(() => {
-    if (open) capture('site_chat_opened', { page, plan: plan || 'demo', how: plan ? 'button' : 'opened_by_itself' });
-  }, [open, page, plan]);
+    if (open) capture('site_chat_opened', { page, plan: plan || 'demo', how: modal ? 'button' : 'opened_by_itself' });
+  }, [open, page, plan, modal]);
 
   useEffect(() => {
     if (!open) return;
@@ -512,9 +537,14 @@ function ChatWindow({
     saveLead(['number'], { mode: 'google', ...business, whatsApp: mobile, whatsAppFrom: from });
   };
 
-  // Opened from a button (a plan picked): a centred window over a darkened page, so it's clear what the
-  // click did and what to do next (Jeremy, 8 Oct 2026). Opened by itself (the free demo offer): the corner chat.
-  const modal = !!plan;
+  // Opened from a button: a centred window over a darkened page, so it's clear what the click did and what to
+  // do next (Jeremy, 8 Oct 2026; since then for every button, including the free demo search box on the website
+  // page, not only buttons with a plan). Opened by itself (the free demo offer on /website-design): the corner chat.
+
+  // Opened from a search box: the cursor goes straight into Google's box once it shows
+  useEffect(() => {
+    if (open && focusSearch && finished && status === 'ready') focus();
+  }, [open, focusSearch, finished, status]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Keep the page behind still while the centred window is open
   useEffect(() => {

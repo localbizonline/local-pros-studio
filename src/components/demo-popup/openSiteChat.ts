@@ -16,9 +16,11 @@ export const OPEN_CHAT_EVENT = 'lps:open-site-chat';
 // Set by SiteChat while it is mounted
 export const chatState = { mounted: 0 };
 
-export const openSiteChat = (plan?: ChatPlan) => {
+// focusSearch: from a search box (the website page's free demo band); the chat opens with its lines shown at
+// once and the cursor in Google's box, so it works like the box they clicked (8 Oct 2026)
+export const openSiteChat = (plan?: ChatPlan, { focusSearch = false }: { focusSearch?: boolean } = {}) => {
   if (chatState.mounted > 0) {
-    window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { plan } }));
+    window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { plan, focusSearch } }));
   } else {
     capture('whatsapp_click', { page: window.location.pathname, from: 'chat_button_without_chat', plan });
     window.open(SITE_WHATSAPP_URL, '_blank', 'noopener,noreferrer');

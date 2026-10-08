@@ -16,9 +16,10 @@ const SMALL = 'Free. You only pay if you go ahead.';
 export type DemoBandVariant = 'a' | 'b' | 'c';
 
 export default function FreeDemoBand({ variant = 'a', onOpen }: { variant?: DemoBandVariant; onOpen?: () => void }) {
+  // The search box (c) opens the chat ready to type in; the plain buttons (a, b) open it as usual
   const open = () => {
     onOpen?.();
-    openSiteChat();
+    openSiteChat(undefined, { focusSearch: variant === 'c' });
   };
 
   if (variant === 'b') {
