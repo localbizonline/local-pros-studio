@@ -15,6 +15,14 @@ Status: direction A ("light and calm") chosen by Jeremy on 5 October 2026 over a
 
 Learned from aevaai.com (AI phone answering for allied-health clinics), studied on 7 October 2026. Its look is not ours; its positioning, flow and copy are the model for every page. Worked example: `/review-versions/4`.
 
+### Phone first
+
+Judge every page, section and option on a phone (390px wide) before desktop, and let the phone decide (Jeremy, 7 October 2026).
+
+- The main button sits on the first phone screen.
+- A graphic must still explain itself at phone size; collapsing it into a plain list does not count.
+- Count how many phone screens a section takes. When two options say the same thing, pick the shorter one.
+
 ### The five-second test
 
 Someone who only sees the first screen of the page on a phone must be able to say:
@@ -71,7 +79,7 @@ Each section has one job: it answers the next question a buyer has. Use this ord
 
 ### Make the decision quick
 
-Learned from localpros.co.za/join/reviews-and-social (7 October 2026). Worked example: `/review-versions/home-c`.
+Learned from localpros.co.za/join/reviews-and-social (7 October 2026). Worked example: the join page draft, `/review-versions/join`.
 
 - **Answer the price from the first screen.** The second button in the opening section is "See what it costs", and the first section after it ends with the price in one line.
 - **Lead with one package.** Single services go in one line of small print under it.
@@ -102,17 +110,23 @@ Blue gradients, glass panels, cartoon illustrations, carousels and "Read more" t
 7. **Prices live on one page.** Other pages explain the value and link to pricing. (Today prices are repeated in nine files; fix as each page is rebuilt.)
 8. **Combine pages that do the same job;** delete review and test pages when a choice is made, with a 301 in `public/_redirects`.
 
+### Drafts and the section library
+
+- Build new options as noindex drafts in the switcher at `/review-versions/<id>` (`src/components/review-versions/ReviewVersions.tsx`), never on live addresses, and compare them at phone size on `compare-homepages.html` (project root, dev server only).
+- When Jeremy likes a section, save it as a component in `src/components/section-library/sections/` and list it on `/review-versions/sections`. Pages use these shared components, so a change is made once. Start new pages from the library.
+- When he rejects a draft, remove it from the switcher and the comparison page and move its folder to the Bin, so drafts do not pile up.
+
 ## 4. The look: light and calm
 
 ### In five lines
 
 1. A white page with near-black headlines, warm grey body text and one accent: amber.
-2. Amber has one job: buttons and the odd highlighted word. Deep brown-amber for small labels, prices and text links.
+2. Amber has one job: buttons, the odd highlighted word and link underlines. Section labels are near-black with a short amber line in front; prices, ticks and text links are near-black. No brown anywhere (7 October 2026).
 3. Big, heavy, tight headlines in Bricolage Grotesque over short subtitles; body in Source Sans 3.
 4. Real product moments instead of icon grids: a working phone showing the review request, real job photos.
 5. Flat surfaces, hairline borders, soft downward shadows, corners of 12 and 16px. No gradients, glows or gradient text.
 
-Three moments break the white on purpose: one dark band for the product demo, warm cream for Jeremy's personal note, and a deep brown closing call-to-action before the dark footer.
+Three moments break the white on purpose: one dark band for the product demo, and warm cream for Jeremy's personal note and the closing call-to-action before the dark footer. No deep brown backgrounds anywhere (Jeremy, 7 October 2026).
 
 ### Colour
 
@@ -130,11 +144,12 @@ Use these values only. Anything else on a marketing page is a mistake to fix. Ph
 | Tag | `#F5F5F4` | "Popular with" trade labels |
 | Accent | `#F59E0B` | primary buttons, highlight underline |
 | Accent, hover | `#FBBF24` | primary button hover; amber text on dark |
-| Accent, deep | `#92400E` | eyebrows, prices, text links, focus outline |
+| Eyebrow | `#1C1917` with a 28×3px amber `#F59E0B` line in front | small uppercase section labels above headlines; on dark bands the text is `#FAFAF9`, the line stays amber |
+| Ink (again) | `#1C1917` | prices, ticks, icons, text links (with an amber underline), focus outline; replaces the old deep amber `#92400E`, dropped 7 Oct 2026 |
 | Accent, soft | `#FEF3C7` | price badges |
 | Dark | `#1C1917` | product-demo band and footer (text on it `#FAFAF9`, body `#D6D3D1`) |
 | Cream | `#FBF6EC` | personal note background; closing button |
-| Closing band | `#78350F` | closing call-to-action background (text `#FBF6EC`, body `#F5E6CC`) |
+| Closing band | `#FBF6EC` (cream) | closing call-to-action background (text `#1C1917`, body `#44403C`); a closing card on it is Dark `#1C1917` |
 
 Rules: one accent per element; never amber text on amber; no blue anywhere except inside a Google or WhatsApp mock-up. The logo is red: keep it as it is and let it be the only red on the page.
 
@@ -178,20 +193,23 @@ Buttons never have shadows.
 | Primary | one per section, the main next step | amber `#F59E0B`, ink text, 700, 17px, `14px 24px`, min 52px tall, hover `#FBBF24` |
 | Secondary | beside a primary | white, ink text, 1.5px `#D6D3D1` border, border turns ink on hover |
 | Header | top right, every page | as primary, 44px tall |
-| Closing | on the brown closing band | cream `#FBF6EC`, `#78350F` text, 19px, min 60px tall, hover `#FEF3C7` |
-| Text link | inline next step | deep amber, 700, underlined 1.5px, 4px offset |
+| Closing | on the closing band or card | amber `#F59E0B`, ink text, 19px, min 60px tall, hover `#FBBF24` |
+| Text link | inline next step | ink, 700, amber underline 1.5px, 4px offset |
 
-Focus: a visible 3px outline in deep amber. Hover changes take 0.15s.
+Focus: a visible 3px outline in ink. Hover changes take 0.15s.
 
 ### Section patterns
 
 - **Hero:** keyword H1 as a small eyebrow line, big literal headline with one amber-underlined phrase, two-sentence subtitle, primary plus secondary button, one line of small print. Text left, real photo right (stacked on a phone).
-- **Product demo:** dark band, code-built phone looping through the real moment, three steps beside it that light up in time.
-- **Services:** white cards with title, price badge, two sentences, small print and a text link.
+- **Product demo:** dark band, code-built phone looping through the real moment, three steps beside it that light up in time. Best on the /reviews page, where the review request is the whole product (`HowItWorksPhone`).
+- **Services (rows):** one row per service, photo + small label + heading + one or two sentences; the photo side swaps each row on desktop, photo first on a phone. Show several real client sites, not one screenshot (the join page fans out three client sites on phones). Shared component: `ServiceRows`.
+- **Services (cards):** white cards with title, price badge, two sentences, small print and a text link, when prices belong on the page.
+- **Hero with service cards:** big centred statement, three literal service cards (name + one plain line), buttons, wide photo. On a phone the buttons come before the cards so they sit on the first screen. Shared component: `HeroServiceCards`.
+- **Your reputation path:** the five steps a customer takes before getting in touch, the three we handle tagged; animated so each step lights up as the visitor scrolls. Shared component: `ReputationStory` (variant `follow`).
 - **Popular with:** about 20 trade labels in soft grey pills, clearly not buttons.
 - **Personal note:** cream background, plain text, signature-style name, one button.
 - **FAQ:** closed accordions with hairline rules.
-- **Closing band:** brown, one headline, one cream button, one line of small print.
+- **Closing band:** cream, one headline, one amber button, one line of small print. A closing card (photo plus checklist) is near-black on the cream band.
 
 Until the homepage is rebuilt, these values live in `src/components/design-directions/directions.css` (on `.dd-a`). The first real rebuild moves them into `tailwind.config.js` as named colours (`ink`, `body`, `accent` and so on) and shared components, so pages use names, never hex codes.
 
@@ -201,11 +219,13 @@ Until the homepage is rebuilt, these values live in `src/components/design-direc
 - **Section head:** small uppercase eyebrow, headline, one-sentence subtitle. Centred.
 - **One main button per section.** Buttons look like buttons; nothing else does. Tags are clearly labels.
 - **One container width,** consistent section padding, a light line only between two light sections.
+- **Each new section should look new.** Change the background (white, cream `#FBF6EC`, light grey `#F5F5F4`, or the dark band) or the layout, so a scanning visitor sees where one section ends. Never three white sections of the same shape in a row.
 - **No** emoji, decorative icon grids, glows, blobs, gradient text, glassmorphism, fake browser chrome or stock-looking illustration sets. Functional icons only where they help.
 - **Different sections have different jobs.** The personal note from Jeremy looks different from the feature rows; not every section is a card grid.
 - **Images:** real job photos, real screenshots and the photographic before/after style of the current homepage first. Code-built mock-ups sparingly (see section 3, point 5). Generated images only when chosen, in one consistent style. Never captions like "illustrative" or "example only".
 - **FAQ:** closed accordions, real questions, answer in the first sentence.
-- **Motion:** small and functional, respects reduced-motion, never shifts the layout.
+- **Motion:** only where it explains something: a path that fills step by step, a phone that plays the real moment. One animated section is better than motion everywhere; page-wide fade-ins on every section were tried and rejected (7 Oct 2026). On a phone, tie it to the visitor's scroll so they set the pace. Respect reduced motion; never shift the layout.
+- **People scan.** Cut words before adding styling, but do not strip a page to the bone: a "lean" cut of about 30% of the words lost too much and was rejected (7 Oct 2026). Prefer one clear visual anchor per section over more text.
 
 ## 6. Copy rules
 
@@ -213,6 +233,9 @@ Until the homepage is rebuilt, these values live in `src/components/design-direc
 - Two sentences per paragraph at most. Short lines that start with the words that matter.
 - No made-up numbers, no superlatives, no "hidden fees" claims. A figure in a headline needs a source on the page.
 - South African English. Confident selling copy; genuine limits once, plainly, in the FAQ.
+- **Literal over abstract.** Name the service and what happens: "Website design: we design and build a website for your business", not "grow online" on its own or "built for businesses people need to trust" (Jeremy found that confusing). Each line should make sense read alone, without the heading above it.
+- **Never describe review gating.** Every customer gets the same Google review link. Do not write that unhappy customers are routed to a private form, filtered or "caught before they reach Google", and do not show a "How did we do? Great / Could be better" step before the link. Google does not allow it. Allowed: "If something went wrong, they can reply and you hear about it straight away."
+- **Check offers against this site.** Do not copy offers from other Local Pros pages (setup fees, extras) unless this site says the same, and confirm client results are real before naming them.
 
 ## 7. Shared parts
 
@@ -222,7 +245,8 @@ Header, footer, WhatsApp button and closing call-to-action are shared components
 
 - The five-second test (section 2) passes on a phone screenshot of the first screen.
 - Sections follow the page flow in section 2, and each one has a single job.
-- Desktop and phone screenshots, top to bottom. No sideways scroll, tap targets 44px, hero headline within four lines on a phone.
+- Phone first: phone screenshots, top to bottom, before desktop. No sideways scroll, tap targets 44px, hero headline within four lines and the main button on the first phone screen.
+- For anything that moves, record a short phone screen video and check it plays, loops or finishes as intended.
 - `npm run build` passes. It pre-builds every page in `src/seo.ts` as real HTML and writes `sitemap.xml`; check the page's title, description and H1 in `dist/`.
 - Whole-page read for tone, names, claims and repeated layouts, not just the section that changed.
 - Say where it stands: local, committed, pushed, live.
@@ -235,8 +259,14 @@ When Jeremy picks an option (a divider, a section style, a button), record it he
 |---|---|---|
 | 3 Oct 2026 | Every page gets its own title, description and pre-built HTML from `src/seo.ts` | `scripts/prerender.mjs` |
 | 5 Oct 2026 | Direction A, light and calm, for the whole site (over B warm dark and C site signage) | section 4, `/design-directions/a` |
+| 7 Oct 2026 | Join page draft order: hero with service cards → animated reputation path → service rows on cream (three client sites fanned out) → results → who it's for → price → FAQ → closing | `/review-versions/join`, `src/components/join-light/` |
+| 7 Oct 2026 | Animation only where it explains (the reputation path, follow-the-customer); page-wide fade-ins and a 30% "lean" cut were tried and rejected | section 5 |
+| 7 Oct 2026 | The animated WhatsApp phone asks every customer for the review straight away (no Great / Could be better step) and belongs on the /reviews page | section 4, `ReviewDemo.tsx` |
+| 7 Oct 2026 | Section labels: near-black with a short amber line in front (over a soft badge and numbered labels); the warm grey was too weak | section 4 |
+| 7 Oct 2026 | No brown anywhere: closing band cream, closing cards near-black, closing button amber; the deep amber `#92400E` for labels, ticks, prices and links replaced by warm grey (labels) and ink (the rest) | section 4 |
+| 7 Oct 2026 | Phone first: every option is judged on a 390px phone before desktop; main button on the first phone screen | section 2 |
 | 7 Oct 2026 | Section library started: sections Jeremy picks from drafts are saved as components and shown together; start new pages from it. First: How it works with the animated phone (from draft 1, whose other sections he did not like) | `src/components/section-library/`, /review-versions/sections |
-| 7 Oct 2026 | Quick-decision format from localpros.co.za/join: price from the first screen, one package, proof in one place, closing checklist, say what the button does | section 2; /review-versions/home-c |
+| 7 Oct 2026 | Quick-decision format from localpros.co.za/join: price from the first screen, one package, proof in one place, closing checklist, say what the button does | section 2; /review-versions/join |
 | 7 Oct 2026 | Positioning and page flow learned from aevaai.com apply to every page: five-second test, one page one thing, proof early, one button label | section 2; /review-versions/4 |
 | 7 Oct 2026 | Audience is any trust-based service business with a Google Business Profile and customers on WhatsApp, not only trades | section 1; /review-versions/4 |
 | 7 Oct 2026 | Homepage stays as it is: its copy and images beat six rebuilt versions (three review-led, three full-offer). Code-built mock-ups looked generated and repetitive | section 3, point 5; review-led drafts kept at `/review-versions/1-3` for the /reviews rebuild |

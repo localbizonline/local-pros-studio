@@ -19,7 +19,10 @@ src/
 ├── entry-server.tsx   # Build-time render used by scripts/prerender.mjs
 ├── whatsapp.ts        # WhatsApp number and first message per door
 ├── components/        # One file per page plus shared Footer, MobileCTA, ScrollToTop
-│   └── design-directions/  # Noindex reference page for the chosen look (/design-directions/a)
+│   ├── design-directions/  # Noindex reference page for the chosen look (/design-directions/a)
+│   ├── review-versions/    # Draft switcher: noindex drafts at /review-versions/<id>
+│   ├── section-library/    # Sections Jeremy picked, as shared components (/review-versions/sections)
+│   └── join-light/         # Join page draft (/review-versions/join), built from the library
 └── assets/images/
 scripts/prerender.mjs  # Saves each page in seo.ts as finished HTML, writes sitemap.xml and robots.txt
 ```
@@ -48,6 +51,9 @@ npm run preview  # Preview production build
 Read `DESIGN-SYSTEM.md` before building, rewriting or reviewing any page. It holds the positioning and page-flow rules (section 2, learned from aevaai.com on 7 October 2026: start every page there), the chosen look (direction A, "light and calm", picked 5 October 2026), the page-building rules and the pre-ship checks.
 
 Pages not yet rebuilt still use the older dark, gradient-heavy styles in `src/index.css` and `tailwind.config.js`. Do not copy those patterns into new work.
+
+## Reviews: no gating
+Every customer gets the same Google review link. Never write or show that unhappy customers are sent to a private form or filtered before Google (DESIGN-SYSTEM.md section 6). Google does not allow it.
 
 ## WhatsApp Contact
 Primary CTA links to: `wa.me/27832336716`
