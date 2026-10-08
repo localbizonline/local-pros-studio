@@ -3,15 +3,16 @@ import { openSiteChat } from '../demo-popup/openSiteChat';
 import { GoogleG } from './ClientReviews';
 import demoShot from '../../assets/images/portfolio/demo-example-plumber.webp';
 
-// "See your new website before you pay" (8 Oct 2026, Jeremy's request to make the free demo harder to
+// "Get a free demo of your new website" (8 Oct 2026, first titled "See your new website before you pay";
+// Jeremy did not want the stress on paying, Jeremy's request to make the free demo harder to
 // miss). Every button opens the site chat without a plan, which is the free demo offer: the visitor finds
 // their business on Google and we WhatsApp them a demo. Three versions to choose from:
 // a: centred band, one button. b: words beside a WhatsApp message with the demo arriving (the page's one
 // code-built mock-up). c: a Google search box on the page that starts the chat.
 
-const TITLE = 'See your new website before you pay';
+const TITLE = 'Get a free demo of your new website';
 const LINE = 'Find your business on Google in our chat. We build a demo from your listing, with your name, services and reviews, and send it to you on WhatsApp.';
-const SMALL = 'Free. You only pay if you go ahead.';
+const SMALL = 'A real person replies on WhatsApp.';
 
 export type DemoBandVariant = 'a' | 'b' | 'c';
 
@@ -91,7 +92,7 @@ export default function FreeDemoBand({ variant = 'a', onOpen }: { variant?: Demo
               <span className="fd-guide-label">Try it, it's free!</span>
             </span>
           </div>
-          <p className="fd-small fd-small-c">You only pay if you go ahead.</p>
+          <p className="fd-small fd-small-c">{SMALL}</p>
         </div>
       </section>
     );

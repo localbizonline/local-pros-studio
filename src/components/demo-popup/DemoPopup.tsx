@@ -52,7 +52,7 @@ const chatLines = (plan?: ChatPlan) =>
   plan
     ? [`Hi 👋 Let’s get ${PLAN[plan].chat} started.`, 'Find your business on Google below and tap send. We’ll reply on WhatsApp to set it up.']
     : [
-        'Hi 👋 Want to see your new website before you pay anything?',
+        'Hi 👋 Want to see what your new website could look like?',
         'Find your business on Google below. We’ll build a free demo from your listing and WhatsApp it to you.',
       ];
 

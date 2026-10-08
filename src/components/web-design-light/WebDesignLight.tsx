@@ -27,7 +27,7 @@ import ownerCall from './img/owner-short-call.webp';
 // page. Built from the page flow in DESIGN-SYSTEM.md section 2 and the shared sections, with the copy
 // and photos of the 7 Oct draft Jeremy liked: for established businesses and teams, headline "A website
 // that turns Google searches into new customers" (changed on 8 Oct to "A new website for your business, live in
-// about 7 days"), proof led by PETport, Paving Pros and Winelands Gas.
+// 7 working days": no "about", and "working" so it matches the 5 to 7 working days promised below), proof led by PETport, Paving Pros and Winelands Gas.
 // Prices and terms are the live page's (confirmed by Jeremy on 1 Oct 2026).
 // Ad page: no site menu, so ad visitors stay here. The site chat opens once per visit with the free demo.
 
@@ -105,8 +105,8 @@ const FAQ = [
     a: 'R9,900 once-off, plus R290 a month for hosting and support. Or rent to own at R450 a month for 24 months, after which it is yours and hosting drops to R290 a month. It is free with our R2,500 a month package on a 12-month commitment.',
   },
   {
-    q: 'Can I see it before I pay?',
-    a: 'Yes. Find your business on Google in our chat and we build a free demo from your listing and send it to you on WhatsApp. You only pay if you go ahead.',
+    q: 'Can I see a demo first?',
+    a: 'Yes. Find your business on Google in our chat and we build a free demo from your listing and send it to you on WhatsApp.',
   },
   {
     q: 'How long does it take?',
@@ -195,7 +195,7 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           <div className="dd-container">
             <h1 className="dd-kw">Website design for South African businesses</h1>
             <p className="dd-display wdl-display">
-              A new website for your business, <span className="wdl-u">live in about 7 days</span>
+              A new website for your business, <span className="wdl-u">live in 7 working days</span>
             </p>
             <p className="dd-lede">
               We write, build and look after websites for South African businesses. Your customers look you up on their phone first,
