@@ -42,6 +42,7 @@ const PAGE_SOURCE: Record<string, string> = {
 const STEP_NOTE: Record<string, string> = {
   picked: 'picked their business on Google',
   confirmed: 'confirmed it is theirs',
+  number: 'gave the number we can WhatsApp them on',
   typed: 'typed their details (not found on Google)',
   sent: 'pressed send (WhatsApp opened)',
 };
@@ -60,6 +61,8 @@ const noteFor = (body: Record<string, unknown>) => {
 // Same field ids as the join form Worker
 const F = {
   companyName: 'fldVq7icFoFqUiyhk',
+  // "Mobile": the number we can WhatsApp them on (the join form uses the same field, as 0XXXXXXXXX)
+  mobile: 'fldBqhQ3Jm0eba2FP',
   message: 'fld6jS3UgLGgbQfGG',
   facebook: 'fldRqkEzq16sHHxPK',
   source: 'fld1BEG7NC7uQqe7g',
@@ -95,6 +98,15 @@ const webUrl = (value: unknown) => {
   } catch {
     return '';
   }
+};
+
+// South African number we can WhatsApp, as 0XXXXXXXXX (same check as the join form Worker)
+const normaliseMobile = (value: unknown) => {
+  if (typeof value !== 'string' || value.length > 30) return '';
+  let digits = value.replace(/\D/g, '');
+  if (digits.startsWith('27') && digits.length === 11) digits = `0${digits.slice(2)}`;
+  else if (digits.length === 9) digits = `0${digits}`;
+  return /^0[6-8]\d{8}$/.test(digits) ? digits : '';
 };
 
 const isGoogleMapsUrl = (url: string) => /^https:\/\/(maps\.google\.com|www\.google\.com\/maps|maps\.app\.goo\.gl|goo\.gl\/maps)/.test(url);
@@ -145,6 +157,13 @@ function buildFields(body: Record<string, unknown>): Record<string, unknown> | n
   } else {
     return null;
   }
+  // Every call carries the current number; none yet (or a different business picked since) clears it
+  const mobile = normaliseMobile(body.whatsApp);
+  fields[F.mobile] = mobile || null;
+  if (mobile) {
+    fields[F.mobile] = mobile;
+    fields[F.message] = `${fields[F.message]}\nWhatsApp number: ${mobile} (${body.whatsAppFrom === 'google' ? 'their Google listing number, they said yes' : 'they typed it'}).`;
+  }
   return fields;
 }
 
@@ -170,6 +189,7 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
     `From ${pageLabel(body)} (${planLabel(body)})`,
     fields[F.gbpCategory] && `Type: ${fields[F.gbpCategory]}`,
     fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
+    fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
     fields[F.website] && `Website: ${fields[F.website]}`,
     fields[F.facebook] && `Facebook: ${fields[F.facebook]}`,
     fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
@@ -193,6 +213,9 @@ const changedText = (body: Record<string, unknown>, fields: Record<string, unkno
   ]
     .filter(Boolean)
     .join('\n');
+
+const numberText = (fields: Record<string, unknown>, recordId: string) =>
+  `📱 ${fields[F.companyName]} can be WhatsApped on ${fields[F.mobile]}.\nAirtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`;
 
 const sentText = (fields: Record<string, unknown>, recordId: string) =>
   `✅ ${fields[F.companyName]} pressed send: expect their WhatsApp now.\nAirtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`;
@@ -296,6 +319,7 @@ export default async (request: Request) => {
       }
       const oldNote = typeof old[F.message] === 'string' ? (old[F.message] as string) : '';
       if (old[F.companyName] && old[F.companyName] !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
+      if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
       if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) await sendAlert('lead', sentText(fields, recordId));
       return json({ ok: true }, 200);
     } catch (err) {

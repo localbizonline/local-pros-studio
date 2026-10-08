@@ -32,11 +32,11 @@ const SEEN_KEY = 'lps_demo_popup_seen';
 const MAPS_KEY = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
 
 // How each plan is said: in the chat, in the WhatsApp message (the Airtable wording is in demo-lead.mts)
-const PLAN: Record<ChatPlan, { chat: string; whatsApp: string; showsSite: boolean }> = {
-  package: { chat: 'the full package', whatsApp: 'the full package', showsSite: true },
-  reviews: { chat: 'your Google reviews', whatsApp: 'Google reviews', showsSite: false },
-  social: { chat: 'your social media posts', whatsApp: 'social media posting', showsSite: false },
-  website: { chat: 'your new website', whatsApp: 'a new website', showsSite: true },
+const PLAN: Record<ChatPlan, { chat: string; whatsApp: string }> = {
+  package: { chat: 'the full package', whatsApp: 'the full package' },
+  reviews: { chat: 'your Google reviews', whatsApp: 'Google reviews' },
+  social: { chat: 'your social media posts', whatsApp: 'social media posting' },
+  website: { chat: 'your new website', whatsApp: 'a new website' },
 };
 
 // Each page keeps the WhatsApp opening the bot and the weekly scoreboard already count (src/whatsapp.ts)
@@ -56,7 +56,7 @@ const chatLines = (plan?: ChatPlan) =>
         'Find your business on Google below. We’ll build a free demo from your listing and WhatsApp it to you.',
       ];
 
-const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Business | null, name: string, link: string) =>
+const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Business | null, name: string, link: string, whatsApp: string) =>
   [
     `${OPENING[page]}. ${plan ? `I’d like to start ${PLAN[plan].whatsApp}.` : 'Please send me a free demo.'}`,
     ...(business
@@ -68,6 +68,7 @@ const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Busin
           business.mapsUri && `Google: ${cleanMapsLink(business.mapsUri)}`,
         ]
       : [name.trim() && `Business name: ${name.trim()}`, link.trim() && `Facebook or website: ${link.trim()}`]),
+    whatsApp && `My WhatsApp: ${showMobile(whatsApp)}`,
   ]
     .filter(Boolean)
     .join('\n');
@@ -81,6 +82,15 @@ const cleanMapsLink = (uri: string) => {
     return uri;
   }
 };
+
+// South African number we can WhatsApp: 0XXXXXXXXX starting 06, 07 or 08 (same check as the join form)
+const normaliseMobile = (value: string) => {
+  let digits = value.replace(/\D/g, '');
+  if (digits.startsWith('27') && digits.length === 11) digits = `0${digits.slice(2)}`;
+  else if (digits.length === 9) digits = `0${digits}`;
+  return /^0[6-8]\d{8}$/.test(digits) ? digits : '';
+};
+const showMobile = (m: string) => `${m.slice(0, 3)} ${m.slice(3, 6)} ${m.slice(6)}`;
 
 // Google files many service businesses under a bare "Services"; that says nothing, so leave it out
 const usefulCategory = (label: string) => (/^services?$/i.test(label.trim()) ? '' : label.trim());
@@ -105,7 +115,7 @@ const postLead = (body: Record<string, unknown>) => {
 // One Airtable record per chat (Jeremy, 8 Oct 2026): created the moment they pick their business on Google
 // (or send typed details), then updated as they confirm, change business or press send, so a visitor who
 // never presses send is still on the list. The server hands back the record id and a pass for the updates.
-type LeadStep = 'picked' | 'confirmed' | 'typed' | 'sent';
+type LeadStep = 'picked' | 'confirmed' | 'number' | 'typed' | 'sent';
 const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
   const record = useRef<{ id: string; pass: string } | null>(null);
   const steps = useRef<LeadStep[]>([]);
@@ -377,28 +387,6 @@ const RatingLine = ({ b }: { b: Business }) =>
     <span>No Google reviews yet</span>
   );
 
-// A tiny phone with a website built from their Google name, phone and rating
-const MiniSitePreview = ({ b }: { b: Business }) => (
-  <div className="w-[104px] flex-none overflow-hidden rounded-[14px] border-4 border-neutral-900 bg-white shadow-md" aria-hidden="true">
-    <div className="flex items-center justify-between gap-1 bg-neutral-900 px-1.5 py-1">
-      <span className="truncate font-display text-[7px] font-extrabold text-white">{b.name}</span>
-      <span className="h-1.5 w-4 flex-none rounded-full bg-amber-400" />
-    </div>
-    <div className="bg-gradient-to-br from-amber-50 to-white px-1.5 pb-1.5 pt-2">
-      <p className="break-words font-display text-[9px] font-extrabold leading-tight text-neutral-950">{b.name}</p>
-      {b.category && <p className="truncate text-[6px] text-neutral-500">{b.category}</p>}
-      {b.rating != null && b.reviewCount ? (
-        <p className="text-[6px] text-amber-500">
-          ★★★★★ <span className="text-neutral-600">{b.rating.toFixed(1)} · {b.reviewCount} reviews</span>
-        </p>
-      ) : null}
-      <div className="mt-1 h-7 rounded bg-neutral-200" />
-      {b.phone && <p className="mt-1 text-center text-[6px] font-bold text-neutral-800">Call {b.phone}</p>}
-      <div className="mt-1 rounded-full bg-amber-400 py-0.5 text-center text-[6px] font-bold text-neutral-950">WhatsApp us</div>
-    </div>
-  </div>
-);
-
 const inputClass =
   'w-full rounded-md border border-[#b9dfb2] bg-white px-2.5 py-2 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-[#008069]';
 
@@ -469,11 +457,18 @@ function ChatWindow({
   const [manual, setManual] = useState(false); // "Not on Google?"
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+  // The number we can WhatsApp them on: their Google number if it's a cellphone and they say yes, or one they type
+  const [whatsApp, setWhatsApp] = useState('');
+  const [numberInput, setNumberInput] = useState('');
+  const [numberError, setNumberError] = useState('');
+  const [otherNumber, setOtherNumber] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
   const saveLead = useLeadRecord(page, plan);
   const { hostRef, status, clear } = useGoogleSearch(open, (b) => {
     setBusiness(null);
     setPending(b);
+    setWhatsApp('');
+    setOtherNumber(false);
     saveLead(['picked'], { mode: 'google', ...b });
   });
   const typeByHand = manual || status === 'failed';
@@ -481,7 +476,7 @@ function ChatWindow({
   // Keep the newest bubble in view as the chat grows
   useEffect(() => {
     chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' });
-  }, [typed, typing, finished, pending, business, typeByHand]);
+  }, [typed, typing, finished, pending, business, typeByHand, whatsApp, otherNumber]);
 
   // PostHog: the chat steps are site_chat_opened → site_chat_started → site_chat_business_found → site_chat_sent
   useEffect(() => {
@@ -496,14 +491,25 @@ function ChatWindow({
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose, trackPrefix]);
 
-  const href = whatsAppLink(chatMessage(page, plan, business, name, link));
-  const showsSite = !plan || PLAN[plan].showsSite;
-  const ready = !!business || (typeByHand && !!name.trim());
+  const href = whatsAppLink(chatMessage(page, plan, business, name, link, whatsApp));
+  const typedMobile = normaliseMobile(numberInput);
+  const ready = (!!business && !!whatsApp) || (typeByHand && !business && !!name.trim() && !!typedMobile);
+  const googleMobile = business ? normaliseMobile(business.phone) : '';
   const searchAgain = () => {
     clear();
     setPending(null);
     setBusiness(null);
     setManual(false);
+    setWhatsApp('');
+    setOtherNumber(false);
+  };
+  // Saves the number on their record (Airtable "Mobile") and shows it as their reply
+  const chooseNumber = (mobile: string, from: 'google' | 'typed') => {
+    if (!business) return;
+    setWhatsApp(mobile);
+    setNumberError('');
+    capture('site_chat_number_given', { page, plan: plan || 'demo', from });
+    saveLead(['number'], { mode: 'google', ...business, whatsApp: mobile, whatsAppFrom: from });
   };
 
   // Opened from a button (a plan picked): a centred window over a darkened page, so it's clear what the
@@ -600,9 +606,11 @@ function ChatWindow({
               )}
               {typeByHand && (
                 <>
-                  <p className="text-[12px] text-neutral-600">Your business name, and your Facebook page or website:</p>
+                  <p className="text-[12px] text-neutral-600">Your business name, Facebook page or website, and the number we can WhatsApp you on:</p>
                   <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Business name" aria-label="Business name" autoComplete="organization" className={inputClass} />
                   <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="Facebook page or website" aria-label="Facebook page or website" inputMode="url" className={inputClass} />
+                  <input value={numberInput} onChange={(e) => setNumberInput(e.target.value)} placeholder="Your WhatsApp number" aria-label="Your WhatsApp number" inputMode="tel" autoComplete="tel" className={inputClass} />
+                  {numberInput.trim().length >= 10 && !typedMobile && <p className="text-[12px] text-red-700">Enter a cellphone number, for example 082 123 4567.</p>}
                   {status !== 'failed' && (
                     <button type="button" onClick={searchAgain} className="text-[12px] font-semibold text-[#008069] underline">
                       Search Google instead
@@ -657,19 +665,68 @@ function ChatWindow({
                 Change
               </button>
             </Bubble>
-            {showsSite ? (
-              <div className="flex justify-start">
-                <div className="flex max-w-[92%] items-center gap-3 rounded-lg rounded-tl-none bg-white p-2 shadow-[0_1px_0.5px_rgba(0,0,0,0.13)]">
-                  <MiniSitePreview b={business} />
-                  <p className="text-[13px] leading-snug text-neutral-800">
-                    {plan
-                      ? `Got it. Here’s a peek at ${business.name}. Tap send and we’ll set it up on WhatsApp.`
-                      : `Got it. Here’s a peek at ${business.name}. The real demo uses your Google photos and reviews.`}
-                  </p>
-                </div>
-              </div>
+            {/* Can we WhatsApp them? Their Google number if it's a cellphone, otherwise ask for one */}
+            {googleMobile && !otherNumber ? (
+              <Bubble>
+                <p>Can we WhatsApp you on <span className="font-semibold">{showMobile(googleMobile)}</span>?</p>
+                {!whatsApp && (
+                  <div className="mt-2 flex gap-2">
+                    <button type="button" onClick={() => chooseNumber(googleMobile, 'google')} className="flex-1 whitespace-nowrap rounded-full bg-[#008069] px-3 py-2 text-[13px] font-bold text-white">
+                      Yes, WhatsApp me there
+                    </button>
+                    <button type="button" onClick={() => setOtherNumber(true)} className="flex-1 whitespace-nowrap rounded-full border border-neutral-300 px-3 py-2 text-[13px] font-bold text-neutral-800">
+                      Another number
+                    </button>
+                  </div>
+                )}
+              </Bubble>
             ) : (
-              <Bubble>Got it. Tap send and we’ll set it up for {business.name} on WhatsApp.</Bubble>
+              <Bubble>
+                {otherNumber ? 'No problem. Which number can we WhatsApp you on?' : `We can’t WhatsApp the number on your Google listing. Which number can we WhatsApp you on?`}
+              </Bubble>
+            )}
+            {!whatsApp && (otherNumber || !googleMobile) && (
+              <Bubble mine>
+                <form
+                  className="w-[240px] max-w-full space-y-1.5"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (typedMobile) chooseNumber(typedMobile, 'typed');
+                    else setNumberError('Enter a cellphone number, for example 082 123 4567.');
+                  }}
+                >
+                  <input value={numberInput} onChange={(e) => setNumberInput(e.target.value)} placeholder="082 123 4567" aria-label="Your WhatsApp number" inputMode="tel" autoComplete="tel" autoFocus className={inputClass} />
+                  {numberError && <p className="text-[12px] text-red-700">{numberError}</p>}
+                  <button type="submit" className="w-full rounded-full bg-[#008069] px-3 py-2 text-[13px] font-bold text-white">
+                    Use this number
+                  </button>
+                </form>
+              </Bubble>
+            )}
+            {whatsApp && (
+              <>
+                <Bubble mine>
+                  <span className="flex items-center gap-1.5 font-semibold">
+                    <Check className="h-4 w-4 text-[#008069]" aria-hidden="true" />
+                    {showMobile(whatsApp)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setWhatsApp('');
+                      setOtherNumber(true);
+                    }}
+                    className="text-[12px] text-[#008069] underline"
+                  >
+                    Change
+                  </button>
+                </Bubble>
+                <Bubble>
+                  {plan
+                    ? `Thanks. Tap send and we’ll set up ${PLAN[plan].whatsApp} for ${business.name} on WhatsApp.`
+                    : `Thanks. Tap send and we’ll start on the free demo for ${business.name}.`}
+                </Bubble>
+              </>
             )}
           </>
         )}
@@ -688,8 +745,8 @@ function ChatWindow({
             track(`${trackPrefix}_whatsapp`);
             capture('site_chat_sent', { page, plan: plan || 'demo', how: business ? 'google' : 'typed' });
             // Updates the record made when they picked their business, or creates it for typed details
-            if (business) saveLead(['sent'], { mode: 'google', ...business });
-            else saveLead(['typed', 'sent'], { mode: 'manual', name: name.trim(), link: link.trim() });
+            if (business) saveLead(['sent'], { mode: 'google', ...business, whatsApp, whatsAppFrom: whatsApp === googleMobile ? 'google' : 'typed' });
+            else saveLead(['typed', 'sent'], { mode: 'manual', name: name.trim(), link: link.trim(), whatsApp: typedMobile, whatsAppFrom: 'typed' });
           }}
           className={`flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 font-display text-[15px] font-extrabold ${
             ready ? 'bg-amber-400 text-neutral-950 hover:bg-amber-300' : 'cursor-default bg-amber-400/40 text-neutral-950/50'
