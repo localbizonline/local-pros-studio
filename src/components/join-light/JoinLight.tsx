@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     question: 'How much of my time does it take?',
-    answer: 'Very little. For reviews, you BCC us on your invoices or fill in a short form with the customer’s name and number, and our system does the rest. For posts, send us a job photo on WhatsApp when you have one; on weeks you send nothing, we still post your services, public holidays and your best new reviews.',
+    answer: 'Very little. For reviews, you BCC us on your invoices or fill in a short form with the customer’s name and number, and our system does the rest. For posts, we make them for you. Send us job photos on WhatsApp when you have them and we turn them into posts too, or post them yourself from our system.',
   },
   {
     question: 'Is there a contract?',
@@ -52,13 +52,12 @@ const faqs = [
   },
 ];
 
+// Four points (8 Oct 2026): setup and website details are in the price section above
 const recap = [
   'More 5-star Google reviews',
-  'Your best reviews posted on Facebook and Instagram',
-  'A new Facebook and Instagram post every week',
+  'Posts on Facebook and Instagram, done for you',
+  'A new website, or yours refreshed',
   'All in one for R2,500 a month',
-  'Free setup (normally R5,000) with a 6-month commitment',
-  'Free website, worth R9,900, if you need one (12-month commitment)',
 ];
 
 export default function JoinLight() {

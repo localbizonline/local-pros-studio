@@ -35,7 +35,6 @@ export default function FitCheck() {
         <div className="dd-head">
           <p className="dd-eyebrow">Who it's for</p>
           <h2 className="dd-h2">Is this for your business?</h2>
-          <p className="dd-sub">It works if your customers look you up on Google and you can reach them on WhatsApp.</p>
         </div>
         <div className="fit-cols">
           <div className="fit-col">

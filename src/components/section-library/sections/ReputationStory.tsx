@@ -8,8 +8,9 @@ import './reputationstory.css';
 //   follow:  the path fills in and each step lights up as the visitor reaches it
 //   find:    plus what the customer actually sees at each step
 //   versus:  plus your business (with us) against a competitor at each step, until they pick you
-// On phones the steps follow the visitor's scroll; on wider screens they play in order once the
-// section is in view. Reduced-motion visitors see every step lit straight away.
+// The steps play in order and loop while the section is on screen (8 Oct 2026). Reduced-motion
+// visitors see every step lit straight away. The "Before anyone uses you, they look you up" headline
+// was removed on 8 Oct 2026 (Jeremy).
 // Jeremy picked 'follow' for the join page (7 Oct 2026); the other two stay for comparison at
 // /review-versions/rep-motion.
 
@@ -105,7 +106,12 @@ const STEPS: Step[] = [
 
 export type StoryVariant = 'follow' | 'find' | 'versus';
 
-/** How many steps are lit: follows the scroll on phones, plays in order on wider screens. */
+/** How many steps are lit. Plays in order and loops while the section is on screen: the steps light up
+ *  one by one, all stay lit for a moment, then it starts again (Jeremy, 8 Oct 2026; it used to follow
+ *  the scroll on phones and play once on wider screens). Pauses off screen; reduced motion sees all lit. */
+const STEP_MS = 850;
+const HOLD_STEPS = 3; // all lit for about 2.5 seconds before it starts again
+
 function useActiveSteps(listRef: React.RefObject<HTMLOListElement>, count: number) {
   const [active, setActive] = useState(0);
 
@@ -116,47 +122,27 @@ function useActiveSteps(listRef: React.RefObject<HTMLOListElement>, count: numbe
       setActive(count);
       return;
     }
-    const phone = window.matchMedia('(max-width: 860px)');
-
-    if (phone.matches) {
-      let frame = 0;
-      const update = () => {
-        frame = 0;
-        const items = Array.from(list.children) as HTMLElement[];
-        const line = window.innerHeight * 0.62;
-        setActive(items.filter((li) => li.getBoundingClientRect().top < line).length);
-      };
-      const onScroll = () => {
-        if (!frame) frame = requestAnimationFrame(update);
-      };
-      update();
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-      return () => {
-        window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onScroll);
-        cancelAnimationFrame(frame);
-      };
-    }
-
     let timer = 0;
+    let n = 0;
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = 0;
+    };
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
-        io.disconnect();
-        let n = 0;
+        if (!entry.isIntersecting) return stop();
+        if (timer) return;
         timer = window.setInterval(() => {
-          n += 1;
-          setActive(n);
-          if (n >= count) window.clearInterval(timer);
-        }, 750);
+          n = n >= count + HOLD_STEPS ? 0 : n + 1;
+          setActive(Math.min(n, count));
+        }, STEP_MS);
       },
-      { threshold: 0.45 },
+      { threshold: 0.25 },
     );
     io.observe(list);
     return () => {
       io.disconnect();
-      window.clearInterval(timer);
+      stop();
     };
   }, [listRef, count]);
 
@@ -187,14 +173,17 @@ export default function ReputationStory({ variant = 'follow' }: { variant?: Stor
   const listRef = useRef<HTMLOListElement>(null);
   const active = useActiveSteps(listRef, STEPS.length);
   const fill = useFill(listRef, active);
-  const done = active >= STEPS.length;
+  // The closing line appears once the path has played through and stays while it loops
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    if (active >= STEPS.length) setDone(true);
+  }, [active]);
 
   return (
     <section className={`dd dd-a dd-sec rs is-${variant}`}>
       <div className="dd-container">
         <div className="dd-head">
           <p className="dd-eyebrow">Your reputation</p>
-          <h2 className="dd-h2">Before anyone uses you, they look you up</h2>
           <p className="dd-sub">
             They find your Google reviews, your Facebook and Instagram, and your website. Together, that's your reputation.
           </p>

@@ -233,17 +233,19 @@ ol) {
   color: var(--eyebrow);
 }
 
-/* Section labels: near-black with a short amber line in front (picked by Jeremy, 7 Oct 2026) */
+/* Section labels: near-black with a short amber line in front (picked by Jeremy, 7 Oct 2026).
+   16px since 8 Oct 2026 (Jeremy: a bit bigger); the hero's keyword line stays 13px */
 .dd-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  font-size: 1rem;
 }
 
 .dd-eyebrow::before {
   content: '';
   flex-shrink: 0;
-  width: 28px;
+  width: 32px;
   height: 3px;
   border-radius: 2px;
   background: var(--accent);

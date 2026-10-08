@@ -59,7 +59,7 @@
   align-items: center;
   gap: 10px;
   font-family: 'Source Sans 3', system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 16px; /* matches .dd-eyebrow, 8 Oct 2026 */
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -70,7 +70,7 @@
 .jl .eyebrow::before {
   content: '';
   flex-shrink: 0;
-  width: 28px;
+  width: 32px;
   height: 3px;
   border-radius: 2px;
   background: #f59e0b;

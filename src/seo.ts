@@ -18,7 +18,7 @@ export const PAGES: Record<string, PageSeo> = {
   '/': {
     title: 'Google Reviews & Social Media for SA Businesses | Local Pros Studio',
     description:
-      'We collect Google reviews from your customers on WhatsApp, post your jobs to Facebook and Instagram every week, and build websites for South African service businesses.',
+      'We collect Google reviews on WhatsApp, make and publish your Facebook and Instagram posts, and build websites for South African service businesses.',
   },
   '/reviews': {
     title: 'Get More Google Reviews on WhatsApp | Local Pros Studio',

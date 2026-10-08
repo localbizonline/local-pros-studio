@@ -34,7 +34,7 @@ const MAPS_KEY = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
 const PLAN: Record<ChatPlan, { chat: string; whatsApp: string; showsSite: boolean }> = {
   package: { chat: 'the full package', whatsApp: 'the full package', showsSite: true },
   reviews: { chat: 'your Google reviews', whatsApp: 'Google reviews', showsSite: false },
-  social: { chat: 'your weekly social media posts', whatsApp: 'social media posting', showsSite: false },
+  social: { chat: 'your social media posts', whatsApp: 'social media posting', showsSite: false },
   website: { chat: 'your new website', whatsApp: 'a new website', showsSite: true },
 };
 

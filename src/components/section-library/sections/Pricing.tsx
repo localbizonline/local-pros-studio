@@ -4,7 +4,7 @@ import './pricing.css';
 import { openSiteChat, type ChatPlan } from '../../demo-popup/openSiteChat';
 
 // Price section (8 Oct 2026, option A of three; Jeremy's request to make it plain that people can
-// take the package or pick one service). The package card comes first: reviews and weekly posts,
+// take the package or pick one service). The package card comes first: reviews and social media posts,
 // with the new website as an optional extra, free on a 12-month commitment, for anyone without a
 // website or whose website needs a refresh. Then each service on its own. Prices checked against
 // the live pages on 8 Oct 2026. Used on the join page; change it here only.
@@ -29,7 +29,7 @@ const SINGLES: { plan: Plan; name: string; price: string; unit: string; line: st
     name: 'Social media posts',
     price: 'R2,000',
     unit: 'a month',
-    line: 'A new post every week on Facebook, Instagram and Google.',
+    line: 'Posts made and published for you on Facebook, Instagram and Google.',
     terms: 'Month to month.',
   },
   {
@@ -45,7 +45,7 @@ const SINGLES: { plan: Plan; name: string; price: string; unit: string; line: st
 const PACKAGE_ITEMS = [
   'A Google review request to every customer, with reminders',
   'Replies to your reviews, written for you',
-  'A new Facebook and Instagram post every week',
+  'Posts on Facebook, Instagram and Google, made for you',
   'Your best reviews posted on Facebook and Instagram',
   'Free setup, normally R5,000, on a 6-month commitment',
 ];
@@ -57,15 +57,11 @@ export default function Pricing() {
         <div className="dd-head">
           <p className="dd-eyebrow">What it costs</p>
           <h2 className="dd-h2">Take the full package, or pick one service</h2>
-          <p className="dd-sub">
-            Customers check your reviews, your Facebook and your website before they get in touch. The package looks after all three.
-          </p>
         </div>
         <div className="pr-a">
           <div className="pr-package">
             <p className="pr-badge">Best value</p>
             <h3 className="pr-package-name">The full package</h3>
-            <p className="pr-package-line">Google reviews and weekly social media posts, done for you.</p>
             <p className="pr-price">
               <strong>R2,500</strong> <span>a month</span>
             </p>
@@ -84,14 +80,13 @@ export default function Pricing() {
                 A new website, free <span>Worth R9,900</span>
               </p>
               <p className="pr-addon-line">
-                No website, or yours needs a refresh? Add one on a 12-month commitment and we build it at no extra cost. Hosting is
-                included while you're on the package, and after 12 months the website is yours.
+                Add it on a 12-month commitment. Hosting included, and after 12 months it’s yours.
               </p>
             </div>
             <button type="button" className="dd-btn dd-btn-primary pr-btn" onClick={() => startPlan('package')}>
               Start now
             </button>
-            <p className="pr-terms">6-month commitment, or 12 months if you add the website. A real person replies on WhatsApp.</p>
+            <p className="pr-terms">6-month commitment, or 12 months if you add the website.</p>
           </div>
           <div className="pr-a-singles">
             <p className="pr-or">Or one service on its own</p>
@@ -104,14 +99,13 @@ export default function Pricing() {
                 <p className="pr-single-line">{s.line}</p>
                 <p className="pr-terms">{s.terms}</p>
                 <button type="button" className="pr-start" onClick={() => startPlan(s.plan)}>
-                  Start with {s.name.toLowerCase()}
+                  {/* Google keeps its capital letter */}
+                  Start with {s.name.startsWith('Google') ? s.name : s.name.toLowerCase()}
                 </button>
               </div>
             ))}
-            <p className="pr-terms">Start with one and add the rest later.</p>
           </div>
         </div>
-        <p className="pr-guarantee">30-day money-back guarantee on reviews.</p>
       </div>
     </section>
   );

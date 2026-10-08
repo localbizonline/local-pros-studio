@@ -30,7 +30,7 @@ const SERVICES = [
   {
     label: 'Social media posting',
     title: 'A Facebook and Instagram page that stays busy',
-    body: 'Send us a photo of a job on WhatsApp. We write the post and publish it on Facebook, Instagram and Google, every week.',
+    body: 'We make posts for you and publish them on Facebook, Instagram and Google. Send us job photos and we turn them into posts too, or post them yourself from our system.',
     image: socialImage,
     alt: 'A business owner sending a job photo from his phone',
     fit: 'center',
@@ -38,7 +38,7 @@ const SERVICES = [
   {
     label: 'Website design',
     title: 'A website that gets you calls',
-    body: 'We build you a new website, or refresh the one you have, so it works on a phone and shows your services, your areas and a tap-to-call button. It is live in 5 to 7 working days.',
+    body: 'We build you a new website, or refresh the one you have, so it works on a phone and shows your services, your areas and a tap-to-call button.',
     image: websiteImage,
     alt: 'The PETport website, a pet transport business site we built',
     fit: 'top',

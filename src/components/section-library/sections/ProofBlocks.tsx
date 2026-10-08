@@ -1,4 +1,4 @@
-import { CLIENT_REVIEW_RESULTS, PROOF_AS_OF, PROOF_NUMBERS, clientBySlug, type ClientPost } from './clientProof';
+import { CLIENT_REVIEW_RESULTS, PROOF_NUMBERS, clientBySlug, type ClientPost } from './clientProof';
 import localProsLogo from '../../../assets/images/Reviews/local-pros-avatar.webp';
 
 // Parts of the proof section built from real SP2 data (8 Oct 2026): the numbers, the client logos,
@@ -11,20 +11,21 @@ export function NumbersStrip() {
   return (
     <div className="pb-numbers">
       <dl>
+        {/* One number per service, in the hero's order. The client count (64) was dropped: Jeremy
+            found it too low to show (8 Oct 2026) */}
         <div>
-          <dt>South African businesses on the programme</dt>
-          <dd>{n.clients}</dd>
+          <dt>new Google reviews for our clients, {n.reviewsAverage} average</dt>
+          <dd>{n.reviewsReceived}</dd>
         </div>
         <div>
-          <dt>posts published for them in the last 30 days</dt>
+          <dt>posts published for clients in the last 30 days</dt>
           <dd>{n.postsLast30Days}</dd>
         </div>
         <div>
-          <dt>new Google reviews while with us, {n.reviewsAverage} average</dt>
-          <dd>{n.reviewsReceived}</dd>
+          <dt>websites built since 2015</dt>
+          <dd>500+</dd>
         </div>
       </dl>
-      <p className="pb-source">From our own system on {PROOF_AS_OF}.</p>
     </div>
   );
 }
@@ -52,7 +53,6 @@ export function PostCard({ p, onOpen }: { p: ClientPost; onOpen?: (p: ClientPost
       <button type="button" className="pb-post-img" onClick={() => onOpen?.(p)} aria-label={`Open full size: post for ${c.name}`}>
         <img src={p.img} alt={`Post for ${c.name}: ${p.caption}`} loading="lazy" width={p.w} height={p.h} />
       </button>
-      <figcaption className="pb-post-cap">{p.caption}…</figcaption>
       {p.link && (
         <a className="pb-post-link" href={p.link} target="_blank" rel="noopener noreferrer">
           See it on Facebook
@@ -96,7 +96,7 @@ export function ReviewsTop5() {
                 <GoogleMark />+{r.reviews}
               </span>
               <span className="pb-top5-meta">
-                new reviews since {r.since} · {r.average.toFixed(1)} <span className="pb-star">★</span> average
+                since {r.since}
               </span>
             </li>
           );
@@ -113,7 +113,6 @@ export function ReviewsTop5() {
           See them on Google
         </a>
       </div>
-      <p className="pb-source">Google reviews that came in while each business was with us, counted by our system on {PROOF_AS_OF}.</p>
     </div>
   );
 }
