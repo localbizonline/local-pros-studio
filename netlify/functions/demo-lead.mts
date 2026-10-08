@@ -3,6 +3,9 @@
 // Creates one record in Airtable "Sales CRM / Master List", the same table the localpros.co.za/join form
 // writes to (../localpros-join/workers/join-form/src/index.ts), with Source = "Website" plus the page's tag.
 // Never Source = "Incoming": that starts the join form's WhatsApp opener automation.
+// It also WhatsApps Jeremy and Ashley through SP2 (POST WEBSITE_LEAD_ALERT_URL, recipients = SP2's
+// "Website leads" group): kind "started" when someone first uses the chat (alert only, nothing saved)
+// and kind "lead" when a lead is saved. Team devices never call this (src/teamDevice.ts).
 // Dry run unless DEMO_LEAD_LIVE_WRITES is exactly "true" (production only): then it returns the fields instead.
 
 declare const Netlify: { env: { get(name: string): string | undefined } };
@@ -120,6 +123,60 @@ function buildFields(body: Record<string, unknown>): Record<string, unknown> | n
   return fields;
 }
 
+const ALERT_PAGE: Record<string, string> = {
+  'website-design': 'the website design page',
+  home: 'the homepage',
+  join: 'the join page',
+};
+const pageLabel = (body: Record<string, unknown>) =>
+  typeof body.page === 'string' && Object.hasOwn(ALERT_PAGE, body.page) ? ALERT_PAGE[body.page] : 'the website';
+const planLabel = (body: Record<string, unknown>) =>
+  typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan) ? PLAN_NOTE[body.plan] : 'free demo';
+
+const startedText = (body: Record<string, unknown>) =>
+  `👀 Someone started using the chat on ${pageLabel(body)} (${planLabel(body)}).\nNo details yet. You'll get another message if they leave them.`;
+
+const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string | null) => {
+  const rating = fields[F.gbpReviewScore];
+  const reviews = fields[F.gbpReviewCount];
+  return [
+    `🟢 New website lead: ${fields[F.companyName]}`,
+    `From ${pageLabel(body)} (${planLabel(body)})`,
+    fields[F.gbpCategory] && `Type: ${fields[F.gbpCategory]}`,
+    fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
+    fields[F.website] && `Website: ${fields[F.website]}`,
+    fields[F.facebook] && `Facebook: ${fields[F.facebook]}`,
+    fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
+    typeof rating === 'number' && `Rating: ${rating} (${reviews ?? 0} reviews)`,
+    body.mode === 'manual' && 'Not found on Google (typed their details).',
+    recordId ? `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}` : 'Not saved to Airtable (error). Details above.',
+  ]
+    .filter(Boolean)
+    .join('\n')
+    .slice(0, 1000);
+};
+
+// Never blocks or fails the visitor's request: a missed alert is logged, the lead is still saved
+async function sendAlert(kind: 'started' | 'lead', text: string) {
+  const url = Netlify.env.get('WEBSITE_LEAD_ALERT_URL');
+  const key = Netlify.env.get('WEBSITE_LEAD_ALERT_KEY');
+  if (!url || !key) {
+    console.error('Lead alert not sent: WEBSITE_LEAD_ALERT_URL or WEBSITE_LEAD_ALERT_KEY is not set');
+    return;
+  }
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ kind, text }),
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) console.error('Lead alert failed', res.status, (await res.text()).slice(0, 300));
+  } catch (err) {
+    console.error('Lead alert error', err instanceof Error ? err.message : String(err));
+  }
+}
+
 export default async (request: Request) => {
   const origin = request.headers.get('Origin') || '';
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405);
@@ -141,10 +198,20 @@ export default async (request: Request) => {
     return json({ ok: true }, 200);
   }
 
+  const live = Netlify.env.get('DEMO_LEAD_LIVE_WRITES') === 'true';
+
+  // Someone started using the chat: alert only, nothing saved
+  if (body.kind === 'started') {
+    const text = startedText(body);
+    if (!live) return json({ ok: true, dryRun: true, alert: text }, 200);
+    await sendAlert('started', text);
+    return json({ ok: true }, 200);
+  }
+
   const fields = buildFields(body);
   if (!fields) return json({ ok: false, error: 'validation' }, 400);
 
-  if (Netlify.env.get('DEMO_LEAD_LIVE_WRITES') !== 'true') return json({ ok: true, dryRun: true, airtableFields: fields }, 200);
+  if (!live) return json({ ok: true, dryRun: true, airtableFields: fields, alert: leadText(body, fields, 'recDRYRUN') }, 200);
   const token = Netlify.env.get('AIRTABLE_TOKEN');
   if (!token) {
     console.error('DEMO_LEAD_LIVE_WRITES is true but AIRTABLE_TOKEN is not set');
@@ -159,11 +226,15 @@ export default async (request: Request) => {
     });
     if (!res.ok) {
       console.error('Airtable create failed', res.status, (await res.text()).slice(0, 1000));
+      await sendAlert('lead', leadText(body, fields, null));
       return json({ ok: false, error: 'server' }, 502);
     }
+    const created = (await res.json()) as { records?: { id?: string }[] };
+    await sendAlert('lead', leadText(body, fields, created.records?.[0]?.id || null));
     return json({ ok: true }, 200);
   } catch (err) {
     console.error('Airtable request error', err instanceof Error ? err.message : String(err));
+    await sendAlert('lead', leadText(body, fields, null));
     return json({ ok: false, error: 'server' }, 502);
   }
 };

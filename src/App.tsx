@@ -23,6 +23,7 @@ const ReviewVersions = lazy(() => import('./components/review-versions/ReviewVer
 import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
 import { whatsAppUrlForPath } from './whatsapp';
 import { canonicalUrl, seoForPath } from './seo';
+import { applyTeamDeviceLink } from './teamDevice';
 
 const setHeadTag = (selector: string, create: () => HTMLElement, attr: string, value: string) => {
   let el = document.head.querySelector<HTMLElement>(selector);
@@ -193,6 +194,11 @@ const Navigation = () => {
 
 export const AppContent = () => {
   const location = useLocation();
+
+  // studio.localpros.co.za/?team=on marks this browser as ours: the site chat then sends no alerts
+  useEffect(() => {
+    applyTeamDeviceLink();
+  }, []);
 
   // Standalone pages that ship their own navigation, footer and type system
   const isStandalonePage =

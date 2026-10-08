@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check, Star, X } from 'lucide-react';
 
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
+import { isTeamDevice } from '../../teamDevice';
 import { chatState, OPEN_CHAT_EVENT, type ChatPage, type ChatPlan } from './openSiteChat';
 
 // The site chat (8 Oct 2026). Looks like a WhatsApp chat: we "type" the opening lines, the visitor
@@ -85,21 +86,43 @@ const usefulCategory = (label: string) => (/^services?$/i.test(label.trim()) ? '
 // "https://www.example.co.za/contact" → "example.co.za"
 const shortWebsite = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, '');
 
-// Saves the lead to Airtable (Sales CRM, Source = Website) through netlify/functions/demo-lead.mts,
-// so a visitor who never presses send in WhatsApp is still on the list. Once per business per visit.
+// Talks to netlify/functions/demo-lead.mts, which saves leads to Airtable (Sales CRM, Source = Website)
+// and WhatsApps Jeremy and Ashley through SP2. Team devices (src/teamDevice.ts) send nothing.
+const postLead = (body: Record<string, unknown>) => {
+  if (isTeamDevice()) return;
+  fetch('/api/demo-lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+    keepalive: true,
+  }).catch(() => {
+    /* the WhatsApp message still carries the details */
+  });
+};
+
+// Saves the lead, so a visitor who never presses send in WhatsApp is still on the list. Once per business per visit.
 const savedLeads = new Set<string>();
 const saveLead = (lead: Record<string, unknown>) => {
   const key = JSON.stringify([lead.mode, lead.plan || '', lead.placeId || lead.name, lead.link || '']);
   if (savedLeads.has(key)) return;
   savedLeads.add(key);
-  fetch('/api/demo-lead', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(lead),
-    keepalive: true,
-  }).catch(() => {
-    /* the WhatsApp message still carries the details */
-  });
+  postLead({ kind: 'lead', ...lead });
+};
+
+// "Someone started using the chat" alert: the first time a visitor taps into it, once per page per visit
+const STARTED_KEY = 'lps_chat_started';
+const startedThisLoad = new Set<string>();
+const notifyStarted = (page: ChatPage, plan?: ChatPlan) => {
+  try {
+    const seen = JSON.parse(sessionStorage.getItem(STARTED_KEY) || '[]') as string[];
+    if (seen.includes(page)) return;
+    sessionStorage.setItem(STARTED_KEY, JSON.stringify([...seen, page]));
+  } catch {
+    /* storage blocked: still alert, at most once per page load */
+    if (startedThisLoad.has(page)) return;
+  }
+  startedThisLoad.add(page);
+  postLead({ kind: 'started', page, plan });
 };
 
 const track = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: label, value: 1 });
@@ -499,7 +522,7 @@ function ChatWindow({
         {/* Their reply is a Google search, or name + link if they're not on Google */}
         {finished && !business && (
           <Bubble mine>
-            <div className="w-[260px] max-w-full space-y-1.5">
+            <div className="w-[260px] max-w-full space-y-1.5" onFocus={() => notifyStarted(page, plan)}>
               {!typeByHand && (
                 <>
                   {/* Google's box goes in here; React leaves this div's contents alone */}
@@ -510,7 +533,13 @@ function ChatWindow({
                     </div>
                   )}
                   {status === 'fetching' && <p className="text-[12px] text-neutral-600">Loading your business…</p>}
-                  <button type="button" onClick={() => setManual(true)} className="text-[12px] font-semibold text-[#008069] underline">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      notifyStarted(page, plan);
+                      setManual(true);
+                    }}
+                    className="text-[12px] font-semibold text-[#008069] underline">
                     Not on Google? Type your details instead
                   </button>
                 </>
