@@ -27,7 +27,7 @@ import ownerCall from './img/owner-short-call.webp';
 // page. Built from the page flow in DESIGN-SYSTEM.md section 2 and the shared sections, with the copy
 // and photos of the 7 Oct draft Jeremy liked: for established businesses and teams, headline "A website
 // that turns Google searches into new customers" (changed on 8 Oct to "A new website for your business, live in
-// 7 working days": no "about", and "working" so it matches the 5 to 7 working days promised below), proof led by PETport, Paving Pros and Winelands Gas.
+// 7 days": Jeremy did not want "about" or "working days"; the whole page now says 7 days), proof led by PETport, Paving Pros and Winelands Gas.
 // Prices and terms are the live page's (confirmed by Jeremy on 1 Oct 2026).
 // Ad page: no site menu, so ad visitors stay here. The site chat opens once per visit with the free demo.
 
@@ -77,7 +77,7 @@ const STEPS = [
     body: 'The pages, the wording and the photos. You get two days to check it and ask for changes.',
   },
   {
-    title: 'Live in 5 to 7 working days',
+    title: 'Live in 7 days',
     body: 'Then we look after hosting, security, backups and an hour of changes every month.',
   },
 ];
@@ -110,7 +110,7 @@ const FAQ = [
   },
   {
     q: 'How long does it take?',
-    a: 'Most websites go live in 5 to 7 working days once we have your details. Slow feedback or missing information can move that date.',
+    a: 'Most websites go live within 7 days once we have your details. Slow feedback or missing information can move that date.',
   },
   {
     q: 'How much of my time does it take?',
@@ -142,7 +142,7 @@ const FAQ = [
 const RECAP = [
   'Written, designed and built for you',
   'Up to 10 pages for your services and areas',
-  'Live in 5 to 7 working days',
+  'Live in 7 days',
   'Hosting, support and an hour of changes a month',
   'R9,900 once-off, or R450 a month',
 ];
@@ -195,7 +195,7 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           <div className="dd-container">
             <h1 className="dd-kw">Website design for South African businesses</h1>
             <p className="dd-display wdl-display">
-              A new website for your business, <span className="wdl-u">live in 7 working days</span>
+              A new website for your business, <span className="wdl-u">live in 7 days</span>
             </p>
             <p className="dd-lede">
               We write, build and look after websites for South African businesses. Your customers look you up on their phone first,

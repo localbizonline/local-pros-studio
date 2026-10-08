@@ -114,7 +114,7 @@ export default function PriceThreeWays({ onStart }: { onStart?: (key: string) =>
         <div className="p3-included">
           <div className="p3-included-head">
             <h3>Every option includes</h3>
-            <p>Most websites are live in 5 to 7 working days</p>
+            <p>Most websites are live in 7 days</p>
           </div>
           <ul>
             {INCLUDED.map((t) => (
