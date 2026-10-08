@@ -14,6 +14,11 @@ const SpecialOfferOpusPage = lazy(() => import('./components/SpecialOfferOpusPag
 const RecurringServicesLetterPage = lazy(() => import('./components/RecurringServicesLetterPage'));
 const AutopilotLandingPage = lazy(() => import('./components/AutopilotLandingPage'));
 const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
+// Its styles load with the site's main stylesheet, not with the page's code: the pre-built HTML only links
+// the main stylesheet, so a lazy page's own CSS arrived late and the hero flashed unstyled on refresh
+// (8 Oct 2026). Do the same for any lazy-loaded page that has its own CSS file.
+import './components/design-directions/directions.css';
+import './components/web-design-light/webdesignlight.css';
 const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.TermsPage })));
 const PrivacyPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.PrivacyPage })));
 const RefundsCancellationsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.RefundsCancellationsPage })));
