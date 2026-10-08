@@ -99,6 +99,10 @@ function WebsitesPart({ onOpen }: { onOpen: (s: Shot) => void }) {
           <dt>working days to go live</dt>
         </div>
         <div>
+          <dd>R9,900</dd>
+          <dt>once-off, or R450 a month</dt>
+        </div>
+        <div>
           <dd>Free</dd>
           <dt>with the package on a 12-month commitment</dt>
         </div>
@@ -116,8 +120,8 @@ function WebsitesPart({ onOpen }: { onOpen: (s: Shot) => void }) {
 
 
 
-// Real numbers (one per service), the top 5 client review gains with our own profile, six client
-// posts, then websites as numbers and one montage (option C, 8 Oct 2026). Helper lines, the reviews
+// Real numbers (one per service), the top 5 client review gains with our own profile, client posts
+// (eight in two rows of four, six on phones), then websites as numbers and one montage (option C, 8 Oct 2026). Helper lines, the reviews
 // feed and post text were removed on 8 Oct 2026: Jeremy found they only added reading
 function ProofLayout(props: LayoutProps) {
   return (
@@ -128,7 +132,7 @@ function ProofLayout(props: LayoutProps) {
       <div className="prf-rails-group">
         <GroupHead g={SOCIAL_HEAD} />
         <div className="pb-post-grid">
-          {WALL_POSTS.slice(0, 6).map((p) => (
+          {WALL_POSTS.slice(0, 8).map((p) => (
             <PostCard key={p.slug} p={p} onOpen={(x) => props.onOpen(postShot(x))} />
           ))}
         </div>

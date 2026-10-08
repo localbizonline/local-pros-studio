@@ -27,8 +27,10 @@
 
 .rs-path::after {
   height: var(--fill-y, 0px);
+  width: 3px;
+  margin-left: -0.5px;
   background: var(--accent);
-  transition: height 0.5s ease;
+  transition: height 0.35s ease;
 }
 
 .rs-path li {
@@ -51,8 +53,8 @@
   border: 1.5px solid var(--line);
   color: var(--muted);
   filter: grayscale(1);
-  opacity: 0.55;
-  transition: all 0.45s ease;
+  opacity: 0.45;
+  transition: all 0.3s ease;
 }
 
 .rs-icon svg {
@@ -74,16 +76,16 @@
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--ink);
-  opacity: 0.4;
-  transition: opacity 0.45s ease;
+  opacity: 0.3;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .rs-body {
   font-size: 1rem;
   line-height: 1.45;
   color: var(--body);
-  opacity: 0.4;
-  transition: opacity 0.45s ease;
+  opacity: 0.3;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .rs-ours {
@@ -97,7 +99,7 @@
   opacity: 0;
   transform: scale(0.8);
   transform-origin: left center;
-  transition: opacity 0.35s ease 0.25s, transform 0.35s ease 0.25s;
+  transition: opacity 0.25s ease 0.15s, transform 0.25s ease 0.15s;
 }
 
 /* A lit step */
@@ -106,7 +108,28 @@
   filter: none;
   opacity: 1;
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft);
+  border-width: 2px;
+  box-shadow: 0 0 0 5px var(--accent-soft);
+}
+
+/* The step that has just lit up: the icon pops and sends out a ring, the words slide in */
+.rs-path li.is-now .rs-icon {
+  transform: scale(1.14);
+  animation: rs-pulse 0.9s ease;
+}
+
+.rs-path li.is-now strong,
+.rs-path li.is-now .rs-body {
+  animation: rs-in 0.35s ease;
+}
+
+@keyframes rs-in {
+  from {
+    transform: translateX(-8px);
+  }
+  to {
+    transform: none;
+  }
 }
 
 .rs-path li.is-on strong,
@@ -123,15 +146,15 @@
 .rs-path li.is-end.is-on .rs-icon {
   background: var(--accent);
   border-color: var(--accent);
-  animation: rs-pulse 1.6s ease 0.2s 2;
+  animation: rs-pulse 0.9s ease 0.1s 2;
 }
 
 @keyframes rs-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.55);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
   }
   100% {
-    box-shadow: 0 0 0 16px rgba(245, 158, 11, 0);
+    box-shadow: 0 0 0 18px rgba(245, 158, 11, 0);
   }
 }
 
@@ -378,8 +401,9 @@
 
   .rs-path::after {
     width: var(--fill-x, 0px);
-    height: 2px;
-    transition: width 0.6s ease;
+    height: 3px;
+    margin-left: 0;
+    transition: width 0.35s ease;
   }
 
   .rs-path li {
@@ -411,5 +435,9 @@
   .rs-typed {
     width: auto;
     border-right: 0;
+  }
+
+  .rs-path li.is-now .rs-icon {
+    transform: none;
   }
 }

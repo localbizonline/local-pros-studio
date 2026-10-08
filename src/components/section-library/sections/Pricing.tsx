@@ -65,7 +65,6 @@ export default function Pricing() {
             <p className="pr-price">
               <strong>R2,500</strong> <span>a month</span>
             </p>
-            <p className="pr-save">R700 a month less than reviews and posts on their own.</p>
             <ul className="pr-ticks">
               {PACKAGE_ITEMS.map((t) => (
                 <li key={t}>
