@@ -48,12 +48,6 @@
   justify-content: center;
 }
 
-.hsc-small {
-  margin: 14px auto 0;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--muted);
-}
 
 .hsc-media {
   max-width: 1040px;

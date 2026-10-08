@@ -109,8 +109,8 @@ export type StoryVariant = 'follow' | 'find' | 'versus';
 /** How many steps are lit. Plays in order and loops while the section is on screen: the steps light up
  *  one by one, all stay lit for a moment, then it starts again (Jeremy, 8 Oct 2026; it used to follow
  *  the scroll on phones and play once on wider screens). Pauses off screen; reduced motion sees all lit. */
-const STEP_MS = 550; // faster since 8 Oct 2026 (Jeremy)
-const HOLD_STEPS = 4; // all lit for about 2 seconds before it starts again
+const STEP_MS = 850;
+const HOLD_STEPS = 3; // all lit for about 2.5 seconds before it starts again
 
 function useActiveSteps(listRef: React.RefObject<HTMLOListElement>, count: number) {
   const [active, setActive] = useState(0);
@@ -199,10 +199,8 @@ export default function ReputationStory({ variant = 'follow' }: { variant?: Stor
         <ol ref={listRef} className="rs-path" style={{ ['--fill-x' as string]: `${fill.x}px`, ['--fill-y' as string]: `${fill.y}px` }}>
           {STEPS.map((s, i) => {
             const on = i < active;
-            // The step that has just lit up gets a pop and a ring, so the eye follows the path
-            const now = i === active - 1;
             return (
-              <li key={s.title} className={`${on ? 'is-on' : ''}${now ? ' is-now' : ''}${s.end ? ' is-end' : ''}`}>
+              <li key={s.title} className={`${on ? 'is-on' : ''}${s.end ? ' is-end' : ''}`}>
                 <span className="rs-icon">{s.icon}</span>
                 <div className="rs-copy">
                   <strong>{s.title}</strong>

@@ -25,7 +25,7 @@ const CTA = SITE_WHATSAPP_URL;
 const faqs = [
   {
     question: 'Why does it cost R2,500 a month?',
-    answer: 'You get two services for one price. An agency usually charges R5,000 a month or more for social media alone, and hiring someone costs R3,000 to R11,000 a month plus your time managing them. We can charge R2,500 because most of the repetitive work is automated, using the same system that got Local Pros over 1,400 Google reviews.',
+    answer: 'You get two services for one price, plus a bonus website worth R9,900 if you need a new one or a refresh (on a 12-month commitment). An agency usually charges R5,000 a month or more for social media alone, and hiring someone costs R3,000 to R11,000 a month plus your time managing them. We can charge R2,500 because most of the repetitive work is automated, using the same system that got Local Pros over 1,400 Google reviews.',
   },
   {
     question: 'Do you build websites too?',

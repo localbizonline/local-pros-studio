@@ -6,7 +6,7 @@ import landscapePhoto from '../../../assets/images/social-posting/happy contract
 // Homepage / join page hero, picked by Jeremy on 8 Oct 2026 (option A of ten, A to J, since deleted):
 // the search phrase as a small H1 line, then three literal lines naming what we do (each service
 // underlined in amber, picked 8 Oct 2026 over a marker or two-tone grey), one sentence on
-// how, two buttons, the price in small print and the wide contractor photo. It replaced the
+// how, two buttons and the wide contractor photo (the small print under the buttons was removed on 8 Oct 2026). It replaced the
 // "grow online" hero with three service cards, which repeated the "What we do" rows.
 // Used on the join page and in the section library; change it here only.
 
@@ -49,7 +49,6 @@ export default function HeroThreeServices({ costsHref = '#pricing' }: { costsHre
             See what it costs
           </a>
         </div>
-        <p className="hsc-small">From R1,200 a month. A real person replies.</p>
         <div className="hsc-media">
           <img
             src={landscapePhoto}
