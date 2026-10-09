@@ -49,6 +49,13 @@ literal copy, phone first).
 6. Matched the other session's change: search buttons say "Find my business" everywhere.
 7. Added your approved homepage line under "Why it matters": "They check your competitors the same way. Make sure
    you're the one they pick."
+8. Fresh-eyes critique (a second reviewer against the design rules and your session notes). Taken: shorter how-it-works
+   steps ("after each customer", not "after the job"), shorter "Why it matters" intro, FAQ down to 6, no repeated fit
+   subtitle, price button "Start now" like the homepage, "Can't find your business?" instead of "Not on Google yet?",
+   "We remind you if you forget to send names" instead of the Friday report. Not taken: badge back over the photo on
+   phones (it hid the review on his screen), rewording the shared client rows (you approved them on the homepage).
+9. Open for you: the closing button goes straight to WhatsApp (like the homepage), so no lead record is made from it.
+   Option: make it open the chat instead, which saves the lead first. Same choice applies to the homepage.
 
 ## One thing outside this page
 

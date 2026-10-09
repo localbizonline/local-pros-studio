@@ -40,11 +40,11 @@ import whySummary from './img/why-now-ai-overview-on-phone.webp';
 const STEPS = [
   {
     title: 'Send us a name and number',
-    body: 'After the job, WhatsApp us your customer’s name and number, or add them in your dashboard. It takes a minute.',
+    body: 'After each customer, WhatsApp us their name and number, or add them in your dashboard. It takes a minute.',
   },
   {
     title: 'We WhatsApp them your review link',
-    body: 'In your business name, thanking them for choosing you. If something went wrong, they can reply and you hear about it straight away.',
+    body: 'Sent in your business name. If something went wrong, they can reply and you hear about it straight away.',
   },
   {
     title: 'They leave a Google review',
@@ -57,10 +57,8 @@ const INCLUDED = [
   'A Google review request on WhatsApp for every customer',
   'A friendly reminder if they forget',
   'An alert on WhatsApp for every new review',
-  'A short report every Friday on how it’s going',
+  'We remind you if you forget to send names',
 ];
-
-const FIT_SUB = 'It works if your customers look you up on Google and you can reach them on WhatsApp.';
 
 // The objections every FAQ answers (DESIGN-SYSTEM.md section 2), each answered in its first sentence
 const FAQ = [
@@ -74,15 +72,11 @@ const FAQ = [
   },
   {
     q: 'What if a customer is unhappy?',
-    a: 'They can reply on the same WhatsApp and you get an alert straight away, so you can phone them and sort it out. A quick call is the best way to put it right.',
+    a: 'They can reply on the same WhatsApp and you get an alert straight away, so you can phone them and sort it out.',
   },
   {
     q: 'Can I trust you with my customers?',
-    a: 'Yes. Your customers get a review request in your business name and a reminder, nothing else. We only ask your real customers, and we never sell their details (see our privacy policy).',
-  },
-  {
-    q: 'Is asking for reviews allowed by Google?',
-    a: 'Yes. Asking your real customers for an honest review is allowed. We never buy, write or swap reviews.',
+    a: 'Yes. Your customers get a review request in your business name and a reminder, nothing else. We only ask your real customers for an honest review, which Google allows, and we never buy, write or swap reviews or sell their details.',
   },
   {
     q: 'What do I need to start?',
@@ -143,7 +137,7 @@ export default function ReviewsLight() {
                 page="reviews"
                 plan="reviews"
                 buttonLabel="Find my business"
-                notOnGoogleLabel="Not on Google yet? Send us your details"
+                notOnGoogleLabel="Can’t find your business? Send us your details"
               />
               <p className="rvl-or">
                 Or{' '}
@@ -208,8 +202,7 @@ export default function ReviewsLight() {
               <p className="dd-eyebrow">Why it matters</p>
               <h2 className="dd-h2">Your reviews decide who gets the call</h2>
               <p className="dd-sub">
-                People compare a few businesses on Google before they pick one. More and more, Google answers for them,
-                using what customers wrote in their reviews.
+                People compare a few businesses on Google before they pick one.
               </p>
             </div>
             <div className="rvl-why-grid">
@@ -263,7 +256,7 @@ export default function ReviewsLight() {
         />
 
         {/* WHO IT'S FOR: the shared fit section with its default lists */}
-        <FitCheck sub={FIT_SUB} />
+        <FitCheck />
 
         {/* PRICE: one card with everything included, and the package as the next step up */}
         <section className="dd-sec rvl-price" id="pricing">
@@ -287,7 +280,7 @@ export default function ReviewsLight() {
                   ))}
                 </ul>
                 <button type="button" className="dd-btn dd-btn-primary pr-btn" onClick={() => openSiteChat('reviews')}>
-                  Get started
+                  Start now
                 </button>
                 <p className="pr-terms">Month to month. 30-day money-back guarantee.</p>
               </div>
@@ -339,7 +332,7 @@ export default function ReviewsLight() {
 
       <SiteFooter pricingHref="#pricing" faqHref="#faq" />
 
-      {/* The site chat: the search box and "Get started" open it with Google reviews picked; it saves the lead to
+      {/* The site chat: the search box and "Start now" open it with Google reviews picked; it saves the lead to
           Airtable the moment a business is picked. It never opens by itself here. */}
       <SiteChat page="reviews" />
     </div>
