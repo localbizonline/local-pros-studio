@@ -10,7 +10,7 @@ import type { Business } from './googleSearch';
 
 export type ChatPlan = 'package' | 'reviews' | 'social' | 'website';
 // Which page the chat is on: decides the opening lines, the WhatsApp opening and the Airtable note
-export type ChatPage = 'website-design' | 'web-design' | 'home' | 'join' | 'reviews';
+export type ChatPage = 'website-design' | 'web-design' | 'home' | 'join' | 'reviews' | 'social';
 
 export const OPEN_CHAT_EVENT = 'lps:open-site-chat';
 

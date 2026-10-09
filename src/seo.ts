@@ -30,6 +30,13 @@ export const PAGES: Record<string, PageSeo> = {
     description:
       'We turn your job photos into Facebook, Instagram and Google posts and publish them for you every week. Done-for-you social media for South African service businesses.',
   },
+  // The light rebuild of the social media posting page, drafted here before it replaces the old page (9 Oct 2026)
+  '/social-new': {
+    title: 'Social Media Posting Service for SA Businesses | Local Pros Studio',
+    description:
+      'We make your Facebook, Instagram and Google posts, turn your job photos into posts and publish them for you. R2,000 a month, month to month.',
+    noindex: true,
+  },
   '/web-design': {
     title: 'Website Design South Africa | Local Pros Studio',
     description:
