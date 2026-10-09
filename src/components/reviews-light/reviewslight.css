@@ -128,6 +128,69 @@
   color: var(--muted);
 }
 
+/* ---------- What we do: cream, plain words beside the WhatsApp-to-Google picture ---------- */
+
+.rvl-what {
+  background: #fbf6ec;
+}
+
+.dd-sec.rvl-what + .dd-sec {
+  border-top: 0;
+}
+
+.rvl-what-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1040px;
+}
+
+.rvl .rvl-what-title {
+  margin-top: 14px;
+  max-width: 13em;
+}
+
+.rvl .rvl-what-lede {
+  margin-top: 18px;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+.rvl .rvl-what-list {
+  margin-top: 18px;
+}
+
+.rvl .rvl-what-list li {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.rvl-what-img {
+  width: 100%;
+  border-radius: var(--r-frame);
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+@media (max-width: 767px) {
+  .rvl-what-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .rvl .rvl-what-lede,
+  .rvl .rvl-what-list li {
+    font-size: 1.0625rem;
+  }
+
+  /* The picture is mostly grey above and below the phone; trim it so it doesn't take a whole screen */
+  .rvl-what-img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+}
+
 /* ---------- Results ---------- */
 
 .rvl-proof {

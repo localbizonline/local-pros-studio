@@ -21,6 +21,8 @@ import { openSiteChat } from '../demo-popup/openSiteChat';
 import heroWide from './img/hero-wide.webp';
 import heroPhone from './img/hero-phone.webp';
 import closingPhoto from './img/closing-groomer.webp';
+// The homepage's picture for this service ("What we do", ServiceRows): the WhatsApp request and the review it leads to
+import whatWeDo from '../../assets/images/Reviews/review from WhatsApp to google review side by side.webp';
 // Made for the 7 Oct reviews draft (/review-versions/4) with a made-up business, Mokoena Plumbing
 import whyReviews from './img/why-now-reviews-on-phone.webp';
 import whySummary from './img/why-now-ai-overview-on-phone.webp';
@@ -40,6 +42,13 @@ import closingOwner from './img/options/closing-owner.webp';
 // - how the product really works (SP2, 3 Oct): the owner sends a name and number on WhatsApp or adds it in the
 //   dashboard
 // Open choices are logged in design/reviews-page/OPTIONS.md.
+
+// "What we do" in the plainest words (Jeremy, 9 Oct: a clear section under the hero that explains the service)
+const WHAT_WE_DO = [
+  'We WhatsApp them in your business name and ask for a Google review.',
+  'One tap takes them to your Google profile to leave it.',
+  'We remind them if they forget, and tell you when each review comes in.',
+];
 
 // The owner's part first, then ours. Jeremy's literal line from the promo video (8 Oct): "Send us your
 // customer's name and number. We WhatsApp them your Google review link."
@@ -241,6 +250,33 @@ export default function ReviewsLight() {
           </div>
         </section>
 
+        {/* WHAT WE DO: the service in very simple terms, straight under the hero (Jeremy, 9 Oct) */}
+        <section className="dd-sec rvl-what" id="what-we-do">
+          <div className="dd-container rvl-what-grid">
+            <div>
+              <p className="dd-eyebrow">What we do</p>
+              <h2 className="dd-h2 rvl-what-title">We get your customers to leave you Google reviews.</h2>
+              <p className="rvl-what-lede">You send us a customer’s name and number. We do the rest:</p>
+              <ul className="pr-ticks rvl-what-list">
+                {WHAT_WE_DO.map((t) => (
+                  <li key={t}>
+                    <Check size={20} strokeWidth={2.5} aria-hidden="true" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <img
+              className="rvl-what-img"
+              src={whatWeDo}
+              alt="A WhatsApp review request on a phone, and the 5-star Google review it leads to"
+              width={1024}
+              height={1024}
+              loading="lazy"
+            />
+          </div>
+        </section>
+
         {/* PROOF, EARLY: real results from SP2 before any explaining (Aeva lesson, 7 Oct) */}
         <section className="dd-sec rvl-proof" id="results">
           <div className="dd-container">
@@ -319,8 +355,8 @@ export default function ReviewsLight() {
         {/* HOW IT WORKS: the dark band with the animated phone, reserved for this page (Jeremy, 7 Oct) */}
         <HowItWorksPhone
           id="how-it-works"
-          title="You send a name. We get the review."
-          sub="Your part takes a minute after each customer. Everything after that is ours."
+          title="See what your customer gets"
+          sub="One WhatsApp, one tap, one new Google review. Your part takes a minute after each customer."
           steps={STEPS}
           postsLine={false}
         />

@@ -13,9 +13,11 @@ literal copy, phone first).
 ## Page order
 
 1. Hero: "Get 5-star Google reviews from your customers." + search your business + photo with our 4.7 / 1,491 rating
+1b. What we do (cream, added 9 Oct at your request): "We get your customers to leave you Google reviews." in three plain
+   lines, beside the WhatsApp-to-Google picture from the homepage
 2. Results: 835 new Google reviews for clients (4.9 average), then the top 5 clients (Mr Bin +84, PETport +63...)
 3. Why it matters (cream): your reviews decide who gets the call; Google now recommends from reviews
-4. How it works (dark, animated phone): "You send a name. We get the review." in three steps
+4. How it works (dark, animated phone): now "See what your customer gets", so it shows the moment rather than repeating What we do
 5. Who it's for: the shared fit section
 6. Price: R1,200 a month card, with the R2,500 package beside it
 7. Questions: 7 objections
@@ -65,6 +67,10 @@ literal copy, phone first).
     First load is about 2.5 MB, but about 1.6 MB of it is Google's tags and PostHog on every page (the homepage is
     the same, 2.6 MB). The page's own code and pictures are small. Worth a separate look site-wide: load the Google
     tags after the page is up.
+12. Your note: a clear "What we do" under the hero. Added: "We get your customers to leave you Google reviews. You send
+    us a customer's name and number. We do the rest:" then three ticks (we WhatsApp them in your business name, one tap
+    to your Google profile, we remind them and tell you when each review comes in), beside the homepage's
+    WhatsApp-to-Google picture. The dark animated section became "See what your customer gets" so the two don't repeat.
 
 ## One thing outside this page
 
