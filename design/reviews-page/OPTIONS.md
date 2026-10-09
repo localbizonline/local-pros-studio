@@ -1,9 +1,10 @@
 # New Google reviews page: choices for Jeremy (9 Oct 2026)
 
-Draft: http://localhost:4321/reviews-new (dev server on port 4321, so the Google search box works).
-**Compare everything:** http://localhost:4321/compare-reviews.html: the old page beside the new one, then every choice
-as a working version (Phone / Desktop switch at the top).
-Code: `src/components/reviews-light/`. Not live: `/reviews` still shows the old dark page.
+**Decided and live on /reviews (9 Oct 2026, Jeremy: "go").** All my picks went live: photo A, headline 1, the
+guarantee strip, the closing button opening the chat. The option versions and compare-reviews.html were removed;
+the old dark page was deleted and /reviews-new redirects to /reviews. The record below is kept for reference.
+
+Live: https://studio.localpros.co.za/reviews. Code: `src/components/reviews-light/`.
 
 Built from the 3 to 9 Oct sessions: the homepage hero pattern (literal headline, Google business search box as the
 main action), proof early from real client data, the animated WhatsApp phone you kept for this page on 7 Oct, the

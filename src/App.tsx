@@ -8,13 +8,12 @@ import MobileCTA from './components/MobileCTA';
 // Since 8 Oct 2026 the homepage is the light "join" page (src/components/join-light/), with its own header and footer.
 import JoinLight from './components/join-light/JoinLight';
 const AboutPage = lazy(() => import('./components/AboutPage'));
-const ReviewsLetterPage = lazy(() => import('./components/ReviewsLetterPage'));
 const SocialPostingPageV2 = lazy(() => import('./components/SocialPostingPageV2'));
 const SpecialOfferOpusPage = lazy(() => import('./components/SpecialOfferOpusPage'));
 const RecurringServicesLetterPage = lazy(() => import('./components/RecurringServicesLetterPage'));
 const AutopilotLandingPage = lazy(() => import('./components/AutopilotLandingPage'));
 const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
-// Google reviews page in the light look, a draft at /reviews-new until Jeremy approves it (9 Oct 2026)
+// Google reviews page in the light look, live on /reviews since 9 Oct 2026 (replaced the old dark ReviewsLetterPage)
 const ReviewsLight = lazy(() => import('./components/reviews-light/ReviewsLight'));
 // Its styles load with the site's main stylesheet, not with the page's code: the pre-built HTML only links
 // the main stylesheet, so a lazy page's own CSS arrived late and the hero flashed unstyled on refresh
@@ -217,7 +216,7 @@ export const AppContent = () => {
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/', '/autopilot', '/website-design', '/web-design', '/reviews-new'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/autopilot', '/website-design', '/web-design', '/reviews'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (
@@ -230,8 +229,7 @@ export const AppContent = () => {
         <Suspense fallback={<div className="min-h-screen" />}>
         <Routes>
           <Route path="/" element={<JoinLight />} />
-          <Route path="/reviews" element={<ReviewsLetterPage />} />
-          <Route path="/reviews-new" element={<ReviewsLight />} />
+          <Route path="/reviews" element={<ReviewsLight />} />
           <Route path="/social-media-posting-service" element={<SocialPostingPageV2 />} />
           <Route path="/web-design" element={<WebDesignLight variant="site" />} />
           <Route path="/about" element={<AboutPage />} />

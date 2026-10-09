@@ -23,6 +23,8 @@
 /fieldcard / 301!
 /reviews-pro /reviews 301!
 /reviews-clienti /reviews 301!
+# The new reviews page was drafted here before it went live on /reviews (9 Oct 2026)
+/reviews-new /reviews 301!
 /social-posting-v2 /social-media-posting-service 301!
 /sales / 301!
 /web-design-archive /web-design 301!
