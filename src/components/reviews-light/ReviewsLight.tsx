@@ -15,7 +15,8 @@ import { PROOF_NUMBERS } from '../section-library/sections/clientProof';
 import SiteChat from '../demo-popup/DemoPopup';
 import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 import { openSiteChat } from '../demo-popup/openSiteChat';
-// Photos made for this page on 9 Oct 2026 in the homepage's photographic style (FAL). The man in the navy polo
+// Photos made for this page on 9 Oct 2026 in the homepage's photographic style (FAL), shot over the shoulder so the
+// review shows on a screen that faces the person (Jeremy: stars on the back of the phone looked unnatural). The man in the navy polo
 // follows Jeremy's brief from 7 Oct ("30's coloured south african decent looking"); the dog groomer shows the
 // page is for any business people look up, not only trades.
 import heroWide from './img/hero-wide.webp';
@@ -169,7 +170,7 @@ export default function ReviewsLight() {
                 <source media="(max-width: 767px)" srcSet={heroPhone} width={896} height={672} />
                 <img
                   src={heroWide}
-                  alt="A business owner leaning on his bakkie after a job, smiling at a new 5-star Google review on his phone"
+                  alt="Over his shoulder: a business owner at his bakkie after a job, smiling at a new 5-star Google review on his phone"
                   width={1584}
                   height={672}
                 />
@@ -369,7 +370,7 @@ export default function ReviewsLight() {
           title="Start getting Google reviews this month."
           items={RECAP}
           photo={closingPhoto}
-          photoAlt="A dog groomer smiling at a new 5-star Google review on her phone, with a freshly groomed spaniel beside her"
+          photoAlt="Over her shoulder: a dog groomer smiling at a new 5-star Google review on her phone, with a freshly groomed spaniel on the counter"
           href={SITE_WHATSAPP_URL}
           // Opens the chat first, so the lead is saved before WhatsApp opens (picked 9 Oct 2026)
           onClick={(e) => {
