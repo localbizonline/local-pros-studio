@@ -344,7 +344,7 @@ export default function SiteChat({
 }) {
   // `session` changes when a button picks a different plan, which starts a fresh chat
   // modal: opened from a button (any button, with or without a plan); the chat that opens by itself stays in the corner
-  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number; modal: boolean; focusSearch: boolean; picked?: Business }>({
+  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number; modal: boolean; focusSearch: boolean; picked?: Business; typeDetails?: boolean }>({
     open: false,
     session: 0,
     modal: false,
@@ -356,11 +356,11 @@ export default function SiteChat({
   useEffect(() => {
     chatState.mounted += 1;
     const onOpen = (e: Event) => {
-      const { plan, focusSearch = false, business } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean; business?: Business }>).detail || {};
+      const { plan, focusSearch = false, business, typeDetails = false } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean; business?: Business; typeDetails?: boolean }>).detail || {};
       setChat((c) =>
-        // A business picked in a search box on the page always starts a fresh chat with it selected
-        business || !(c.plan === plan && c.session > 0)
-          ? { open: true, plan, session: c.session + 1, modal: true, focusSearch: focusSearch || !!business, picked: business }
+        // A business picked in a search box on the page, or "Not on Google?", always starts a fresh chat at that step
+        business || typeDetails || !(c.plan === plan && c.session > 0)
+          ? { open: true, plan, session: c.session + 1, modal: true, focusSearch: focusSearch || !!business || typeDetails, picked: business, typeDetails }
           : { ...c, open: true, modal: true, focusSearch },
       );
     };
@@ -382,6 +382,7 @@ export default function SiteChat({
       modal={chat.modal}
       focusSearch={chat.focusSearch}
       picked={chat.picked}
+      typeDetails={chat.typeDetails}
       onClose={() => setChat((c) => ({ ...c, open: false }))}
       onExpand={() => setChat((c) => (c.modal ? c : { ...c, modal: true }))}
       trackPrefix={`${trackPrefix}_${chat.plan || 'demo'}`}
@@ -414,6 +415,7 @@ function ChatWindow({
   modal,
   focusSearch,
   picked,
+  typeDetails,
   onClose,
   onExpand,
   trackPrefix,
@@ -426,6 +428,8 @@ function ChatWindow({
   onClose: () => void;
   // Picked in a search box on the page (DemoSearchBox): the chat starts at "Is this your business?"
   picked?: Business;
+  // "Not on Google?" under the search box on the page: start at the typed details
+  typeDetails?: boolean;
   // On a phone, typing in the small corner chat moves it to the centred window, above the keyboard
   onExpand: () => void;
   trackPrefix: string;
@@ -435,7 +439,7 @@ function ChatWindow({
   const { typed, typing, finished } = useTypedLines(lines, open, focusSearch);
   const [pending, setPending] = useState<Business | null>(null); // shown as "Is this you?"
   const [business, setBusiness] = useState<Business | null>(null); // confirmed
-  const [manual, setManual] = useState(false); // "Not on Google?"
+  const [manual, setManual] = useState(!!typeDetails); // "Not on Google?"
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
   // The number we can WhatsApp them on: their Google number if it's a cellphone and they say yes, or one they type
@@ -537,7 +541,7 @@ function ChatWindow({
 
   // Opened from a search box: the cursor goes straight into Google's box once it shows
   useEffect(() => {
-    if (open && focusSearch && !picked && finished && status === 'ready') focus();
+    if (open && focusSearch && !picked && !typeDetails && finished && status === 'ready') focus();
   }, [open, focusSearch, finished, status]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Keep the page behind still while the centred window is open

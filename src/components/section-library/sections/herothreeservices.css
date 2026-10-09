@@ -49,6 +49,26 @@
 }
 
 
+/* The search box in place of the buttons, with the two links under it */
+.hsc-search {
+  max-width: 640px;
+  margin: 36px auto 0;
+}
+
+.hsc-or {
+  margin: 18px 0 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.hsc-or a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
 .hsc-media {
   max-width: 1040px;
   margin: 48px auto 0;

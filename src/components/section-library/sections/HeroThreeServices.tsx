@@ -1,5 +1,6 @@
 import '../../design-directions/directions.css';
 import './herothreeservices.css';
+import type { ReactNode } from 'react';
 import { SITE_WHATSAPP_URL } from '../../../whatsapp';
 import landscapePhoto from '../../../assets/images/social-posting/happy contractor with social posting landscape ratio.webp';
 
@@ -9,6 +10,8 @@ import landscapePhoto from '../../../assets/images/social-posting/happy contract
 // how, two buttons and the wide contractor photo (the small print under the buttons was removed on 8 Oct 2026). It replaced the
 // "grow online" hero with three service cards, which repeated the "What we do" rows.
 // Used on the join page and in the section library; change it here only.
+// search (9 Oct 2026, Jeremy): a Google business search box takes the place of the two buttons, which become
+// small links under it. The homepage passes <BusinessSearchBox />.
 
 const KEYWORD = 'Google reviews, social media and websites for South African businesses';
 
@@ -21,7 +24,7 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-export default function HeroThreeServices({ costsHref = '#pricing' }: { costsHref?: string }) {
+export default function HeroThreeServices({ costsHref = '#pricing', search }: { costsHref?: string; search?: ReactNode }) {
   return (
     <section className="dd dd-a hsc">
       <div className="dd-container">
@@ -40,15 +43,28 @@ export default function HeroThreeServices({ costsHref = '#pricing' }: { costsHre
         <p className="hsc-lede">
           We ask your customers for reviews on WhatsApp, post your work on Facebook and Instagram, and build you a new website or refresh the one you have.
         </p>
-        <div className="dd-actions hsc-actions">
-          <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="dd-btn dd-btn-primary">
-            <WhatsAppIcon />
-            WhatsApp us
-          </a>
-          <a href={costsHref} className="dd-btn dd-btn-secondary">
-            See what it costs
-          </a>
-        </div>
+        {search ? (
+          <div className="hsc-search">
+            {search}
+            <p className="hsc-or">
+              Or{' '}
+              <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                WhatsApp us
+              </a>{' '}
+              · <a href={costsHref}>See what it costs</a>
+            </p>
+          </div>
+        ) : (
+          <div className="dd-actions hsc-actions">
+            <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="dd-btn dd-btn-primary">
+              <WhatsAppIcon />
+              WhatsApp us
+            </a>
+            <a href={costsHref} className="dd-btn dd-btn-secondary">
+              See what it costs
+            </a>
+          </div>
+        )}
         <div className="hsc-media">
           <img
             src={landscapePhoto}
