@@ -12,7 +12,6 @@ const JoinLight = lazy(() => import('./components/join-light/JoinLight'));
 const AboutLight = lazy(() => import('./components/about-light/AboutLight'));
 // The old dark social page, archived 9 Oct 2026 (noindex, /social-media-posting-service-archived)
 const SocialPostingPageArchived = lazy(() => import('./components/archive/SocialPostingPageArchived'));
-const RecurringServicesLetterPage = lazy(() => import('./components/RecurringServicesLetterPage'));
 const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
 // Google reviews page in the light look, live on /reviews since 9 Oct 2026 (replaced the old dark ReviewsLetterPage)
 const ReviewsLight = lazy(() => import('./components/reviews-light/ReviewsLight'));
@@ -247,7 +246,6 @@ export const AppContent = () => {
               became this one address on 9 Oct 2026 */}
           <Route path="/website-design-package" element={<WebDesignLight />} />
           <Route path="/about" element={<AboutLight />} />
-          <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds-cancellations" element={<RefundsCancellationsPage />} />

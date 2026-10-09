@@ -47,11 +47,6 @@ export const PAGES: Record<string, PageSeo> = {
     description:
       'We write, build and look after websites for South African businesses, set up for Google with WhatsApp and call buttons. Live in 7 days, from R450 a month.',
   },
-  '/recurring-service-booking-system': {
-    title: 'Rebook Repeat Customers on WhatsApp | Local Pros Studio',
-    description:
-      'We remind your past customers on WhatsApp when their next service is due and help them rebook, so repeat work does not slip away. For South African service businesses.',
-  },
   '/about': {
     title: 'About Local Pros Studio | Google Reviews, Social Media & Websites',
     description:

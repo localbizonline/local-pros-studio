@@ -43,5 +43,7 @@
 # Retired 9 Oct 2026 (Jeremy): the old R2,500 offer page and the Autopilot ad page; /pricing shows the same package
 /special-offer-bundle /pricing 301!
 /autopilot /pricing 301!
+# Retired 9 Oct 2026 (Jeremy): we no longer sell the recurring-booking service
+/recurring-service-booking-system / 301!
 # Keep this catch-all last: Netlify uses the first rule that matches
 /* /spa.html 200
