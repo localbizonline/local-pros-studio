@@ -335,7 +335,7 @@ export default function HomeNewB() {
                   build your website free.
                 </p>
               </div>
-              <Link to="/special-offer-bundle" className="dd-link">
+              <Link to="/pricing" className="dd-link">
                 See the R2,500 plan
               </Link>
             </div>

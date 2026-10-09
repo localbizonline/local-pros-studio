@@ -497,7 +497,7 @@ export default function ReviewsV4() {
             </div>
             <p className="rv4-price-plan">
               Want weekly social posts too? The R2,500 plan adds them, on a 6-month commitment.{' '}
-              <Link to="/special-offer-bundle" className="dd-link">
+              <Link to="/pricing" className="dd-link">
                 See the R2,500 plan
               </Link>
             </p>

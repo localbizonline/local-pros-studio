@@ -14,9 +14,9 @@
 /gemini-flash-landing-page / 301!
 /gpt-52-landing-page / 301!
 /claude-code-landing-page / 301!
-/special-offer-opus /special-offer-bundle 301!
-/special-offer-gemini-pro /special-offer-bundle 301!
-/special-offer-gpt.5.2 /special-offer-bundle 301!
+/special-offer-opus /pricing 301!
+/special-offer-gemini-pro /pricing 301!
+/special-offer-gpt.5.2 /pricing 301!
 /reputation / 301!
 /website-opus5 /website-design-package 301!
 /website-opus5-light /website-design-package 301!
@@ -41,3 +41,6 @@
 /reachmax https://www.reachmax.app 301!
 /review-versions/join / 301!
 /* /spa.html 200
+# Retired 9 Oct 2026 (Jeremy): the old R2,500 offer page and the Autopilot ad page; /pricing shows the same package
+/special-offer-bundle /pricing 301!
+/autopilot /pricing 301!

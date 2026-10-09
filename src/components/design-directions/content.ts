@@ -163,7 +163,7 @@ export const FOOTER = {
     { label: 'Google reviews', to: '/reviews' },
     { label: 'Social media posting', to: '/social-media-posting-service' },
     { label: 'Websites', to: '/website-design-package' },
-    { label: 'R2,500 plan', to: '/special-offer-bundle' },
+    { label: 'R2,500 plan', to: '/pricing' },
   ],
   company: [
     { label: 'About', to: '/about' },

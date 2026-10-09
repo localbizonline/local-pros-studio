@@ -12,7 +12,7 @@ const Footer = () => {
     { name: 'Review Collection', href: '/reviews' },
     { name: 'Social Media Posting', href: '/social-media-posting-service' },
     { name: 'Web Design', href: '/website-design-package' },
-    { name: 'R2,500 Plan', href: '/special-offer-bundle' },
+    { name: 'Prices', href: '/pricing' },
   ];
 
   const legal = [

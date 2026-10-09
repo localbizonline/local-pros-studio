@@ -47,25 +47,15 @@ export const PAGES: Record<string, PageSeo> = {
     description:
       'We write, build and look after websites for South African businesses, set up for Google with WhatsApp and call buttons. Live in 7 days, from R450 a month.',
   },
-  '/special-offer-bundle': {
-    title: 'Google Reviews and Weekly Posts, Done For You | Local Pros Studio',
-    description:
-      'Reviews collected for you, your jobs posted every week, and a free website if you need one. One plan for South African service businesses.',
-  },
-  '/autopilot': {
-    title: 'Reviews and Weekly Posts on Autopilot | Local Pros Studio',
-    description:
-      'We collect your reviews on WhatsApp, post the jobs you have completed and keep your business active on Google, Facebook and Instagram every week.',
-  },
   '/recurring-service-booking-system': {
     title: 'Rebook Repeat Customers on WhatsApp | Local Pros Studio',
     description:
       'We remind your past customers on WhatsApp when their next service is due and help them rebook, so repeat work does not slip away. For South African service businesses.',
   },
   '/about': {
-    title: 'About Us | Local Pros Studio',
+    title: 'About Local Pros Studio | Google Reviews, Social Media & Websites',
     description:
-      'Local Pros Studio has helped South African home service businesses get found online for over a decade, with reviews, social media and websites done for you.',
+      'A small team in Cape Town helping South African businesses get found online with Google reviews, social media posts and websites. Building websites since 2015.',
   },
   '/terms': {
     title: 'Terms and Conditions | Local Pros Studio',

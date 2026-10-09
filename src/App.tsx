@@ -8,12 +8,11 @@ import MobileCTA from './components/MobileCTA';
 // landing pages don't carry the homepage. The pre-built HTML shows straight away either way.
 // Since 8 Oct 2026 the homepage is the light "join" page (src/components/join-light/), with its own header and footer.
 const JoinLight = lazy(() => import('./components/join-light/JoinLight'));
-const AboutPage = lazy(() => import('./components/AboutPage'));
+// About page in the light look (9 Oct 2026), replacing the old dark AboutPage
+const AboutLight = lazy(() => import('./components/about-light/AboutLight'));
 // The old dark social page, archived 9 Oct 2026 (noindex, /social-media-posting-service-archived)
 const SocialPostingPageArchived = lazy(() => import('./components/archive/SocialPostingPageArchived'));
-const SpecialOfferOpusPage = lazy(() => import('./components/SpecialOfferOpusPage'));
 const RecurringServicesLetterPage = lazy(() => import('./components/RecurringServicesLetterPage'));
-const AutopilotLandingPage = lazy(() => import('./components/AutopilotLandingPage'));
 const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
 // Google reviews page in the light look, live on /reviews since 9 Oct 2026 (replaced the old dark ReviewsLetterPage)
 const ReviewsLight = lazy(() => import('./components/reviews-light/ReviewsLight'));
@@ -26,6 +25,7 @@ const PricingLight = lazy(() => import('./components/pricing-light/PricingLight'
 // (8 Oct 2026). Do the same for any lazy-loaded page that has its own CSS file.
 import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
+import './components/about-light/aboutlight.css';
 import './components/reviews-light/reviewslight.css';
 import './components/social-light/sociallight.css';
 import './components/section-library/sections/whynote.css';
@@ -89,7 +89,7 @@ const Navigation = () => {
     { name: 'Reviews', href: '/reviews' },
     { name: 'Social Media', href: '/social-media-posting-service' },
     { name: 'Web Design', href: '/website-design-package' },
-    { name: 'R2,500 Plan', href: '/special-offer-bundle' },
+    { name: 'Prices', href: '/pricing' },
   ];
 
   const isActive = (href: string) => {
@@ -226,7 +226,7 @@ export const AppContent = () => {
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/', '/autopilot', '/website-design-package', '/reviews', '/social-media-posting-service', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/website-design-package', '/about', '/reviews', '/social-media-posting-service', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (
@@ -246,16 +246,14 @@ export const AppContent = () => {
           {/* Website design page (light rebuild, 8 Oct 2026); /web-design and the Google Ads page /website-design
               became this one address on 9 Oct 2026 */}
           <Route path="/website-design-package" element={<WebDesignLight />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about" element={<AboutLight />} />
           <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />
-          <Route path="/autopilot" element={<AutopilotLandingPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds-cancellations" element={<RefundsCancellationsPage />} />
           <Route path="/website-faq" element={<WebsiteFaqPage />} />
 
           {/* Special Landing Pages */}
-          <Route path="/special-offer-bundle" element={<SpecialOfferOpusPage />} />
 
           <Route path="/design-directions/:id" element={<DesignDirections />} />
           <Route path="/review-versions/:id" element={<ReviewVersions />} />

@@ -28,7 +28,7 @@ scripts/prerender.mjs  # Saves each page in seo.ts as finished HTML, writes site
 ```
 
 ## Routes
-Routes live in `src/App.tsx`. Every public route needs an entry in `src/seo.ts`, or it ships with the homepage's title and is kept out of Google. `/autopilot` is a standalone ad landing page with its own header and footer.
+Routes live in `src/App.tsx`. Every public route needs an entry in `src/seo.ts`, or it ships with the homepage's title and is kept out of Google. The old `/autopilot` and `/special-offer-bundle` pages were retired on 9 Oct 2026 and redirect to `/pricing`.
 
 The website design page is `/website-design-package`, `src/components/web-design-light/WebDesignLight.tsx` (light rebuild, 8 Oct 2026), with the shared menu and footer. Since 9 Oct 2026 it is the only one: the old `/web-design` and the Google Ads page `/website-design` redirect to it, and Google Ads visitors see the same page as everyone else (Jeremy's call). Its hero montage of client sites and example designs is built from `design/web-montage/` (see the README there).
 
