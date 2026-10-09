@@ -1,0 +1,181 @@
+/* Pricing page drafts (PricingPage.tsx), on the .dd-a tokens in design-directions/directions.css. Scoped to .pp. */
+
+/* ---------- Hero ---------- */
+
+.pp-hero {
+  padding: 80px 0 var(--sec);
+  text-align: center;
+}
+
+.pp .pp-kw {
+  margin: 0 auto 22px;
+  max-width: 34em;
+}
+
+.pp .pp-title {
+  max-width: 13em;
+  margin: 0 auto;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5.6vw, 4.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.pp-u {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.12em;
+  text-decoration-skip-ink: none;
+}
+
+.pp .pp-lede {
+  max-width: 32em;
+  margin: 22px auto 0;
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+  color: var(--body);
+  text-wrap: pretty;
+}
+
+.pp-lede strong {
+  color: var(--ink);
+}
+
+.pp-search {
+  max-width: 640px;
+  margin: 36px auto 0;
+  text-align: left;
+}
+
+.pp .pp-or {
+  margin: 14px 0 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.pp-or a {
+  display: inline-block;
+  padding: 12px 2px;
+  margin: -12px 0;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
+/* ---------- Why we look after all three: a short note on cream, read like someone talking ---------- */
+
+.pp-note {
+  background: var(--cream);
+}
+
+.dd-sec.pp-note + .dd-sec {
+  border-top: 0;
+}
+
+.pp-note-in {
+  max-width: 680px;
+}
+
+.dd .pp-note-title {
+  margin-bottom: 20px;
+}
+
+.pp .pp-note p {
+  margin-top: 16px;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+.pp .pp-note .pp-note-end {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ---------- The package card ---------- */
+
+.pp-card {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pp-group-block {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.pp .pp-group-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font-family: var(--font-head);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.pp-group-name span {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.pp-group-block .pr-ticks {
+  margin-top: 12px;
+}
+
+.pp-setup {
+  margin-top: 18px;
+}
+
+.pp-setup li {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ---------- Singles: deliberately quieter than the package ---------- */
+
+.pp-singles-sec {
+  background: var(--surface-2);
+}
+
+.dd .pp-singles-title {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.pp-singles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pp-singles .pr-single {
+  align-content: start;
+}
+
+/* ---------- Phone ---------- */
+
+@media (max-width: 860px) {
+  .pp-singles {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pp-hero {
+    padding-top: 48px;
+  }
+}

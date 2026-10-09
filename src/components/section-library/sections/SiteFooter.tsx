@@ -11,11 +11,11 @@ import logoLight from '../../../assets/images/Compressed/Local Pros Studio logo 
 
 // minimal: brand, contact and legal links only, for Google Ads landing pages (8 Oct 2026)
 export default function SiteFooter({
-  pricingHref = '/#pricing',
   faqHref = '/#faq',
   minimal = false,
   whatsAppUrl = SITE_WHATSAPP_URL,
 }: {
+  // Not used since 9 Oct 2026: "Prices" always opens /pricing. Kept so pages that still pass it build.
   pricingHref?: string;
   faqHref?: string;
   minimal?: boolean;
@@ -29,7 +29,7 @@ export default function SiteFooter({
   ];
   const company = [
     { label: 'About us', to: '/about' },
-    { label: 'Prices', to: pricingHref },
+    { label: 'Prices', to: '/pricing' },
     { label: 'Questions', to: faqHref },
   ];
   const legal = [

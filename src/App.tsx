@@ -17,6 +17,8 @@ const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesig
 const ReviewsLight = lazy(() => import('./components/reviews-light/ReviewsLight'));
 // Social media posting page in the light look: noindex draft at /social-new (9 Oct 2026) until Jeremy approves it
 const SocialLight = lazy(() => import('./components/social-light/SocialLight'));
+// Every service and its price, with the package first (9 Oct 2026)
+const PricingLight = lazy(() => import('./components/pricing-light/PricingLight'));
 // Its styles load with the site's main stylesheet, not with the page's code: the pre-built HTML only links
 // the main stylesheet, so a lazy page's own CSS arrived late and the hero flashed unstyled on refresh
 // (8 Oct 2026). Do the same for any lazy-loaded page that has its own CSS file.
@@ -24,6 +26,7 @@ import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
 import './components/reviews-light/reviewslight.css';
 import './components/social-light/sociallight.css';
+import './components/pricing-light/pricinglight.css';
 import './components/reviews-light/resultscards.css';
 import './components/section-library/sections/howitworksphone.css';
 const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.TermsPage })));
@@ -220,7 +223,7 @@ export const AppContent = () => {
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/', '/autopilot', '/website-design', '/web-design', '/reviews', '/social-new'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/autopilot', '/website-design', '/web-design', '/reviews', '/social-new', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (
@@ -234,6 +237,7 @@ export const AppContent = () => {
         <Routes>
           <Route path="/" element={<JoinLight />} />
           <Route path="/reviews" element={<ReviewsLight />} />
+          <Route path="/pricing" element={<PricingLight />} />
           <Route path="/social-media-posting-service" element={<SocialPostingPageV2 />} />
           <Route path="/social-new" element={<SocialLight />} />
           <Route path="/web-design" element={<WebDesignLight variant="site" />} />

@@ -13,11 +13,11 @@ import logoLight from '../../../assets/images/Compressed/Local Pros Studio logo 
 
 type NavLink = { label: string; to: string };
 
-const SITE_NAV = (pricingHref = '/#pricing'): NavLink[] => [
+const SITE_NAV: NavLink[] = [
   { label: 'Google reviews', to: '/reviews' },
   { label: 'Social media', to: '/social-media-posting-service' },
   { label: 'Websites', to: '/web-design' },
-  { label: 'Prices', to: pricingHref },
+  { label: 'Prices', to: '/pricing' },
   { label: 'About', to: '/about' },
 ];
 
@@ -37,16 +37,16 @@ export function NavItem({ link, onClick }: { link: NavLink; onClick?: () => void
 // minimal: logo and button only, for Google Ads landing pages, so ad visitors stay on the page (8 Oct 2026).
 // whatsAppUrl: the page's own WhatsApp opening (src/whatsapp.ts), so its chats can be counted apart.
 export default function SiteHeader({
-  pricingHref = '/#pricing',
   minimal = false,
   whatsAppUrl = SITE_WHATSAPP_URL,
 }: {
+  // Not used since 9 Oct 2026: "Prices" always opens /pricing. Kept so pages that still pass it build.
   pricingHref?: string;
   minimal?: boolean;
   whatsAppUrl?: string;
 }) {
   const [open, setOpen] = useState(false);
-  const nav = minimal ? [] : SITE_NAV(pricingHref);
+  const nav = minimal ? [] : SITE_NAV;
 
   useEffect(() => {
     if (!open) return;
