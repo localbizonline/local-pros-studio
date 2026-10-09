@@ -36,6 +36,9 @@ The website design page is `/website-design-package`, `src/components/web-design
 
 The same chat opens from buttons on other pages: render `<SiteChat page="join" />` (or `"home"`, `"web-design"`) once and call `openSiteChat(plan)` from `src/components/demo-popup/openSiteChat.ts` with `package`, `reviews`, `social` or `website`. Every lead is saved to Airtable Sales CRM (Source = Website) by `netlify/functions/demo-lead.mts`: one record per chat, created the moment they select their business in the Google box and updated as they confirm, change it or press send (a rule for every Google business search box, Jeremy, 8 Oct 2026); it writes only where `DEMO_LEAD_LIVE_WRITES=true` (Netlify production) and needs `AIRTABLE_TOKEN`.
 
+## Client logos above the footer
+The shared footer (`section-library/sections/SiteFooter.tsx`, on every live page) opens with "Trusted by businesses across South Africa": 30 client logos from `src/assets/images/trusted-logos/`, listed in `sections/TrustedLogos.tsx` (added 9 Oct 2026, same section as the join site). They are live clients from SP2 (`organizations.logo_url`, `is_live_client = 1`); Local Pros' own brands and the US client are left out on purpose. To add or swap one, put a trimmed .webp in that folder and edit the lists in `TrustedLogos.tsx`.
+
 ## Key Services & Pricing
 - **Google reviews**: R1,200/month
 - **Social media posting**: R2,000/month

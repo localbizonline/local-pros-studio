@@ -241,7 +241,7 @@ Until the homepage is rebuilt, these values live in `src/components/design-direc
 
 ## 7. Shared parts
 
-Header, footer, WhatsApp button and closing call-to-action are shared components: change once, change everywhere. Page-specific headers (Google Ads landing pages) are the only exception and are listed in `App.tsx` as standalone pages.
+Header, footer, WhatsApp button and closing call-to-action are shared components: change once, change everywhere. The footer starts with the client logo wall ("Trusted by businesses across South Africa.", `sections/TrustedLogos.tsx`), so every page with the shared footer shows it. Page-specific headers (Google Ads landing pages) are the only exception and are listed in `App.tsx` as standalone pages.
 
 ## 8. Checking a page before it ships
 
@@ -310,3 +310,4 @@ When Jeremy picks an option (a divider, a section style, a button), record it he
 | 9 Oct 2026 | Unknown addresses show a light "We can't find that page." with links to the main pages and WhatsApp (they used to show an empty page in the old dark style). Every page now ships the light header and footer; only the archived old social page keeps the dark ones | `not-found/NotFound.tsx`, `App.tsx` |
 | 9 Oct 2026 | Every Google business search box (site chat, homepage, reviews and website pages) shows each match's phone number under its name, so owners can tell which listing is theirs. From Google's Text Search, which also finds businesses that hide their address. A "Show details" button with bigger cards was tried first; Jeremy wanted the phone to show by itself | `demo-popup/googleSearch.ts` |
 | 9 Oct 2026 | Prices chat (test, not in the menu): tapping "Prices" opens the site chat with the prices as small cards, "What are you most interested in?", one nudge towards the package for a single service, then the usual Google step | `/review-versions/prices-chat`, `DemoPopup.tsx` (PricesStep) |
+| 9 Oct 2026 | Client logo wall above the footer links on every page: "Our clients", "Trusted by businesses across South Africa.", 30 live clients from SP2 as white cards on the footer's dark band, rows 9, 8, 7, 6 back to front (six rows of 5 on phones), back rows a little smaller and dimmer, like the websites montage. Dark rather than cream so it reads as part of the footer and doesn't run on from the cream closing band. Ported from the join site (localpros-join 7e7b284). Jeremy's own brands and the US client are left out | `sections/TrustedLogos.tsx`, `SiteFooter.tsx`, `sitechrome.css`, `assets/images/trusted-logos/` |

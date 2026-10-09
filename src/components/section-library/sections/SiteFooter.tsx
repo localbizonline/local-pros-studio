@@ -3,6 +3,7 @@ import '../../design-directions/directions.css';
 import './sitechrome.css';
 import { SITE_WHATSAPP_URL } from '../../../whatsapp';
 import { NavItem } from './SiteHeader';
+import TrustedLogos from './TrustedLogos';
 import logoLight from '../../../assets/images/Compressed/Local Pros Studio logo transparent.png';
 
 // Site footer in the light look (8 Oct 2026): dark band with links to every page, so visitors and
@@ -47,6 +48,9 @@ export default function SiteFooter({
       ];
 
   return (
+    <>
+    {/* Client logos on the same dark band, directly above the footer links (9 Oct 2026) */}
+    <TrustedLogos />
     <footer className="dd dd-a dd-footer sf">
       <div className="dd-container">
         <div className={`sf-grid${minimal ? ' is-minimal' : ''}`}>
@@ -90,5 +94,6 @@ export default function SiteFooter({
         <p className="dd-footer-base">© {new Date().getFullYear()} Local Pros Studio</p>
       </div>
     </footer>
+    </>
   );
 }
