@@ -282,37 +282,6 @@
   }
 }
 
-/* ---------- Price: one card, the package beside it ---------- */
-
-.rvl-price {
-  background: var(--surface-2);
-}
-
-.dd-sec.rvl-price + .dd-sec {
-  border-top: 0;
-}
-
-.rvl-price-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
-  align-items: start;
-}
-
-.rvl .rvl-card .pr-package-name {
-  margin-top: 0;
-}
-
-.rvl-upsell {
-  align-self: center;
-}
-
-.rvl-upsell .pr-or {
-  margin: 0 0 10px;
-}
-
 /* ---------- Phone ---------- */
 
 @media (max-width: 767px) {
@@ -357,8 +326,7 @@
   }
 
 
-  .rvl-why-grid,
-  .rvl-price-grid {
+  .rvl-why-grid {
     grid-template-columns: 1fr;
   }
 }

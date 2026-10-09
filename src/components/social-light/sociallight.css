@@ -205,8 +205,7 @@
 }
 
 .dd-sec.sol-what + .dd-sec,
-.dd-sec.sol-proof + .dd-sec,
-.dd-sec.sol-price + .dd-sec {
+.dd-sec.sol-proof + .dd-sec {
   border-top: 0;
 }
 
@@ -384,33 +383,6 @@
   text-align: center;
 }
 
-/* ---------- Price: one card, the package beside it ---------- */
-
-.sol-price {
-  background: var(--surface-2);
-}
-
-.sol-price-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
-  align-items: start;
-}
-
-.sol .sol-card .pr-package-name {
-  margin-top: 0;
-}
-
-.sol-upsell {
-  align-self: center;
-}
-
-.sol-upsell .pr-or {
-  margin: 0 0 10px;
-}
-
 /* ---------- Phone ---------- */
 
 @media (max-width: 767px) {
@@ -461,8 +433,7 @@
 
   .sol-what-grid,
   .sol-why-grid,
-  .sol-how-grid,
-  .sol-price-grid {
+  .sol-how-grid {
     grid-template-columns: 1fr;
     gap: 32px;
   }

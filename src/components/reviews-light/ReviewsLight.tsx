@@ -7,6 +7,7 @@ import './reviewslight.css';
 import { SITE_WHATSAPP_URL } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
+import Pricing from '../section-library/sections/Pricing';
 import HowItWorksPhone from '../section-library/sections/HowItWorksPhone';
 import FitCheck from '../section-library/sections/FitCheck';
 import ClosingCard from '../section-library/sections/ClosingCard';
@@ -59,14 +60,6 @@ const STEPS = [
     title: 'They leave a Google review',
     body: 'One tap opens your Google profile, with a friendly reminder if they forget. You get an alert for every new review.',
   },
-];
-
-// What they get, said as benefits (Jeremy, 9 Oct: a sales page, not a system spec)
-const INCLUDED = [
-  'A Google review request on WhatsApp for every customer',
-  'A friendly reminder if they forget',
-  'An alert on WhatsApp for every new review',
-  'We remind you if you forget to send names',
 ];
 
 // The objections every FAQ answers (DESIGN-SYSTEM.md section 2), each answered in its first sentence
@@ -281,52 +274,8 @@ export default function ReviewsLight() {
         {/* WHO IT'S FOR: the shared fit section with its default lists */}
         <FitCheck />
 
-        {/* PRICE: one card with everything included, and the package as the next step up */}
-        <section className="dd-sec rvl-price" id="pricing">
-          <div className="dd-container">
-            <div className="dd-head">
-              <p className="dd-eyebrow">What it costs</p>
-              <h2 className="dd-h2">One price, month to month</h2>
-            </div>
-            <div className="rvl-price-grid">
-              <div className="pr-package rvl-card">
-                <h3 className="pr-package-name">Google reviews</h3>
-                <p className="pr-price">
-                  <strong>R1,200</strong> <span>a month</span>
-                </p>
-                <ul className="pr-ticks">
-                  {INCLUDED.map((t) => (
-                    <li key={t}>
-                      <Check size={18} strokeWidth={2.5} aria-hidden="true" />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-                <button type="button" className="dd-btn dd-btn-primary pr-btn" onClick={() => openSiteChat('reviews')}>
-                  Start now
-                </button>
-                <p className="pr-terms">Month to month. 30-day money-back guarantee.</p>
-              </div>
-              <div className="rvl-upsell">
-                <p className="pr-or">Want your social media done too?</p>
-                <div className="pr-single">
-                  <h3 className="pr-single-name">Reviews + social media posts</h3>
-                  <p className="pr-single-price">
-                    <strong>R2,500</strong> <span>a month</span>
-                  </p>
-                  <p className="pr-single-line">
-                    We also make posts for you and publish them on Facebook, Instagram and Google. Add a new website, free,
-                    on a 12-month commitment.
-                  </p>
-                  <p className="pr-terms">6-month commitment.</p>
-                  <button type="button" className="pr-start" onClick={() => openSiteChat('package')}>
-                    Start with the full package
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* PRICE: the shared price section, the package with each service on its own (sections/Pricing.tsx, 9 Oct 2026) */}
+        <Pricing />
 
         {/* FAQ */}
         <section className="dd-sec rvl-faq" id="faq">

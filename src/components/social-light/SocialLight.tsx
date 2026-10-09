@@ -8,6 +8,7 @@ import './sociallight.css';
 import { SITE_WHATSAPP_URL } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
+import Pricing from '../section-library/sections/Pricing';
 import FitCheck from '../section-library/sections/FitCheck';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import { PostCard } from '../section-library/sections/ProofBlocks';
@@ -62,14 +63,6 @@ const STEPS = [
     title: 'WhatsApp us job photos',
     body: 'Send photos with a line about the job, whenever you have them. We write the post. Send a few and we make a short video too.',
   },
-];
-
-// What they get, said as benefits (as on the /reviews page)
-const INCLUDED = [
-  'Posts made for you: tips, services and public holidays',
-  'Your job photos turned into posts, in your branding',
-  'Published on Facebook, Instagram and your Google profile',
-  'A report on WhatsApp of what went out',
 ];
 
 // The objections every FAQ answers (DESIGN-SYSTEM.md section 2), each answered in its first sentence
@@ -331,52 +324,8 @@ export default function SocialLight() {
           ]}
         />
 
-        {/* PRICE: one card with everything included, and the package as the next step up (as on /reviews) */}
-        <section className="dd-sec sol-price" id="pricing">
-          <div className="dd-container">
-            <div className="dd-head">
-              <p className="dd-eyebrow">What it costs</p>
-              <h2 className="dd-h2">One price, month to month</h2>
-            </div>
-            <div className="sol-price-grid">
-              <div className="pr-package sol-card">
-                <h3 className="pr-package-name">Social media posts</h3>
-                <p className="pr-price">
-                  <strong>R2,000</strong> <span>a month</span>
-                </p>
-                <ul className="pr-ticks">
-                  {INCLUDED.map((t) => (
-                    <li key={t}>
-                      <Check size={18} strokeWidth={2.5} aria-hidden="true" />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-                <button type="button" className="dd-btn dd-btn-primary pr-btn" onClick={() => openSiteChat('social')}>
-                  Start now
-                </button>
-                <p className="pr-terms">Month to month.</p>
-              </div>
-              <div className="sol-upsell">
-                <p className="pr-or">Want more Google reviews too?</p>
-                <div className="pr-single">
-                  <h3 className="pr-single-name">Reviews + social media posts</h3>
-                  <p className="pr-single-price">
-                    <strong>R2,500</strong> <span>a month</span>
-                  </p>
-                  <p className="pr-single-line">
-                    We also WhatsApp your customers for Google reviews and post your best reviews. Add a new website, free,
-                    on a 12-month commitment.
-                  </p>
-                  <p className="pr-terms">6-month commitment.</p>
-                  <button type="button" className="pr-start" onClick={() => openSiteChat('package')}>
-                    Start with the full package
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* PRICE: the shared price section, the package with each service on its own (sections/Pricing.tsx, 9 Oct 2026) */}
+        <Pricing />
 
         {/* FAQ */}
         <section className="dd-sec sol-faq" id="faq">
