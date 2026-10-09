@@ -1028,14 +1028,60 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 18px 20px;
-  border: 1px solid var(--line);
+  width: 100%;
+  min-height: 76px;
+  padding: 16px 16px 16px 20px;
+  border: 1.5px solid var(--line-strong);
   border-radius: var(--r-frame);
   background: #fff;
   box-shadow: 0 3px 12px rgba(28, 25, 23, 0.06);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.st3-link div {
+.st3-link:hover {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -14px rgba(28, 25, 23, 0.35);
+}
+
+.st3-link:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* The amber arrow on each card: says "tap me" */
+.st3-go {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  transition: background-color 0.15s ease;
+}
+
+.st3-link:hover .st3-go {
+  background: var(--btn-bg-hover);
+}
+
+/* Room for the floating pointer under the Google card */
+.st3-pick {
+  position: relative;
+  padding-bottom: 46px;
+}
+
+.st3-guide {
+  right: 22px;
+  top: calc(100% - 64px);
+}
+
+.st3-link-text {
   display: grid;
 }
 

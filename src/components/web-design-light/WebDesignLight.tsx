@@ -195,7 +195,7 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
         </section>
 
         {/* HOW IT WORKS: "All we need is one link" (9 Oct 2026) */}
-        <HowItWorks onStart={() => track('how_send_link')} />
+        <HowItWorks onStart={(route) => track(`how_${route}`)} />
 
         {/* FREE DEMO: a Google search box that opens the chat, with the ReachMax-style pointer (version C, 8 Oct 2026; after How it works,
             whose first step is the demo) */}

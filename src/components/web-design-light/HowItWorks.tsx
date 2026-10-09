@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MousePointer2 } from 'lucide-react';
 import { openSiteChat } from '../demo-popup/openSiteChat';
 import { GoogleG } from './ClientReviews';
 import pavingPhone from '../../assets/images/portfolio/pavingpros-mobile.webp';
@@ -9,8 +9,11 @@ import pavingPhone from '../../assets/images/portfolio/pavingpros-mobile.webp';
 // hour of your time" sections, without the minutes line) over a timesheet and an hour bar, and over earlier
 // photo-led takes after he found the office photo too corporate. The chat takes a Google listing, or a
 // Facebook page or website for businesses not on Google (DemoPopup.tsx).
+// 9 Oct 2026 (Jeremy): the two cards are the buttons. Each has an amber arrow so it reads as tappable; Google opens
+// the chat at the business search, Facebook opens it at "Not on Google?" (name, Facebook page, number). The
+// floating pointer from the ReachMax homepage sits on the Google card. The separate button below was dropped.
 
-export default function HowItWorks({ onStart }: { onStart?: () => void }) {
+export default function HowItWorks({ onStart }: { onStart?: (route: 'google' | 'facebook') => void }) {
   return (
     <section className="dd-sec st st-3" id="how-it-works">
       <div className="dd-container">
@@ -21,23 +24,49 @@ export default function HowItWorks({ onStart }: { onStart?: () => void }) {
         </div>
         <div className="st3-flow">
           <div className="st3-links">
-            <div className="st3-link">
-              <GoogleG size={26} />
-              <div>
-                <strong>Your Google listing</strong>
-                <small>Name, services, photos, reviews</small>
-              </div>
+            <div className="st3-pick">
+              <button
+                type="button"
+                className="st3-link"
+                onClick={() => {
+                  onStart?.('google');
+                  openSiteChat(undefined, { focusSearch: true });
+                }}
+              >
+                <GoogleG size={26} />
+                <span className="st3-link-text">
+                  <strong>Find me on Google</strong>
+                  <small>We use your name, services, photos and reviews</small>
+                </span>
+                <span className="st3-go" aria-hidden="true">
+                  <ArrowRight size={20} strokeWidth={2.5} />
+                </span>
+              </button>
+              <span className="fd-guide st3-guide" aria-hidden="true">
+                <MousePointer2 className="fd-guide-arrow" size={40} fill="#1C1917" stroke="#fff" strokeWidth={1.7} />
+                <span className="fd-guide-label">Tap to start</span>
+              </span>
             </div>
             <p className="st3-or">or</p>
-            <div className="st3-link">
+            <button
+              type="button"
+              className="st3-link"
+              onClick={() => {
+                onStart?.('facebook');
+                openSiteChat(undefined, { typeDetails: true });
+              }}
+            >
               <span className="st3-fb" aria-hidden="true">
                 f
               </span>
-              <div>
-                <strong>Your Facebook page</strong>
+              <span className="st3-link-text">
+                <strong>Use my Facebook page</strong>
                 <small>If you’re not on Google</small>
-              </div>
-            </div>
+              </span>
+              <span className="st3-go" aria-hidden="true">
+                <ArrowRight size={20} strokeWidth={2.5} />
+              </span>
+            </button>
           </div>
           <div className="st3-arrow" aria-hidden="true">
             <span>We write, design and build it</span>
@@ -49,18 +78,6 @@ export default function HowItWorks({ onStart }: { onStart?: () => void }) {
             </div>
             <p>Your new website, live in 7 days</p>
           </div>
-        </div>
-        <div className="st3-cta">
-          <button
-            type="button"
-            className="dd-btn dd-btn-primary"
-            onClick={() => {
-              onStart?.();
-              openSiteChat(undefined, { focusSearch: true });
-            }}
-          >
-            Find my business
-          </button>
         </div>
       </div>
     </section>
