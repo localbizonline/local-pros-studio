@@ -15,9 +15,9 @@ import { PostCard } from '../section-library/sections/ProofBlocks';
 import { PROOF_AS_OF, PROOF_NUMBERS, WALL_POSTS, type ClientPost } from '../section-library/sections/clientProof';
 import SiteChat from '../demo-popup/DemoPopup';
 import { openSiteChat } from '../demo-popup/openSiteChat';
-// Photos made for this page on 9 Oct 2026 in the reviews page's over-the-shoulder style (FAL): a pool contractor
-// at a finished pool, looking at the post of that same pool; a baker photographing a cake (the job photo that
-// becomes a post), so the page reads as any business people look up, not only trades.
+// Hero (9 Oct 2026, Jeremy's request): the homepage's Cape Town builder photo with his Instagram feed beside him.
+// Closing: a baker photographing a cake (the job photo that becomes a post), so the page reads as any business
+// people look up, not only trades.
 import heroWide from './img/hero-wide.webp';
 import heroPhone from './img/hero-phone.webp';
 import closingPhoto from './img/closing-baker.webp';
@@ -177,10 +177,10 @@ export default function SocialLight() {
             </div>
             <figure className="sol-media">
               <picture>
-                <source media="(max-width: 767px)" srcSet={heroPhone} width={896} height={672} />
+                <source media="(max-width: 767px)" srcSet={heroPhone} width={980} height={672} />
                 <img
                   src={heroWide}
-                  alt="Over his shoulder: a pool contractor beside a pool he has just cleaned, smiling at a post of that same pool on his phone"
+                  alt="A builder on a Cape Town building site smiling at his phone, beside his business's Instagram feed with a post of the house he is building"
                   width={1584}
                   height={672}
                 />

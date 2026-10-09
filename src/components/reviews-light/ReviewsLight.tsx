@@ -15,10 +15,9 @@ import SiteChat from '../demo-popup/DemoPopup';
 import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 import { openSiteChat } from '../demo-popup/openSiteChat';
 import ResultsCards from './ResultsCards';
-// Photos made for this page on 9 Oct 2026 in the homepage's photographic style (FAL), shot over the shoulder so the
-// review shows on a screen that faces the person (Jeremy: stars on the back of the phone looked unnatural). The man in the navy polo
-// follows Jeremy's brief from 7 Oct ("30's coloured south african decent looking"); the dog groomer shows the
-// page is for any business people look up, not only trades.
+// Hero (9 Oct 2026, Jeremy's request): the homepage's Cape Town builder photo, with the floating phone showing his
+// Google profile and reviews instead of Instagram (made from the homepage photo with FAL's edit). The closing photo,
+// a dog groomer shot over the shoulder, shows the page is for any business people look up, not only trades.
 import heroWide from './img/hero-wide.webp';
 import heroPhone from './img/hero-phone.webp';
 import closingPhoto from './img/closing-groomer.webp';
@@ -158,10 +157,10 @@ export default function ReviewsLight() {
             </div>
             <figure className="rvl-media" id="hero-photo">
               <picture>
-                <source media="(max-width: 767px)" srcSet={heroPhone} width={896} height={672} />
+                <source media="(max-width: 767px)" srcSet={heroPhone} width={980} height={672} />
                 <img
                   src={heroWide}
-                  alt="Over his shoulder: a business owner at his bakkie after a job, smiling at a new 5-star Google review on his phone"
+                  alt="A builder on a Cape Town building site smiling at his phone, beside his business's Google profile with 4.9 stars and new 5-star reviews"
                   width={1584}
                   height={672}
                 />

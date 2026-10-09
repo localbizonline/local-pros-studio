@@ -463,3 +463,14 @@
     padding: 28px 0;
   }
 }
+
+/* Under the photo on every screen (9 Oct 2026): the hero photo's floating phone sits where the badge used to be */
+.sol-badge {
+  position: static;
+  justify-content: center;
+  max-width: none;
+  margin-top: 16px;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
