@@ -3,8 +3,9 @@ import { openSiteChat } from '../demo-popup/openSiteChat';
 import { GoogleG } from './ClientReviews';
 import pavingPhone from '../../assets/images/portfolio/pavingpros-mobile.webp';
 
-// "How it works" on the website page (9 Oct 2026): "All we need is one link". The owner sends their Google
-// listing or Facebook page; we build the website from it. Picked by Jeremy (version 3 of the "less than an
+// "How it works" on the website page (9 Oct 2026): "All we need is your business name" (first "All we need is one
+// link"; Jeremy took option 1 of three rewrites, since owners type their name in the chat rather than send a
+// link). We find their Google listing or Facebook page and build the website from it. Picked by Jeremy (version 3 of the "less than an
 // hour of your time" sections, without the minutes line) over a timesheet and an hour bar, and over earlier
 // photo-led takes after he found the office photo too corporate. The chat takes a Google listing, or a
 // Facebook page or website for businesses not on Google (DemoPopup.tsx).
@@ -15,8 +16,8 @@ export default function HowItWorks({ onStart }: { onStart?: () => void }) {
       <div className="dd-container">
         <div className="dd-head">
           <p className="dd-eyebrow">How it works</p>
-          <h2 className="dd-h2">All we need is one link</h2>
-          <p className="dd-sub">Send us your Google listing or your Facebook page. We build your website from it.</p>
+          <h2 className="dd-h2">All we need is your business name</h2>
+          <p className="dd-sub">We find you on Google or Facebook and build your website from what’s there.</p>
         </div>
         <div className="st3-flow">
           <div className="st3-links">
@@ -58,7 +59,7 @@ export default function HowItWorks({ onStart }: { onStart?: () => void }) {
               openSiteChat(undefined, { focusSearch: true });
             }}
           >
-            Send us your link
+            Find my business
           </button>
         </div>
       </div>
