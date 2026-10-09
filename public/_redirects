@@ -40,7 +40,8 @@
 /pages / 301!
 /reachmax https://www.reachmax.app 301!
 /review-versions/join / 301!
-/* /spa.html 200
 # Retired 9 Oct 2026 (Jeremy): the old R2,500 offer page and the Autopilot ad page; /pricing shows the same package
 /special-offer-bundle /pricing 301!
 /autopilot /pricing 301!
+# Keep this catch-all last: Netlify uses the first rule that matches
+/* /spa.html 200
