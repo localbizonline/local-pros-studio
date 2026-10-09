@@ -246,8 +246,10 @@
 /* "Not on Google?" under the box: opens the chat at name, Facebook page or website, and number */
 .bsb-fb {
   display: block;
-  margin: 14px auto 0;
-  padding: 4px 8px;
+  /* 44px tall to tap on a phone; the extra height is padding, so the line sits where it did */
+  min-height: 44px;
+  margin: 8px auto 0;
+  padding: 10px 8px;
   border: 0;
   background: none;
   font: inherit;

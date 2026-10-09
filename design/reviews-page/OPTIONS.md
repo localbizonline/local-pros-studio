@@ -38,6 +38,18 @@ literal copy, phone first).
 5. **When you approve:** `/reviews` switches to this page, `/reviews-new` goes, and the old dark page is deleted
    (one change in `App.tsx` and `seo.ts`).
 
+## Review rounds (9 Oct, done without you)
+
+1. Phone: price card for the package broke into a narrow column; fixed. Result numbers now sit side by side.
+2. Sales read (your note): price list cut from five system-style lines to four plain benefits.
+3. Phone: rating badge hid the phone in his hand; it now sits under the photo on phones.
+4. Tracking: the page's sections are counted in PostHog like every other page (automatic).
+5. Tap sizes: "WhatsApp us", "See what it costs", "Not on Google?" and "See them on Google" were 21 to 32px tall,
+   under the 44px rule. Fixed here and in the shared parts, so the homepage and website page are fixed too.
+6. Matched the other session's change: search buttons say "Find my business" everywhere.
+7. Added your approved homepage line under "Why it matters": "They check your competitors the same way. Make sure
+   you're the one they pick."
+
 ## One thing outside this page
 
 The review system's notes (social-posting-v2, `features/botpenguin-review-sending.md`) still describe a

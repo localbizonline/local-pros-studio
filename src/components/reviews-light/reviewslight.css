@@ -48,13 +48,17 @@
 }
 
 .rvl .rvl-or {
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   font-size: 0.9375rem;
   color: var(--muted);
   text-align: center;
 }
 
 .rvl-or a {
+  /* Taller tap area without moving the line (44px rule, DESIGN-SYSTEM.md section 8) */
+  display: inline-block;
+  padding: 12px 2px;
+  margin: -12px 0;
   color: var(--ink);
   font-weight: 600;
   text-decoration: underline;
@@ -216,6 +220,33 @@
   font-family: var(--font-head);
   font-weight: 800;
   font-size: 0.9375rem;
+}
+
+.rvl .rvl-why-close {
+  max-width: 30em;
+  margin: 56px auto 0;
+  font-family: var(--font-head);
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--body);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.rvl-why-close span {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+@media (max-width: 767px) {
+  .rvl .rvl-why-close {
+    margin-top: 40px;
+  }
 }
 
 /* ---------- Price: one card, the package beside it ---------- */

@@ -56,12 +56,16 @@
 }
 
 .hsc-or {
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   font-size: 0.9375rem;
   color: var(--muted);
 }
 
 .hsc-or a {
+  /* Taller tap area without moving the line (44px rule) */
+  display: inline-block;
+  padding: 12px 2px;
+  margin: -12px 0;
   color: var(--ink);
   font-weight: 600;
   text-decoration: underline;

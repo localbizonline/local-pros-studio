@@ -142,7 +142,7 @@ export default function ReviewsLight() {
               <BusinessSearchBox
                 page="reviews"
                 plan="reviews"
-                buttonLabel="Get started"
+                buttonLabel="Find my business"
                 notOnGoogleLabel="Not on Google yet? Send us your details"
               />
               <p className="rvl-or">
@@ -246,6 +246,10 @@ export default function ReviewsLight() {
                 </figcaption>
               </figure>
             </div>
+            {/* Jeremy's line from the homepage reputation path and the promo video (8 Oct) */}
+            <p className="rvl-why-close">
+              They check your competitors the same way. <span>Make sure you’re the one they pick.</span>
+            </p>
           </div>
         </section>
 
