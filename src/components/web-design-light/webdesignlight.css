@@ -131,12 +131,6 @@
   box-shadow: 0 40px 80px -36px rgba(0, 0, 0, 0.7);
 }
 
-.wdl-how .wdl-split-media img {
-  aspect-ratio: 4 / 4.6;
-  object-fit: cover;
-  object-position: 40% 30%;
-}
-
 .wdl .wdl-split-title {
   margin-top: 14px !important;
   max-width: 13em;
@@ -219,10 +213,6 @@
     margin: 0 auto;
   }
 
-  /* Photo after the words in How it works, so the steps come first */
-  .wdl-how .wdl-split-media {
-    order: 2;
-  }
 }
 
 @media (max-width: 767px) {
@@ -245,9 +235,6 @@
     font-size: 1.125rem;
   }
 
-  .wdl-how .wdl-split-media img {
-    aspect-ratio: 4 / 3;
-  }
 }
 
 /* ---------- Recent work (RecentWork.tsx): one row per client, from the old page ---------- */
@@ -1018,5 +1005,142 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+}
+
+/* ---------- How it works: "All we need is one link" (HowItWorks.tsx, 9 Oct 2026) ---------- */
+
+.st3-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 32px;
+  align-items: center;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.st3-links {
+  display: grid;
+  gap: 10px;
+}
+
+.st3-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.06);
+}
+
+.st3-link div {
+  display: grid;
+}
+
+.st3-link strong {
+  font-size: 1.0625rem;
+  color: var(--ink);
+}
+
+.st3-link small {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.st3-fb {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--ink);
+  font-family: var(--font-head);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.st3-or {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.st3-arrow {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  max-width: 150px;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.st3-arrow svg {
+  color: var(--accent);
+}
+
+.st3-site {
+  text-align: center;
+}
+
+.st3-phone {
+  width: 220px;
+  height: 360px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 7px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 30px 60px -28px rgba(28, 25, 23, 0.45);
+}
+
+.st3-phone img {
+  width: 100%;
+  border-radius: 23px;
+}
+
+.st3-site p {
+  margin-top: 12px !important;
+  font-family: var(--font-head);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.st3-cta {
+  margin-top: 28px;
+  text-align: center;
+}
+
+@media (max-width: 1023px) {
+
+  .st3-flow {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    gap: 20px;
+  }
+
+  .st3-arrow {
+    max-width: none;
+  }
+
+  .st3-arrow svg {
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 767px) {
+
+  .st3-cta .dd-btn {
+    width: 100%;
   }
 }

@@ -12,6 +12,7 @@ import SiteChat from '../demo-popup/DemoPopup';
 import RecentWork from './RecentWork';
 import ClientReviews from './ClientReviews';
 import WebDesignHero from './WebDesignHero';
+import HowItWorks from './HowItWorks';
 import PriceThreeWays from './PriceThreeWays';
 import FreeDemoBand from './FreeDemoBand';
 // Closing picture: three sites up front with more behind, from design/web-montage (rows layout, 8 Oct 2026)
@@ -19,7 +20,6 @@ import montage from '../../assets/images/portfolio/web-closing-montage.webp';
 // Photos made for this page on 7 Oct 2026 in the homepage's photographic style; the people are teams
 // on purpose, since the page is for any size of business.
 import teamEnquiries from './img/team-new-enquiries.webp';
-import ownerCall from './img/owner-short-call.webp';
 
 // Website design page in the light look (8 Oct 2026), replacing the dark /website-design Google Ads
 // page. Built from the page flow in DESIGN-SYSTEM.md section 2 and the shared sections, with the copy
@@ -46,25 +46,6 @@ const OUTCOMES = [
   {
     title: 'Easy to get in touch',
     body: 'WhatsApp, call and quote buttons on every page, easy to tap on a phone.',
-  },
-];
-
-const STEPS = [
-  {
-    title: 'See a free demo first',
-    body: 'Find your business on Google in our chat. We build a demo from your listing and send it to you on WhatsApp.',
-  },
-  {
-    title: 'A 15-minute chat',
-    body: 'On WhatsApp, a call or a video call: your services, your areas and what makes you different.',
-  },
-  {
-    title: 'We write and build it',
-    body: 'The pages, the wording and the photos. You get two days to check it and ask for changes.',
-  },
-  {
-    title: 'Live in 7 days',
-    body: 'Then we look after hosting, security, backups and an hour of changes every month.',
   },
 ];
 
@@ -100,7 +81,7 @@ const FAQ = [
   },
   {
     q: 'How much of my time does it take?',
-    a: 'About 15 minutes for the first chat, then a quick check before launch. We write the wording and choose the photos; send us your logo and real photos of your work if you have them.',
+    a: 'Very little. Send us your Google listing or Facebook page, check the demo we send you and tell us what to change. We write the wording and choose the photos; send us your logo and real photos of your work if you have them.',
   },
   {
     q: 'I already have a website. Can you redo it?',
@@ -213,35 +194,8 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           </div>
         </section>
 
-        {/* HOW IT WORKS: how little the owner does, beside one photo */}
-        <section className="dd-sec wdl-how" id="how-it-works">
-          <div className="dd-container wdl-split is-flipped">
-            <div>
-              <p className="dd-eyebrow">How it works</p>
-              <h2 className="dd-h2 wdl-split-title">Your part is one short chat</h2>
-              <ol className="wdl-steps is-light">
-                {STEPS.map((s, i) => (
-                  <li key={s.title}>
-                    <span className="wdl-num">{i + 1}</span>
-                    <div>
-                      <h3 className="dd-h3">{s.title}</h3>
-                      <p>{s.body}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <div className="wdl-split-media">
-              <img
-                src={ownerCall}
-                alt="A business owner on a short video call at her desk, with her team working behind her"
-                width={900}
-                height={1125}
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </section>
+        {/* HOW IT WORKS: "All we need is one link" (9 Oct 2026) */}
+        <HowItWorks onStart={() => track('how_send_link')} />
 
         {/* FREE DEMO: a Google search box that opens the chat, with the ReachMax-style pointer (version C, 8 Oct 2026; after How it works,
             whose first step is the demo) */}
