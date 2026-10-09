@@ -13,6 +13,9 @@ button opens the chat instead of WhatsApp. The happy/unhappy fix is running in i
 
 Hero photo since 9 Oct (later): the homepage's Cape Town builder photo, with the floating phone showing his Google
 profile and reviews instead of Instagram (Jeremy asked for the homepage photo on this page and the social page).
+Closing photo since 9 Oct (later): a groomer over the shoulder with a real Google review on her screen and the spaniel on
+a grooming table (Jeremy disliked the dog on the counter and the blank screen). Other versions (dog on the floor, a hair
+salon owner) in `closing-photo-options.jpg`.
 
 Live: https://studio.localpros.co.za/reviews. Code: `src/components/reviews-light/`.
 
