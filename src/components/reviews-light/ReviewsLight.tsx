@@ -16,8 +16,9 @@ import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 import { openSiteChat } from '../demo-popup/openSiteChat';
 import ResultsCards from './ResultsCards';
 // Hero (9 Oct 2026, Jeremy's request): the homepage's Cape Town builder photo, with the floating phone showing his
-// Google profile and reviews instead of Instagram (made from the homepage photo with FAL's edit). The closing photo,
-// a dog groomer shot over the shoulder, shows the page is for any business people look up, not only trades.
+// Google profile and reviews instead of Instagram (made from the homepage photo with FAL's edit). The closing photo
+// (9 Oct, redone: Jeremy disliked the dog on the counter and the blank phone) is a dog groomer with a real-looking Google
+// review on her screen, so the page reads as any business people look up, not only trades.
 import heroWide from './img/hero-wide.webp';
 import heroPhone from './img/hero-phone.webp';
 import closingPhoto from './img/closing-groomer.webp';
@@ -296,7 +297,7 @@ export default function ReviewsLight() {
           title="Start getting Google reviews this month."
           items={RECAP}
           photo={closingPhoto}
-          photoAlt="Over her shoulder: a dog groomer smiling at a new 5-star Google review on her phone, with a freshly groomed spaniel on the counter"
+          photoAlt="A dog groomer smiling at a new 5-star Google review on her phone, with a freshly groomed spaniel on the grooming table behind her"
           href={SITE_WHATSAPP_URL}
           // Opens the chat first, so the lead is saved before WhatsApp opens (picked 9 Oct 2026)
           onClick={(e) => {
