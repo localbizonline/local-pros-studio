@@ -8,7 +8,6 @@ import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import SiteChat from '../demo-popup/DemoPopup';
-import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 import { openSiteChat } from '../demo-popup/openSiteChat';
 import closingPhoto from '../../assets/images/review-contractor-happy.webp';
 
@@ -221,7 +220,7 @@ export default function PricingLight() {
       <SiteHeader pricingHref="#package" />
 
       <main>
-        {/* HERO: what (all three services), why (customers check all three), the price, one action */}
+        {/* HERO: what (all three services), why (customers check all three), the price, one button */}
         <section className="pp-hero">
           <div className="dd-container">
             <h1 className="dd-kw pp-kw">Prices for Google reviews, social media posts and websites</h1>
@@ -233,16 +232,10 @@ export default function PricingLight() {
               Before they call, people look at your Google reviews, your Facebook and Instagram, and your website. We take
               care of all three for <strong>R2,500 a month</strong>.
             </p>
-            <div className="pp-search">
-              <BusinessSearchBox page="pricing" plan="package" buttonLabel="Find my business" />
-              <p className="pp-or">
-                Or{' '}
-                <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-                  WhatsApp us
-                </a>{' '}
-                · <a href="#singles">Only need one service?</a>
-              </p>
-            </div>
+            {/* One button, no search box (Jeremy, 9 Oct 2026): the chat it opens still finds their business on Google */}
+            <button type="button" className="dd-btn dd-btn-primary pp-start" onClick={() => openSiteChat('package')}>
+              Start now
+            </button>
           </div>
         </section>
 

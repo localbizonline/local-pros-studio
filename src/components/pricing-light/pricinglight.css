@@ -45,28 +45,9 @@
   color: var(--ink);
 }
 
-.pp-search {
-  max-width: 640px;
-  margin: 36px auto 0;
-  text-align: left;
-}
-
-.pp .pp-or {
-  margin: 14px 0 0;
-  font-size: 0.9375rem;
-  color: var(--muted);
-  text-align: center;
-}
-
-.pp-or a {
-  display: inline-block;
-  padding: 12px 2px;
-  margin: -12px 0;
-  color: var(--ink);
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-underline-offset: 0.18em;
+.pp .pp-start {
+  margin-top: 32px;
+  min-width: 220px;
 }
 
 /* ---------- Why we look after all three: a short note on cream, read like someone talking ---------- */
