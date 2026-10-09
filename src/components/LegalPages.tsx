@@ -1,6 +1,12 @@
 import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { SITE_WHATSAPP_URL, WHATSAPP_NUMBER } from '../whatsapp';
+import SiteHeader from './section-library/sections/SiteHeader';
+import SiteFooter from './section-library/sections/SiteFooter';
+
+// The four policy pages in the light look (9 Oct 2026, Jeremy: "update the legal pages to the new look too"): the
+// shared light header and footer, a white heading area, the policy menu beside the text. Wording unchanged.
+// Styles in legallight.css (loaded with the main stylesheet from App.tsx).
 
 const EFFECTIVE_DATE = '26 August 2026';
 
@@ -18,69 +24,70 @@ type LegalPageProps = {
 };
 
 const ContactDetails = () => (
-  <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-sm text-neutral-700">
-    <p className="font-semibold text-neutral-950">Local Biz (Pty) Ltd trading as Local Pros Studio</p>
+  <div className="lgl-contact">
+    <p className="lgl-contact-name">Local Biz (Pty) Ltd trading as Local Pros Studio</p>
     <p>Company registration number: 2015/299905/07</p>
     <p>30 Enkeldoring Draai, Arboretum, Richards Bay, 3900, South Africa</p>
     <p>
       Email:{' '}
-      <a className="font-medium text-amber-700 underline" href="mailto:hello@localpros.co.za">
+      <a href="mailto:hello@localpros.co.za">
         hello@localpros.co.za
       </a>
     </p>
     <p>
       WhatsApp/telephone:{' '}
-      <a className="font-medium text-amber-700 underline" href="tel:+27832336716">
+      <a href="tel:+27832336716">
         +27 83 233 6716
       </a>
     </p>
   </div>
 );
 
+const POLICIES = [
+  { to: '/terms', label: 'Terms and Conditions' },
+  { to: '/privacy', label: 'Privacy Policy' },
+  { to: '/refunds-cancellations', label: 'Refunds and Cancellations' },
+  { to: '/website-faq', label: 'Website Terms and FAQ' },
+];
+
 const LegalPage = ({ eyebrow, title, introduction, sections, effectiveDate = EFFECTIVE_DATE }: LegalPageProps) => {
+  const { pathname } = useLocation();
   return (
-    <div className="bg-neutral-50">
-      <header className="border-b border-neutral-800 bg-neutral-950 py-16 text-white md:py-20">
-        <div className="container-sm">
-          <span className="badge-dark mb-5">{eyebrow}</span>
-          <h1 className="max-w-3xl text-4xl font-bold text-white md:text-5xl">{title}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-neutral-300">{introduction}</p>
-          <p className="mt-4 text-sm text-neutral-500">Effective date: {effectiveDate}</p>
-        </div>
-      </header>
+    <div className="dd dd-a lgl">
+      <SiteHeader />
+      <main>
+        <header className="lgl-hero">
+          <div className="dd-container">
+            <p className="dd-eyebrow">{eyebrow}</p>
+            <h1 className="lgl-title">{title}</h1>
+            <p className="lgl-intro">{introduction}</p>
+            <p className="lgl-date">Effective date: {effectiveDate}</p>
+          </div>
+        </header>
 
-      <div className="container-md grid gap-10 py-12 lg:grid-cols-[220px_minmax(0,1fr)] lg:py-16">
-        <aside className="h-fit rounded-2xl border border-neutral-200 bg-white p-5 lg:sticky lg:top-24">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-neutral-900">Policies</p>
-          <nav className="space-y-2 text-sm">
-            <Link className="block text-neutral-600 hover:text-neutral-950" to="/terms">
-              Terms and Conditions
-            </Link>
-            <Link className="block text-neutral-600 hover:text-neutral-950" to="/privacy">
-              Privacy Policy
-            </Link>
-            <Link className="block text-neutral-600 hover:text-neutral-950" to="/refunds-cancellations">
-              Refunds and Cancellations
-            </Link>
-            <Link className="block text-neutral-600 hover:text-neutral-950" to="/website-faq">
-              Website Terms and FAQ
-            </Link>
-          </nav>
-        </aside>
+        <div className="dd-container lgl-grid">
+          <aside className="lgl-aside">
+            <p className="lgl-aside-title">Policies</p>
+            <nav aria-label="Policies">
+              {POLICIES.map((p) => (
+                <Link key={p.to} to={p.to} aria-current={pathname === p.to ? 'page' : undefined}>
+                  {p.label}
+                </Link>
+              ))}
+            </nav>
+          </aside>
 
-        <article className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-soft md:p-10">
-          <div className="space-y-10">
-            {sections.map((section, index) => (
-              <section key={section.title} className={index === 0 ? '' : 'border-t border-neutral-200 pt-10'}>
-                <h2 className="mb-4 text-2xl font-bold text-neutral-950">{section.title}</h2>
-                <div className="space-y-4 text-neutral-700 [&_a]:text-amber-700 [&_a]:underline [&_li]:leading-relaxed [&_p]:text-neutral-700 [&_strong]:text-neutral-950 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
-                  {section.content}
-                </div>
+          <article className="lgl-article">
+            {sections.map((section) => (
+              <section key={section.title} className="lgl-section">
+                <h2>{section.title}</h2>
+                <div className="lgl-body">{section.content}</div>
               </section>
             ))}
-          </div>
-        </article>
-      </div>
+          </article>
+        </div>
+      </main>
+      <SiteFooter />
     </div>
   );
 };
@@ -531,8 +538,8 @@ const refundSections: LegalSection[] = [
 const CLIENT_WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 const Question = ({ question, children }: { question: string; children: ReactNode }) => (
-  <div className="space-y-3">
-    <h3 className="text-lg font-bold text-neutral-950">{question}</h3>
+  <div className="lgl-question">
+    <h3>{question}</h3>
     {children}
   </div>
 );

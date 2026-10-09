@@ -25,6 +25,7 @@ const PricingLight = lazy(() => import('./components/pricing-light/PricingLight'
 import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
 import './components/about-light/aboutlight.css';
+import './components/legallight.css';
 import './components/reviews-light/reviewslight.css';
 import './components/social-light/sociallight.css';
 import './components/section-library/sections/whynote.css';
@@ -225,7 +226,7 @@ export const AppContent = () => {
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/', '/website-design-package', '/about', '/reviews', '/social-media-posting-service', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/website-design-package', '/about', '/terms', '/privacy', '/refunds-cancellations', '/website-faq', '/reviews', '/social-media-posting-service', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (

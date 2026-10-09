@@ -1,0 +1,191 @@
+/* Policy pages in the light look (LegalPages.tsx), on the .dd-a tokens. Scoped to .lgl.
+   Loaded with the main stylesheet from App.tsx, so the pre-built pages never show unstyled. */
+
+.lgl {
+  background: var(--surface-2);
+}
+
+.lgl-hero {
+  padding: 64px 0 48px;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+
+.lgl .lgl-title {
+  margin-top: 14px;
+  max-width: 18em;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 4.4vw, 3.25rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.lgl .lgl-intro {
+  max-width: 38em;
+  margin-top: 16px;
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+  color: var(--body);
+}
+
+.lgl .lgl-date {
+  margin-top: 12px;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+
+.lgl-grid {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+  padding-top: 48px;
+  padding-bottom: 96px;
+}
+
+.lgl-aside {
+  position: sticky;
+  top: 96px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+}
+
+.lgl .lgl-aside-title {
+  margin-bottom: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.lgl-aside nav {
+  display: grid;
+}
+
+.lgl-aside a {
+  display: block;
+  padding: 10px 0;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  color: var(--body);
+}
+
+.lgl-aside a:hover,
+.lgl-aside a[aria-current='page'] {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.lgl-article {
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.lgl-section + .lgl-section {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+
+.lgl-section h2 {
+  margin-bottom: 16px;
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.lgl-body {
+  display: grid;
+  gap: 14px;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--body);
+}
+
+.lgl-body strong {
+  color: var(--ink);
+}
+
+.lgl-body ul {
+  display: grid;
+  gap: 8px;
+  padding-left: 1.4em;
+  list-style: disc;
+}
+
+.lgl-body ol {
+  display: grid;
+  gap: 8px;
+  padding-left: 1.4em;
+  list-style: decimal;
+}
+
+.lgl-body a,
+.lgl-contact a {
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.lgl-question {
+  display: grid;
+  gap: 10px;
+}
+
+.lgl-question h3 {
+  font-family: var(--font-head);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.lgl-contact {
+  display: grid;
+  gap: 4px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--surface-2);
+  font-size: 0.9375rem;
+}
+
+.lgl .lgl-contact-name {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .lgl-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-top: 24px;
+    padding-bottom: 64px;
+  }
+
+  .lgl-aside {
+    position: static;
+  }
+
+  .lgl-article {
+    padding: 24px 20px;
+  }
+
+  .lgl-hero {
+    padding: 40px 0 32px;
+  }
+}
