@@ -31,9 +31,9 @@ literal copy, phone first).
 7. Questions: 7 objections
 8. Closing card with the dog groomer photo
 
-## Open: Results section (9 Oct, Jeremy didn't like the list of rows)
+## Results section: decided 9 Oct, B (Google-style cards), as a list down the page on phones (no sideways swipe)
 
-Compare: http://localhost:4321/compare-results.html (the live page with `?results=a|b|c`). Same real SP2 numbers in all.
+Jeremy didn't like the list of rows; three versions were compared, all from the same real SP2 numbers. Live in `ResultsCards.tsx`.
 - A. One big number: our own "1,491" (up from 29) large, then a wall of client logos with their gains (10 on desktop,
   6 on phone). Was "835" until Jeremy said not to use that number anywhere (9 Oct).
 - **B. Google-style cards (my pick):** each client as a small Google card with stars and "+84 new reviews since
