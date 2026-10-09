@@ -61,6 +61,10 @@ literal copy, phone first).
 10. The draft now shows all my picks by default (guarantee strip on, closing button opens the chat); the comparison
     page shows the versions without them. On a phone the strip shows only "Money back if no new 5-star reviews in
     30 days", so it stays one line.
+11. Production build check: headings in order (one H1), every image described, the pre-built page arrives styled.
+    First load is about 2.5 MB, but about 1.6 MB of it is Google's tags and PostHog on every page (the homepage is
+    the same, 2.6 MB). The page's own code and pictures are small. Worth a separate look site-wide: load the Google
+    tags after the page is up.
 
 ## One thing outside this page
 
