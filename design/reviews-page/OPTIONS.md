@@ -4,6 +4,12 @@
 guarantee strip, the closing button opening the chat. The option versions and compare-reviews.html were removed;
 the old dark page was deleted and /reviews-new redirects to /reviews. The record below is kept for reference.
 
+Settled since: photo and headline as picked; the guarantee strip is live (the old page made the same 30-day promise);
+the hero and closing photos were redone on 9 Oct so the phone faces the person holding it (Jeremy: stars on the back
+of the phone looked unnatural; over-the-shoulder versions in `alt-photos-over-shoulder.jpg`). Checked live on 9 Oct:
+the Google search box finds businesses and opens the chat at "Let's get your Google reviews started", and the closing
+button opens the chat instead of WhatsApp. The happy/unhappy fix is running in its own session (social-posting-v2).
+
 Live: https://studio.localpros.co.za/reviews. Code: `src/components/reviews-light/`.
 
 Built from the 3 to 9 Oct sessions: the homepage hero pattern (literal headline, Google business search box as the
