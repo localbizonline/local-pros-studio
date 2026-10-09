@@ -43,7 +43,7 @@ const SECTIONS: SavedSection[] = [
     name: 'The proof: real client numbers, posts and logos',
     from: 'Proof options A to C with SP2 data, version C',
     saved: '8 Oct 2026',
-    note: 'Real totals from SP2 (64 businesses, 789 posts in 30 days, 461 of them done-for-you, 835 new reviews at 4.9), a wall of 12 client posts (mostly done-for-you, a few from job photos), the top 5 client review gains as rows with logo and Google mark, our own Local Pros row, our reviews feed, then websites as numbers (500+ since 2015) over one montage. Used on the join page.',
+    note: 'Real totals from SP2 (64 businesses, 789 posts in 30 days, 461 of them done-for-you, new reviews at 4.9 on average), a wall of 12 client posts (mostly done-for-you, a few from job photos), the top 5 client review gains as rows with logo and Google mark, our own Local Pros row, our reviews feed, then websites as numbers (500+ since 2015) over one montage. Used on the join page.',
     Section: () => <ProofSection />,
   },
   {

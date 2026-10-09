@@ -23,7 +23,7 @@ literal copy, phone first).
 1. Hero: "Get 5-star Google reviews from your customers." + search your business + photo with our 4.7 / 1,491 rating
 1b. What we do (cream, added 9 Oct at your request): "We get your customers to leave you Google reviews." in three plain
    lines, beside the WhatsApp-to-Google picture from the homepage
-2. Results: 835 new Google reviews for clients (4.9 average), then the top 5 clients (Mr Bin +84, PETport +63...)
+2. Results: the top 5 clients (Mr Bin +84, PETport +63...) and our own profile (the 835 total was removed, 9 Oct)
 3. Why it matters (cream): your reviews decide who gets the call; Google now recommends from reviews
 4. How it works (dark, animated phone): now "See what your customer gets", so it shows the moment rather than repeating What we do
 5. Who it's for: the shared fit section
@@ -34,7 +34,8 @@ literal copy, phone first).
 ## Open: Results section (9 Oct, Jeremy didn't like the list of rows)
 
 Compare: http://localhost:4321/compare-results.html (the live page with `?results=a|b|c`). Same real SP2 numbers in all.
-- A. One big number: "835" large, then a wall of client logos with their gains (10 on desktop, 6 on phone).
+- A. One big number: our own "1,491" (up from 29) large, then a wall of client logos with their gains (10 on desktop,
+  6 on phone). Was "835" until Jeremy said not to use that number anywhere (9 Oct).
 - **B. Google-style cards (my pick):** each client as a small Google card with stars and "+84 new reviews since
   March 2026"; a swipe row on phones. Looks like what customers see on Google, scans fastest, shortest on a phone.
 - C. One client story: "Mr Bin got 84 new Google reviews." with a real post of theirs, then four more in small.

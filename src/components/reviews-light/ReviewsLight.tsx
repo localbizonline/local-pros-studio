@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import '../design-directions/directions.css';
 import '../section-library/sections/pricing.css';
@@ -10,12 +10,10 @@ import SiteFooter from '../section-library/sections/SiteFooter';
 import HowItWorksPhone from '../section-library/sections/HowItWorksPhone';
 import FitCheck from '../section-library/sections/FitCheck';
 import ClosingCard from '../section-library/sections/ClosingCard';
-import { ReviewsTop5 } from '../section-library/sections/ProofBlocks';
-import { PROOF_NUMBERS } from '../section-library/sections/clientProof';
 import SiteChat from '../demo-popup/DemoPopup';
 import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 import { openSiteChat } from '../demo-popup/openSiteChat';
-import { ResultsBigNumber, ResultsGoogleCards, ResultsSpotlight } from './ResultsOptions';
+import ResultsCards from './ResultsCards';
 // Photos made for this page on 9 Oct 2026 in the homepage's photographic style (FAL), shot over the shoulder so the
 // review shows on a screen that faces the person (Jeremy: stars on the back of the phone looked unnatural). The man in the navy polo
 // follows Jeremy's brief from 7 Oct ("30's coloured south african decent looking"); the dog groomer shows the
@@ -123,20 +121,7 @@ function FaqItem({ q, a, id }: { q: string; a: string; id: string }) {
   );
 }
 
-// Results section options for Jeremy (9 Oct 2026): ?results=a|b|c on compare-results.html. Remove once he picks.
-const RESULTS_OPTIONS = { a: ResultsBigNumber, b: ResultsGoogleCards, c: ResultsSpotlight } as const;
-const useResultsOption = () => {
-  const [opt, setOpt] = useState<keyof typeof RESULTS_OPTIONS | null>(null);
-  useEffect(() => {
-    const v = new URLSearchParams(window.location.search).get('results');
-    if (v && v in RESULTS_OPTIONS) setOpt(v as keyof typeof RESULTS_OPTIONS);
-  }, []);
-  return opt ? RESULTS_OPTIONS[opt] : null;
-};
-
 export default function ReviewsLight() {
-  const n = PROOF_NUMBERS;
-  const ResultsOption = useResultsOption();
 
   return (
     <div className="dd dd-a rvl">
@@ -229,33 +214,9 @@ export default function ReviewsLight() {
           </div>
         </section>
 
-        {/* PROOF, EARLY: real results from SP2 before any explaining (Aeva lesson, 7 Oct) */}
-        {ResultsOption ? (
-          <ResultsOption />
-        ) : (
-          <section className="dd-sec rvl-proof" id="results">
-            <div className="dd-container">
-              <div className="dd-head">
-                <p className="dd-eyebrow">Results</p>
-                <h2 className="dd-h2">New Google reviews for our clients</h2>
-              </div>
-              <dl className="rvl-stats">
-                <div>
-                  <dd>{n.reviewsReceived}</dd>
-                  <dt>new Google reviews for our clients while with us</dt>
-                </div>
-                <div>
-                  <dd>
-                    {n.reviewsAverage}
-                    <span aria-hidden="true">★</span>
-                  </dd>
-                  <dt>average rating of those reviews</dt>
-                </div>
-              </dl>
-              <ReviewsTop5 />
-            </div>
-          </section>
-        )}
+        {/* PROOF, EARLY: each client as a small Google card (option B, picked 9 Oct 2026; a list down the page on a
+            phone, at Jeremy's request) */}
+        <ResultsCards />
 
         {/* WHY IT MATTERS: shown with two real-looking photos, then one line. Copy from Jeremy's 7 Oct rewrite */}
         <section className="dd-sec rvl-why">

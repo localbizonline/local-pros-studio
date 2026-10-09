@@ -1,0 +1,205 @@
+/* Results as Google-style client cards (ResultsCards.tsx), on the .dd-a tokens. Scoped to .rc.
+   Desktop: three cards across. Phone: one list down the page, each card a compact row. */
+
+.rc-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Desktop card: logo and name on top, the gain under a hairline */
+.rc-card {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  grid-template-areas:
+    'logo who'
+    'gain gain';
+  column-gap: 12px;
+  padding: 18px 20px;
+  border: 1px solid #dadce0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.15), 0 1px 3px 1px rgba(60, 64, 67, 0.08);
+}
+
+.rc-logo {
+  grid-area: logo;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.rc-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.rc-who {
+  grid-area: who;
+  min-width: 0;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.rc-who > strong {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #202124;
+}
+
+.rc-who > span {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: #70757a;
+}
+
+.rc .rc-rating {
+  margin-top: 6px;
+  font-size: 0.875rem;
+}
+
+.rc-rating b {
+  font-weight: 500;
+  color: #202124;
+}
+
+.rc-stars {
+  color: #fbbc04;
+  letter-spacing: 1px;
+}
+
+.rc-gain {
+  grid-area: gain;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #ebebeb;
+}
+
+.rc-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.rc-g {
+  align-self: center;
+}
+
+.rc-label {
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 0.9375rem;
+  color: #3c4043;
+}
+
+.rc-since {
+  display: block;
+  font-size: 0.8125rem;
+  color: #70757a;
+}
+
+.rc .rc-own {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 760px;
+  margin: 32px auto 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+.rc-own img {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+}
+
+.rc-own strong {
+  color: var(--ink);
+}
+
+.rc-own a {
+  display: inline-block;
+  padding: 10px 0;
+  margin: -10px 0;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+
+/* Phone: a plain list down the page (no sideways scroll), each card one row with the gain on the right */
+@media (max-width: 767px) {
+  .rc-cards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .rc-card {
+    grid-template-columns: 44px 1fr auto;
+    grid-template-areas: 'logo who gain';
+    align-items: center;
+    padding: 14px 16px;
+  }
+
+  .rc-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .rc-who > strong {
+    font-size: 1rem;
+  }
+
+  .rc-gain {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-align: right;
+  }
+
+  .rc-num {
+    font-size: 1.625rem;
+  }
+
+  .rc-label {
+    font-size: 0.8125rem;
+  }
+
+  .rc-since {
+    font-size: 0.75rem;
+  }
+
+  .rc .rc-own {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}

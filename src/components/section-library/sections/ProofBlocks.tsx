@@ -13,9 +13,13 @@ export function NumbersStrip() {
       <dl>
         {/* One number per service, in the hero's order. The client count (64) was dropped: Jeremy
             found it too low to show (8 Oct 2026) */}
+        {/* The total of new reviews was replaced by their average (Jeremy, 9 Oct 2026: don't show the total) */}
         <div>
-          <dt>new Google reviews for our clients, {n.reviewsAverage} average</dt>
-          <dd>{n.reviewsReceived}</dd>
+          <dt>average rating of our clients’ new Google reviews</dt>
+          <dd>
+            {n.reviewsAverage}
+            <span className="pb-star">★</span>
+          </dd>
         </div>
         <div>
           <dt>posts published for clients in the last 30 days</dt>

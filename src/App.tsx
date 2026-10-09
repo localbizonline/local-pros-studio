@@ -21,6 +21,7 @@ const ReviewsLight = lazy(() => import('./components/reviews-light/ReviewsLight'
 import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
 import './components/reviews-light/reviewslight.css';
+import './components/reviews-light/resultscards.css';
 import './components/section-library/sections/howitworksphone.css';
 const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.TermsPage })));
 const PrivacyPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.PrivacyPage })));

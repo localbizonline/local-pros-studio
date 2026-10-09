@@ -197,51 +197,6 @@
   background: var(--surface-2);
 }
 
-.rvl-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  max-width: 760px;
-  margin: 0 auto 32px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-frame);
-  background: #fff;
-  overflow: hidden;
-}
-
-.rvl-stats > div {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 22px 24px;
-}
-
-.rvl-stats > div + div {
-  border-left: 1px solid var(--line);
-}
-
-.rvl-stats dd {
-  margin: 0;
-  font-family: var(--font-head);
-  font-size: clamp(2.25rem, 4vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: var(--ink);
-}
-
-.rvl-stats dd span {
-  margin-left: 4px;
-  font-size: 0.6em;
-  color: #fbbc04;
-  vertical-align: 0.3em;
-}
-
-.rvl-stats dt {
-  font-size: 1rem;
-  line-height: 1.4;
-  color: var(--body);
-}
-
 /* ---------- Why it matters: cream, two photos side by side ---------- */
 
 .rvl-why {
@@ -401,13 +356,6 @@
     box-shadow: none;
   }
 
-  .rvl-stats > div {
-    padding: 18px 16px;
-  }
-
-  .rvl-stats dt {
-    font-size: 0.9375rem;
-  }
 
   .rvl-why-grid,
   .rvl-price-grid {

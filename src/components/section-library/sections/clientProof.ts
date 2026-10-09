@@ -12,7 +12,7 @@ export const PROOF_NUMBERS = {
   // Of those, made by our team from scratch (tips, service posts, public holidays); the rest came from client job photos
   postsDfyLast30Days: 461,
   postsTotal: 2926,
-  reviewsReceived: 835,
+  // The total of new client reviews was taken out on 9 Oct 2026: Jeremy doesn't want that number shown anywhere.
   reviewsAverage: 4.9,
 };
 
