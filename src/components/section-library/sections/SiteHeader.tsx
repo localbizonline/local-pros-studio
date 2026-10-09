@@ -16,7 +16,7 @@ type NavLink = { label: string; to: string };
 const SITE_NAV: NavLink[] = [
   { label: 'Google reviews', to: '/reviews' },
   { label: 'Social media', to: '/social-media-posting-service' },
-  { label: 'Websites', to: '/web-design' },
+  { label: 'Websites', to: '/website-design-package' },
   { label: 'Prices', to: '/pricing' },
   { label: 'About', to: '/about' },
 ];

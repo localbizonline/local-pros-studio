@@ -24,7 +24,7 @@ export default function SiteFooter({
   const services = [
     { label: 'Google reviews', to: '/reviews' },
     { label: 'Social media posting', to: '/social-media-posting-service' },
-    { label: 'Website design', to: '/web-design' },
+    { label: 'Website design', to: '/website-design-package' },
     { label: 'R2,500 plan', to: '/special-offer-bundle' },
   ];
   const company = [

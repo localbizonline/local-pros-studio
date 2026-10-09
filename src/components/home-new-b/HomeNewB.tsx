@@ -57,7 +57,7 @@ const SERVICES = [
     title: 'A website that works on a phone',
     body: 'Fast and mobile-friendly, so people can call or WhatsApp you in one tap. Live in 5 to 7 working days.',
     price: 'R9,900 once-off · free on the R2,500 plan',
-    link: { label: 'See website packages', to: '/web-design' },
+    link: { label: 'See website packages', to: '/website-design-package' },
     image: websiteImage,
     alt: 'The home page of BKC Pet Boarding, a website we built',
     fit: 'top',

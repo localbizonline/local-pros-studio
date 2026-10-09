@@ -8,7 +8,7 @@ export const WHATSAPP_URL = SITE_WHATSAPP_URL;
 export const NAV = [
   { label: 'Google reviews', to: '/reviews' },
   { label: 'Social posting', to: '/social-media-posting-service' },
-  { label: 'Websites', to: '/web-design' },
+  { label: 'Websites', to: '/website-design-package' },
   { label: 'About', to: '/about' },
 ];
 
@@ -70,7 +70,7 @@ export const SERVICES = [
     price: 'R9,900 once-off',
     body: 'A fast, mobile-friendly website for your business, built on templates that already work for trades. Delivered in 5 to 7 days.',
     note: 'Free with the R2,500 plan on a 12-month commitment',
-    link: { label: 'See website packages', to: '/web-design' },
+    link: { label: 'See website packages', to: '/website-design-package' },
   },
 ];
 
@@ -162,7 +162,7 @@ export const FOOTER = {
   services: [
     { label: 'Google reviews', to: '/reviews' },
     { label: 'Social media posting', to: '/social-media-posting-service' },
-    { label: 'Websites', to: '/web-design' },
+    { label: 'Websites', to: '/website-design-package' },
     { label: 'R2,500 plan', to: '/special-offer-bundle' },
   ],
   company: [

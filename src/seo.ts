@@ -41,17 +41,11 @@ export const PAGES: Record<string, PageSeo> = {
     description: 'The previous version of our social media posting page, kept for reference.',
     noindex: true,
   },
-  '/web-design': {
+  // One page for everyone since 9 Oct 2026, Google Ads included (was /web-design and /website-design)
+  '/website-design-package': {
     title: 'Website Design South Africa | Local Pros Studio',
     description:
       'We write, build and look after websites for South African businesses, set up for Google with WhatsApp and call buttons. Live in 7 days, from R450 a month.',
-  },
-  // Google Ads landing page: same content as /web-design without the site navigation
-  '/website-design': {
-    title: 'Website Design South Africa | Local Pros Studio',
-    description:
-      'We write, build and look after websites for South African businesses, set up for Google with WhatsApp and call buttons. Live in 7 days, from R450 a month.',
-    canonicalPath: '/web-design',
   },
   '/special-offer-bundle': {
     title: 'Google Reviews and Weekly Posts, Done For You | Local Pros Studio',

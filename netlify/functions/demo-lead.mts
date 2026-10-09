@@ -24,7 +24,7 @@ const PLAN_NOTE: Record<string, string> = {
 };
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'studio.localpros.co.za/website-design',
-  'web-design': 'studio.localpros.co.za/web-design',
+  'web-design': 'studio.localpros.co.za/website-design-package',
   home: 'the homepage',
   join: 'the join page',
   reviews: 'the Google reviews page',

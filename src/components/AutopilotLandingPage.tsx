@@ -1259,7 +1259,7 @@ const AutopilotLandingPage = () => {
                   <Link to="/social-media-posting-service" className="font-tight text-[14px] text-[#0D0F1C] hover:text-[#1A56DB]">
                     Social posting
                   </Link>
-                  <Link to="/web-design" className="font-tight text-[14px] text-[#0D0F1C] hover:text-[#1A56DB]">
+                  <Link to="/website-design-package" className="font-tight text-[14px] text-[#0D0F1C] hover:text-[#1A56DB]">
                     Web design
                   </Link>
                 </div>

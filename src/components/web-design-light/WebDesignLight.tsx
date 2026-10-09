@@ -133,18 +133,16 @@ function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id:
   );
 }
 
-// variant 'ad': /website-design, the Google Ads landing page: no site menu, its own WhatsApp opening, and the
-//   site chat opens by itself once per visit with the free demo offer.
-// variant 'site': /web-design, the same page with the site menu and footer; the chat opens only from buttons.
-export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 'site' }) {
-  const isAd = variant === 'ad';
-  const WA_URL = whatsAppLink(isAd ? WHATSAPP_MESSAGES.googleAds : WHATSAPP_MESSAGES.webDesign);
-  const prefix = isAd ? 'wd_ads' : 'wd_site';
+// /website-design-package, with the site menu and footer; the chat opens only from buttons. Until 9 Oct 2026 there was
+// also a Google Ads copy at /website-design with no menu and a chat that opened by itself; ads now come here too.
+export default function WebDesignLight() {
+  const WA_URL = whatsAppLink(WHATSAPP_MESSAGES.webDesign);
+  const prefix = 'wd_site';
   const track = (label: string) => trackClick(prefix, label);
 
   return (
     <div className="dd dd-a wdl">
-      <SiteHeader minimal={isAd} whatsAppUrl={WA_URL} pricingHref="#pricing" />
+      <SiteHeader whatsAppUrl={WA_URL} pricingHref="#pricing" />
 
       <main>
         {/* HERO: what, who, and the free demo as the one main action (version C, 8 Oct 2026) */}
@@ -218,11 +216,10 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
         <DemoClosing waUrl={WA_URL} track={track} />
       </main>
 
-      <SiteFooter minimal={isAd} whatsAppUrl={WA_URL} pricingHref="#pricing" faqHref="#faq" />
+      <SiteFooter whatsAppUrl={WA_URL} pricingHref="#pricing" faqHref="#faq" />
 
-      {/* The site chat; leads go to Airtable (8 Oct 2026). On the ad page it opens by itself once per visit after
-          30 seconds, unless they have already tapped something that opens the chat or WhatsApp (9 Oct 2026) */}
-      <SiteChat page={isAd ? 'website-design' : 'web-design'} autoOpen={isAd} delayMs={30000} trackPrefix={`${prefix}_demo_popup`} />
+      {/* The site chat; leads go to Airtable (8 Oct 2026) */}
+      <SiteChat page="web-design" trackPrefix={`${prefix}_demo_popup`} />
     </div>
   );
 }

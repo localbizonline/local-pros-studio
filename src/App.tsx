@@ -88,7 +88,7 @@ const Navigation = () => {
   const navLinks = [
     { name: 'Reviews', href: '/reviews' },
     { name: 'Social Media', href: '/social-media-posting-service' },
-    { name: 'Web Design', href: '/web-design' },
+    { name: 'Web Design', href: '/website-design-package' },
     { name: 'R2,500 Plan', href: '/special-offer-bundle' },
   ];
 
@@ -226,7 +226,7 @@ export const AppContent = () => {
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/', '/autopilot', '/website-design', '/web-design', '/reviews', '/social-media-posting-service', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/autopilot', '/website-design-package', '/reviews', '/social-media-posting-service', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (
@@ -243,12 +243,12 @@ export const AppContent = () => {
           <Route path="/pricing" element={<PricingLight />} />
           <Route path="/social-media-posting-service" element={<SocialLight />} />
           <Route path="/social-media-posting-service-archived" element={<SocialPostingPageArchived />} />
-          <Route path="/web-design" element={<WebDesignLight variant="site" />} />
+          {/* Website design page (light rebuild, 8 Oct 2026); /web-design and the Google Ads page /website-design
+              became this one address on 9 Oct 2026 */}
+          <Route path="/website-design-package" element={<WebDesignLight />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />
           <Route path="/autopilot" element={<AutopilotLandingPage />} />
-          {/* Google Ads landing page: same page as /web-design without the site menu (light rebuild, 8 Oct 2026) */}
-          <Route path="/website-design" element={<WebDesignLight />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds-cancellations" element={<RefundsCancellationsPage />} />

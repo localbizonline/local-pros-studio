@@ -1,4 +1,4 @@
-/home-services /web-design 301!
+/home-services /website-design-package 301!
 /home2 / 301!
 /home3 / 301!
 /home4 / 301!
@@ -18,8 +18,8 @@
 /special-offer-gemini-pro /special-offer-bundle 301!
 /special-offer-gpt.5.2 /special-offer-bundle 301!
 /reputation / 301!
-/website-opus5 /website-design 301!
-/website-opus5-light /website-design 301!
+/website-opus5 /website-design-package 301!
+/website-opus5-light /website-design-package 301!
 /fieldcard / 301!
 /reviews-pro /reviews 301!
 /reviews-clienti /reviews 301!
@@ -29,9 +29,12 @@
 # The new social page was drafted here before it replaced the old one (9 Oct 2026)
 /social-new /social-media-posting-service 301!
 /sales / 301!
-/web-design-archive /web-design 301!
-/web-design-v2 /web-design 301!
-/web-design-alt /web-design 301!
+/web-design-archive /website-design-package 301!
+/web-design-v2 /website-design-package 301!
+/web-design-alt /website-design-package 301!
+# The two website design addresses became one page on 9 Oct 2026 (/website-design was the Google Ads page)
+/web-design /website-design-package 301!
+/website-design /website-design-package 301!
 /google-ads / 301!
 /gallery / 301!
 /pages / 301!

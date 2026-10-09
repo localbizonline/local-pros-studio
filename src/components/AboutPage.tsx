@@ -36,7 +36,7 @@ const milestones = [
 ];
 
 const services = [
-  { name: "Website Design", href: "/web-design", description: "Modern, mobile-friendly websites delivered in 5-7 days" },
+  { name: "Website Design", href: "/website-design-package", description: "Modern, mobile-friendly websites delivered in 5-7 days" },
   { name: "Social Media", href: "/social-media-posting-service", description: "Stay visible with consistent, professional posting" },
   { name: "Google Reviews", href: "/reviews", description: "Automated review requests so new customers see steady 5-star reviews" },
   { name: "R2,500 Plan", href: "/special-offer-bundle", description: "Reviews and weekly posts in one plan, with a free website if you need one" },
@@ -72,7 +72,7 @@ const AboutPage = () => {
                 Get in Touch
                 <ArrowRight className="ml-2 w-4 h-4" />
               </a>
-              <Link to="/web-design" className="btn-secondary border-neutral-700 text-white hover:bg-neutral-800 hover:border-neutral-600">
+              <Link to="/website-design-package" className="btn-secondary border-neutral-700 text-white hover:bg-neutral-800 hover:border-neutral-600">
                 View Our Work
               </Link>
             </div>
