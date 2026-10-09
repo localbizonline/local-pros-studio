@@ -1,0 +1,6 @@
+# Files whose names change whenever their content does (Vite's /assets) or that we rename on change
+# (/fonts): browsers keep them for a year instead of re-downloading on every visit (9 Oct 2026).
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

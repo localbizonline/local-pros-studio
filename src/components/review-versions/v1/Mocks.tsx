@@ -3,7 +3,7 @@ import jobVan from '../../../assets/images/recurring-services/recurring-contract
 import jobHandshake from '../../../assets/images/avatars/hero-contractor-handshake.webp';
 import jobPlumber from '../../../assets/images/avatars/review-contractor-happy.webp';
 import oldJobPhoto from './img/job-old-geyser.webp';
-import coverPhoto from '../../../assets/images/recurring-services/recurring-hero-contractor-calendar.jpg';
+import coverPhoto from '../../../assets/images/recurring-services/recurring-hero-contractor-calendar.webp';
 
 // Code-built screens for the before/after sliders. Mokoena Plumbing is a fictional demo business
 // (also used in the review phone demo). The screens keep their real-app colours (Google, Facebook);

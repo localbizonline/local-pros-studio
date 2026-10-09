@@ -4,9 +4,10 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import MobileCTA from './components/MobileCTA';
-// The home page loads with the site; every other page downloads only when someone opens it.
+// Each page's code downloads only when someone opens it, the homepage's too (9 Oct 2026), so the ad
+// landing pages don't carry the homepage. The pre-built HTML shows straight away either way.
 // Since 8 Oct 2026 the homepage is the light "join" page (src/components/join-light/), with its own header and footer.
-import JoinLight from './components/join-light/JoinLight';
+const JoinLight = lazy(() => import('./components/join-light/JoinLight'));
 const AboutPage = lazy(() => import('./components/AboutPage'));
 const SocialPostingPageV2 = lazy(() => import('./components/SocialPostingPageV2'));
 const SpecialOfferOpusPage = lazy(() => import('./components/SpecialOfferOpusPage'));
@@ -29,6 +30,7 @@ import './components/social-light/sociallight.css';
 import './components/pricing-light/pricinglight.css';
 import './components/reviews-light/resultscards.css';
 import './components/section-library/sections/howitworksphone.css';
+import './components/join-light/styles';
 const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.TermsPage })));
 const PrivacyPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.PrivacyPage })));
 const RefundsCancellationsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.RefundsCancellationsPage })));

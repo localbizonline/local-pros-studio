@@ -30,6 +30,28 @@ const render = async (route) => {
 };
 const template = await readFile(path.join(dist, 'index.html'), 'utf8');
 
+// Pre-built pages link only the main stylesheet, and each page's code loads separately. A page whose code
+// brings its own stylesheet would show unstyled until that code arrives, so stop the build instead.
+// Drafts (/design-directions, /review-versions) render in the browser only and may have their own.
+const manifestFile = path.join(dist, '.vite', 'manifest.json');
+const manifest = JSON.parse(await readFile(manifestFile, 'utf8'));
+const pageCss = (key, seen = new Set(['index.html'])) => {
+  if (seen.has(key) || !manifest[key]) return [];
+  seen.add(key);
+  return [...(manifest[key].css || []), ...(manifest[key].imports || []).flatMap((k) => pageCss(k, seen))];
+};
+for (const page of manifest['index.html'].dynamicImports || []) {
+  if (/design-directions|review-versions/.test(page)) continue;
+  const css = pageCss(page);
+  if (css.length) {
+    throw new Error(
+      `prerender: ${page} brings its own stylesheet (${css.join(', ')}). Import its CSS files from App.tsx ` +
+        `(the homepage: src/components/join-light/styles.ts) so they load with the main stylesheet.`,
+    );
+  }
+}
+await rm(path.join(dist, '.vite'), { recursive: true, force: true });
+
 const escapeHtml = (value) =>
   value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 

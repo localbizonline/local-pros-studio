@@ -1,8 +1,6 @@
-/* Import distinctive fonts - Bricolage Grotesque for headings, Source Sans 3 for body */
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap');
-
-/* Inter Tight - used by the /autopilot landing page only */
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap');
+/* Fonts: Bricolage Grotesque for headings, Source Sans 3 for body, Inter Tight for /autopilot only.
+   Served from this site (src/fonts.css, files in public/fonts) since 9 Oct 2026, not from Google. */
+@import './fonts.css';
 
 @tailwind base;
 @tailwind components;

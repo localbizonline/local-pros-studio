@@ -19,6 +19,9 @@
       }, true);
     </script>
     <meta charset="UTF-8" />
+    <!-- The two fonts nearly every page uses, fetched straight away (src/fonts.css) -->
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/source-sans-3-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -32,7 +35,9 @@
         api_host: 'https://us.i.posthog.com',
         person_profiles: 'identified_only',
         // Count each page opened inside the site, not only the first one (src/analytics.ts adds the rest)
-        capture_pageview: 'history_change'
+        capture_pageview: 'history_change',
+        // Surveys are off in this PostHog project; this stops their code (~100 KB) downloading anyway
+        disable_surveys: true
       });
 
       // Load the tracking files (9 Oct 2026). They are ~1.6 MB unzipped, more than the site itself, so they wait

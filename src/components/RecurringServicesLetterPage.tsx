@@ -4,12 +4,12 @@ import { ArrowRight, Check, Star } from 'lucide-react';
 // Scrolling faces images
 
 // Content images — unique recurring services images
-import recurringHeroContractor from '../assets/images/recurring-services/recurring-hero-contractor-calendar.jpg';
-import recurringHomeownerForgot from '../assets/images/recurring-services/recurring-homeowner-forgot.jpg';
+import recurringHeroContractor from '../assets/images/recurring-services/recurring-hero-contractor-calendar.webp';
+import recurringHomeownerForgot from '../assets/images/recurring-services/recurring-homeowner-forgot.webp';
 import recurringContractorLogging from '../assets/images/recurring-services/recurring-contractor-logging-job.webp';
-import recurringWhatsappPhone from '../assets/images/recurring-services/recurring-whatsapp-phone-closeup.jpg';
+import recurringWhatsappPhone from '../assets/images/recurring-services/recurring-whatsapp-phone-closeup.webp';
 import recurringWindowCleaner from '../assets/images/recurring-services/recurring-window-cleaner-working.webp';
-import recurringContractorTablet from '../assets/images/recurring-services/recurring-contractor-tablet-schedule.jpg';
+import recurringContractorTablet from '../assets/images/recurring-services/recurring-contractor-tablet-schedule.webp';
 import {
   avatarReviewContractor,
   avatarContractorPhoneCall,

@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, Check, Users, Target, Heart, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import teamImage from '../assets/images/Compressed/TinyPNG Feb 10 174841.jpg';
-import localProsImage from '../assets/images/mockups/localprospeople.jpg';
+import localProsImage from '../assets/images/mockups/localprospeople.webp';
 import { SITE_WHATSAPP_URL } from '../whatsapp';
 
 const values = [
