@@ -6,7 +6,8 @@ the old dark page was deleted and /reviews-new redirects to /reviews. The record
 
 Settled since: photo and headline as picked; the guarantee strip is live (the old page made the same 30-day promise);
 the hero and closing photos were redone on 9 Oct so the phone faces the person holding it (Jeremy: stars on the back
-of the phone looked unnatural; over-the-shoulder versions in `alt-photos-over-shoulder.jpg`). Checked live on 9 Oct:
+of the phone looked unnatural), then switched to the over-the-shoulder shots at his request, so the stars show on a
+screen that faces them (`alt-photos-over-shoulder.jpg`). Checked live on 9 Oct:
 the Google search box finds businesses and opens the chat at "Let's get your Google reviews started", and the closing
 button opens the chat instead of WhatsApp. The happy/unhappy fix is running in its own session (social-posting-v2).
 
