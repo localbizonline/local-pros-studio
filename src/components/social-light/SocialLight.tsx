@@ -13,7 +13,6 @@ import ClosingCard from '../section-library/sections/ClosingCard';
 import { PostCard } from '../section-library/sections/ProofBlocks';
 import { PROOF_AS_OF, PROOF_NUMBERS, WALL_POSTS, type ClientPost } from '../section-library/sections/clientProof';
 import SiteChat from '../demo-popup/DemoPopup';
-import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 import { openSiteChat } from '../demo-popup/openSiteChat';
 // Photos made for this page on 9 Oct 2026 in the reviews page's over-the-shoulder style (FAL): a pool contractor
 // at a finished pool, looking at the post of that same pool; a baker photographing a cake (the job photo that
@@ -32,8 +31,9 @@ import armourNewYear from '../../assets/images/social-posting/social-post-fencin
 
 // The social media posting page in the light look (9 Oct 2026), built from scratch on the 3 to 9 Oct sessions:
 // - page flow and the five-second test from DESIGN-SYSTEM.md section 2 (one page sells one thing: social posts)
-// - the same opening as the homepage and the /reviews page: literal headline, the Google business search box as
-//   the main action (it saves the lead the moment a business is picked), WhatsApp and price as small links
+// - the homepage's and /reviews page's opening: literal headline, one main action, WhatsApp and price as small links.
+//   The main action is a "Get started" button that opens the chat (the Google search box read like a directory
+//   search on this page, Jeremy 9 Oct); the chat saves the lead the moment a business is picked
 // - proof early, from real SP2 posts and numbers (clientProof.ts), never typed by hand
 // - never a posting frequency (Jeremy, 8 Oct): posts are made for you, made from your photos, or posted yourself
 // - how the product really works, checked in social-posting-v2 on 9 Oct: our team makes service, tip and
@@ -167,13 +167,13 @@ export default function SocialLight() {
               People check your Facebook before they call, and a quiet page looks closed. We make your posts and publish
               them on Facebook, Instagram and Google.
             </p>
-            <div className="sol-search">
-              <BusinessSearchBox
-                page="social"
-                plan="social"
-                buttonLabel="Find my business"
-                notOnGoogleLabel="Can’t find your business? Send us your details"
-              />
+            {/* One plain button, not the Google search box: on this page "Find my business" read like a directory
+                search (Jeremy, 9 Oct). The chat it opens asks for the business on Google and saves the lead on pick. */}
+            <div className="sol-cta">
+              <button type="button" className="dd-btn dd-btn-primary sol-cta-btn" onClick={() => openSiteChat('social')}>
+                Get started
+              </button>
+              <p className="sol-cta-note">Tell us your business name and we’ll WhatsApp you to set it up.</p>
               <p className="sol-or">
                 Or{' '}
                 <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
@@ -237,17 +237,8 @@ export default function SocialLight() {
             <div className="dd-head">
               <p className="dd-eyebrow">Real posts</p>
               <h2 className="dd-h2">Posts we made for our clients</h2>
+              <p className="dd-sub">{n.postsLast30Days} posts published for our clients in the last 30 days.</p>
             </div>
-            <dl className="sol-stats">
-              <div>
-                <dd>{n.postsLast30Days}</dd>
-                <dt>posts published for our clients in the last 30 days</dt>
-              </div>
-              <div>
-                <dd>{n.postsDfyLast30Days}</dd>
-                <dt>of them made from scratch by our team, without the client’s photos</dt>
-              </div>
-            </dl>
             <div className="pb-post-grid">
               {WALL_POSTS.slice(0, 8).map((p) => (
                 <PostCard key={p.slug} p={p} onOpen={setOpenPost} />
@@ -420,7 +411,7 @@ export default function SocialLight() {
 
       <PostLightbox post={openPost} onClose={() => setOpenPost(null)} />
 
-      {/* The site chat: the search box and "Start now" open it with social media posts picked; it saves the lead to
+      {/* The site chat: "Get started" and "Start now" open it with social media posts picked; it saves the lead to
           Airtable the moment a business is picked. It never opens by itself here. */}
       <SiteChat page="social" />
     </div>
