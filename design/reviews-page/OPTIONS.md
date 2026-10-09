@@ -11,6 +11,9 @@ screen that faces them (`alt-photos-over-shoulder.jpg`). Checked live on 9 Oct:
 the Google search box finds businesses and opens the chat at "Let's get your Google reviews started", and the closing
 button opens the chat instead of WhatsApp. The happy/unhappy fix is running in its own session (social-posting-v2).
 
+Hero photo since 9 Oct (later): the homepage's Cape Town builder photo, with the floating phone showing his Google
+profile and reviews instead of Instagram (Jeremy asked for the homepage photo on this page and the social page).
+
 Live: https://studio.localpros.co.za/reviews. Code: `src/components/reviews-light/`.
 
 Built from the 3 to 9 Oct sessions: the homepage hero pattern (literal headline, Google business search box as the
