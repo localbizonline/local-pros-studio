@@ -5,6 +5,7 @@ import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import { isTeamDevice } from '../../teamDevice';
 import { capture } from '../../analytics';
 import { chatState, OPEN_CHAT_EVENT, type ChatPage, type ChatPlan } from './openSiteChat';
+import { useGoogleSearch, type Business } from './googleSearch';
 
 // The site chat (8 Oct 2026). Looks like a WhatsApp chat: we "type" the opening lines, the visitor
 // finds their business on Google inside the chat (same Google search as the localpros.co.za/join/apply
@@ -14,22 +15,9 @@ import { chatState, OPEN_CHAT_EVENT, type ChatPage, type ChatPlan } from './open
 // - Other pages (join, homepage): opens only from a button via openSiteChat(plan), with the plan picked.
 // Render <SiteChat page="…" /> once per page.
 
-type Business = {
-  placeId: string;
-  name: string;
-  address: string;
-  hiddenAddress: boolean;
-  mapsUri: string;
-  category: string;
-  website: string;
-  phone: string;
-  rating: number | null;
-  reviewCount: number | null;
-};
 
 const SEEN_KEY = 'lps_demo_popup_seen';
-// Public browser key, the same one the join form uses; its website restrictions decide where it works
-const MAPS_KEY = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
+
 
 // How each plan is said: in the chat, in the WhatsApp message (the Airtable wording is in demo-lead.mts)
 const PLAN: Record<ChatPlan, { chat: string; whatsApp: string }> = {
@@ -132,8 +120,7 @@ const normaliseMobile = (value: string) => {
 };
 const showMobile = (m: string) => `${m.slice(0, 3)} ${m.slice(3, 6)} ${m.slice(6)}`;
 
-// Google files many service businesses under a bare "Services"; that says nothing, so leave it out
-const usefulCategory = (label: string) => (/^services?$/i.test(label.trim()) ? '' : label.trim());
+
 
 // "https://www.example.co.za/contact" → "example.co.za"
 const shortWebsite = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, '');
@@ -187,7 +174,7 @@ const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
 // "Someone started using the chat" alert: the first time a visitor taps into it, once per page per visit
 const STARTED_KEY = 'lps_chat_started';
 const startedThisLoad = new Set<string>();
-const notifyStarted = (page: ChatPage, plan?: ChatPlan) => {
+export const notifyStarted = (page: ChatPage, plan?: ChatPlan) => {
   try {
     const seen = JSON.parse(sessionStorage.getItem(STARTED_KEY) || '[]') as string[];
     if (seen.includes(page)) return;
@@ -206,30 +193,7 @@ const track = (label: string) => window.gtag?.('event', 'cta_click', { event_cat
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Same loader as the join form: Maps JavaScript, weekly channel, loaded only when needed
-let mapsPromise: Promise<void> | null = null;
-const loadMaps = () => {
-  const w = window as any;
-  if (w.google?.maps?.importLibrary) return Promise.resolve();
-  mapsPromise ??= new Promise<void>((resolve, reject) => {
-    const timer = window.setTimeout(() => reject(new Error('timeout')), 20000);
-    w.initDemoPopupMaps = () => {
-      window.clearTimeout(timer);
-      resolve();
-    };
-    const script = document.createElement('script');
-    script.onerror = () => {
-      window.clearTimeout(timer);
-      mapsPromise = null;
-      reject(new Error('load'));
-    };
-    const params = new URLSearchParams({ key: MAPS_KEY, loading: 'async', callback: 'initDemoPopupMaps', v: 'weekly' });
-    script.src = `https://maps.googleapis.com/maps/api/js?${params}`;
-    script.async = true;
-    document.head.append(script);
-  });
-  return mapsPromise;
-};
+
 
 // Opens once per visit after `delayMs`, unless the visitor has already opened the chat or WhatsApp themselves
 const useOpenOnce = (enabled: boolean, delayMs: number, force: boolean, show: () => void) => {
@@ -322,135 +286,6 @@ const useTypedLines = (lines: string[], active: boolean, instant = false) => {
   return { typed, typing, finished: typed.length === lines.length && typed[lines.length - 1] === lines[lines.length - 1] };
 };
 
-// Google business search, drawn inside the chat (9 Oct 2026). Google's own box (PlaceAutocompleteElement) opened
-// a full-screen search page of its own on phones, which was hard to use inside the chat (Jeremy). This uses the same
-// Places API (New) data with our own box and list: type, see up to five matches, tap one.
-// pureServiceAreaBusinessesIncluded keeps businesses that hide their address (most trades, and Local Pros Studio
-// itself) in the results. One session token per search, ended by the pick, so Google bills it as one session.
-type Suggestion = { id: string; main: string; secondary: string; prediction: any };
-const PLACE_FIELDS = ['id', 'displayName', 'isPureServiceAreaBusiness', 'formattedAddress', 'nationalPhoneNumber', 'websiteURI', 'rating', 'userRatingCount', 'primaryType', 'primaryTypeDisplayName', 'googleMapsURI'];
-
-const useGoogleSearch = (enabled: boolean, onPick: (b: Business) => void) => {
-  const [status, setStatus] = useState<'loading' | 'ready' | 'fetching' | 'failed'>('loading');
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const [searching, setSearching] = useState(false);
-  const places = useRef<any>(null);
-  const token = useRef<any>(null);
-  const version = useRef(0);
-  const inputRef = useRef<HTMLInputElement>(null);
-  // The name we put in the box after a pick: not a new search
-  const picked = useRef('');
-  const onPickRef = useRef(onPick);
-  onPickRef.current = onPick;
-
-  useEffect(() => {
-    if (!enabled || places.current) return;
-    if (!MAPS_KEY) {
-      setStatus('failed');
-      return;
-    }
-    let cancelled = false;
-    (async () => {
-      try {
-        await loadMaps();
-        const lib = await (window as any).google.maps.importLibrary('places');
-        if (cancelled) return;
-        places.current = lib;
-        setStatus('ready');
-      } catch {
-        if (!cancelled) setStatus('failed');
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [enabled]);
-
-  // Ask Google a moment after they stop typing
-  useEffect(() => {
-    const input = query.trim();
-    if (query === picked.current) return;
-    picked.current = '';
-    const mine = ++version.current;
-    if (!places.current || input.length < 2) {
-      setSuggestions([]);
-      setSearching(false);
-      return;
-    }
-    setSearching(true);
-    const timer = window.setTimeout(async () => {
-      try {
-        const { AutocompleteSuggestion, AutocompleteSessionToken } = places.current;
-        token.current ??= new AutocompleteSessionToken();
-        const { suggestions: found } = await AutocompleteSuggestion.fetchAutocompleteSuggestions({
-          input,
-          includedRegionCodes: ['za'],
-          pureServiceAreaBusinessesIncluded: true,
-          sessionToken: token.current,
-        });
-        if (mine !== version.current) return;
-        setSuggestions(
-          (found as any[])
-            .map((x) => x.placePrediction)
-            .filter(Boolean)
-            .slice(0, 5)
-            .map((p) => ({ id: p.placeId, main: p.mainText?.text || p.text?.text || '', secondary: p.secondaryText?.text || '', prediction: p })),
-        );
-      } catch (err) {
-        if (mine !== version.current) return;
-        setSuggestions([]);
-        // Key refused (wrong website) or the API is down: fall back to typed details
-        if (/REQUEST_DENIED|PERMISSION|referer|API key|403/i.test(String((err as Error)?.message || err))) setStatus('failed');
-      } finally {
-        if (mine === version.current) setSearching(false);
-      }
-    }, 250);
-    return () => window.clearTimeout(timer);
-  }, [query, status]);
-
-  const pick = async (s: Suggestion) => {
-    const mine = ++version.current;
-    setStatus('fetching');
-    setSuggestions([]);
-    picked.current = s.main;
-    setQuery(s.main);
-    try {
-      const place = s.prediction.toPlace();
-      await place.fetchFields({ fields: PLACE_FIELDS });
-      token.current = null; // the pick ends Google's search session
-      if (mine !== version.current) return;
-      setStatus('ready');
-      onPickRef.current({
-        placeId: place.id || '',
-        name: place.displayName || '',
-        address: place.formattedAddress || '',
-        // Maps JavaScript calls this isPureServiceAreaBusiness (not the REST field name)
-        hiddenAddress: place.isPureServiceAreaBusiness === true,
-        mapsUri: place.googleMapsURI || '',
-        category: usefulCategory(place.primaryTypeDisplayName || ''),
-        website: place.websiteURI || '',
-        phone: place.nationalPhoneNumber || '',
-        rating: typeof place.rating === 'number' ? place.rating : null,
-        reviewCount: typeof place.userRatingCount === 'number' ? place.userRatingCount : null,
-      });
-    } catch {
-      if (mine === version.current) setStatus('ready');
-    }
-  };
-
-  const clear = () => {
-    version.current++;
-    picked.current = '';
-    setQuery('');
-    setSuggestions([]);
-    setSearching(false);
-  };
-  // Puts the cursor in the search box, so the visitor can type straight away
-  const focus = () => inputRef.current?.focus();
-  return { status, query, setQuery, suggestions, searching, pick, clear, focus, inputRef };
-};
-
 const WhatsAppGlyph = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
     <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.22-3.74.99 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.49-8.42" />
@@ -509,7 +344,7 @@ export default function SiteChat({
 }) {
   // `session` changes when a button picks a different plan, which starts a fresh chat
   // modal: opened from a button (any button, with or without a plan); the chat that opens by itself stays in the corner
-  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number; modal: boolean; focusSearch: boolean }>({
+  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number; modal: boolean; focusSearch: boolean; picked?: Business }>({
     open: false,
     session: 0,
     modal: false,
@@ -521,11 +356,12 @@ export default function SiteChat({
   useEffect(() => {
     chatState.mounted += 1;
     const onOpen = (e: Event) => {
-      const { plan, focusSearch = false } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean }>).detail || {};
+      const { plan, focusSearch = false, business } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean; business?: Business }>).detail || {};
       setChat((c) =>
-        c.plan === plan && c.session > 0
-          ? { ...c, open: true, modal: true, focusSearch }
-          : { open: true, plan, session: c.session + 1, modal: true, focusSearch },
+        // A business picked in a search box on the page always starts a fresh chat with it selected
+        business || !(c.plan === plan && c.session > 0)
+          ? { open: true, plan, session: c.session + 1, modal: true, focusSearch: focusSearch || !!business, picked: business }
+          : { ...c, open: true, modal: true, focusSearch },
       );
     };
     window.addEventListener(OPEN_CHAT_EVENT, onOpen);
@@ -545,6 +381,7 @@ export default function SiteChat({
       open={chat.open}
       modal={chat.modal}
       focusSearch={chat.focusSearch}
+      picked={chat.picked}
       onClose={() => setChat((c) => ({ ...c, open: false }))}
       onExpand={() => setChat((c) => (c.modal ? c : { ...c, modal: true }))}
       trackPrefix={`${trackPrefix}_${chat.plan || 'demo'}`}
@@ -576,6 +413,7 @@ function ChatWindow({
   open,
   modal,
   focusSearch,
+  picked,
   onClose,
   onExpand,
   trackPrefix,
@@ -586,6 +424,8 @@ function ChatWindow({
   modal: boolean;
   focusSearch: boolean;
   onClose: () => void;
+  // Picked in a search box on the page (DemoSearchBox): the chat starts at "Is this your business?"
+  picked?: Business;
   // On a phone, typing in the small corner chat moves it to the centred window, above the keyboard
   onExpand: () => void;
   trackPrefix: string;
@@ -607,7 +447,7 @@ function ChatWindow({
   const [questions] = useState(() => questionsFor(plan));
   const chatRef = useRef<HTMLDivElement>(null);
   const saveLead = useLeadRecord(page, plan);
-  const { status, query, setQuery, suggestions, searching, pick, clear, focus, inputRef } = useGoogleSearch(open, (b) => {
+  const { status, query, setQuery, suggestions, searching, pick, clear, focus, inputRef, showPicked } = useGoogleSearch(open, (b) => {
     setBusiness(null);
     setPending(b);
     setWhatsApp('');
@@ -683,13 +523,21 @@ function ChatWindow({
     saveLead(['number'], { mode: 'google', ...business, whatsApp: mobile, whatsAppFrom: from, answers });
   };
 
+  // Picked on the page: save it straight away (the rule for every Google box) and show "Is this your business?"
+  useEffect(() => {
+    if (!picked) return;
+    showPicked(picked.name);
+    setPending(picked);
+    saveLead(['picked'], { mode: 'google', ...picked });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Opened from a button: a centred window over a darkened page, so it's clear what the click did and what to
   // do next (Jeremy, 8 Oct 2026; since then for every button, including the free demo search box on the website
   // page, not only buttons with a plan). Opened by itself (the free demo offer on /website-design): the corner chat.
 
   // Opened from a search box: the cursor goes straight into Google's box once it shows
   useEffect(() => {
-    if (open && focusSearch && finished && status === 'ready') focus();
+    if (open && focusSearch && !picked && finished && status === 'ready') focus();
   }, [open, focusSearch, finished, status]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Keep the page behind still while the centred window is open
