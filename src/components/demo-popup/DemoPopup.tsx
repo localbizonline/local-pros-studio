@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Check, Star, X } from 'lucide-react';
+import { ArrowRight, Check, Search, Star, X } from 'lucide-react';
 
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import { isTeamDevice } from '../../teamDevice';
@@ -322,67 +322,41 @@ const useTypedLines = (lines: string[], active: boolean, instant = false) => {
   return { typed, typing, finished: typed.length === lines.length && typed[lines.length - 1] === lines[lines.length - 1] };
 };
 
-// Google's business search box. Calls onPick with the listing's details once one is chosen.
-// The box is made once and moved into whichever chat bubble is showing (it can unmount and come back).
+// Google business search, drawn inside the chat (9 Oct 2026). Google's own box (PlaceAutocompleteElement) opened
+// a full-screen search page of its own on phones, which was hard to use inside the chat (Jeremy). This uses the same
+// Places API (New) data with our own box and list: type, see up to five matches, tap one.
+// pureServiceAreaBusinessesIncluded keeps businesses that hide their address (most trades, and Local Pros Studio
+// itself) in the results. One session token per search, ended by the pick, so Google bills it as one session.
+type Suggestion = { id: string; main: string; secondary: string; prediction: any };
+const PLACE_FIELDS = ['id', 'displayName', 'isPureServiceAreaBusiness', 'formattedAddress', 'nationalPhoneNumber', 'websiteURI', 'rating', 'userRatingCount', 'primaryType', 'primaryTypeDisplayName', 'googleMapsURI'];
+
 const useGoogleSearch = (enabled: boolean, onPick: (b: Business) => void) => {
-  const hostNode = useRef<HTMLDivElement | null>(null);
-  const boxRef = useRef<HTMLElement | null>(null);
-  const hostRef = (node: HTMLDivElement | null) => {
-    hostNode.current = node;
-    if (node && boxRef.current && boxRef.current.parentNode !== node) node.replaceChildren(boxRef.current);
-  };
   const [status, setStatus] = useState<'loading' | 'ready' | 'fetching' | 'failed'>('loading');
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [searching, setSearching] = useState(false);
+  const places = useRef<any>(null);
+  const token = useRef<any>(null);
+  const version = useRef(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+  // The name we put in the box after a pick: not a new search
+  const picked = useRef('');
   const onPickRef = useRef(onPick);
   onPickRef.current = onPick;
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled || places.current) return;
     if (!MAPS_KEY) {
       setStatus('failed');
       return;
     }
     let cancelled = false;
-    let version = 0;
     (async () => {
       try {
         await loadMaps();
-        const { PlaceAutocompleteElement } = await (window as any).google.maps.importLibrary('places');
+        const lib = await (window as any).google.maps.importLibrary('places');
         if (cancelled) return;
-        const el = new PlaceAutocompleteElement();
-        el.pureServiceAreaBusinessesIncluded = true;
-        el.includedRegionCodes = ['za'];
-        el.placeholder = 'Search your business name';
-        el.setAttribute('aria-label', 'Find your business on Google');
-        el.addEventListener('gmp-error', () => setStatus('failed'));
-        el.addEventListener('gmp-select', async ({ placePrediction }: any) => {
-          const mine = ++version;
-          setStatus('fetching');
-          try {
-            const place = placePrediction.toPlace();
-            await place.fetchFields({
-              fields: ['id', 'displayName', 'isPureServiceAreaBusiness', 'formattedAddress', 'nationalPhoneNumber', 'websiteURI', 'rating', 'userRatingCount', 'primaryType', 'primaryTypeDisplayName', 'googleMapsURI'],
-            });
-            if (cancelled || mine !== version) return;
-            setStatus('ready');
-            onPickRef.current({
-              placeId: place.id || '',
-              name: place.displayName || '',
-              address: place.formattedAddress || '',
-              // Maps JavaScript calls this isPureServiceAreaBusiness (not the REST field name)
-              hiddenAddress: place.isPureServiceAreaBusiness === true,
-              mapsUri: place.googleMapsURI || '',
-              category: usefulCategory(place.primaryTypeDisplayName || ''),
-              website: place.websiteURI || '',
-              phone: place.nationalPhoneNumber || '',
-              rating: typeof place.rating === 'number' ? place.rating : null,
-              reviewCount: typeof place.userRatingCount === 'number' ? place.userRatingCount : null,
-            });
-          } catch {
-            if (!cancelled && mine === version) setStatus('ready');
-          }
-        });
-        boxRef.current = el;
-        hostNode.current?.replaceChildren(el);
+        places.current = lib;
         setStatus('ready');
       } catch {
         if (!cancelled) setStatus('failed');
@@ -393,22 +367,88 @@ const useGoogleSearch = (enabled: boolean, onPick: (b: Business) => void) => {
     };
   }, [enabled]);
 
+  // Ask Google a moment after they stop typing
+  useEffect(() => {
+    const input = query.trim();
+    if (query === picked.current) return;
+    picked.current = '';
+    const mine = ++version.current;
+    if (!places.current || input.length < 2) {
+      setSuggestions([]);
+      setSearching(false);
+      return;
+    }
+    setSearching(true);
+    const timer = window.setTimeout(async () => {
+      try {
+        const { AutocompleteSuggestion, AutocompleteSessionToken } = places.current;
+        token.current ??= new AutocompleteSessionToken();
+        const { suggestions: found } = await AutocompleteSuggestion.fetchAutocompleteSuggestions({
+          input,
+          includedRegionCodes: ['za'],
+          pureServiceAreaBusinessesIncluded: true,
+          sessionToken: token.current,
+        });
+        if (mine !== version.current) return;
+        setSuggestions(
+          (found as any[])
+            .map((x) => x.placePrediction)
+            .filter(Boolean)
+            .slice(0, 5)
+            .map((p) => ({ id: p.placeId, main: p.mainText?.text || p.text?.text || '', secondary: p.secondaryText?.text || '', prediction: p })),
+        );
+      } catch (err) {
+        if (mine !== version.current) return;
+        setSuggestions([]);
+        // Key refused (wrong website) or the API is down: fall back to typed details
+        if (/REQUEST_DENIED|PERMISSION|referer|API key|403/i.test(String((err as Error)?.message || err))) setStatus('failed');
+      } finally {
+        if (mine === version.current) setSearching(false);
+      }
+    }, 250);
+    return () => window.clearTimeout(timer);
+  }, [query, status]);
+
+  const pick = async (s: Suggestion) => {
+    const mine = ++version.current;
+    setStatus('fetching');
+    setSuggestions([]);
+    picked.current = s.main;
+    setQuery(s.main);
+    try {
+      const place = s.prediction.toPlace();
+      await place.fetchFields({ fields: PLACE_FIELDS });
+      token.current = null; // the pick ends Google's search session
+      if (mine !== version.current) return;
+      setStatus('ready');
+      onPickRef.current({
+        placeId: place.id || '',
+        name: place.displayName || '',
+        address: place.formattedAddress || '',
+        // Maps JavaScript calls this isPureServiceAreaBusiness (not the REST field name)
+        hiddenAddress: place.isPureServiceAreaBusiness === true,
+        mapsUri: place.googleMapsURI || '',
+        category: usefulCategory(place.primaryTypeDisplayName || ''),
+        website: place.websiteURI || '',
+        phone: place.nationalPhoneNumber || '',
+        rating: typeof place.rating === 'number' ? place.rating : null,
+        reviewCount: typeof place.userRatingCount === 'number' ? place.userRatingCount : null,
+      });
+    } catch {
+      if (mine === version.current) setStatus('ready');
+    }
+  };
+
   const clear = () => {
-    try {
-      if (boxRef.current) (boxRef.current as any).value = '';
-    } catch {
-      /* older versions have no value setter */
-    }
+    version.current++;
+    picked.current = '';
+    setQuery('');
+    setSuggestions([]);
+    setSearching(false);
   };
-  // Puts the cursor in Google's box, so the visitor can type straight away
-  const focus = () => {
-    try {
-      boxRef.current?.focus();
-    } catch {
-      /* not focusable in this version */
-    }
-  };
-  return { hostRef, status, clear, focus };
+  // Puts the cursor in the search box, so the visitor can type straight away
+  const focus = () => inputRef.current?.focus();
+  return { status, query, setQuery, suggestions, searching, pick, clear, focus, inputRef };
 };
 
 const WhatsAppGlyph = ({ className }: { className?: string }) => (
@@ -506,10 +546,29 @@ export default function SiteChat({
       modal={chat.modal}
       focusSearch={chat.focusSearch}
       onClose={() => setChat((c) => ({ ...c, open: false }))}
+      onExpand={() => setChat((c) => (c.modal ? c : { ...c, modal: true }))}
       trackPrefix={`${trackPrefix}_${chat.plan || 'demo'}`}
     />
   );
 }
+
+// The part of the screen not covered by a phone's keyboard, so the centred chat can fit above it
+const useVisibleArea = (active: boolean) => {
+  const [area, setArea] = useState<{ height: number; top: number } | null>(null);
+  useEffect(() => {
+    const vv = typeof window !== 'undefined' ? window.visualViewport : null;
+    if (!active || !vv) return;
+    const update = () => setArea({ height: vv.height, top: vv.offsetTop });
+    update();
+    vv.addEventListener('resize', update);
+    vv.addEventListener('scroll', update);
+    return () => {
+      vv.removeEventListener('resize', update);
+      vv.removeEventListener('scroll', update);
+    };
+  }, [active]);
+  return area;
+};
 
 function ChatWindow({
   page,
@@ -518,6 +577,7 @@ function ChatWindow({
   modal,
   focusSearch,
   onClose,
+  onExpand,
   trackPrefix,
 }: {
   page: ChatPage;
@@ -526,8 +586,11 @@ function ChatWindow({
   modal: boolean;
   focusSearch: boolean;
   onClose: () => void;
+  // On a phone, typing in the small corner chat moves it to the centred window, above the keyboard
+  onExpand: () => void;
   trackPrefix: string;
 }) {
+  const visible = useVisibleArea(open && modal);
   const [lines] = useState(() => chatLines(plan));
   const { typed, typing, finished } = useTypedLines(lines, open, focusSearch);
   const [pending, setPending] = useState<Business | null>(null); // shown as "Is this you?"
@@ -544,7 +607,7 @@ function ChatWindow({
   const [questions] = useState(() => questionsFor(plan));
   const chatRef = useRef<HTMLDivElement>(null);
   const saveLead = useLeadRecord(page, plan);
-  const { hostRef, status, clear, focus } = useGoogleSearch(open, (b) => {
+  const { status, query, setQuery, suggestions, searching, pick, clear, focus, inputRef } = useGoogleSearch(open, (b) => {
     setBusiness(null);
     setPending(b);
     setWhatsApp('');
@@ -557,6 +620,19 @@ function ChatWindow({
   useEffect(() => {
     chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' });
   }, [typed, typing, finished, pending, business, typeByHand, whatsApp, otherNumber, answers]);
+
+  // While they search, keep the search box at the top of the chat so the matches below it stay in view
+  // above a phone's keyboard
+  const searchIntoView = () => {
+    const chat = chatRef.current;
+    const box = inputRef.current;
+    if (!chat || !box) return;
+    const top = chat.scrollTop + box.getBoundingClientRect().top - chat.getBoundingClientRect().top - 8;
+    chat.scrollTo({ top, behavior: 'smooth' });
+  };
+  useEffect(() => {
+    if (suggestions.length) searchIntoView();
+  }, [suggestions]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // PostHog: the chat steps are site_chat_opened → site_chat_started → site_chat_business_found → site_chat_sent
   useEffect(() => {
@@ -636,25 +712,23 @@ function ChatWindow({
       role="dialog"
       aria-label="Chat with Local Pros Studio"
       aria-modal={modal || undefined}
-      hidden={!open}
+      // Hidden with a class, not the hidden attribute: Tailwind's flex/fixed classes win over [hidden], which left
+      // the darkened page on screen after closing (Jeremy, 9 Oct 2026)
       className={
-        modal
-          ? 'relative w-full max-w-[520px] animate-[demoPopIn_.3s_ease-out] rounded-2xl shadow-[0_32px_80px_-16px_rgba(0,0,0,0.6)]'
+        !open
+          ? 'hidden'
+          : modal
+          ? 'relative flex max-h-full w-full max-w-[520px] animate-[demoPopIn_.3s_ease-out] flex-col rounded-2xl shadow-[0_32px_80px_-16px_rgba(0,0,0,0.6)]'
           : 'fixed inset-x-3 bottom-[84px] z-[60] mx-auto max-w-[380px] animate-[demoPopIn_.35s_ease-out] rounded-2xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45)] md:inset-x-auto md:bottom-6 md:right-6'
       }
     >
       <style>{`@keyframes demoPopIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
         @keyframes demoFadeIn{from{opacity:0}to{opacity:1}}
         @media (prefers-reduced-motion: reduce){[aria-label="Chat with Local Pros Studio"]{animation:none!important}}
-        .demo-gbp gmp-place-autocomplete{display:block;width:100%;color-scheme:light;background:#fff;border:1px solid #b9dfb2;border-radius:6px;font-size:15px}
-        .demo-gbp gmp-place-autocomplete:focus-within{border-color:#008069}
-        .demo-gbp gmp-place-autocomplete::part(focus-ring){display:none}
-        .demo-gbp gmp-place-autocomplete::part(prediction-list){border-radius:8px}
-        .demo-gbp gmp-place-autocomplete::part(prediction-item){padding-top:8px;padding-bottom:8px;font-size:14px}
-        .demo-gbp gmp-place-autocomplete::part(prediction-item-match){color:#008069}`}</style>
+`}</style>
 
       {/* Chat header, WhatsApp style */}
-      <div className="flex items-center gap-3 rounded-t-2xl bg-[#008069] px-3 py-2.5 text-white">
+      <div className="flex flex-none items-center gap-3 rounded-t-2xl bg-[#008069] px-3 py-2.5 text-white">
         <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-amber-400 font-display text-sm font-extrabold text-neutral-950">
           LP
         </span>
@@ -673,7 +747,7 @@ function ChatWindow({
       </div>
 
       {/* Chat body */}
-      <div ref={chatRef} className={`${modal ? 'min-h-[300px] max-h-[62vh] px-4 py-4 md:min-h-[340px] md:px-5' : 'max-h-[52vh] px-3 py-3'} space-y-2 overflow-y-auto bg-[#efeae2]`} aria-live="polite">
+      <div ref={chatRef} className={`${modal ? 'min-h-0 flex-1 px-4 py-4 md:min-h-[340px] md:max-h-[62vh] md:px-5' : 'max-h-[52vh] px-3 py-3'} space-y-2 overflow-y-auto bg-[#efeae2]`} aria-live="polite">
         {typed.map((line, i) => (
           <Bubble key={i}>{line}</Bubble>
         ))}
@@ -682,15 +756,55 @@ function ChatWindow({
         {/* Their reply is a Google search, or name + link if they're not on Google */}
         {finished && !business && (
           <Bubble mine>
-            <div className="w-[260px] max-w-full space-y-1.5" onFocus={() => notifyStarted(page, plan)}>
+            <div
+              className="w-[280px] max-w-full space-y-1.5"
+              onFocus={() => {
+                notifyStarted(page, plan);
+                if (!modal && window.matchMedia('(max-width: 767px)').matches) onExpand();
+              }}
+            >
               {!typeByHand && (
                 <>
-                  {/* Google's box goes in here; React leaves this div's contents alone */}
-                  <div ref={hostRef} className="demo-gbp" />
-                  {status === 'loading' && (
-                    <div className="flex h-[42px] items-center rounded-md border border-[#b9dfb2] bg-white px-2.5 text-[15px] text-neutral-400">
-                      Loading Google search…
+                  <div className="relative">
+                    <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" aria-hidden="true" />
+                    <input
+                      ref={inputRef}
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      onFocus={searchIntoView}
+                      placeholder={status === 'loading' ? 'Loading Google search…' : 'Search your business name'}
+                      aria-label="Find your business on Google"
+                      autoComplete="off"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      enterKeyHint="search"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && suggestions[0]) {
+                          e.preventDefault();
+                          pick(suggestions[0]);
+                        }
+                      }}
+                      className={`${inputClass} pl-8`}
+                    />
+                  </div>
+                  {suggestions.length > 0 && (
+                    <div>
+                      <ul className="overflow-hidden rounded-md border border-[#b9dfb2] bg-white" role="listbox" aria-label="Businesses on Google">
+                        {suggestions.map((s) => (
+                          <li key={s.id} className="border-b border-neutral-100 last:border-b-0">
+                            <button type="button" role="option" aria-selected="false" onClick={() => pick(s)} className="block w-full px-2.5 py-2 text-left hover:bg-[#e7f4ef] active:bg-[#e7f4ef]">
+                              <span className="block text-[14px] font-semibold leading-tight text-neutral-900">{s.main}</span>
+                              {s.secondary && <span className="block truncate text-[12px] text-neutral-500">{s.secondary}</span>}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="mt-0.5 text-right text-[10px] text-neutral-400">Results from Google Maps</p>
                     </div>
+                  )}
+                  {searching && !suggestions.length && <p className="text-[12px] text-neutral-600">Searching Google…</p>}
+                  {!searching && status === 'ready' && query.trim().length >= 3 && !suggestions.length && !pending && (
+                    <p className="text-[12px] text-neutral-600">No match on Google. Try your business name and town.</p>
                   )}
                   {status === 'fetching' && <p className="text-[12px] text-neutral-600">Loading your business…</p>}
                   <button
@@ -869,7 +983,7 @@ function ChatWindow({
       </div>
 
       {/* One button: opens WhatsApp with the message filled in */}
-      <div className={`rounded-b-2xl bg-[#efeae2] ${modal ? 'px-4 pb-4 md:px-5' : 'px-3 pb-3'} pt-1 transition-opacity duration-300 ${finished ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+      <div className={`flex-none rounded-b-2xl bg-[#efeae2] ${modal ? 'px-4 pb-4 md:px-5' : 'px-3 pb-3'} pt-1 transition-opacity duration-300 ${finished ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
         <a
           href={ready ? href : undefined}
           target="_blank"
@@ -898,7 +1012,10 @@ function ChatWindow({
 
   if (!modal) return windowEl;
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-3 md:p-6" hidden={!open}>
+    <div
+      className={open ? 'fixed inset-x-0 top-0 z-[60] flex h-full items-center justify-center p-3 md:p-6' : 'hidden'}
+      style={open && visible ? { height: visible.height, top: visible.top } : undefined}
+    >
       {/* Darkened page behind; a tap outside the chat closes it */}
       <div className="absolute inset-0 bg-[#1C1917]/70 backdrop-blur-[2px] animate-[demoFadeIn_.2s_ease-out]" onClick={close} aria-hidden="true" />
       {windowEl}
