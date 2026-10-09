@@ -119,7 +119,7 @@ function FaqItem({ q, a, id }: { q: string; a: string; id: string }) {
 }
 
 // Draft-only preview settings, read from the address (?photo=b&headline=2&strip=1&close=chat), so every open choice
-// can be seen side by side on compare-reviews.html. Without them the page is the draft as it stands (my picks).
+// can be seen side by side on compare-reviews.html. Without them the page shows my picks.
 // close: the closing card's photo, so the same person never shows twice
 const PHOTOS: Record<string, { wide: string; phone: string; alt: string; close?: { src: string; alt: string } }> = {
   a: {
@@ -172,8 +172,9 @@ const usePreview = () => {
   return {
     photo: PHOTOS[pick('photo', PHOTOS, 'a')],
     headline: HEADLINES[pick('headline', HEADLINES, '1')],
-    strip: q?.get('strip') === '1',
-    closeChat: q?.get('close') === 'chat',
+    // My picks are on by default (9 Oct 2026); ?strip=0 and ?close=wa show the versions without them
+    strip: q?.get('strip') !== '0',
+    closeChat: q?.get('close') !== 'wa',
   };
 };
 
@@ -186,7 +187,10 @@ export default function ReviewsLight() {
       {/* Option: the offer in one line above everything (DESIGN-SYSTEM.md page flow, step 1) */}
       {preview.strip && (
         <p className="rvl-strip">
-          R1,200 a month <span aria-hidden="true">·</span> Month to month <span aria-hidden="true">·</span>{' '}
+          {/* On a phone only the guarantee shows, so the strip stays one line */}
+          <span className="rvl-strip-extra">
+            R1,200 a month <span aria-hidden="true">·</span> Month to month <span aria-hidden="true">·</span>{' '}
+          </span>
           <strong>Money back if no new 5-star reviews in 30 days</strong>
         </p>
       )}

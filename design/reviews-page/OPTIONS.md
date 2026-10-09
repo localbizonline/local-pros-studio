@@ -56,8 +56,11 @@ literal copy, phone first).
    subtitle, price button "Start now" like the homepage, "Can't find your business?" instead of "Not on Google yet?",
    "We remind you if you forget to send names" instead of the Friday report. Not taken: badge back over the photo on
    phones (it hid the review on his screen), rewording the shared client rows (you approved them on the homepage).
-9. Open for you: the closing button goes straight to WhatsApp (like the homepage), so no lead record is made from it.
-   Option: make it open the chat instead, which saves the lead first. Same choice applies to the homepage.
+9. Closing button: it went straight to WhatsApp (like the homepage), so no lead record was made from it. My pick: it
+   opens the chat first, which saves the lead. Same choice could apply to the homepage.
+10. The draft now shows all my picks by default (guarantee strip on, closing button opens the chat); the comparison
+    page shows the versions without them. On a phone the strip shows only "Money back if no new 5-star reviews in
+    30 days", so it stays one line.
 
 ## One thing outside this page
 

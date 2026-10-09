@@ -162,19 +162,19 @@
     {
       id: 'strip',
       title: '3. Money-back guarantee strip',
-      text: 'A thin line above the menu with the price, no contract and the guarantee. In the draft the guarantee is only in the price card. The old live page leads with it ("…in your first 30 days or your money back"), so it is a promise we already make. I would add the strip.',
+      text: 'A thin line above the menu with the price, no contract and the guarantee. Without the strip the guarantee is only in the price card. The old live page leads with it ("…in your first 30 days or your money back"), so it is a promise we already make. I would add the strip.',
       frames: [
-        { label: 'Without (draft now)', url: NEW },
-        { label: 'With the strip', url: NEW + '?strip=1', pick: true },
+        { label: 'Without', url: NEW + '?strip=0' },
+        { label: 'With the strip', url: NEW, pick: true },
       ],
     },
     {
       id: 'closing',
       title: '4. Closing button',
-      text: 'The last "WhatsApp us" button. Tap it in each frame. Left goes straight to WhatsApp (like the homepage), so no lead is saved. Right opens the chat first, so the lead is saved in Airtable, then WhatsApp. Same choice would apply to the homepage.',
+      text: 'The last "WhatsApp us" button. Tap it in each frame. Left goes straight to WhatsApp (like the homepage today), so no lead is saved. Right opens the chat first, so the lead is saved in Airtable, then WhatsApp. Same choice would apply to the homepage.',
       frames: [
-        { label: 'Straight to WhatsApp (now)', url: NEW + '#faq' },
-        { label: 'Opens the chat first', url: NEW + '?close=chat#faq', pick: true },
+        { label: 'Straight to WhatsApp', url: NEW + '?close=wa#faq' },
+        { label: 'Opens the chat first', url: NEW + '#faq', pick: true },
       ],
     },
   ];

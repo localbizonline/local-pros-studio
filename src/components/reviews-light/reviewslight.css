@@ -302,6 +302,15 @@
     padding-top: 48px;
   }
 
+  .rvl-strip-extra {
+    display: none;
+  }
+
+  .rvl .rvl-strip {
+    padding: 9px 12px;
+    font-size: 0.875rem;
+  }
+
   .rvl .rvl-title {
     font-size: 10vw;
   }
