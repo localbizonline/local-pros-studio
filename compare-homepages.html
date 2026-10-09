@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Page versions</title>
+<!-- Local comparison tool (7 Oct 2026): every live page and draft at phone width, side by side,
+     with a tab per type of page. Open it at http://localhost:5174/compare-homepages.html while the
+     dev server runs. Not part of the site build; delete once the drafts are settled.
+     To add a version, add a line to the right tab in PAGES below. -->
+<style>
+  :root {
+    --bg: #1c1917;
+    --panel: #292524;
+    --ink: #fafaf9;
+    --muted: #a8a29e;
+    --line: #44403c;
+    --accent: #f59e0b;
+    --s: 0.75;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.4 system-ui, -apple-system, sans-serif;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+    padding: 14px 24px 0;
+  }
+  h1 { margin: 0; font-size: 17px; }
+  .bar p { margin: 0; color: var(--muted); }
+  .sizes { display: flex; gap: 8px; margin-left: auto; }
+  .sizes button {
+    min-height: 36px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+  }
+  .sizes button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #1c1917; font-weight: 700; }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    padding: 12px 24px 0;
+    overflow-x: auto;
+  }
+  .tabs button {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .tabs button:hover { color: var(--ink); }
+  .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+  .tabs .count {
+    margin-left: 6px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: var(--panel);
+    font-size: 12px;
+  }
+  .row {
+    display: flex;
+    gap: 28px;
+    padding: 24px;
+    overflow-x: auto;
+    align-items: flex-start;
+  }
+  .phone { --w: 390px; --h: 844px; flex: 0 0 auto; width: calc(var(--w) * var(--s)); }
+  .label { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; min-height: 82px; }
+  .label .tag {
+    align-self: flex-start;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--line);
+    color: var(--ink);
+  }
+  .label .tag.new { background: var(--accent); color: #1c1917; }
+  .label .tag.live { background: #16a34a; }
+  .label strong { font-size: 15px; }
+  .label a { color: var(--muted); font-size: 13px; }
+  .label a:hover { color: var(--ink); }
+  .frame {
+    width: calc(var(--w) * var(--s));
+    height: calc(var(--h) * var(--s));
+    overflow: hidden;
+    border-radius: calc(28px * var(--s));
+    border: 6px solid #0c0a09;
+    background: #fff;
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  }
+  .frame iframe {
+    width: var(--w);
+    height: var(--h);
+    border: 0;
+    transform: scale(var(--s));
+    transform-origin: 0 0;
+    background: #fff;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1>Page versions, phone view</h1>
+    <p>Pick a tab. Each phone scrolls on its own; scroll sideways for more.</p>
+    <div class="sizes" role="group" aria-label="Size">
+      <button type="button" data-scale="1" aria-pressed="false">100%</button>
+      <button type="button" data-scale="0.75" aria-pressed="true">75%</button>
+      <button type="button" data-scale="0.55" aria-pressed="false">55%</button>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Type of page" id="tabs"></nav>
+</header>
+
+<main class="row" id="row" role="tabpanel"></main>
+
+<script>
+  const LOCAL = 'http://localhost:5174';
+  const LIVE = 'https://studio.localpros.co.za';
+
+  // tag: Live (on the public site), New (today's drafts), or a date for older drafts
+  const PAGES = {
+    home: {
+      title: 'Homepage',
+      items: [
+        { tag: 'Live', name: 'Current homepage', url: LIVE + '/' },
+        { tag: 'New', name: 'Join page, our colours', url: LOCAL + '/review-versions/join' },
+        { tag: 'New', name: 'B. Light', url: LOCAL + '/review-versions/home-b' },
+        { tag: '5 Oct', name: 'Direction A reference', url: LOCAL + '/design-directions/a' },
+      ],
+    },
+    reviews: {
+      title: 'Google reviews',
+      items: [
+        { tag: 'Live', name: 'Current /reviews', url: LIVE + '/reviews' },
+        { tag: 'New', name: 'Draft 4: Ask every customer', url: LOCAL + '/review-versions/4' },
+        { tag: '6 Oct', name: '1. Before / after slider', url: LOCAL + '/review-versions/1' },
+        { tag: '6 Oct', name: '2. Your first 90 days', url: LOCAL + '/review-versions/2' },
+        { tag: '6 Oct', name: '3. Which one would you call?', url: LOCAL + '/review-versions/3' },
+      ],
+    },
+    social: {
+      title: 'Social media',
+      items: [{ tag: 'Live', name: 'Current social posting page', url: LIVE + '/social-media-posting-service' }],
+    },
+    web: {
+      title: 'Web design',
+      items: [
+        { tag: 'Live', name: 'Web design page', url: LIVE + '/web-design' },
+        { tag: 'Live', name: 'Google Ads landing page', url: LIVE + '/website-design' },
+      ],
+    },
+    other: {
+      title: 'Other pages',
+      items: [
+        { tag: 'Live', name: 'R2,500 plan', url: LIVE + '/special-offer-bundle' },
+        { tag: 'Live', name: 'Autopilot (ads landing page)', url: LIVE + '/autopilot' },
+        { tag: 'Live', name: 'Recurring service booking', url: LIVE + '/recurring-service-booking-system' },
+        { tag: 'Live', name: 'About', url: LIVE + '/about' },
+      ],
+    },
+    sections: {
+      title: 'Section library',
+      items: [
+        { tag: 'New', name: 'Saved sections, phone', url: LOCAL + '/review-versions/sections' },
+        { tag: 'New', name: 'Saved sections, laptop', url: LOCAL + '/review-versions/sections', w: 1280, h: 844 },
+        { tag: 'New', name: 'Reputation section options (other chat)', url: LOCAL + '/review-versions/reputation' },
+      ],
+    },
+  };
+
+  const tabs = document.getElementById('tabs');
+  const row = document.getElementById('row');
+  let loadRun = 0;
+
+  const tagClass = (tag) => (tag === 'Live' ? 'live' : tag === 'New' ? 'new' : '');
+
+  // The dev server sends each draft as hundreds of small files, so several at once can run the
+  // browser out of connections. Load the phones one after another.
+  const loadInOrder = (frames, run) => {
+    const next = (i) => {
+      if (run !== loadRun || i >= frames.length) return;
+      const f = frames[i];
+      let done = false;
+      const go = () => { if (!done) { done = true; setTimeout(() => next(i + 1), 300); } };
+      f.addEventListener('load', go, { once: true });
+      setTimeout(go, 8000);
+      f.src = f.dataset.src;
+    };
+    next(0);
+  };
+
+  const show = (key) => {
+    const page = PAGES[key] ? key : 'home';
+    [...tabs.children].forEach((b) => b.setAttribute('aria-selected', String(b.dataset.key === page)));
+    row.innerHTML = '';
+    for (const v of PAGES[page].items) {
+      const el = document.createElement('section');
+      el.className = 'phone';
+      if (v.w) el.style.cssText = `--w:${v.w}px;--h:${v.h}px`;
+      el.innerHTML = `
+        <div class="label">
+          <span class="tag ${tagClass(v.tag)}">${v.tag}</span>
+          <strong>${v.name}</strong>
+          <a href="${v.url}" target="_blank" rel="noopener">open full size ↗</a>
+        </div>
+        <div class="frame"><iframe data-src="${v.url}" title="${v.name}"></iframe></div>`;
+      row.appendChild(el);
+    }
+    loadRun += 1;
+    loadInOrder([...row.querySelectorAll('iframe')], loadRun);
+    history.replaceState(null, '', '#' + page);
+  };
+
+  for (const [key, page] of Object.entries(PAGES)) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.dataset.key = key;
+    b.innerHTML = `${page.title}<span class="count">${page.items.length}</span>`;
+    b.addEventListener('click', () => show(key));
+    tabs.appendChild(b);
+  }
+
+  const scales = [...document.querySelectorAll('[data-scale]')];
+  scales.forEach((b) => b.addEventListener('click', () => {
+    scales.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    document.documentElement.style.setProperty('--s', b.dataset.scale);
+  }));
+
+  show(location.hash.slice(1));
+</script>
+</body>
+</html>

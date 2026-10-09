@@ -1,0 +1,600 @@
+/* Reviews page version 4: "One job, one trade". Scoped to .rv4, built on the .dd-a tokens from
+   design-directions/directions.css. Only the sections the shared styles do not cover live here. */
+
+/* ---------- Top strip: the low-risk offer, before anything else ---------- */
+
+.rv4-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 10px;
+  padding: 10px var(--gutter);
+  background: var(--dark);
+  color: var(--on-dark);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.rv4-strip span[aria-hidden] {
+  color: var(--accent-on-dark);
+}
+
+.rv4 .dd-display {
+  color: var(--ink);
+}
+
+.rv4-hero-media img {
+  aspect-ratio: 1 / 1;
+  object-position: center;
+  max-height: 520px;
+}
+
+/* ---------- Works with ---------- */
+
+.rv4-works {
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2, #fafaf9);
+}
+
+.rv4-works-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rv4-works ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 36px;
+}
+
+.rv4-works li {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+}
+
+.rv4 .rv4-works + .dd-sec {
+  border-top: 0;
+}
+
+/* ---------- Proof ---------- */
+
+.rv4-own {
+  margin: 0 auto;
+  max-width: 820px;
+}
+
+.rv4-own img {
+  width: 100%;
+  border-radius: var(--r-frame);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+.rv4-results {
+  max-width: 960px;
+  margin: 72px auto 0;
+  text-align: center;
+}
+
+.rv4-results .dd-eyebrow {
+  margin-bottom: 10px;
+}
+
+.rv4-results > p:not(.dd-eyebrow) {
+  max-width: 36em;
+  margin: 10px auto 24px !important;
+  font-size: 1.0625rem;
+}
+
+.rv4-results img {
+  width: 100%;
+  border-radius: var(--r-frame);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+.rv4-clients-title {
+  margin-top: 72px !important;
+  text-align: center;
+}
+
+.rv4-draft-flag {
+  max-width: 640px;
+  margin: 12px auto 28px !important;
+  padding: 12px 16px;
+  border-radius: var(--r-card);
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  text-align: center;
+}
+
+.rv4-clients {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.rv4-client {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  border-radius: var(--r-frame);
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.rv4-client.is-empty {
+  border: 1.5px dashed var(--line-strong);
+  box-shadow: none;
+  color: var(--muted);
+}
+
+.rv4-client-count {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+.rv4-client-count strong {
+  font-family: var(--font-head);
+  font-size: 1.625rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.rv4-client-quote {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+.rv4-client.is-empty .rv4-client-quote {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.rv4-client-who {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto !important;
+  font-size: var(--fs-small);
+}
+
+.rv4-client-who strong {
+  color: var(--ink);
+}
+
+/* ---------- Why now (dark band) ---------- */
+
+.rv4-why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.rv4-why figure {
+  margin: 0;
+}
+
+.rv4-why img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-frame);
+  box-shadow: 0 40px 80px -36px rgba(0, 0, 0, 0.7);
+}
+
+.rv4-why figcaption {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  margin-top: 24px;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--on-dark-body);
+}
+
+.rv4-why figcaption strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-head);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--on-dark);
+}
+
+.rv4-why-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.0625rem;
+  background: var(--accent-on-dark);
+  color: var(--ink);
+}
+
+.rv4 .rv4-why-close {
+  max-width: 22em;
+  margin: 64px auto 0;
+  text-align: center;
+  font-family: var(--font-head);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--on-dark-body);
+}
+
+.rv4-why-close span {
+  color: var(--accent-on-dark);
+}
+
+/* ---------- How it works ---------- */
+
+.rv4-how {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.rv4-how-media img {
+  width: 100%;
+  aspect-ratio: 4 / 4.4;
+  object-fit: cover;
+  object-position: 45% 50%;
+  border-radius: var(--r-frame);
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+}
+
+.rv4-how .dd-eyebrow {
+  margin-bottom: 14px;
+}
+
+.rv4-how-title {
+  max-width: 14em;
+}
+
+.rv4-steps {
+  display: grid;
+  gap: 24px;
+  margin-top: 36px !important;
+}
+
+.rv4-steps li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+}
+
+.rv4-steps p {
+  margin-top: 6px !important;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.rv4-step-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.0625rem;
+  color: var(--ink);
+  background: var(--accent-soft);
+}
+
+.rv4-how-note {
+  margin-top: 28px !important;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-small);
+  color: var(--muted);
+  max-width: 34em;
+}
+
+/* ---------- Calculator ---------- */
+
+.rv4-calc-sec {
+  background: var(--surface-2, #fafaf9);
+}
+
+.rv4-calc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 960px;
+  margin: 0 auto;
+  border-radius: var(--r-frame);
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+  overflow: hidden;
+}
+
+.rv4-calc-inputs {
+  display: grid;
+  gap: 32px;
+  padding: 36px;
+}
+
+.rv4-slider {
+  display: grid;
+  gap: 12px;
+}
+
+.rv4-slider-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-weight: 600;
+  color: var(--body);
+}
+
+.rv4-slider-top strong {
+  font-family: var(--font-head);
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.rv4-slider input[type='range'] {
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.rv4-calc-out {
+  display: grid;
+  gap: 28px;
+  align-content: center;
+  padding: 36px;
+  background: var(--dark);
+  color: var(--on-dark-body);
+}
+
+.rv4-calc-out p {
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.rv4 .rv4-calc-big {
+  font-family: var(--font-head);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--accent-on-dark);
+  margin-bottom: 6px;
+}
+
+/* ---------- Fit ---------- */
+
+.rv4-fit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.rv4-fit-col {
+  padding: 28px;
+  border-radius: var(--r-frame);
+  border: 1px solid var(--line);
+}
+
+.rv4-fit-col ul {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.rv4-fit-col li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 12px;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.rv4-fit-col svg {
+  margin-top: 3px;
+}
+
+.rv4-fit-yes {
+  color: var(--accent-deep);
+}
+
+.rv4-fit-no {
+  color: var(--muted);
+}
+
+.rv4-tags-label {
+  margin-top: 56px;
+}
+
+.rv4-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px 40px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.rv4-group .dd-tags {
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.rv4-group .dd-tags li {
+  font-size: 0.9375rem;
+  padding: 6px 14px;
+}
+
+.rv4 .rv4-group-name {
+  margin-bottom: 10px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--ink);
+}
+
+/* ---------- Price ---------- */
+
+.rv4-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 36px;
+  border-radius: var(--r-frame);
+  border: 1px solid var(--line);
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.rv4-price-big {
+  margin: 6px 0 16px !important;
+  color: var(--price);
+}
+
+.rv4-price-big strong {
+  font-family: var(--font-head);
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.rv4-price ul {
+  display: grid;
+  gap: 8px;
+}
+
+.rv4-price li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 1.0625rem;
+}
+
+.rv4-price li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.rv4-price .dd-btn {
+  flex-shrink: 0;
+}
+
+.rv4-price-plan {
+  margin-top: 20px !important;
+  text-align: center;
+  font-size: 1.0625rem;
+}
+
+/* ---------- Tablet and phone ---------- */
+
+@media (max-width: 1023px) {
+  .rv4-clients {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .rv4-how {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .rv4-how-media {
+    max-width: 640px;
+  }
+
+  .rv4-how-media img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 767px) {
+  .rv4-strip {
+    padding: 8px 16px;
+  }
+
+  .rv4-strip span[aria-hidden] {
+    display: none;
+  }
+
+  .rv4-strip span:not([aria-hidden]):not(:last-child)::after {
+    content: ' ·';
+    color: var(--accent-on-dark);
+  }
+
+  .rv4-works li {
+    font-size: 1.0625rem;
+  }
+
+  .rv4-clients,
+  .rv4-calc,
+  .rv4-fit {
+    grid-template-columns: 1fr;
+  }
+
+  .rv4-calc-inputs,
+  .rv4-calc-out {
+    padding: 28px 24px;
+  }
+
+  .rv4-price {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 28px 24px;
+  }
+
+  .rv4-clients-title {
+    margin-top: 48px !important;
+  }
+
+  .rv4-results {
+    margin-top: 48px;
+  }
+
+  .rv4-why-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .rv4 .rv4-why-close {
+    margin-top: 48px;
+  }
+}

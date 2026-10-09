@@ -34,7 +34,7 @@ Routes live in `src/App.tsx`. Every public route needs an entry in `src/seo.ts`,
 
 `/website-design` also opens the "free demo website" chat popup (`src/components/demo-popup/`): the visitor finds their business on Google (same search and key as the localpros.co.za/join form) and WhatsApp opens with their details. It needs `VITE_GOOGLE_MAPS_API_KEY`: set in Netlify, locally in the git-ignored `.env.local`. The key only works on studio.localpros.co.za and `http://localhost:4321`, so run the dev server on port 4321 to test it; anywhere else the popup falls back to typed boxes.
 
-The same chat opens from buttons on other pages: render `<SiteChat page="join" />` (or `"home"`, `"web-design"`) once and call `openSiteChat(plan)` from `src/components/demo-popup/openSiteChat.ts` with `package`, `reviews`, `social` or `website`. Every lead is saved to Airtable Sales CRM (Source = Website) by `netlify/functions/demo-lead.mts`; it writes only where `DEMO_LEAD_LIVE_WRITES=true` (Netlify production) and needs `AIRTABLE_TOKEN`.
+The same chat opens from buttons on other pages: render `<SiteChat page="join" />` (or `"home"`, `"web-design"`) once and call `openSiteChat(plan)` from `src/components/demo-popup/openSiteChat.ts` with `package`, `reviews`, `social` or `website`. Every lead is saved to Airtable Sales CRM (Source = Website) by `netlify/functions/demo-lead.mts`: one record per chat, created the moment they select their business in the Google box and updated as they confirm, change it or press send (a rule for every Google business search box, Jeremy, 8 Oct 2026); it writes only where `DEMO_LEAD_LIVE_WRITES=true` (Netlify production) and needs `AIRTABLE_TOKEN`.
 
 ## Key Services & Pricing
 - **Google reviews**: R1,200/month

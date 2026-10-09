@@ -26,3 +26,7 @@ dist-ssr
 # Local Netlify folder
 .netlify
 dist-server
+
+# Review screenshots and large image explorations: kept on disk, not in git
+.review-shots
+design/logo-options
