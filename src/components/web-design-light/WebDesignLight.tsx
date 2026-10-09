@@ -7,16 +7,13 @@ import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import FitCheck from '../section-library/sections/FitCheck';
-import ClosingCard from '../section-library/sections/ClosingCard';
 import SiteChat from '../demo-popup/DemoPopup';
 import RecentWork from './RecentWork';
 import ClientReviews from './ClientReviews';
 import WebDesignHero from './WebDesignHero';
 import HowItWorks from './HowItWorks';
 import PriceThreeWays from './PriceThreeWays';
-import FreeDemoBand from './FreeDemoBand';
-// Closing picture: three sites up front with more behind, from design/web-montage (rows layout, 8 Oct 2026)
-import montage from '../../assets/images/portfolio/web-closing-montage.webp';
+import DemoClosing from './DemoClosing';
 // Photos made for this page on 7 Oct 2026 in the homepage's photographic style; the people are teams
 // on purpose, since the page is for any size of business.
 import teamEnquiries from './img/team-new-enquiries.webp';
@@ -106,13 +103,6 @@ const FAQ = [
   },
 ];
 
-const RECAP = [
-  'Written, designed and built for you',
-  'Up to 10 pages for your services and areas',
-  'Live in 7 days',
-  'Hosting, support and an hour of changes a month',
-  'R9,900 once-off, or R450 a month',
-];
 
 function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id: string }) {
   const [open, setOpen] = useState(false);
@@ -197,9 +187,6 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
         {/* HOW IT WORKS: "All we need is one link" (9 Oct 2026) */}
         <HowItWorks onStart={(route) => track(`how_${route}`)} />
 
-        {/* FREE DEMO: a Google search box that opens the chat, with the ReachMax-style pointer (version C, 8 Oct 2026; after How it works,
-            whose first step is the demo) */}
-        <FreeDemoBand onOpen={() => track('demo_band')} />
 
         {/* FIT: who it suits and who it does not, in the shared fit section */}
         <FitCheck
@@ -227,17 +214,8 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
           </div>
         </section>
 
-        {/* CLOSING: the shared closing card, with the client sites montage */}
-        <ClosingCard
-          title="Get a website that brings in new customers."
-          items={RECAP}
-          photo={montage}
-          photoAlt="Websites we built for South African businesses, shown on phones"
-          photoFit="contain"
-          photoSize={[1080, 1000]}
-          href={WA_URL}
-          onClick={() => track('final_whatsapp')}
-        />
+        {/* CLOSING: the free demo again, so the page ends on the action it starts with (9 Oct 2026) */}
+        <DemoClosing waUrl={WA_URL} track={track} />
       </main>
 
       <SiteFooter minimal={isAd} whatsAppUrl={WA_URL} pricingHref="#pricing" faqHref="#faq" />

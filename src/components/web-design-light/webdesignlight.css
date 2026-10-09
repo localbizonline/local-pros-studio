@@ -795,25 +795,6 @@
 
 /* ---------- Free demo band (FreeDemoBand.tsx): three versions, 8 Oct 2026 ---------- */
 
-.fd {
-  background: #f5f5f4;
-}
-
-.fd-head {
-  margin-bottom: 32px;
-}
-
-.wdl .fd .dd-h2 {
-  text-wrap: balance;
-}
-
-.fd-small {
-  margin-top: 12px !important;
-  font-size: 0.9375rem;
-  color: var(--muted);
-  text-align: center;
-}
-
 /* c: a Google search box that starts the chat */
 .fd-search {
   display: flex;
@@ -929,9 +910,6 @@
 }
 
 /* Room under the box for the pointer and its note */
-.fd .fd-small-c {
-  margin-top: 84px !important;
-}
 
 @media (max-width: 767px) {
   .fd-guide {
@@ -1189,4 +1167,46 @@
   .st3-cta .dd-btn {
     width: 100%;
   }
+}
+
+/* ---------- Closing: the free demo on the dark card (DemoClosing.tsx, 9 Oct 2026) ---------- */
+
+/* The card's column is narrow, so the box stacks as it does on a phone: the whole name shows, button below */
+.wdc .fd-search {
+  flex-wrap: wrap;
+  border-radius: 20px;
+  padding: 14px;
+}
+
+.wdc .fd-search-btn {
+  width: 100%;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+/* The shared search box sits on dark here: lighter "Not on Google?" link */
+.wdc .bsb-fb {
+  margin-left: 0;
+  color: #d6d3d1;
+  text-align: left;
+}
+
+.wdc .bsb-fb:hover {
+  color: #fbf6ec;
+}
+
+.wdc-or {
+  margin-top: 4px !important;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: rgba(251, 246, 236, 0.75);
+}
+
+.wdc-or a {
+  font-weight: 700;
+  color: #fbf6ec;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
 }
