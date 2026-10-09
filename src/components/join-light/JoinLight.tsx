@@ -71,7 +71,7 @@ export default function JoinLight() {
 
       <main>
         {/* HERO: "More Google reviews. Social media posts. A better website." (picked 8 Oct 2026) */}
-        <HeroThreeServices costsHref="#pricing" search={<BusinessSearchBox page="home" plan="package" buttonLabel="Get started" />} />
+        <HeroThreeServices costsHref="#pricing" search={<BusinessSearchBox page="home" plan="package" buttonLabel="Find my business" />} />
 
         {/* YOUR REPUTATION: the customer path, animated "Follow the customer" (picked 7 Oct 2026) */}
         <ReputationStory variant="follow" />

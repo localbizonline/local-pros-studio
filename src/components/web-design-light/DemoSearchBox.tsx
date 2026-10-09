@@ -6,5 +6,5 @@ import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 const chatPage = () => (typeof window !== 'undefined' && window.location.pathname === '/web-design' ? 'web-design' : 'website-design');
 
 export default function DemoSearchBox({ onOpen, note = "Try it, it's free!" }: { onOpen?: () => void; note?: string }) {
-  return <BusinessSearchBox page={chatPage()} buttonLabel="Build my demo" note={note} onOpen={onOpen} />;
+  return <BusinessSearchBox page={chatPage()} buttonLabel="Find my business" note={note} onOpen={onOpen} />;
 }
