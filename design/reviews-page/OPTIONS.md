@@ -31,6 +31,14 @@ literal copy, phone first).
 7. Questions: 7 objections
 8. Closing card with the dog groomer photo
 
+## Open: Results section (9 Oct, Jeremy didn't like the list of rows)
+
+Compare: http://localhost:4321/compare-results.html (the live page with `?results=a|b|c`). Same real SP2 numbers in all.
+- A. One big number: "835" large, then a wall of client logos with their gains (10 on desktop, 6 on phone).
+- **B. Google-style cards (my pick):** each client as a small Google card with stars and "+84 new reviews since
+  March 2026"; a swipe row on phones. Looks like what customers see on Google, scans fastest, shortest on a phone.
+- C. One client story: "Mr Bin got 84 new Google reviews." with a real post of theirs, then four more in small.
+
 ## Choices (my pick first)
 
 1. **Hero photo** (see `options-hero-photo.jpg`)
