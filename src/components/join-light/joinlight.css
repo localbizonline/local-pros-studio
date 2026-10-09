@@ -1,8 +1,8 @@
 /* The join page's "simple" base styles (localpros-join/src/styles/simple.css) in the Local Pros
-   Studio look: Bricolage Grotesque headings, Source Sans 3 body, amber buttons, deep amber labels. */
+   Studio look: Inter headings and body, amber buttons, deep amber labels. */
 
 .jl {
-  font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
 }
@@ -12,7 +12,7 @@
 .jl .jl-head,
 .jl .display,
 .jl .section-title {
-  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .jl .measure {
@@ -58,7 +58,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 16px; /* matches .dd-eyebrow, 8 Oct 2026 */
   font-weight: 700;
   letter-spacing: 0.1em;

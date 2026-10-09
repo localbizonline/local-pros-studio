@@ -1,4 +1,4 @@
-/* Fonts: Bricolage Grotesque for headings, Source Sans 3 for body, Inter Tight for /autopilot only.
+/* Fonts: Inter for headings and body (same as localpros.co.za/join, 9 Oct 2026), Inter Tight for /autopilot only.
    Served from this site (src/fonts.css, files in public/fonts) since 9 Oct 2026, not from Google. */
 @import './fonts.css';
 
@@ -35,12 +35,12 @@
 
   body {
     @apply bg-white text-neutral-900;
-    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
-  /* Bold heading styles with Bricolage Grotesque */
+  /* Bold heading styles in Inter */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     @apply tracking-tight;
   }
 
@@ -74,7 +74,7 @@
            hover:bg-neutral-800 active:bg-neutral-950
            transition-all duration-200
            text-sm md:text-base;
-    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
   /* Secondary button - outline */
@@ -85,7 +85,7 @@
            hover:border-neutral-900 hover:bg-neutral-50
            transition-all duration-200
            text-sm md:text-base;
-    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
   /* Ghost button - minimal */
@@ -140,14 +140,14 @@
     @apply inline-flex items-center px-3 py-1
            bg-amber-100 text-amber-800
            text-xs font-semibold rounded-full;
-    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
   .badge-dark {
     @apply inline-flex items-center px-3 py-1
            bg-neutral-800 text-amber-400
            text-xs font-semibold rounded-full;
-    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
   /* Divider */

@@ -2,13 +2,13 @@
    Direction A, chosen by Jeremy on 5 October 2026: the reference page at /design-directions/a.
    Everything is scoped under .dd so it cannot leak into the live site.
    The look is a set of tokens (custom properties) on .dd-a, recorded in DESIGN-SYSTEM.md.
-   Fonts: Bricolage Grotesque (headings) + Source Sans 3 (body), already loaded by index.css.
+   Fonts: Inter for headings and body (since 9 Oct 2026, was Bricolage Grotesque + Source Sans 3), loaded by index.css.
    ========================================================================== */
 
 .dd {
   /* Shared scale. Hero display > section H2 > card title > body. */
-  --font-head: 'Bricolage Grotesque', system-ui, sans-serif;
-  --font-body: 'Source Sans 3', system-ui, sans-serif;
+  --font-head: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
   --fs-display: clamp(2.5rem, 5.2vw, 4.25rem);
   --fs-h2: clamp(2rem, 3.6vw, 2.875rem);
   --fs-h3: 1.375rem;

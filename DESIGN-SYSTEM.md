@@ -123,7 +123,7 @@ Blue gradients, glass panels, cartoon illustrations, carousels and "Read more" t
 
 1. A white page with near-black headlines, warm grey body text and one accent: amber.
 2. Amber has one job: buttons, the odd highlighted word and link underlines. Section labels are near-black with a short amber line in front; prices, ticks and text links are near-black. No brown anywhere (7 October 2026).
-3. Big, heavy, tight headlines in Bricolage Grotesque over short subtitles; body in Source Sans 3.
+3. Big, heavy, tight headlines in Inter (ExtraBold) over short subtitles; body in Inter too.
 4. Real product moments instead of icon grids: a working phone showing the review request, real job photos.
 5. Flat surfaces, hairline borders, soft downward shadows, corners of 12 and 16px. No gradients, glows or gradient text.
 
@@ -156,7 +156,7 @@ Rules: one accent per element; never amber text on amber; no blue anywhere excep
 
 ### Type
 
-Bricolage Grotesque for headings, Source Sans 3 for body and buttons, both already loaded in `index.html`. No other fonts.
+Inter for headings, body and buttons: one font, the same as localpros.co.za/join (Jeremy, 9 Oct 2026; was Bricolage Grotesque + Source Sans 3). Served from the site itself (`src/fonts.css`, `public/fonts`). No other fonts.
 
 | Role | Size | Weight | Spacing | Line height |
 |---|---|---|---|---|
