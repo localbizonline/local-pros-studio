@@ -60,6 +60,29 @@ export const trackWhatsAppClicks = () => {
   return () => document.removeEventListener('click', onClick, true);
 };
 
+// Google Ads conversions (tag AW-18487782572, Website Design account 422-396-2250). The WhatsApp click one is
+// set in index.html; this one, "Free demo request - Web Design", counts a site chat lead (demo-popup/DemoPopup.tsx).
+export const ADS_FREE_DEMO_LEAD = 'AW-18487782572/LSx5CNXi05YdEKzZ1O9E';
+
+// Once per visit: changing business, later steps and reloads don't count it again
+const DEMO_LEAD_KEY = 'lps_ads_demo_lead';
+let demoLeadCounted = false;
+export const countDemoLead = () => {
+  try {
+    if (sessionStorage.getItem(DEMO_LEAD_KEY)) return;
+    sessionStorage.setItem(DEMO_LEAD_KEY, '1');
+  } catch {
+    /* storage blocked: at most once per page load */
+    if (demoLeadCounted) return;
+  }
+  demoLeadCounted = true;
+  try {
+    window.gtag?.('event', 'conversion', { send_to: ADS_FREE_DEMO_LEAD, transport_type: 'beacon' });
+  } catch {
+    /* analytics must never break the page */
+  }
+};
+
 // Section views: a section counts once it fills half the screen (or half of itself, if shorter) for
 // at least a second. One event per section per page view, sent when it leaves the screen or the page
 // closes, with the total seconds it was in view.

@@ -3,7 +3,7 @@ import { ArrowRight, Check, Search, Star, X } from 'lucide-react';
 
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import { isTeamDevice } from '../../teamDevice';
-import { capture } from '../../analytics';
+import { capture, countDemoLead } from '../../analytics';
 import { chatState, OPEN_CHAT_EVENT, type ChatPage, type ChatPlan } from './openSiteChat';
 import { useGoogleSearch, type Business } from './googleSearch';
 
@@ -165,8 +165,12 @@ const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
           body: JSON.stringify(record.current ? { ...body, recordId: record.current.id, pass: record.current.pass } : body),
           keepalive: true,
         });
-        const data = (await res.json()) as { record?: { id: string; pass: string } | null };
-        if (!record.current && data.record?.id && data.record.pass) record.current = data.record;
+        const data = (await res.json()) as { dryRun?: boolean; record?: { id: string; pass: string } | null };
+        if (!record.current && data.record?.id && data.record.pass) {
+          record.current = data.record;
+          // The lead now exists in Airtable: count it in Google Ads (test sites only dry-run, so they don't count)
+          if (!data.dryRun) countDemoLead();
+        }
       } catch {
         /* the WhatsApp message still carries the details */
       }
