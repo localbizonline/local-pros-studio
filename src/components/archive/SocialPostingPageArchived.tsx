@@ -1,27 +1,30 @@
+// ARCHIVED 9 Oct 2026: the old dark social media posting page, replaced by src/components/social-light/SocialLight.tsx.
+// Kept for reference only at /social-media-posting-service-archived (noindex). It still says "every week" and uses the
+// old dark look: do not copy from it.
 import React from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 
 // Import social posting images - Before/After comparisons and AI overviews
-import facebookBeforeAfterGasTablet from '../assets/images/social-posting/facebook-before-after-gas-tablet.webp';
-import googleAiOverviewRenovations from '../assets/images/social-posting/google-ai-overview-renovations.webp';
-import googleAiOverviewRoofingPhone from '../assets/images/social-posting/google-ai-overview-roofing-phone.webp';
+import facebookBeforeAfterGasTablet from '../../assets/images/social-posting/facebook-before-after-gas-tablet.webp';
+import googleAiOverviewRenovations from '../../assets/images/social-posting/google-ai-overview-renovations.webp';
+import googleAiOverviewRoofingPhone from '../../assets/images/social-posting/google-ai-overview-roofing-phone.webp';
 
 // Gallery images - Real client post examples
-import socialPostFencingCarportJob from '../assets/images/social-posting/social-post-fencing-carport-job.webp';
-import socialPostFencingGallery from '../assets/images/social-posting/social-post-fencing-gallery.webp';
-import socialPostGasGeyserService from '../assets/images/social-posting/social-post-gas-geyser-service.webp';
-import socialPostGasHobsService from '../assets/images/social-posting/social-post-gas-hobs-service.webp';
-import socialPostFencingHoliday from '../assets/images/social-posting/social-post-fencing-holiday.webp';
-import socialPostFencingNewYear from '../assets/images/social-posting/social-post-fencing-new-year.webp';
-import closeupPhonePostCreator from '../assets/images/social-posting/Closeup phone using post creator.webp';
-import sideBySide3Platforms from '../assets/images/social-posting/side by side 3 platforms with lable.webp';
-import oneUploadPostEverywhere from '../assets/images/social-posting/one-upload post everywhere.webp';
-import postCalendar from '../assets/images/social-posting/post calender.webp';
-import oneUploadEverywhereContractors from '../assets/images/social-posting/one upload everywhere for contractors.webp';
-import socialInstagramTruck from '../assets/images/social-instagram-truck.webp';
-import happyContractorInstagram from '../assets/images/social-posting/happy contractor with instagram mockup copy.webp';
-import happyContractorLandscape from '../assets/images/social-posting/happy contractor with social posting landscape ratio.webp';
-import deadBusinessNoSocials from '../assets/images/social-posting/dead business if no socials since 2021.webp';
+import socialPostFencingCarportJob from '../../assets/images/social-posting/social-post-fencing-carport-job.webp';
+import socialPostFencingGallery from '../../assets/images/social-posting/social-post-fencing-gallery.webp';
+import socialPostGasGeyserService from '../../assets/images/social-posting/social-post-gas-geyser-service.webp';
+import socialPostGasHobsService from '../../assets/images/social-posting/social-post-gas-hobs-service.webp';
+import socialPostFencingHoliday from '../../assets/images/social-posting/social-post-fencing-holiday.webp';
+import socialPostFencingNewYear from '../../assets/images/social-posting/social-post-fencing-new-year.webp';
+import closeupPhonePostCreator from '../../assets/images/social-posting/Closeup phone using post creator.webp';
+import sideBySide3Platforms from '../../assets/images/social-posting/side by side 3 platforms with lable.webp';
+import oneUploadPostEverywhere from '../../assets/images/social-posting/one-upload post everywhere.webp';
+import postCalendar from '../../assets/images/social-posting/post calender.webp';
+import oneUploadEverywhereContractors from '../../assets/images/social-posting/one upload everywhere for contractors.webp';
+import socialInstagramTruck from '../../assets/images/social-instagram-truck.webp';
+import happyContractorInstagram from '../../assets/images/social-posting/happy contractor with instagram mockup copy.webp';
+import happyContractorLandscape from '../../assets/images/social-posting/happy contractor with social posting landscape ratio.webp';
+import deadBusinessNoSocials from '../../assets/images/social-posting/dead business if no socials since 2021.webp';
 
 // Scrolling faces images (South African focused)
 import {
@@ -33,8 +36,8 @@ import {
   avatarHappyBusinessOwner,
   avatarHeroContractor,
   avatarContractorConfident,
-} from '../assets/images/avatars';
-import { SITE_WHATSAPP_URL } from '../whatsapp';
+} from '../../assets/images/avatars';
+import { SITE_WHATSAPP_URL } from '../../whatsapp';
 
 // Scrolling Faces Data
 const scrollingFaces = [
@@ -111,7 +114,7 @@ const CTAWithRating = () => (
 );
 
 
-const SocialPostingPageV2 = () => {
+const SocialPostingPageArchived = () => {
   return (
     <div className="min-h-screen bg-neutral-950">
 
@@ -1323,4 +1326,4 @@ const SocialPostingPageV2 = () => {
   );
 };
 
-export default SocialPostingPageV2;
+export default SocialPostingPageArchived;

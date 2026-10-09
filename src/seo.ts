@@ -33,13 +33,12 @@ export const PAGES: Record<string, PageSeo> = {
   '/social-media-posting-service': {
     title: 'Social Media Posting Service for SA Businesses | Local Pros Studio',
     description:
-      'We turn your job photos into Facebook, Instagram and Google posts and publish them for you every week. Done-for-you social media for South African service businesses.',
-  },
-  // The light rebuild of the social media posting page, drafted here before it replaces the old page (9 Oct 2026)
-  '/social-new': {
-    title: 'Social Media Posting Service for SA Businesses | Local Pros Studio',
-    description:
       'We make your Facebook, Instagram and Google posts, turn your job photos into posts and publish them for you. R2,000 a month, month to month.',
+  },
+  // The old dark social page, archived 9 Oct 2026 when the light rebuild took its place
+  '/social-media-posting-service-archived': {
+    title: 'Social Media Posting Service (archived) | Local Pros Studio',
+    description: 'The previous version of our social media posting page, kept for reference.',
     noindex: true,
   },
   '/web-design': {

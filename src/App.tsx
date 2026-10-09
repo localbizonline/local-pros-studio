@@ -9,14 +9,15 @@ import MobileCTA from './components/MobileCTA';
 // Since 8 Oct 2026 the homepage is the light "join" page (src/components/join-light/), with its own header and footer.
 const JoinLight = lazy(() => import('./components/join-light/JoinLight'));
 const AboutPage = lazy(() => import('./components/AboutPage'));
-const SocialPostingPageV2 = lazy(() => import('./components/SocialPostingPageV2'));
+// The old dark social page, archived 9 Oct 2026 (noindex, /social-media-posting-service-archived)
+const SocialPostingPageArchived = lazy(() => import('./components/archive/SocialPostingPageArchived'));
 const SpecialOfferOpusPage = lazy(() => import('./components/SpecialOfferOpusPage'));
 const RecurringServicesLetterPage = lazy(() => import('./components/RecurringServicesLetterPage'));
 const AutopilotLandingPage = lazy(() => import('./components/AutopilotLandingPage'));
 const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
 // Google reviews page in the light look, live on /reviews since 9 Oct 2026 (replaced the old dark ReviewsLetterPage)
 const ReviewsLight = lazy(() => import('./components/reviews-light/ReviewsLight'));
-// Social media posting page in the light look: noindex draft at /social-new (9 Oct 2026) until Jeremy approves it
+// Social media posting page in the light look, the main social page since 9 Oct 2026 (drafted at /social-new)
 const SocialLight = lazy(() => import('./components/social-light/SocialLight'));
 // Every service and its price, with the package first (9 Oct 2026)
 const PricingLight = lazy(() => import('./components/pricing-light/PricingLight'));
@@ -225,7 +226,7 @@ export const AppContent = () => {
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/', '/autopilot', '/website-design', '/web-design', '/reviews', '/social-new', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/autopilot', '/website-design', '/web-design', '/reviews', '/social-media-posting-service', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (
@@ -240,8 +241,8 @@ export const AppContent = () => {
           <Route path="/" element={<JoinLight />} />
           <Route path="/reviews" element={<ReviewsLight />} />
           <Route path="/pricing" element={<PricingLight />} />
-          <Route path="/social-media-posting-service" element={<SocialPostingPageV2 />} />
-          <Route path="/social-new" element={<SocialLight />} />
+          <Route path="/social-media-posting-service" element={<SocialLight />} />
+          <Route path="/social-media-posting-service-archived" element={<SocialPostingPageArchived />} />
           <Route path="/web-design" element={<WebDesignLight variant="site" />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recurring-service-booking-system" element={<RecurringServicesLetterPage />} />

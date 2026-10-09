@@ -26,6 +26,8 @@
 # The new reviews page was drafted here before it went live on /reviews (9 Oct 2026)
 /reviews-new /reviews 301!
 /social-posting-v2 /social-media-posting-service 301!
+# The new social page was drafted here before it replaced the old one (9 Oct 2026)
+/social-new /social-media-posting-service 301!
 /sales / 301!
 /web-design-archive /web-design 301!
 /web-design-v2 /web-design 301!
