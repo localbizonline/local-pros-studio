@@ -1,0 +1,88 @@
+/* Page not found (NotFound.tsx), on the .dd-a tokens. Scoped to .nf. Loaded with the main stylesheet from App.tsx. */
+
+.nf-main {
+  padding: 96px 0 120px;
+}
+
+.nf-in {
+  max-width: 720px;
+  text-align: center;
+}
+
+.nf .dd-eyebrow {
+  justify-content: center;
+}
+
+.nf .nf-title {
+  margin-top: 14px;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.nf .nf-lede {
+  margin: 18px auto 0;
+  max-width: 30em;
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+  color: var(--body);
+}
+
+.nf-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.nf-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--r-btn);
+  background: #fff;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.nf-links a:hover {
+  border-color: var(--ink);
+}
+
+.nf .nf-or {
+  margin-top: 28px;
+  color: var(--muted);
+}
+
+.nf-or a {
+  display: inline-block;
+  padding: 10px 0;
+  margin: -10px 0;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .nf-main {
+    padding: 56px 0 80px;
+  }
+
+  .nf-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nf-links a {
+    justify-content: center;
+  }
+}

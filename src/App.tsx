@@ -10,6 +10,7 @@ import MobileCTA from './components/MobileCTA';
 const JoinLight = lazy(() => import('./components/join-light/JoinLight'));
 // About page in the light look (9 Oct 2026), replacing the old dark AboutPage
 const AboutLight = lazy(() => import('./components/about-light/AboutLight'));
+const NotFound = lazy(() => import('./components/not-found/NotFound'));
 // The old dark social page, archived 9 Oct 2026 (noindex, /social-media-posting-service-archived)
 const SocialPostingPageArchived = lazy(() => import('./components/archive/SocialPostingPageArchived'));
 const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
@@ -26,6 +27,7 @@ import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
 import './components/about-light/aboutlight.css';
 import './components/legallight.css';
+import './components/not-found/notfound.css';
 import './components/reviews-light/reviewslight.css';
 import './components/social-light/sociallight.css';
 import './components/section-library/sections/whynote.css';
@@ -225,9 +227,9 @@ export const AppContent = () => {
   useEffect(() => trackSectionViews(location.pathname), [location.pathname]);
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
-  const isStandalonePage =
-    ['/', '/website-design-package', '/about', '/terms', '/privacy', '/refunds-cancellations', '/website-faq', '/reviews', '/social-media-posting-service', '/pricing'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
-    location.pathname.startsWith('/review-versions');
+  // Every page ships its own light header and footer since 9 Oct 2026; only the archived old social page (noindex)
+  // still uses the old dark ones below
+  const isStandalonePage = location.pathname !== '/social-media-posting-service-archived';
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -256,6 +258,8 @@ export const AppContent = () => {
 
           <Route path="/design-directions/:id" element={<DesignDirections />} />
           <Route path="/review-versions/:id" element={<ReviewVersions />} />
+          {/* Any address the site doesn't know: a light "page not found" (9 Oct 2026) */}
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
         </Suspense>
