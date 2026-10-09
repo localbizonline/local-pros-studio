@@ -64,6 +64,11 @@ literal copy, phone first).
 
 ## One thing outside this page
 
-The review system's notes (social-posting-v2, `features/botpenguin-review-sending.md`) still describe a
-"happy / unhappy" question in WhatsApp before the Google link. This page doesn't mention it either way, but if that
-step is still on, it's the review gating Google doesn't allow. Worth checking in its own session.
+**Checked 9 Oct (read only): the "happy / unhappy" question before the Google link is still live.** Last 14 days:
+153 customers answered "happy" (88 then clicked the Google link), 2 answered "unhappy" (none clicked), 93 didn't
+answer (5 clicked). That is the review gating Google doesn't allow, and it can get a client's reviews removed.
+
+This page never mentions a filter, and it says an unhappy customer can reply and the owner hears straight away, which
+is true. The animated phone shows the link in the first message, which is how it should work once the step is removed.
+Fixing it belongs in the review system (social-posting-v2): there's a ready task "Remove the happy/unhappy step before
+the Google link" waiting for you in the app.
