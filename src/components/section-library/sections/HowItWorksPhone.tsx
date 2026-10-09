@@ -8,7 +8,9 @@ import ReviewPhone, { useDemoPhase, stepForPhase } from '../../design-directions
 // steps light up in time with the phone. Step 2 no longer says unhappy customers go to a private
 // form (review gating, which Google does not allow).
 
-const STEPS = [
+type Step = { title: string; body: string };
+
+const STEPS: Step[] = [
   {
     title: 'You finish the job',
     body: 'We pick it up from your Sage or QuickBooks invoices, a BCC on your invoice email, or a quick form.',
@@ -23,21 +25,32 @@ const STEPS = [
   },
 ];
 
-export default function HowItWorksPhone() {
+// The reviews page passes its own wording and leaves out the posts line (9 Oct 2026); the defaults are the
+// section library's.
+export default function HowItWorksPhone({
+  title = 'You finish the job. We do the rest.',
+  sub = 'Three steps, and only the first one is yours. Your customer taps one link and the review goes up on your Google profile.',
+  steps = STEPS,
+  postsLine = true,
+  id,
+}: {
+  title?: string;
+  sub?: string;
+  steps?: Step[];
+  postsLine?: boolean;
+  id?: string;
+} = {}) {
   const ref = useRef<HTMLElement>(null);
   const phase = useDemoPhase(ref);
   const active = stepForPhase(phase);
 
   return (
-    <section ref={ref} className="dd dd-a dd-sec dd-demo hiw">
+    <section ref={ref} id={id} className="dd dd-a dd-sec dd-demo hiw">
       <div className="dd-container">
         <div className="dd-head">
           <p className="dd-eyebrow">How it works</p>
-          <h2 className="dd-h2">You finish the job. We do the rest.</h2>
-          <p className="dd-sub">
-            Three steps, and only the first one is yours. Your customer taps one link and the review goes up on your Google
-            profile.
-          </p>
+          <h2 className="dd-h2">{title}</h2>
+          <p className="dd-sub">{sub}</p>
         </div>
         <div className="dd-demo-grid">
           <div>
@@ -45,7 +58,7 @@ export default function HowItWorksPhone() {
           </div>
           <div>
             <ol className="dd-steps">
-              {STEPS.map((s, i) => (
+              {steps.map((s, i) => (
                 <li key={s.title} className={i === active ? 'is-active' : ''}>
                   <span className="dd-step-num" aria-hidden="true">
                     {i + 1}
@@ -57,9 +70,11 @@ export default function HowItWorksPhone() {
                 </li>
               ))}
             </ol>
-            <p className="hiw-posts">
-              <strong>For your posts:</strong> WhatsApp us your job photos. We write the posts and publish them every week.
-            </p>
+            {postsLine && (
+              <p className="hiw-posts">
+                <strong>For your posts:</strong> WhatsApp us your job photos and we turn them into posts.
+              </p>
+            )}
           </div>
         </div>
       </div>

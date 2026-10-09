@@ -14,11 +14,15 @@ const SpecialOfferOpusPage = lazy(() => import('./components/SpecialOfferOpusPag
 const RecurringServicesLetterPage = lazy(() => import('./components/RecurringServicesLetterPage'));
 const AutopilotLandingPage = lazy(() => import('./components/AutopilotLandingPage'));
 const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
+// Google reviews page in the light look, a draft at /reviews-new until Jeremy approves it (9 Oct 2026)
+const ReviewsLight = lazy(() => import('./components/reviews-light/ReviewsLight'));
 // Its styles load with the site's main stylesheet, not with the page's code: the pre-built HTML only links
 // the main stylesheet, so a lazy page's own CSS arrived late and the hero flashed unstyled on refresh
 // (8 Oct 2026). Do the same for any lazy-loaded page that has its own CSS file.
 import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
+import './components/reviews-light/reviewslight.css';
+import './components/section-library/sections/howitworksphone.css';
 const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.TermsPage })));
 const PrivacyPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.PrivacyPage })));
 const RefundsCancellationsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.RefundsCancellationsPage })));
@@ -213,7 +217,7 @@ export const AppContent = () => {
 
   // Standalone pages that ship their own navigation, footer and type system (the homepage too, since 8 Oct 2026)
   const isStandalonePage =
-    ['/', '/autopilot', '/website-design', '/web-design'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
+    ['/', '/autopilot', '/website-design', '/web-design', '/reviews-new'].includes(location.pathname) || location.pathname.startsWith('/design-directions') ||
     location.pathname.startsWith('/review-versions');
 
   return (
@@ -227,6 +231,7 @@ export const AppContent = () => {
         <Routes>
           <Route path="/" element={<JoinLight />} />
           <Route path="/reviews" element={<ReviewsLetterPage />} />
+          <Route path="/reviews-new" element={<ReviewsLight />} />
           <Route path="/social-media-posting-service" element={<SocialPostingPageV2 />} />
           <Route path="/web-design" element={<WebDesignLight variant="site" />} />
           <Route path="/about" element={<AboutPage />} />

@@ -25,6 +25,13 @@ export const PAGES: Record<string, PageSeo> = {
     description:
       'We send every customer a Google review request on WhatsApp after the job, with friendly follow-up reminders. Built for South African home service businesses.',
   },
+  // Draft of the new Google reviews page (9 Oct 2026): kept out of Google until it replaces /reviews
+  '/reviews-new': {
+    title: 'Get More Google Reviews on WhatsApp | Local Pros Studio',
+    description:
+      'Send us your customer’s name and number and we WhatsApp them your Google review link, with a reminder if they forget. R1,200 a month, month to month.',
+    noindex: true,
+  },
   '/social-media-posting-service': {
     title: 'Social Media Posting Service for SA Businesses | Local Pros Studio',
     description:

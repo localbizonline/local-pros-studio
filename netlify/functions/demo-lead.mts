@@ -27,6 +27,7 @@ const PAGE_NOTE: Record<string, string> = {
   'web-design': 'studio.localpros.co.za/web-design',
   home: 'the homepage',
   join: 'the join page',
+  reviews: 'the Google reviews page',
 };
 // A second Source tag per page, beside "Website", so leads can be filtered by where they came from.
 // typecast creates the option the first time a page sends a lead.
@@ -36,6 +37,7 @@ const PAGE_SOURCE: Record<string, string> = {
   'web-design': 'Website – website design page (site menu)',
   home: 'Website – homepage',
   join: 'Website – join page',
+  reviews: 'Website – Google reviews page',
 };
 
 // How far they got, from the steps the chat reports, e.g. "picked their business on Google, pressed send"
@@ -189,6 +191,7 @@ const ALERT_PAGE: Record<string, string> = {
   'web-design': 'the website design page (site menu)',
   home: 'the homepage',
   join: 'the join page',
+  reviews: 'the Google reviews page',
 };
 const pageLabel = (body: Record<string, unknown>) =>
   typeof body.page === 'string' && Object.hasOwn(ALERT_PAGE, body.page) ? ALERT_PAGE[body.page] : 'the website';

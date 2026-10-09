@@ -70,6 +70,7 @@ const OPENING: Record<ChatPage, string> = {
   'web-design': WHATSAPP_MESSAGES.webDesign,
   home: WHATSAPP_MESSAGES.site,
   join: WHATSAPP_MESSAGES.site,
+  reviews: WHATSAPP_MESSAGES.site,
 };
 
 // With a plan: "start the plan you picked". Without one: the free demo offer (/website-design)

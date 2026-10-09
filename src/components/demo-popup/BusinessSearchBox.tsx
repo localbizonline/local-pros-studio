@@ -26,6 +26,7 @@ export default function BusinessSearchBox({
   plan,
   buttonLabel,
   note,
+  notOnGoogleLabel,
   onOpen,
 }: {
   page: ChatPage;
@@ -34,6 +35,8 @@ export default function BusinessSearchBox({
   buttonLabel: string;
   // The floating pointer's note under the box; leave out for no pointer
   note?: string;
+  // The link under the box for businesses not on Google; pages can word it their own way
+  notOnGoogleLabel?: string;
   onOpen?: () => void;
 }) {
   // Google's script loads the first time they touch the box, not on every page view
@@ -181,7 +184,7 @@ export default function BusinessSearchBox({
         }}
       >
         {/* Short beside the pointer's note, which sits under the right of the box */}
-        {note ? 'Not on Google? Use Facebook' : 'Not on Google? Use your Facebook page instead'}
+        {notOnGoogleLabel || (note ? 'Not on Google? Use Facebook' : 'Not on Google? Use your Facebook page instead')}
       </button>
     </div>
   );
