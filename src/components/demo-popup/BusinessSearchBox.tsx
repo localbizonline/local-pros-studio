@@ -39,7 +39,7 @@ export default function BusinessSearchBox({
   notOnGoogleLabel?: string;
   onOpen?: () => void;
 }) {
-  // Google's script loads the first time they touch the box, not on every page view
+  // Google is only asked once they start typing, not on every page view
   const [active, setActive] = useState(false);
   const [listOpen, setListOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
@@ -164,7 +164,6 @@ export default function BusinessSearchBox({
       {listOpen && !showList && !searching && status === 'ready' && query.trim().length >= 3 && (
         <p className="ds-hint">No match on Google. Try your business name and town, or tap {buttonLabel}.</p>
       )}
-      {status === 'fetching' && <p className="ds-hint">Opening the chat…</p>}
 
       {note && !listOpen && (
         <span className="fd-guide" aria-hidden="true">

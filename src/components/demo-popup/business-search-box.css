@@ -202,7 +202,8 @@
   display: block;
   overflow: hidden;
   font-size: 0.8125rem;
-  color: var(--muted);
+  font-weight: 600;
+  color: var(--body);
   white-space: nowrap;
   text-overflow: ellipsis;
 }

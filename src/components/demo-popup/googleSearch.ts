@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-// Google business search, shared by the site chat (DemoPopup.tsx) and the free demo search pill on the website
-// page (../web-design-light/DemoSearchBox.tsx), so both search the same way (9 Oct 2026).
+// Google business search, shared by the site chat (DemoPopup.tsx) and the search boxes on the pages
+// (BusinessSearchBox.tsx), so every box searches the same way (9 Oct 2026).
 
 export type Business = {
   placeId: string;
@@ -22,46 +22,61 @@ const MAPS_KEY = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
 // Google files many service businesses under a bare "Services"; that says nothing, so leave it out
 export const usefulCategory = (label: string) => (/^services?$/i.test(label.trim()) ? '' : label.trim());
 
-// Same loader as the join form: Maps JavaScript, weekly channel, loaded only when needed
-let mapsPromise: Promise<void> | null = null;
-const loadMaps = () => {
-  const w = window as any;
-  if (w.google?.maps?.importLibrary) return Promise.resolve();
-  mapsPromise ??= new Promise<void>((resolve, reject) => {
-    const timer = window.setTimeout(() => reject(new Error('timeout')), 20000);
-    w.initDemoPopupMaps = () => {
-      window.clearTimeout(timer);
-      resolve();
-    };
-    const script = document.createElement('script');
-    script.onerror = () => {
-      window.clearTimeout(timer);
-      mapsPromise = null;
-      reject(new Error('load'));
-    };
-    const params = new URLSearchParams({ key: MAPS_KEY, loading: 'async', callback: 'initDemoPopupMaps', v: 'weekly' });
-    script.src = `https://maps.googleapis.com/maps/api/js?${params}`;
-    script.async = true;
-    document.head.append(script);
+// Each match shows its phone number under the name, so owners can tell which one is theirs (Jeremy, 9 Oct 2026:
+// the names alone, with a town, made it hard to know which to pick). The list comes from Google's Text Search
+// (Places API New, REST): one request each time they pause typing, up to five businesses with everything the chat
+// needs, so picking one needs no second request. Phone numbers are in Google's dearest price band.
+// Until 9 Oct 2026 this used Maps JavaScript's Autocomplete (names and towns only), and before that Google's own
+// box (PlaceAutocompleteElement), which opened a full-screen search page of its own on phones.
+// REST, not Maps JavaScript's Place.searchByText: only REST can include businesses that hide their address
+// (includePureServiceAreaBusinesses), which most trades and Local Pros Studio itself do. South Africa only.
+const FIELDS = [
+  'id',
+  'displayName',
+  'pureServiceAreaBusiness',
+  'formattedAddress',
+  'nationalPhoneNumber',
+  'websiteUri',
+  'rating',
+  'userRatingCount',
+  'primaryTypeDisplayName',
+  'googleMapsUri',
+]
+  .map((f) => `places.${f}`)
+  .join(',');
+const SOUTH_AFRICA = { rectangle: { low: { latitude: -34.9, longitude: 16.4 }, high: { latitude: -22.1, longitude: 32.95 } } };
+
+const searchGoogle = async (textQuery: string): Promise<Business[]> => {
+  const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': MAPS_KEY, 'X-Goog-FieldMask': FIELDS },
+    body: JSON.stringify({ textQuery, includePureServiceAreaBusinesses: true, pageSize: 5, regionCode: 'za', locationRestriction: SOUTH_AFRICA }),
   });
-  return mapsPromise;
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.error?.status || `HTTP ${res.status}`);
+  return ((data.places || []) as any[]).map((p) => ({
+    placeId: p.id || '',
+    name: p.displayName?.text || '',
+    address: p.formattedAddress || '',
+    hiddenAddress: p.pureServiceAreaBusiness === true,
+    mapsUri: p.googleMapsUri || '',
+    category: usefulCategory(p.primaryTypeDisplayName?.text || ''),
+    website: p.websiteUri || '',
+    phone: p.nationalPhoneNumber || '',
+    rating: typeof p.rating === 'number' ? p.rating : null,
+    reviewCount: typeof p.userRatingCount === 'number' ? p.userRatingCount : null,
+  }));
 };
 
-// Google business search, drawn inside the chat (9 Oct 2026). Google's own box (PlaceAutocompleteElement) opened
-// a full-screen search page of its own on phones, which was hard to use inside the chat (Jeremy). This uses the same
-// Places API (New) data with our own box and list: type, see up to five matches, tap one.
-// pureServiceAreaBusinessesIncluded keeps businesses that hide their address (most trades, and Local Pros Studio
-// itself) in the results. One session token per search, ended by the pick, so Google bills it as one session.
-export type Suggestion = { id: string; main: string; secondary: string; prediction: any };
-const PLACE_FIELDS = ['id', 'displayName', 'isPureServiceAreaBusiness', 'formattedAddress', 'nationalPhoneNumber', 'websiteURI', 'rating', 'userRatingCount', 'primaryType', 'primaryTypeDisplayName', 'googleMapsURI'];
+// secondary: the line under the name in the list, the phone number
+export type Suggestion = { id: string; main: string; secondary: string; business: Business };
 
 export const useGoogleSearch = (enabled: boolean, onPick: (b: Business) => void) => {
-  const [status, setStatus] = useState<'loading' | 'ready' | 'fetching' | 'failed'>('loading');
+  // No key (or the key refused on this website): the boxes fall back to typed details
+  const [status, setStatus] = useState<'ready' | 'failed'>(MAPS_KEY ? 'ready' : 'failed');
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [searching, setSearching] = useState(false);
-  const places = useRef<any>(null);
-  const token = useRef<any>(null);
   const version = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   // The name we put in the box after a pick: not a new search
@@ -69,36 +84,13 @@ export const useGoogleSearch = (enabled: boolean, onPick: (b: Business) => void)
   const onPickRef = useRef(onPick);
   onPickRef.current = onPick;
 
-  useEffect(() => {
-    if (!enabled || places.current) return;
-    if (!MAPS_KEY) {
-      setStatus('failed');
-      return;
-    }
-    let cancelled = false;
-    (async () => {
-      try {
-        await loadMaps();
-        const lib = await (window as any).google.maps.importLibrary('places');
-        if (cancelled) return;
-        places.current = lib;
-        setStatus('ready');
-      } catch {
-        if (!cancelled) setStatus('failed');
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [enabled]);
-
   // Ask Google a moment after they stop typing
   useEffect(() => {
     const input = query.trim();
     if (query === picked.current) return;
     picked.current = '';
     const mine = ++version.current;
-    if (!places.current || input.length < 2) {
+    if (!enabled || status === 'failed' || input.length < 2) {
       setSuggestions([]);
       setSearching(false);
       return;
@@ -106,62 +98,30 @@ export const useGoogleSearch = (enabled: boolean, onPick: (b: Business) => void)
     setSearching(true);
     const timer = window.setTimeout(async () => {
       try {
-        const { AutocompleteSuggestion, AutocompleteSessionToken } = places.current;
-        token.current ??= new AutocompleteSessionToken();
-        const { suggestions: found } = await AutocompleteSuggestion.fetchAutocompleteSuggestions({
-          input,
-          includedRegionCodes: ['za'],
-          pureServiceAreaBusinessesIncluded: true,
-          sessionToken: token.current,
-        });
+        const found = await searchGoogle(input);
         if (mine !== version.current) return;
         setSuggestions(
-          (found as any[])
-            .map((x) => x.placePrediction)
-            .filter(Boolean)
-            .slice(0, 5)
-            .map((p) => ({ id: p.placeId, main: p.mainText?.text || p.text?.text || '', secondary: p.secondaryText?.text || '', prediction: p })),
+          found.map((b) => ({ id: b.placeId, main: b.name, secondary: b.phone ? `📞 ${b.phone}` : 'No phone number on Google', business: b })),
         );
       } catch (err) {
         if (mine !== version.current) return;
         setSuggestions([]);
         // Key refused (wrong website) or the API is down: fall back to typed details
-        if (/REQUEST_DENIED|PERMISSION|referer|API key|403/i.test(String((err as Error)?.message || err))) setStatus('failed');
+        if (/REQUEST_DENIED|PERMISSION|API_KEY|403/i.test(String((err as Error)?.message || err))) setStatus('failed');
       } finally {
         if (mine === version.current) setSearching(false);
       }
-    }, 250);
+    }, 600);
     return () => window.clearTimeout(timer);
-  }, [query, status]);
+  }, [query, status, enabled]);
 
-  const pick = async (s: Suggestion) => {
-    const mine = ++version.current;
-    setStatus('fetching');
+  // Google already sent everything with the list, so a pick is instant
+  const pick = (s: Suggestion) => {
+    version.current++;
     setSuggestions([]);
     picked.current = s.main;
     setQuery(s.main);
-    try {
-      const place = s.prediction.toPlace();
-      await place.fetchFields({ fields: PLACE_FIELDS });
-      token.current = null; // the pick ends Google's search session
-      if (mine !== version.current) return;
-      setStatus('ready');
-      onPickRef.current({
-        placeId: place.id || '',
-        name: place.displayName || '',
-        address: place.formattedAddress || '',
-        // Maps JavaScript calls this isPureServiceAreaBusiness (not the REST field name)
-        hiddenAddress: place.isPureServiceAreaBusiness === true,
-        mapsUri: place.googleMapsURI || '',
-        category: usefulCategory(place.primaryTypeDisplayName || ''),
-        website: place.websiteURI || '',
-        phone: place.nationalPhoneNumber || '',
-        rating: typeof place.rating === 'number' ? place.rating : null,
-        reviewCount: typeof place.userRatingCount === 'number' ? place.userRatingCount : null,
-      });
-    } catch {
-      if (mine === version.current) setStatus('ready');
-    }
+    onPickRef.current(s.business);
   };
 
   const clear = () => {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, Check, Search, Star, X } from 'lucide-react';
 
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
@@ -76,9 +76,10 @@ const OPENING: Record<ChatPage, string> = {
 };
 
 // With a plan: "start the plan you picked". Without one: the free demo offer (/website-design)
-const chatLines = (plan?: ChatPlan) =>
+// greet: false after the prices opening, which has already said hello
+const chatLines = (plan?: ChatPlan, greet = true) =>
   plan
-    ? [`Hi 👋 Let’s get ${PLAN[plan].chat} started.`, 'Find your business on Google below and tap send. We’ll reply on WhatsApp to set it up.']
+    ? [`${greet ? 'Hi 👋 ' : 'Great. '}Let’s get ${PLAN[plan].chat} started.`, 'Find your business on Google below and tap send. We’ll reply on WhatsApp to set it up.']
     : [
         'Hi 👋 Want to see what your new website could look like?',
         'Find your business on Google below. We’ll build a free demo from your listing and WhatsApp it to you.',
@@ -321,6 +322,256 @@ const TypingDots = () => (
   </Bubble>
 );
 
+// The prices opening (test, 9 Oct 2026, Jeremy's idea): when someone taps "Prices", the chat shows the prices
+// straight away, asks what they're most interested in, and if they pick one service, points out once what the
+// package adds for the difference. Their pick becomes the plan for the usual Google step. Prices as on
+// sections/Pricing.tsx. Opened with openSiteChat(undefined, { prices: true }).
+// The price messages look like small versions of the pricing page's cards (Jeremy: "make it look more like the
+// pricing page"): a "Best value" badge, the big R2,500, ticks with emoji, prices lined up on the right, and the
+// "all three" button in the site's amber. Emoji are fine here: it's a WhatsApp-style chat.
+type PricesOption = { label: string; emoji?: string; price?: string; main?: boolean; onPick: () => void };
+type PricesItem =
+  | { who: 'bot'; body: React.ReactNode; card?: boolean }
+  | { who: 'me'; body: React.ReactNode }
+  | { who: 'buttons'; options: PricesOption[] };
+
+const ONE_SERVICE: Record<
+  Exclude<ChatPlan, 'package'>,
+  { label: string; short: string; emoji: string; price: string; unit: string; just: string; alone: string; extra: number; adds: [string, string][] }
+> = {
+  reviews: {
+    label: 'Google reviews',
+    short: 'Google reviews',
+    emoji: '⭐',
+    price: 'R1,200',
+    unit: 'a month',
+    just: 'Just Google reviews',
+    alone: 'Google reviews on their own is R1,200 a month, month to month.',
+    extra: 1300,
+    adds: [['📲', 'Facebook and Instagram posts, made and published for you'], ['🌐', 'A website, free on 12 months (worth R9,900)']],
+  },
+  social: {
+    label: 'Social media posts',
+    short: 'Social media posts',
+    emoji: '📲',
+    price: 'R2,000',
+    unit: 'a month',
+    just: 'Just social media posts',
+    alone: 'Social media posts on their own is R2,000 a month, month to month.',
+    extra: 500,
+    adds: [['⭐', 'A Google review request to every customer'], ['🌐', 'A website, free on 12 months (worth R9,900)']],
+  },
+  website: {
+    label: 'A website',
+    short: 'Website',
+    emoji: '🌐',
+    price: 'R9,900',
+    unit: 'once-off',
+    just: 'Just the website',
+    alone: 'A website on its own is R9,900 once-off, plus R290 a month for hosting.',
+    extra: 0,
+    adds: [['⭐', 'A Google review request to every customer'], ['📲', 'Facebook and Instagram posts, made and published for you']],
+  },
+};
+
+const EmojiLine = ({ emoji, children, className = '' }: { emoji: string; children: React.ReactNode; className?: string }) => (
+  <li className={`flex gap-2 ${className}`}>
+    <span className="w-5 flex-none text-center" aria-hidden="true">
+      {emoji}
+    </span>
+    <span>{children}</span>
+  </li>
+);
+
+const PackageCard = () => (
+  <div>
+    <span className="inline-block rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-neutral-900">
+      Best value
+    </span>
+    <p className="mt-1.5 flex items-baseline gap-1.5 text-neutral-900">
+      <span className="text-[30px] font-extrabold leading-none tracking-tight">R2,500</span>
+      <span className="text-[13px] text-neutral-500">a month for all three</span>
+    </p>
+    <ul className="mt-2.5 space-y-1.5 text-[14px] leading-snug">
+      <EmojiLine emoji="⭐">More 5-star Google reviews</EmojiLine>
+      <EmojiLine emoji="📲">Facebook and Instagram posts, done for you</EmojiLine>
+      <EmojiLine emoji="🌐">
+        A new website, free on 12 months{' '}
+        <span className="whitespace-nowrap rounded-full bg-amber-100 px-1.5 text-[12px] font-bold">Worth R9,900</span>
+      </EmojiLine>
+      <EmojiLine emoji="✅" className="font-semibold">
+        Free setup, normally R5,000
+      </EmojiLine>
+    </ul>
+  </div>
+);
+
+const SinglesCard = () => (
+  <div>
+    <p className="text-[12px] font-bold uppercase tracking-wide text-neutral-500">Or one on its own</p>
+    <ul className="mt-1.5 divide-y divide-neutral-100">
+      {(Object.keys(ONE_SERVICE) as (keyof typeof ONE_SERVICE)[]).map((k) => {
+        const s = ONE_SERVICE[k];
+        return (
+          <li key={k} className="flex items-baseline justify-between gap-3 py-1.5">
+            <span className="text-[14px]">
+              {s.emoji} {s.short}
+            </span>
+            <span className="whitespace-nowrap text-right">
+              <strong className="text-[15px] text-neutral-900">{s.price}</strong>{' '}
+              <span className="text-[12px] text-neutral-500">{s.unit}</span>
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+);
+
+// What the package adds to the one service they picked, and what it costs on top
+const NudgeCard = ({ plan }: { plan: keyof typeof ONE_SERVICE }) => {
+  const s = ONE_SERVICE[plan];
+  return (
+    <div>
+      <p className="font-semibold text-neutral-900">
+        {s.extra ? `For R${s.extra.toLocaleString('en-ZA').replace(/\s/g, ',')} more a month, you also get:` : 'Or get it free on a 12-month commitment when you take all three:'}
+      </p>
+      <ul className="mt-1.5 space-y-1 text-[14px] leading-snug">
+        {s.adds.map(([emoji, text]) => (
+          <EmojiLine key={text} emoji={emoji}>
+            {text}
+          </EmojiLine>
+        ))}
+      </ul>
+      <p className="mt-2 flex items-baseline justify-between gap-3 rounded-lg bg-amber-50 px-2.5 py-1.5 ring-1 ring-amber-200">
+        <span className="text-[13px] font-semibold">All three</span>
+        <span>
+          <strong className="text-[17px] text-neutral-900">R2,500</strong> <span className="text-[12px] text-neutral-500">a month</span>
+        </span>
+      </p>
+    </div>
+  );
+};
+
+function PricesStep({ open, onPick, onTyping }: { open: boolean; onPick: (plan: ChatPlan) => void; onTyping: (typing: boolean) => void }) {
+  const [items, setItems] = useState<PricesItem[]>([]);
+  const [shown, setShown] = useState(0);
+  const [typing, setTyping] = useState(false);
+
+  // Answer: their tap becomes their bubble in place of the buttons
+  const answer = (label: string, next: PricesItem[]) =>
+    setItems((list) => [...list.filter((i) => i.who !== 'buttons'), { who: 'me', body: label }, ...next]);
+
+  const takePackage = (label: string, from?: ChatPlan) => {
+    capture(from ? 'prices_chat_nudge' : 'prices_chat_choice', from ? { from, took_package: true } : { choice: 'package' });
+    answer(label, []);
+    onPick('package');
+  };
+
+  const chooseOne = (plan: keyof typeof ONE_SERVICE) => {
+    const one = ONE_SERVICE[plan];
+    capture('prices_chat_choice', { choice: plan });
+    answer(`${one.emoji} ${one.label}`, [
+      { who: 'bot', body: one.alone },
+      { who: 'bot', body: <NudgeCard plan={plan} />, card: true },
+      {
+        who: 'buttons',
+        options: [
+          { label: 'Yes, all three for R2,500', main: true, onPick: () => takePackage('Yes, all three for R2,500', plan) },
+          {
+            label: one.just,
+            onPick: () => {
+              capture('prices_chat_nudge', { from: plan, took_package: false });
+              answer(one.just, []);
+              onPick(plan);
+            },
+          },
+        ],
+      },
+    ]);
+  };
+
+  // The opening, set once the chat first opens
+  useEffect(() => {
+    if (!open || items.length) return;
+    setItems([
+      { who: 'bot', body: 'Hi 👋 Here are our prices.' },
+      { who: 'bot', body: <PackageCard />, card: true },
+      { who: 'bot', body: <SinglesCard /> },
+      { who: 'bot', body: 'What are you most interested in?' },
+      {
+        who: 'buttons',
+        options: [
+          { label: 'All three', emoji: '🙌', price: 'R2,500 a month', main: true, onPick: () => takePackage('🙌 All three') },
+          ...(Object.keys(ONE_SERVICE) as (keyof typeof ONE_SERVICE)[]).map((k) => ({
+            label: ONE_SERVICE[k].label,
+            emoji: ONE_SERVICE[k].emoji,
+            price: `${ONE_SERVICE[k].price} ${ONE_SERVICE[k].unit === 'a month' ? '/ month' : 'once-off'}`,
+            onPick: () => chooseOne(k),
+          })),
+        ],
+      },
+    ]);
+  }, [open, items.length]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Shows the next item: our bubbles after a short "typing…", their taps and the buttons straight away
+  useEffect(() => {
+    if (shown >= items.length) return;
+    if (items[shown].who !== 'bot' || prefersReducedMotion()) {
+      setShown((n) => n + 1);
+      return;
+    }
+    setTyping(true);
+    onTyping(true);
+    const t = window.setTimeout(() => {
+      setTyping(false);
+      onTyping(false);
+      setShown((n) => n + 1);
+    }, shown === 0 ? 700 : 550);
+    return () => window.clearTimeout(t);
+  }, [shown, items]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <>
+      {items.slice(0, shown).map((item, i) =>
+        item.who === 'buttons' ? (
+          <div key={i} className="flex flex-col items-stretch gap-1.5 pl-8">
+            {item.options.map((o) => (
+              <button
+                key={o.label}
+                type="button"
+                onClick={o.onPick}
+                className={`flex items-center justify-between gap-3 rounded-xl px-3.5 py-2.5 text-left text-[14px] font-semibold shadow-[0_1px_0.5px_rgba(0,0,0,0.13)] ${
+                  o.main ? 'bg-amber-400 text-neutral-950 hover:bg-amber-300' : 'bg-white text-neutral-900 ring-1 ring-neutral-200 hover:bg-neutral-50'
+                }`}
+              >
+                <span>
+                  {o.emoji && <span className="mr-1.5">{o.emoji}</span>}
+                  {o.label}
+                </span>
+                {o.price && <span className={`whitespace-nowrap text-[12px] font-bold ${o.main ? 'text-neutral-900' : 'text-neutral-500'}`}>{o.price}</span>}
+              </button>
+            ))}
+          </div>
+        ) : item.who === 'me' ? (
+          <Bubble key={i} mine>
+            <span className="font-semibold">{item.body}</span>
+          </Bubble>
+        ) : item.card ? (
+          <div key={i} className="flex justify-start">
+            <div className="w-[92%] rounded-lg rounded-tl-none border-2 border-neutral-900 bg-white px-3.5 py-3 text-[14px] text-neutral-900">
+              {item.body}
+            </div>
+          </div>
+        ) : (
+          <Bubble key={i}>{item.body}</Bubble>
+        ),
+      )}
+      {typing && <TypingDots />}
+    </>
+  );
+}
+
 const RatingLine = ({ b }: { b: Business }) =>
   b.rating != null && b.reviewCount ? (
     <span className="inline-flex items-center gap-1">
@@ -351,7 +602,7 @@ export default function SiteChat({
 }) {
   // `session` changes when a button picks a different plan, which starts a fresh chat
   // modal: opened from a button (any button, with or without a plan); the chat that opens by itself stays in the corner
-  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number; modal: boolean; focusSearch: boolean; picked?: Business; typeDetails?: boolean }>({
+  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number; modal: boolean; focusSearch: boolean; picked?: Business; typeDetails?: boolean; prices?: boolean }>({
     open: false,
     session: 0,
     modal: false,
@@ -363,11 +614,12 @@ export default function SiteChat({
   useEffect(() => {
     chatState.mounted += 1;
     const onOpen = (e: Event) => {
-      const { plan, focusSearch = false, business, typeDetails = false } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean; business?: Business; typeDetails?: boolean }>).detail || {};
+      const { plan, focusSearch = false, business, typeDetails = false, prices = false } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean; business?: Business; typeDetails?: boolean; prices?: boolean }>).detail || {};
       setChat((c) =>
-        // A business picked in a search box on the page, or "Not on Google?", always starts a fresh chat at that step
-        business || typeDetails || !(c.plan === plan && c.session > 0)
-          ? { open: true, plan, session: c.session + 1, modal: true, focusSearch: focusSearch || !!business || typeDetails, picked: business, typeDetails }
+        // A business picked in a search box on the page, or "Not on Google?", always starts a fresh chat at that step.
+        // The prices opening reopens where they left it if it was the last chat opened.
+        business || typeDetails || (prices ? !(c.prices && c.session > 0) : c.prices || !(c.plan === plan && c.session > 0))
+          ? { open: true, plan, session: c.session + 1, modal: true, focusSearch: focusSearch || !!business || typeDetails, picked: business, typeDetails, prices }
           : { ...c, open: true, modal: true, focusSearch },
       );
     };
@@ -390,9 +642,10 @@ export default function SiteChat({
       focusSearch={chat.focusSearch}
       picked={chat.picked}
       typeDetails={chat.typeDetails}
+      prices={chat.prices}
       onClose={() => setChat((c) => ({ ...c, open: false }))}
       onExpand={() => setChat((c) => (c.modal ? c : { ...c, modal: true }))}
-      trackPrefix={`${trackPrefix}_${chat.plan || 'demo'}`}
+      trackPrefix={`${trackPrefix}_${chat.prices ? 'prices' : chat.plan || 'demo'}`}
     />
   );
 }
@@ -417,12 +670,13 @@ const useVisibleArea = (active: boolean) => {
 
 function ChatWindow({
   page,
-  plan,
+  plan: planFromButton,
   open,
   modal,
   focusSearch,
   picked,
   typeDetails,
+  prices = false,
   onClose,
   onExpand,
   trackPrefix,
@@ -437,13 +691,19 @@ function ChatWindow({
   picked?: Business;
   // "Not on Google?" under the search box on the page: start at the typed details
   typeDetails?: boolean;
+  // Open with the prices first and let them pick a plan in the chat (PricesStep), then the usual Google step
+  prices?: boolean;
   // On a phone, typing in the small corner chat moves it to the centred window, above the keyboard
   onExpand: () => void;
   trackPrefix: string;
 }) {
   const visible = useVisibleArea(open && modal);
-  const [lines] = useState(() => chatLines(plan));
-  const { typed, typing, finished } = useTypedLines(lines, open, focusSearch);
+  // The plan from the button, or the one they pick in the prices opening; the usual chat waits until it's picked
+  const [pickedPlan, setPickedPlan] = useState<ChatPlan>();
+  const plan = planFromButton ?? pickedPlan;
+  const planPicked = !prices || !!pickedPlan;
+  const lines = useMemo(() => chatLines(plan, !prices), [plan, prices]);
+  const { typed, typing, finished } = useTypedLines(lines, open && planPicked, focusSearch);
   const [pending, setPending] = useState<Business | null>(null); // shown as "Is this you?"
   const [business, setBusiness] = useState<Business | null>(null); // confirmed
   const [manual, setManual] = useState(!!typeDetails); // "Not on Google?"
@@ -455,8 +715,9 @@ function ChatWindow({
   const [numberError, setNumberError] = useState('');
   const [otherNumber, setOtherNumber] = useState(false);
   const [answers, setAnswers] = useState<Answers>({});
-  const [questions] = useState(() => questionsFor(plan));
+  const questions = useMemo(() => questionsFor(plan), [plan]);
   const chatRef = useRef<HTMLDivElement>(null);
+  const [pricesTyping, setPricesTyping] = useState(false);
   const saveLead = useLeadRecord(page, plan);
   const { status, query, setQuery, suggestions, searching, pick, clear, focus, inputRef, showPicked } = useGoogleSearch(open, (b) => {
     setBusiness(null);
@@ -470,7 +731,7 @@ function ChatWindow({
   // Keep the newest bubble in view as the chat grows
   useEffect(() => {
     chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: 'smooth' });
-  }, [typed, typing, finished, pending, business, typeByHand, whatsApp, otherNumber, answers]);
+  }, [typed, typing, finished, pending, business, typeByHand, whatsApp, otherNumber, answers, pricesTyping]);
 
   // While they search, keep the search box at the top of the chat so the matches below it stay in view
   // above a phone's keyboard
@@ -487,8 +748,8 @@ function ChatWindow({
 
   // PostHog: the chat steps are site_chat_opened → site_chat_started → site_chat_business_found → site_chat_sent
   useEffect(() => {
-    if (open) capture('site_chat_opened', { page, plan: plan || 'demo', how: modal ? 'button' : 'opened_by_itself' });
-  }, [open, page, plan, modal]);
+    if (open) capture('site_chat_opened', { page, plan: prices ? 'prices' : planFromButton || 'demo', how: modal ? 'button' : 'opened_by_itself' });
+  }, [open, page, planFromButton, prices, modal]);
 
   useEffect(() => {
     if (!open) return;
@@ -593,7 +854,7 @@ function ChatWindow({
         </span>
         <div className="min-w-0 flex-1 leading-tight">
           <p className="truncate text-[15px] font-semibold text-white">Local Pros Studio</p>
-          <p className="text-[12px] text-white/80">{typing ? 'typing…' : 'online'}</p>
+          <p className="text-[12px] text-white/80">{typing || pricesTyping ? 'typing…' : 'online'}</p>
         </div>
         <button
           type="button"
@@ -607,6 +868,7 @@ function ChatWindow({
 
       {/* Chat body */}
       <div ref={chatRef} className={`${modal ? 'min-h-0 flex-1 px-4 py-4 md:min-h-[340px] md:max-h-[62vh] md:px-5' : 'max-h-[52vh] px-3 py-3'} space-y-2 overflow-y-auto bg-[#efeae2]`} aria-live="polite">
+        {prices && <PricesStep open={open} onPick={setPickedPlan} onTyping={setPricesTyping} />}
         {typed.map((line, i) => (
           <Bubble key={i}>{line}</Bubble>
         ))}
@@ -631,7 +893,7 @@ function ChatWindow({
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       onFocus={searchIntoView}
-                      placeholder={status === 'loading' ? 'Loading Google search…' : 'Search your business name'}
+                      placeholder="Search your business name"
                       aria-label="Find your business on Google"
                       autoComplete="off"
                       autoCorrect="off"
@@ -653,7 +915,8 @@ function ChatWindow({
                           <li key={s.id} className="border-b border-neutral-100 last:border-b-0">
                             <button type="button" role="option" aria-selected="false" onClick={() => pick(s)} className="block w-full px-2.5 py-2 text-left hover:bg-[#e7f4ef] active:bg-[#e7f4ef]">
                               <span className="block text-[14px] font-semibold leading-tight text-neutral-900">{s.main}</span>
-                              {s.secondary && <span className="block truncate text-[12px] text-neutral-500">{s.secondary}</span>}
+                              {/* The phone number, so they can tell which one is theirs */}
+                              <span className="block text-[12px] font-semibold text-neutral-700">{s.secondary}</span>
                             </button>
                           </li>
                         ))}
@@ -665,7 +928,6 @@ function ChatWindow({
                   {!searching && status === 'ready' && query.trim().length >= 3 && !suggestions.length && !pending && (
                     <p className="text-[12px] text-neutral-600">No match on Google. Try your business name and town.</p>
                   )}
-                  {status === 'fetching' && <p className="text-[12px] text-neutral-600">Loading your business…</p>}
                   <button
                     type="button"
                     onClick={() => {
@@ -841,8 +1103,11 @@ function ChatWindow({
         )}
       </div>
 
+      {/* While they're still picking in the prices opening, only the chat's rounded bottom edge (no send button yet) */}
+      {!planPicked && <div className="h-3 flex-none rounded-b-2xl bg-[#efeae2]" />}
+
       {/* One button: opens WhatsApp with the message filled in */}
-      <div className={`flex-none rounded-b-2xl bg-[#efeae2] ${modal ? 'px-4 pb-4 md:px-5' : 'px-3 pb-3'} pt-1 transition-opacity duration-300 ${finished ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+      <div className={`${planPicked ? 'flex-none' : 'hidden'} rounded-b-2xl bg-[#efeae2] ${modal ? 'px-4 pb-4 md:px-5' : 'px-3 pb-3'} pt-1 transition-opacity duration-300 ${finished ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
         <a
           href={ready ? href : undefined}
           target="_blank"

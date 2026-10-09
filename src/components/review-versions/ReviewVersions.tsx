@@ -22,6 +22,8 @@ const VERSIONS = {
   'rep-motion': { name: 'Reputation, animated', Page: lazy(() => import('../reputation-motion/ReputationMotionOptions')) },
   // "What we do" rows: three ways to show the websites, on different backgrounds (7 Oct 2026)
   services: { name: 'Services section options', Page: lazy(() => import('../services-options/ServicesOptions')) },
+  // Prices as a chat: tap "Prices" in the menu (test, 9 Oct 2026)
+  'prices-chat': { name: 'Prices chat (test)', Page: lazy(() => import('../prices-chat-test/PricesChatTest')) },
 } as const;
 
 type VersionId = keyof typeof VERSIONS;

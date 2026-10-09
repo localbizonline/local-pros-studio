@@ -21,12 +21,13 @@ export const chatState = { mounted: 0 };
 // once and the cursor in Google's box, so it works like the box they clicked (8 Oct 2026)
 // business: picked in a search box on the page (BusinessSearchBox); the chat opens at "Is this your business?" with it
 // typeDetails: "Not on Google?" under that box; the chat opens at name, Facebook page or website, and WhatsApp number
+// prices: opens with the prices and lets them pick a plan in the chat first (test at /review-versions/prices-chat, 9 Oct 2026)
 export const openSiteChat = (
   plan?: ChatPlan,
-  { focusSearch = false, business, typeDetails = false }: { focusSearch?: boolean; business?: Business; typeDetails?: boolean } = {},
+  { focusSearch = false, business, typeDetails = false, prices = false }: { focusSearch?: boolean; business?: Business; typeDetails?: boolean; prices?: boolean } = {},
 ) => {
   if (chatState.mounted > 0) {
-    window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { plan, focusSearch, business, typeDetails } }));
+    window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { plan, focusSearch, business, typeDetails, prices } }));
   } else {
     capture('whatsapp_click', { page: window.location.pathname, from: 'chat_button_without_chat', plan });
     window.open(SITE_WHATSAPP_URL, '_blank', 'noopener,noreferrer');
