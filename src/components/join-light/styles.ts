@@ -11,6 +11,7 @@ import '../section-library/sections/proofsection.css';
 import '../section-library/sections/proofblocks.css';
 import '../section-library/sections/sitechrome.css';
 import '../section-library/sections/pricing.css';
+import '../section-library/sections/whynote.css';
 import '../demo-popup/business-search-box.css';
 import '../section-library/sections/reputationstory.css';
 import '../section-library/sections/closingcard.css';

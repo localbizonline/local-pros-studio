@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import '../design-directions/directions.css';
-import './pricinglight.css';
 import { SITE_WHATSAPP_URL } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import Pricing from '../section-library/sections/Pricing';
+import WhyNote from '../section-library/sections/WhyNote';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import SiteChat from '../demo-popup/DemoPopup';
 import { openSiteChat } from '../demo-popup/openSiteChat';
@@ -15,7 +15,7 @@ import closingPhoto from '../../assets/images/review-contractor-happy.webp';
 // point, for the homepage's reason: before they call, customers check your Google reviews, your Facebook and
 // Instagram, and your website, and we look after all three. Three versions of a "why it's one package" section
 // (a customer path, a comparison table, the prices added up) were tried the same day; Jeremy found them too much
-// and asked for a simple page with the reason lower down, said conversationally (WhyNote).
+// and asked for a simple page with the reason lower down, said conversationally (sections/WhyNote.tsx, also on the homepage).
 // Live on /pricing since 9 Oct 2026. Its opening is the shared price section, sections/Pricing.tsx.
 
 const FAQ = [
@@ -47,29 +47,6 @@ const RECAP = [
   'A new website, or yours refreshed',
   'All in one for R2,500 a month',
 ];
-
-/* ---------- Why it's one package, said the way you'd say it to someone (Jeremy, 9 Oct: lower down, conversational) ---------- */
-
-function WhyNote() {
-  return (
-    <section className="dd-sec pp-note" id="why">
-      <div className="dd-container pp-note-in">
-        <h2 className="dd-h2 pp-note-title">Why we look after all three</h2>
-        <p>
-          Think about the last time you needed someone you could trust, like a plumber or a vet. You probably Googled a
-          few, read their reviews, looked at their Facebook page and opened their website.
-        </p>
-        <p>
-          Your customers do the same with you. If one of those looks quiet or out of date, they move on to the next
-          business.
-        </p>
-        <p className="pp-note-end">That’s why we do all three, for one monthly price.</p>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Shared parts ---------- */
 
 function FaqItem({ q, a, id }: { q: string; a: string; id: string }) {
   const [open, setOpen] = useState(false);

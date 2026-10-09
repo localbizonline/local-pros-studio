@@ -7,6 +7,7 @@ import ProofSection from '../section-library/sections/ProofSection';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import Pricing from '../section-library/sections/Pricing';
+import WhyNote from '../section-library/sections/WhyNote';
 import SiteChat from '../demo-popup/DemoPopup';
 import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 import ReputationStory from '../section-library/sections/ReputationStory';
@@ -91,6 +92,9 @@ export default function JoinLight() {
         {/* PRICE: the package first with the website as an optional free extra, then each service on its own
             (option A, picked 8 Oct 2026) */}
         <Pricing />
+
+        {/* WHY ONE PACKAGE: the short note from the pricing page (Jeremy, 9 Oct 2026) */}
+        <WhyNote />
 
         {/* FAQ */}
         <section id="faq" className="py-16 md:py-24 px-6">

@@ -1,0 +1,30 @@
+/* "Why we look after all three" (WhyNote.tsx): a short note on cream, read like someone talking. Scoped to .wn. */
+
+.wn {
+  background: var(--cream);
+}
+
+.dd-sec.wn + .dd-sec,
+.dd-sec + .dd-sec.wn {
+  border-top: 0;
+}
+
+.wn-in {
+  max-width: 680px;
+}
+
+.dd .wn-title {
+  margin-bottom: 20px;
+}
+
+.wn p {
+  margin-top: 16px;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+.wn .wn-end {
+  font-weight: 700;
+  color: var(--ink);
+}

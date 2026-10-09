@@ -28,7 +28,7 @@ import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
 import './components/reviews-light/reviewslight.css';
 import './components/social-light/sociallight.css';
-import './components/pricing-light/pricinglight.css';
+import './components/section-library/sections/whynote.css';
 import './components/reviews-light/resultscards.css';
 import './components/section-library/sections/howitworksphone.css';
 import './components/join-light/styles';
