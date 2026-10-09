@@ -1,6 +1,8 @@
 # New Google reviews page: choices for Jeremy (9 Oct 2026)
 
 Draft: http://localhost:4321/reviews-new (dev server on port 4321, so the Google search box works).
+**Compare everything:** http://localhost:4321/compare-reviews.html: the old page beside the new one, then every choice
+as a working version (Phone / Desktop switch at the top).
 Code: `src/components/reviews-light/`. Not live: `/reviews` still shows the old dark page.
 
 Built from the 3 to 9 Oct sessions: the homepage hero pattern (literal headline, Google business search box as the
@@ -30,9 +32,9 @@ literal copy, phone first).
    - 2. "Get a Google review from every customer." Stronger promise, shorter.
    - 3. "More 5-star Google reviews, without the awkward ask." Uses your own pitch line ("asking for reviews feels
      awkward") but brings back "More", which you dropped.
-3. **Money-back guarantee placement.** Now only in the price card and the contract question. Option: a thin strip
-   above the hero, "Month to month · 30-day money-back guarantee". I left it out because you cut small print from the
-   homepage hero; it's the strongest risk-remover we have, so worth a test on this page.
+3. **Money-back guarantee strip.** A thin line above the menu: "R1,200 a month · Month to month · Money back if no new
+   5-star reviews in 30 days". **My pick: add it.** The old live /reviews page leads with the same promise, so it's
+   one we already make, and it's the strongest risk-remover we have.
 4. **"Why it matters" before or after "How it works".** Now after Results, so the visitor sees it works, then why,
    then how. Alternative: move it straight under the hero.
 5. **When you approve:** `/reviews` switches to this page, `/reviews-new` goes, and the old dark page is deleted

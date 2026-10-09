@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import '../design-directions/directions.css';
 import '../section-library/sections/pricing.css';
@@ -24,6 +24,12 @@ import closingPhoto from './img/closing-groomer.webp';
 // Made for the 7 Oct reviews draft (/review-versions/4) with a made-up business, Mokoena Plumbing
 import whyReviews from './img/why-now-reviews-on-phone.webp';
 import whySummary from './img/why-now-ai-overview-on-phone.webp';
+// Options for Jeremy to compare (9 Oct 2026, compare-reviews.html). Remove with PREVIEW once he has picked.
+import groomerWide from './img/options/hero-groomer-wide.webp';
+import groomerPhone from './img/options/hero-groomer-phone.webp';
+import customerWide from './img/options/hero-customer-wide.webp';
+import customerPhone from './img/options/hero-customer-phone.webp';
+import closingOwner from './img/options/closing-owner.webp';
 
 // The Google reviews page in the light look (draft, 9 Oct 2026), built from the 3 to 9 Oct sessions:
 // - page flow and the five-second test from DESIGN-SYSTEM.md section 2 (one page sells one thing: Google reviews)
@@ -112,11 +118,78 @@ function FaqItem({ q, a, id }: { q: string; a: string; id: string }) {
   );
 }
 
+// Draft-only preview settings, read from the address (?photo=b&headline=2&strip=1&close=chat), so every open choice
+// can be seen side by side on compare-reviews.html. Without them the page is the draft as it stands (my picks).
+// close: the closing card's photo, so the same person never shows twice
+const PHOTOS: Record<string, { wide: string; phone: string; alt: string; close?: { src: string; alt: string } }> = {
+  a: {
+    wide: heroWide,
+    phone: heroPhone,
+    alt: 'A business owner leaning on his bakkie after a job, smiling at a new 5-star Google review on his phone',
+  },
+  b: {
+    wide: groomerWide,
+    phone: groomerPhone,
+    alt: 'A dog groomer smiling at a new 5-star Google review on her phone, with a freshly groomed spaniel beside her',
+    close: {
+      src: closingOwner,
+      alt: 'A business owner leaning on his bakkie, smiling at a new 5-star Google review on his phone',
+    },
+  },
+  c: {
+    wide: customerWide,
+    phone: customerPhone,
+    alt: 'A customer on her couch tapping five stars for a Google review as the service van drives away',
+  },
+};
+
+const HEADLINES: Record<string, ReactNode> = {
+  '1': (
+    <>
+      Get 5-star <span className="rvl-u">Google reviews</span> from your customers.
+    </>
+  ),
+  '2': (
+    <>
+      Get a <span className="rvl-u">Google review</span> from every customer.
+    </>
+  ),
+  '3': (
+    <>
+      More 5-star <span className="rvl-u">Google reviews</span>, without the awkward ask.
+    </>
+  ),
+};
+
+const usePreview = () => {
+  // Read after the first paint so the pre-built page and the browser agree on the first render
+  const [q, setQ] = useState<URLSearchParams | null>(null);
+  useEffect(() => setQ(new URLSearchParams(window.location.search)), []);
+  const pick = (key: string, options: Record<string, unknown>, fallback: string) => {
+    const v = q?.get(key) || '';
+    return v in options ? v : fallback;
+  };
+  return {
+    photo: PHOTOS[pick('photo', PHOTOS, 'a')],
+    headline: HEADLINES[pick('headline', HEADLINES, '1')],
+    strip: q?.get('strip') === '1',
+    closeChat: q?.get('close') === 'chat',
+  };
+};
+
 export default function ReviewsLight() {
   const n = PROOF_NUMBERS;
+  const preview = usePreview();
 
   return (
     <div className="dd dd-a rvl">
+      {/* Option: the offer in one line above everything (DESIGN-SYSTEM.md page flow, step 1) */}
+      {preview.strip && (
+        <p className="rvl-strip">
+          R1,200 a month <span aria-hidden="true">·</span> Month to month <span aria-hidden="true">·</span>{' '}
+          <strong>Money back if no new 5-star reviews in 30 days</strong>
+        </p>
+      )}
       <SiteHeader pricingHref="#pricing" />
 
       <main>
@@ -125,9 +198,7 @@ export default function ReviewsLight() {
         <section className="rvl-hero">
           <div className="dd-container">
             <h1 className="dd-kw rvl-kw">Google review collection on WhatsApp</h1>
-            <p className="rvl-title">
-              Get 5-star <span className="rvl-u">Google reviews</span> from your customers.
-            </p>
+            <p className="rvl-title">{preview.headline}</p>
             <p className="rvl-lede">
               People read your Google reviews before they call. Send us your customer’s name and number, and we WhatsApp
               them your review link.
@@ -147,15 +218,10 @@ export default function ReviewsLight() {
                 · <a href="#pricing">See what it costs</a>
               </p>
             </div>
-            <figure className="rvl-media">
+            <figure className="rvl-media" id="hero-photo">
               <picture>
-                <source media="(max-width: 767px)" srcSet={heroPhone} width={896} height={672} />
-                <img
-                  src={heroWide}
-                  alt="A business owner leaning on his bakkie after a job, smiling at a new 5-star Google review on his phone"
-                  width={1584}
-                  height={672}
-                />
+                <source media="(max-width: 767px)" srcSet={preview.photo.phone} width={896} height={672} />
+                <img src={preview.photo.wide} alt={preview.photo.alt} width={1584} height={672} />
               </picture>
               {/* Our own numbers, with the profile named (DESIGN-SYSTEM.md section 2, Proof) */}
               <figcaption className="rvl-badge">
@@ -324,9 +390,21 @@ export default function ReviewsLight() {
         <ClosingCard
           title="Start getting Google reviews this month."
           items={RECAP}
-          photo={closingPhoto}
-          photoAlt="A dog groomer smiling at a new 5-star Google review on her phone, with a freshly groomed spaniel beside her"
+          photo={preview.photo.close?.src || closingPhoto}
+          photoAlt={
+            preview.photo.close?.alt ||
+            'A dog groomer smiling at a new 5-star Google review on her phone, with a freshly groomed spaniel beside her'
+          }
           href={SITE_WHATSAPP_URL}
+          // Option: open the chat first, so the lead is saved before WhatsApp opens
+          onClick={
+            preview.closeChat
+              ? (e) => {
+                  e.preventDefault();
+                  openSiteChat('reviews');
+                }
+              : undefined
+          }
         />
       </main>
 

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import './closingcard.css';
 
 // Closing call-to-action (from the join page, 7 Oct 2026): a near-black card on the cream band with a
@@ -11,7 +11,7 @@ type ClosingCardProps = {
   photo: string;
   photoAlt: string;
   href: string;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
   note?: string;
   // 'contain' shows the whole picture on its own light background (for montages that must not be cut off)
   photoFit?: 'cover' | 'contain';

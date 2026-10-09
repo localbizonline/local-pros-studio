@@ -1,6 +1,21 @@
 /* Google reviews page (ReviewsLight.tsx), on the .dd-a tokens in design-directions/directions.css. Scoped to .rvl.
    Loaded with the main stylesheet from App.tsx, so the pre-built page never shows unstyled. */
 
+/* Option: the offer strip above the header */
+.rvl .rvl-strip {
+  padding: 10px 16px;
+  background: #fbf6ec;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--body);
+  text-align: center;
+}
+
+.rvl-strip strong {
+  color: var(--ink);
+}
+
 /* ---------- Hero: the homepage's centred layout, one literal headline, the search box, a wide photo ---------- */
 
 .rvl-hero {

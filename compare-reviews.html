@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Reviews page choices</title>
+<!-- Local comparison tool for the new Google reviews page (9 Oct 2026): the live /reviews against the draft, then each
+     open choice as a real, working version of the draft (settings in the address, see usePreview in
+     src/components/reviews-light/ReviewsLight.tsx). Open http://localhost:4321/compare-reviews.html while the dev server
+     runs on port 4321. Not part of the site build; delete once Jeremy has picked. -->
+<style>
+  :root {
+    --bg: #1c1917;
+    --panel: #292524;
+    --ink: #fafaf9;
+    --muted: #a8a29e;
+    --line: #44403c;
+    --accent: #f59e0b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.45 system-ui, -apple-system, sans-serif;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 24px;
+    padding: 14px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  h1 { margin: 0; font-size: 17px; }
+  header p { margin: 0; color: var(--muted); }
+  .sizes { display: flex; gap: 8px; margin-left: auto; }
+  .sizes button {
+    min-height: 40px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+  }
+  .sizes button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #1c1917; font-weight: 700; }
+  nav.jump { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; }
+  nav.jump a {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  nav.jump a:hover { background: var(--line); }
+  section { padding: 32px 24px 8px; border-bottom: 1px solid var(--line); scroll-margin-top: 120px; }
+  section h2 { margin: 0 0 4px; font-size: 22px; }
+  section > p { margin: 0 0 20px; max-width: 70em; color: var(--muted); }
+  section > p strong { color: var(--ink); }
+  .row { display: flex; gap: 24px; overflow-x: auto; padding-bottom: 24px; }
+  figure { flex: 0 0 auto; margin: 0; }
+  figcaption { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; min-height: 28px; }
+  figcaption b { font-size: 16px; }
+  figcaption a { margin-left: auto; color: var(--muted); font-size: 13px; }
+  .pick {
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #1c1917;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .live { padding: 2px 9px; border-radius: 999px; background: #57534e; font-size: 12px; font-weight: 700; }
+  .note { display: block; min-height: 2.9em; margin: -4px 0 10px; color: var(--muted); font-size: 13px; max-width: var(--fw); }
+  .frame {
+    width: var(--fw);
+    height: var(--fh);
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  .frame iframe {
+    width: var(--w);
+    height: var(--h);
+    border: 0;
+    transform: scale(var(--s));
+    transform-origin: 0 0;
+  }
+  /* Phone: 390 x 844 at 80%. Desktop: 1366 x 900 at 45%. */
+  body { --w: 390px; --h: 844px; --s: 0.8; }
+  body.desk { --w: 1366px; --h: 900px; --s: 0.45; }
+  figure { --fw: calc(var(--w) * var(--s)); --fh: calc(var(--h) * var(--s)); }
+  footer { padding: 28px 24px 48px; color: var(--muted); }
+  footer code { color: var(--ink); background: var(--panel); padding: 2px 6px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Google reviews page: the choices</h1>
+  <p>Every frame is the real page. Scroll and tap inside it. Amber tag = my pick.</p>
+  <div class="sizes" role="group" aria-label="Screen size">
+    <button type="button" data-size="phone" aria-pressed="true">Phone</button>
+    <button type="button" data-size="desk" aria-pressed="false">Desktop</button>
+  </div>
+  <nav class="jump" aria-label="Jump to">
+    <a href="#old-new">Old vs new</a>
+    <a href="#photo">1. Opening photo</a>
+    <a href="#headline">2. Headline</a>
+    <a href="#strip">3. Guarantee strip</a>
+    <a href="#closing">4. Closing button</a>
+  </nav>
+</header>
+
+<main id="rows"></main>
+
+<footer>
+  Reply in the chat with your picks, for example <code>photo A, headline 1, strip yes, closing chat, go</code>.
+  "Go" puts the new page on /reviews and pushes it live.
+</footer>
+
+<script>
+  const NEW = '/reviews-new';
+  const ROWS = [
+    {
+      id: 'old-new',
+      title: 'Old page vs new page',
+      text: 'Left is what is <strong>live today</strong> on /reviews. Right is the <strong>new draft with my picks</strong>. Scroll both from the top.',
+      frames: [
+        { label: 'Old (live now)', url: '/reviews', live: true },
+        { label: 'New (draft)', url: NEW, pick: true },
+      ],
+    },
+    {
+      id: 'photo',
+      title: '1. Opening photo',
+      text: 'The photo under the search box. Each frame opens at the photo; scroll up for the headline. If B leads, the closing card swaps to the owner at his bakkie, so the same person never shows twice.',
+      frames: [
+        { label: 'A. Owner at his bakkie', url: NEW + '?photo=a#hero-photo', pick: true, note: 'Your 7 Oct brief: Coloured South African man in his 30s, navy polo.' },
+        { label: 'B. Dog groomer', url: NEW + '?photo=b#hero-photo', note: 'Shows it is not only for trades.' },
+        { label: 'C. Customer leaving the review', url: NEW + '?photo=c#hero-photo', note: 'Tells the story, but the owner is not in it.' },
+      ],
+    },
+    {
+      id: 'headline',
+      title: '2. Headline',
+      text: 'The big line at the top. All three keep the same line under it and the same search box.',
+      frames: [
+        { label: '1. "…from your customers."', url: NEW + '?headline=1', pick: true, note: '"Get" over "More", your 7 Oct call.' },
+        { label: '2. "…from every customer."', url: NEW + '?headline=2', note: 'Shorter, a stronger promise.' },
+        { label: '3. "…without the awkward ask."', url: NEW + '?headline=3', note: 'Your own pitch line, but brings back "More".' },
+      ],
+    },
+    {
+      id: 'strip',
+      title: '3. Money-back guarantee strip',
+      text: 'A thin line above the menu with the price, no contract and the guarantee. In the draft the guarantee is only in the price card. The old live page leads with it ("…in your first 30 days or your money back"), so it is a promise we already make. I would add the strip.',
+      frames: [
+        { label: 'Without (draft now)', url: NEW },
+        { label: 'With the strip', url: NEW + '?strip=1', pick: true },
+      ],
+    },
+    {
+      id: 'closing',
+      title: '4. Closing button',
+      text: 'The last "WhatsApp us" button. Tap it in each frame. Left goes straight to WhatsApp (like the homepage), so no lead is saved. Right opens the chat first, so the lead is saved in Airtable, then WhatsApp. Same choice would apply to the homepage.',
+      frames: [
+        { label: 'Straight to WhatsApp (now)', url: NEW + '#faq' },
+        { label: 'Opens the chat first', url: NEW + '?close=chat#faq', pick: true },
+      ],
+    },
+  ];
+
+  const rows = document.getElementById('rows');
+  for (const row of ROWS) {
+    const sec = document.createElement('section');
+    sec.id = row.id;
+    sec.innerHTML = `<h2>${row.title}</h2><p>${row.text}</p><div class="row"></div>`;
+    const wrap = sec.querySelector('.row');
+    for (const f of row.frames) {
+      const fig = document.createElement('figure');
+      fig.innerHTML = `
+        <figcaption>
+          <b>${f.label}</b>
+          ${f.pick ? '<span class="pick">My pick</span>' : ''}
+          ${f.live ? '<span class="live">Live</span>' : ''}
+          <a href="${f.url}" target="_blank" rel="noopener">Open full size</a>
+        </figcaption>
+        ${f.note ? `<span class="note">${f.note}</span>` : ''}
+        <div class="frame"><iframe data-src="${f.url}" title="${f.label}"></iframe></div>`;
+      wrap.appendChild(fig);
+    }
+    rows.appendChild(sec);
+  }
+
+  // Load the frames one at a time: the dev server sends each page as hundreds of small files, and twelve pages at
+  // once runs the browser out of connections (blank frames). Each one starts once the one before has had time.
+  const queue = [...document.querySelectorAll('iframe[data-src]')];
+  const next = () => {
+    const f = queue.shift();
+    if (!f) return;
+    f.addEventListener(
+      'load',
+      () => {
+        setTimeout(next, 1200);
+        // The site scrolls every page to the top as it opens, so go to the frame's #section once it has settled
+        const hash = new URL(f.src).hash;
+        if (hash) setTimeout(() => {
+          const w = f.contentWindow;
+          const el = f.contentDocument.querySelector(hash);
+          if (el) w.scrollTo({ top: el.getBoundingClientRect().top + w.scrollY - 72, behavior: 'instant' });
+        }, 2500);
+      },
+      { once: true },
+    );
+    f.src = f.dataset.src;
+  };
+  next();
+
+  // Phone or desktop size for every frame
+  document.querySelectorAll('.sizes button').forEach((b) =>
+    b.addEventListener('click', () => {
+      document.body.classList.toggle('desk', b.dataset.size === 'desk');
+      document.querySelectorAll('.sizes button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    }),
+  );
+</script>
+</body>
+</html>
