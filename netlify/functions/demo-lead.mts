@@ -22,6 +22,17 @@ const PLAN_NOTE: Record<string, string> = {
   social: 'social media posting',
   website: 'website',
 };
+// A hero's free offer (src/components/demo-popup/openSiteChat.ts ChatOffer, 9 Oct 2026) says what they asked for instead
+const OFFER_NOTE: Record<string, string> = {
+  checkup: 'Free check-up of their Google profile, Facebook and website',
+  'social-demo': 'Free social media demo (3 sample posts)',
+  'review-check': 'Checked their Google reviews, wants Google reviews',
+};
+const OFFER_LABEL: Record<string, string> = {
+  checkup: 'free check-up',
+  'social-demo': 'free social media demo',
+  'review-check': 'review check',
+};
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'studio.localpros.co.za/website-design',
   'web-design': 'studio.localpros.co.za/website-design-package',
@@ -73,8 +84,9 @@ const stepsFrom = (body: Record<string, unknown>) =>
 const noteFor = (body: Record<string, unknown>) => {
   const page = typeof body.page === 'string' && Object.hasOwn(PAGE_NOTE, body.page) ? PAGE_NOTE[body.page] : 'the website';
   const plan = typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan) ? PLAN_NOTE[body.plan] : '';
+  const offer = typeof body.offer === 'string' && Object.hasOwn(OFFER_NOTE, body.offer) ? OFFER_NOTE[body.offer] : '';
   const steps = stepsFrom(body).map((step) => STEP_NOTE[step]);
-  return [plan ? `Start now: ${plan}, from ${page}.` : `Free demo website request, from ${page}.`, steps.length ? `So far: ${steps.join(', ')}.` : '']
+  return [offer ? `${offer}, from ${page}.` : plan ? `Start now: ${plan}, from ${page}.` : `Free demo website request, from ${page}.`, steps.length ? `So far: ${steps.join(', ')}.` : '']
     .filter(Boolean)
     .join('\n');
 };
@@ -202,7 +214,11 @@ const ALERT_PAGE: Record<string, string> = {
 const pageLabel = (body: Record<string, unknown>) =>
   typeof body.page === 'string' && Object.hasOwn(ALERT_PAGE, body.page) ? ALERT_PAGE[body.page] : 'the website';
 const planLabel = (body: Record<string, unknown>) =>
-  typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan) ? PLAN_NOTE[body.plan] : 'free demo';
+  typeof body.offer === 'string' && Object.hasOwn(OFFER_LABEL, body.offer)
+    ? OFFER_LABEL[body.offer]
+    : typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan)
+    ? PLAN_NOTE[body.plan]
+    : 'free demo';
 
 const startedText = (body: Record<string, unknown>) =>
   `👀 Someone started using the chat on ${pageLabel(body)} (${planLabel(body)}).\nNo details yet. You'll get another message if they leave them.`;

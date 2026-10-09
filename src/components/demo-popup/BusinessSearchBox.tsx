@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { MousePointer2, Search } from 'lucide-react';
-import { openSiteChat, type ChatPage, type ChatPlan } from './openSiteChat';
+import { openSiteChat, type ChatOffer, type ChatPage, type ChatPlan } from './openSiteChat';
 import { useGoogleSearch } from './googleSearch';
 import { notifyStarted } from './DemoPopup';
 import './business-search-box.css';
@@ -27,6 +27,7 @@ export default function BusinessSearchBox({
   buttonLabel,
   note,
   notOnGoogleLabel,
+  offer,
   onOpen,
 }: {
   page: ChatPage;
@@ -37,6 +38,8 @@ export default function BusinessSearchBox({
   note?: string;
   // The link under the box for businesses not on Google; pages can word it their own way
   notOnGoogleLabel?: string;
+  // A free offer the chat makes (openSiteChat.ts), e.g. the reviews page's review check
+  offer?: ChatOffer;
   onOpen?: () => void;
 }) {
   // Google is only asked once they start typing, not on every page view
@@ -49,7 +52,7 @@ export default function BusinessSearchBox({
     inputRef.current?.blur();
     setListOpen(false);
     clear();
-    openSiteChat(plan, { business });
+    openSiteChat(plan, { business, offer });
   });
 
   useEffect(() => setHighlight(0), [suggestions]);
@@ -67,7 +70,7 @@ export default function BusinessSearchBox({
   const start = () => {
     if (!active) {
       setActive(true);
-      notifyStarted(page, plan);
+      notifyStarted(page, plan, offer);
     }
     setListOpen(true);
     // On a phone, lift the box to the top of the screen so the matches show above the keyboard
@@ -84,7 +87,7 @@ export default function BusinessSearchBox({
     if (suggestions[highlight]) return pick(suggestions[highlight]);
     if (status === 'failed' || query.trim().length >= 3) {
       onOpen?.();
-      openSiteChat(plan, { focusSearch: true });
+      openSiteChat(plan, { focusSearch: true, offer });
       return;
     }
     inputRef.current?.focus();
@@ -178,8 +181,8 @@ export default function BusinessSearchBox({
         className="bsb-fb"
         onClick={() => {
           onOpen?.();
-          notifyStarted(page, plan);
-          openSiteChat(plan, { typeDetails: true });
+          notifyStarted(page, plan, offer);
+          openSiteChat(plan, { typeDetails: true, offer });
         }}
       >
         {/* Short beside the pointer's note, which sits under the right of the box */}

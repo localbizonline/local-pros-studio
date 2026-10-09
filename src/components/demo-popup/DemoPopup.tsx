@@ -4,7 +4,7 @@ import { ArrowRight, Check, Search, Star, X } from 'lucide-react';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import { isTeamDevice } from '../../teamDevice';
 import { capture, countDemoLead } from '../../analytics';
-import { chatState, OPEN_CHAT_EVENT, type ChatPage, type ChatPlan } from './openSiteChat';
+import { chatState, OPEN_CHAT_EVENT, type ChatOffer, type ChatPage, type ChatPlan } from './openSiteChat';
 import { useGoogleSearch, type Business } from './googleSearch';
 
 // The site chat (8 Oct 2026). Looks like a WhatsApp chat: we "type" the opening lines, the visitor
@@ -85,9 +85,50 @@ const chatLines = (plan?: ChatPlan, greet = true) =>
         'Find your business on Google below. We’ll build a free demo from your listing and WhatsApp it to you.',
       ];
 
-const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Business | null, name: string, link: string, whatsApp: string, answers: Answers) =>
+// A hero's free offer (openSiteChat.ts ChatOffer, 9 Oct 2026): its own opening lines, WhatsApp request, closing line
+// and send button. The plan it leads to still decides the quick questions and the Airtable plan.
+const OFFER: Record<ChatOffer, { lines: string[]; ask: string; ready: (name: string) => string; send: string; free: boolean; questions: QuestionId[] }> = {
+  checkup: {
+    lines: [
+      'Hi 👋 Want a free check-up of how your business looks online?',
+      'Find your business on Google below, or type your details. We’ll look at your Google profile, Facebook and website, and WhatsApp you what we’d fix.',
+    ],
+    ask: 'I’d like a free check-up of my Google profile, Facebook and website.',
+    ready: (name) => `Thanks. Tap send and we’ll start on the free check-up for ${name}.`,
+    send: 'Send for my free check-up',
+    free: true,
+    questions: ['site', 'when'],
+  },
+  'social-demo': {
+    lines: [
+      'Hi 👋 Want to see what your Facebook could look like?',
+      'Find your business on Google below, or send us your Facebook page. We’ll make 3 sample posts for your business and WhatsApp them to you.',
+    ],
+    ask: 'I’d like a free demo: 3 sample posts for my business.',
+    ready: (name) => `Thanks. Tap send and we’ll start on 3 sample posts for ${name}.`,
+    send: 'Send for my free demo',
+    free: true,
+    questions: ['when'],
+  },
+  'review-check': {
+    lines: ['Hi 👋 Let’s check your Google reviews.', 'Find your business on Google below and we’ll show you what people see when they look you up.'],
+    ask: 'I’d like more Google reviews.',
+    ready: (name) => `Thanks. Tap send and we’ll set up Google reviews for ${name} on WhatsApp.`,
+    send: 'Send to get more reviews',
+    free: false,
+    questions: ['when'],
+  },
+};
+
+// The review check's verdict under their numbers (ReviewCheck): only what Google's numbers show, no made-up benchmarks
+const reviewVerdict = (b: Business) =>
+  !b.reviewCount
+    ? 'People looking you up on Google have nothing to go on yet.'
+    : `This is what people see when they look you up.${b.rating != null && b.rating < 4.5 ? ' New 5-star reviews lift your average.' : ''}`;
+
+const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, offer: ChatOffer | undefined, business: Business | null, name: string, link: string, whatsApp: string, answers: Answers) =>
   [
-    `${OPENING[page]}. ${plan ? `I’d like to start ${PLAN[plan].whatsApp}.` : 'Please send me a free demo.'}`,
+    `${OPENING[page]}. ${offer ? OFFER[offer].ask : plan ? `I’d like to start ${PLAN[plan].whatsApp}.` : 'Please send me a free demo.'}`,
     ...(business
       ? [
           `Business: ${business.name}`,
@@ -95,6 +136,7 @@ const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, business: Busin
           business.phone && `Phone: ${business.phone}`,
           business.website && `Website: ${business.website}`,
           business.mapsUri && `Google: ${cleanMapsLink(business.mapsUri)}`,
+          offer === 'review-check' && `Google reviews now: ${business.reviewCount ? `${business.rating?.toFixed(1)} stars from ${business.reviewCount}` : 'none'}`,
         ]
       : [name.trim() && `Business name: ${name.trim()}`, link.trim() && `Facebook or website: ${link.trim()}`]),
     whatsApp && `My WhatsApp: ${showMobile(whatsApp)}`,
@@ -147,7 +189,7 @@ const postLead = (body: Record<string, unknown>) => {
 // (or send typed details), then updated as they confirm, change business or press send, so a visitor who
 // never presses send is still on the list. The server hands back the record id and a pass for the updates.
 type LeadStep = 'picked' | 'confirmed' | 'number' | 'typed' | 'answered' | 'sent';
-const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
+const useLeadRecord = (page: ChatPage, plan?: ChatPlan, offer?: ChatOffer) => {
   const record = useRef<{ id: string; pass: string } | null>(null);
   const steps = useRef<LeadStep[]>([]);
   // One request at a time, so an update never overtakes the create it depends on
@@ -157,7 +199,7 @@ const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
     // Picking a business (again) or typing details starts the story over: earlier steps were for another listing
     const restart = newSteps.includes('picked') || (newSteps.includes('typed') && !steps.current.includes('typed'));
     steps.current = restart ? [...newSteps] : [...new Set([...steps.current, ...newSteps])];
-    const body = { kind: 'lead', page, plan, steps: steps.current, ...lead };
+    const body = { kind: 'lead', page, plan, offer, steps: steps.current, ...lead };
     queue.current = queue.current.then(async () => {
       try {
         const res = await fetch('/api/demo-lead', {
@@ -182,7 +224,7 @@ const useLeadRecord = (page: ChatPage, plan?: ChatPlan) => {
 // "Someone started using the chat" alert: the first time a visitor taps into it, once per page per visit
 const STARTED_KEY = 'lps_chat_started';
 const startedThisLoad = new Set<string>();
-export const notifyStarted = (page: ChatPage, plan?: ChatPlan) => {
+export const notifyStarted = (page: ChatPage, plan?: ChatPlan, offer?: ChatOffer) => {
   try {
     const seen = JSON.parse(sessionStorage.getItem(STARTED_KEY) || '[]') as string[];
     if (seen.includes(page)) return;
@@ -192,8 +234,8 @@ export const notifyStarted = (page: ChatPage, plan?: ChatPlan) => {
     if (startedThisLoad.has(page)) return;
   }
   startedThisLoad.add(page);
-  capture('site_chat_started', { page, plan: plan || 'demo' });
-  postLead({ kind: 'started', page, plan });
+  capture('site_chat_started', { page, plan: plan || 'demo', offer });
+  postLead({ kind: 'started', page, plan, offer });
 };
 
 const track = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: label, value: 1 });
@@ -582,6 +624,34 @@ const RatingLine = ({ b }: { b: Business }) =>
     <span>No Google reviews yet</span>
   );
 
+// The review check's result (reviews page, 9 Oct 2026): the rating and count big enough to read at a glance
+const ReviewCheck = ({ b }: { b: Business }) => (
+  <div className="mt-2 first:mt-0 rounded-md bg-neutral-50 px-3 py-2.5 ring-1 ring-neutral-200">
+    <p className="text-[11px] font-bold uppercase tracking-wide text-neutral-500">Your Google reviews</p>
+    {b.reviewCount ? (
+      <div className="mt-1 flex items-center gap-2.5">
+        <span className="font-display text-[30px] font-extrabold leading-none text-neutral-900">{b.rating?.toFixed(1)}</span>
+        <span>
+          <span className="flex" aria-label={`${b.rating?.toFixed(1)} out of 5 stars`}>
+            {[1, 2, 3, 4, 5].map((n) => (
+              <Star
+                key={n}
+                className={`h-4 w-4 ${n <= Math.round(b.rating ?? 0) ? 'fill-amber-400 text-amber-400' : 'fill-neutral-200 text-neutral-200'}`}
+                aria-hidden="true"
+              />
+            ))}
+          </span>
+          <span className="block text-[13px] font-semibold text-neutral-700">
+            {b.reviewCount} review{b.reviewCount === 1 ? '' : 's'}
+          </span>
+        </span>
+      </div>
+    ) : (
+      <p className="mt-1 text-[15px] font-bold text-neutral-900">No reviews yet</p>
+    )}
+  </div>
+);
+
 const inputClass =
   'w-full rounded-md border border-[#b9dfb2] bg-white px-2.5 py-2 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-[#008069]';
 
@@ -602,7 +672,7 @@ export default function SiteChat({
 }) {
   // `session` changes when a button picks a different plan, which starts a fresh chat
   // modal: opened from a button (any button, with or without a plan); the chat that opens by itself stays in the corner
-  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; session: number; modal: boolean; focusSearch: boolean; picked?: Business; typeDetails?: boolean; prices?: boolean }>({
+  const [chat, setChat] = useState<{ open: boolean; plan?: ChatPlan; offer?: ChatOffer; session: number; modal: boolean; focusSearch: boolean; picked?: Business; typeDetails?: boolean; prices?: boolean }>({
     open: false,
     session: 0,
     modal: false,
@@ -614,12 +684,12 @@ export default function SiteChat({
   useEffect(() => {
     chatState.mounted += 1;
     const onOpen = (e: Event) => {
-      const { plan, focusSearch = false, business, typeDetails = false, prices = false } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean; business?: Business; typeDetails?: boolean; prices?: boolean }>).detail || {};
+      const { plan, focusSearch = false, business, typeDetails = false, prices = false, offer } = (e as CustomEvent<{ plan?: ChatPlan; focusSearch?: boolean; business?: Business; typeDetails?: boolean; prices?: boolean; offer?: ChatOffer }>).detail || {};
       setChat((c) =>
         // A business picked in a search box on the page, or "Not on Google?", always starts a fresh chat at that step.
         // The prices opening reopens where they left it if it was the last chat opened.
-        business || typeDetails || (prices ? !(c.prices && c.session > 0) : c.prices || !(c.plan === plan && c.session > 0))
-          ? { open: true, plan, session: c.session + 1, modal: true, focusSearch: focusSearch || !!business || typeDetails, picked: business, typeDetails, prices }
+        business || typeDetails || (prices ? !(c.prices && c.session > 0) : c.prices || !(c.plan === plan && c.offer === offer && c.session > 0))
+          ? { open: true, plan, offer, session: c.session + 1, modal: true, focusSearch: focusSearch || !!business || typeDetails, picked: business, typeDetails, prices }
           : { ...c, open: true, modal: true, focusSearch },
       );
     };
@@ -637,6 +707,7 @@ export default function SiteChat({
       key={chat.session}
       page={page}
       plan={chat.plan}
+      offer={chat.offer}
       open={chat.open}
       modal={chat.modal}
       focusSearch={chat.focusSearch}
@@ -645,7 +716,7 @@ export default function SiteChat({
       prices={chat.prices}
       onClose={() => setChat((c) => ({ ...c, open: false }))}
       onExpand={() => setChat((c) => (c.modal ? c : { ...c, modal: true }))}
-      trackPrefix={`${trackPrefix}_${chat.prices ? 'prices' : chat.plan || 'demo'}`}
+      trackPrefix={`${trackPrefix}_${chat.prices ? 'prices' : chat.offer || chat.plan || 'demo'}`}
     />
   );
 }
@@ -671,6 +742,7 @@ const useVisibleArea = (active: boolean) => {
 function ChatWindow({
   page,
   plan: planFromButton,
+  offer,
   open,
   modal,
   focusSearch,
@@ -683,6 +755,8 @@ function ChatWindow({
 }: {
   page: ChatPage;
   plan?: ChatPlan;
+  // A hero's free offer: its own words, same steps
+  offer?: ChatOffer;
   open: boolean;
   modal: boolean;
   focusSearch: boolean;
@@ -702,7 +776,7 @@ function ChatWindow({
   const [pickedPlan, setPickedPlan] = useState<ChatPlan>();
   const plan = planFromButton ?? pickedPlan;
   const planPicked = !prices || !!pickedPlan;
-  const lines = useMemo(() => chatLines(plan, !prices), [plan, prices]);
+  const lines = useMemo(() => (offer ? OFFER[offer].lines : chatLines(plan, !prices)), [plan, prices, offer]);
   const { typed, typing, finished } = useTypedLines(lines, open && planPicked, focusSearch);
   const [pending, setPending] = useState<Business | null>(null); // shown as "Is this you?"
   const [business, setBusiness] = useState<Business | null>(null); // confirmed
@@ -715,10 +789,10 @@ function ChatWindow({
   const [numberError, setNumberError] = useState('');
   const [otherNumber, setOtherNumber] = useState(false);
   const [answers, setAnswers] = useState<Answers>({});
-  const questions = useMemo(() => questionsFor(plan), [plan]);
+  const questions = useMemo(() => (offer ? OFFER[offer].questions : questionsFor(plan)), [plan, offer]);
   const chatRef = useRef<HTMLDivElement>(null);
   const [pricesTyping, setPricesTyping] = useState(false);
-  const saveLead = useLeadRecord(page, plan);
+  const saveLead = useLeadRecord(page, plan, offer);
   const { status, query, setQuery, suggestions, searching, pick, clear, focus, inputRef, showPicked } = useGoogleSearch(open, (b) => {
     setBusiness(null);
     setPending(b);
@@ -748,8 +822,8 @@ function ChatWindow({
 
   // PostHog: the chat steps are site_chat_opened → site_chat_started → site_chat_business_found → site_chat_sent
   useEffect(() => {
-    if (open) capture('site_chat_opened', { page, plan: prices ? 'prices' : planFromButton || 'demo', how: modal ? 'button' : 'opened_by_itself' });
-  }, [open, page, planFromButton, prices, modal]);
+    if (open) capture('site_chat_opened', { page, plan: prices ? 'prices' : planFromButton || 'demo', offer, how: modal ? 'button' : 'opened_by_itself' });
+  }, [open, page, planFromButton, prices, modal, offer]);
 
   useEffect(() => {
     if (!open) return;
@@ -759,7 +833,7 @@ function ChatWindow({
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose, trackPrefix]);
 
-  const href = whatsAppLink(chatMessage(page, plan, business, name, link, whatsApp, answers));
+  const href = whatsAppLink(chatMessage(page, plan, offer, business, name, link, whatsApp, answers));
   const typedMobile = normaliseMobile(numberInput);
   const googleMobile = business ? normaliseMobile(business.phone) : '';
   // We can reach them: a confirmed business with a number, or typed details with a valid number
@@ -880,7 +954,7 @@ function ChatWindow({
             <div
               className="w-[280px] max-w-full space-y-1.5"
               onFocus={() => {
-                notifyStarted(page, plan);
+                notifyStarted(page, plan, offer);
                 if (!modal && window.matchMedia('(max-width: 767px)').matches) onExpand();
               }}
             >
@@ -931,11 +1005,11 @@ function ChatWindow({
                   <button
                     type="button"
                     onClick={() => {
-                      notifyStarted(page, plan);
+                      notifyStarted(page, plan, offer);
                       setManual(true);
                     }}
                     className="text-[12px] font-semibold text-[#008069] underline">
-                    Not on Google? Type your details instead
+                    {offer === 'social-demo' ? 'Not on Google? Send your Facebook page instead' : 'Not on Google? Type your details instead'}
                   </button>
                 </>
               )}
@@ -967,8 +1041,9 @@ function ChatWindow({
               <p>{pending.hiddenAddress ? 'Address hidden on Google' : pending.address || 'No address on Google'}</p>
               {pending.phone && <p>{pending.phone}</p>}
               {pending.website && <p className="truncate">{shortWebsite(pending.website)}</p>}
-              <p className="text-neutral-700"><RatingLine b={pending} /></p>
+              {offer !== 'review-check' && <p className="text-neutral-700"><RatingLine b={pending} /></p>}
             </div>
+            {offer === 'review-check' && <ReviewCheck b={pending} />}
             <div className="mt-2 flex gap-2">
               <button
                 type="button"
@@ -1000,12 +1075,22 @@ function ChatWindow({
                 Change
               </button>
             </Bubble>
+            {offer === 'review-check' && (
+              <Bubble>
+                <ReviewCheck b={business} />
+                <p className="mt-2">
+                  {reviewVerdict(business)} We WhatsApp every customer your review link after the job, with a friendly reminder, so
+                  new reviews keep coming.
+                </p>
+              </Bubble>
+            )}
             {/* Can we WhatsApp them? Their Google number if it's a cellphone, otherwise ask for one */}
             {googleMobile && !otherNumber ? (
               <Bubble>
                 <p>Can we WhatsApp you on <span className="font-semibold">{showMobile(googleMobile)}</span>?</p>
                 {!whatsApp && (
-                  <div className="mt-2 flex gap-2">
+                  // Wraps on a narrow phone, where the two labels don't fit side by side
+                  <div className="mt-2 flex flex-wrap gap-2">
                     <button type="button" onClick={() => chooseNumber(googleMobile, 'google')} className="flex-1 whitespace-nowrap rounded-full bg-[#008069] px-3 py-2 text-[13px] font-bold text-white">
                       Yes, WhatsApp me there
                     </button>
@@ -1096,7 +1181,9 @@ function ChatWindow({
           )}
         {ready && (
           <Bubble>
-            {plan
+            {offer
+              ? OFFER[offer].ready(business?.name || name.trim())
+              : plan
               ? `Thanks. Tap send and we’ll set up ${PLAN[plan].whatsApp} for ${business?.name || name.trim()} on WhatsApp.`
               : `Thanks. Tap send and we’ll start on the free demo for ${business?.name || name.trim()}.`}
           </Bubble>
@@ -1117,7 +1204,7 @@ function ChatWindow({
           onClick={() => {
             if (!ready) return;
             track(`${trackPrefix}_whatsapp`);
-            capture('site_chat_sent', { page, plan: plan || 'demo', how: business ? 'google' : 'typed' });
+            capture('site_chat_sent', { page, plan: plan || 'demo', offer, how: business ? 'google' : 'typed' });
             // Updates the record made when they picked their business, or creates it for typed details
             saveLead(business ? ['sent'] : ['typed', 'sent'], leadNow());
           }}
@@ -1126,10 +1213,10 @@ function ChatWindow({
           }`}
         >
           <WhatsAppGlyph className="h-5 w-5" />
-          {plan ? 'Send to get started' : 'Send for my free demo'}
+          {offer ? OFFER[offer].send : plan ? 'Send to get started' : 'Send for my free demo'}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </a>
-        <p className="mt-1.5 text-center text-[11px] text-neutral-500">Opens WhatsApp. A real person replies.{plan ? '' : ' No cost, no obligation.'}</p>
+        <p className="mt-1.5 text-center text-[11px] text-neutral-500">Opens WhatsApp. A real person replies.{(offer ? OFFER[offer].free : !plan) ? ' No cost, no obligation.' : ''}</p>
       </div>
     </div>
   );

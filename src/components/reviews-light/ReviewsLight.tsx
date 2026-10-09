@@ -130,7 +130,8 @@ export default function ReviewsLight() {
 
       <main>
         {/* HERO: what (Google reviews), who (people look you up), why (they read reviews before they call), and
-            one action: find your business on Google, as on the homepage */}
+            one action: a free review check (9 Oct 2026). They find their business on Google and the chat shows their
+            rating and review count straight away, then offers to get them more. */}
         <section className="rvl-hero">
           <div className="dd-container">
             <h1 className="dd-kw rvl-kw">Google review collection on WhatsApp</h1>
@@ -142,10 +143,12 @@ export default function ReviewsLight() {
               them your review link.
             </p>
             <div className="rvl-search">
+              <p className="rvl-check-label">Free: see your Google rating and review count</p>
               <BusinessSearchBox
                 page="reviews"
                 plan="reviews"
-                buttonLabel="Find my business"
+                offer="review-check"
+                buttonLabel="Check my reviews"
                 notOnGoogleLabel="Can’t find your business? Send us your details"
               />
               <p className="rvl-or">

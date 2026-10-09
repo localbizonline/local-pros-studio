@@ -1,7 +1,7 @@
 import '../../design-directions/directions.css';
 import './herothreeservices.css';
-import type { ReactNode } from 'react';
 import { SITE_WHATSAPP_URL } from '../../../whatsapp';
+import { openSiteChat } from '../../demo-popup/openSiteChat';
 import landscapePhoto from '../../../assets/images/social-posting/happy contractor with social posting landscape ratio.webp';
 
 // Homepage / join page hero, picked by Jeremy on 8 Oct 2026 (option A of ten, A to J, since deleted):
@@ -10,8 +10,10 @@ import landscapePhoto from '../../../assets/images/social-posting/happy contract
 // how, two buttons and the wide contractor photo (the small print under the buttons was removed on 8 Oct 2026). It replaced the
 // "grow online" hero with three service cards, which repeated the "What we do" rows.
 // Used on the join page and in the section library; change it here only.
-// search (9 Oct 2026, Jeremy): a Google business search box takes the place of the two buttons, which become
-// small links under it. The homepage passes <BusinessSearchBox />.
+// checkup (9 Oct 2026, Jeremy): one "Get a free check-up" button takes the place of the two buttons, which become
+// small links under it. It opens the site chat with the free check-up offer, which works without a Google profile
+// (the homepage is for anybody). It replaced a Google search box, which read like signing up straight away.
+// The page must render <SiteChat page="home" />.
 
 const KEYWORD = 'Google reviews, social media and websites for South African businesses';
 
@@ -24,7 +26,7 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-export default function HeroThreeServices({ costsHref = '#pricing', search }: { costsHref?: string; search?: ReactNode }) {
+export default function HeroThreeServices({ costsHref = '#pricing', checkup = false }: { costsHref?: string; checkup?: boolean }) {
   return (
     <section className="dd dd-a hsc">
       <div className="dd-container">
@@ -43,9 +45,15 @@ export default function HeroThreeServices({ costsHref = '#pricing', search }: { 
         <p className="hsc-lede">
           We ask your customers for reviews on WhatsApp, post your work on Facebook and Instagram, and build you a new website or refresh the one you have.
         </p>
-        {search ? (
-          <div className="hsc-search">
-            {search}
+        {checkup ? (
+          <div className="hsc-cta">
+            <button type="button" className="dd-btn dd-btn-primary hsc-cta-btn" onClick={() => openSiteChat('package', { offer: 'checkup' })}>
+              Get a free check-up
+            </button>
+            <p className="hsc-cta-note">
+              We’ll look at your Google profile, Facebook and website, and WhatsApp you what we’d fix. No Google profile yet?
+              That’s fine.
+            </p>
             <p className="hsc-or">
               Or{' '}
               <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">

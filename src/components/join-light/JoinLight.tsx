@@ -9,7 +9,6 @@ import SiteFooter from '../section-library/sections/SiteFooter';
 import Pricing from '../section-library/sections/Pricing';
 import WhyNote from '../section-library/sections/WhyNote';
 import SiteChat from '../demo-popup/DemoPopup';
-import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
 import ReputationStory from '../section-library/sections/ReputationStory';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import closingPhoto from '../../assets/images/review-contractor-happy.webp';
@@ -72,7 +71,7 @@ export default function JoinLight() {
 
       <main>
         {/* HERO: "More Google reviews. Social media posts. A better website." (picked 8 Oct 2026) */}
-        <HeroThreeServices costsHref="#pricing" search={<BusinessSearchBox page="home" plan="package" buttonLabel="Find my business" />} />
+        <HeroThreeServices costsHref="#pricing" checkup />
 
         {/* YOUR REPUTATION: the customer path, animated "Follow the customer" (picked 7 Oct 2026) */}
         <ReputationStory variant="follow" />

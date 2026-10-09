@@ -49,10 +49,25 @@
 }
 
 
-/* The search box in place of the buttons, with the two links under it */
-.hsc-search {
+/* The free check-up button in place of the two buttons, with what it does and the two links under it */
+.hsc-cta {
   max-width: 640px;
-  margin: 36px auto 0;
+  margin: 34px auto 0;
+}
+
+.hsc .hsc-cta-btn {
+  min-width: 260px;
+  min-height: 56px;
+  font-size: 1.125rem;
+}
+
+.hsc .hsc-cta-note {
+  max-width: 30em;
+  margin: 14px auto 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
 }
 
 .hsc-or {
@@ -99,8 +114,13 @@
     font-size: 1.0625rem;
   }
 
-  .hsc .hsc-actions {
+  .hsc .hsc-actions,
+  .hsc-cta {
     margin-top: 28px;
+  }
+
+  .hsc .hsc-cta-btn {
+    width: 100%;
   }
 
   .hsc-media {

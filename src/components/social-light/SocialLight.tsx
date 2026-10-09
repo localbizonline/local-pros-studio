@@ -33,7 +33,7 @@ import armourNewYear from '../../assets/images/social-posting/social-post-fencin
 // The social media posting page in the light look (9 Oct 2026), built from scratch on the 3 to 9 Oct sessions:
 // - page flow and the five-second test from DESIGN-SYSTEM.md section 2 (one page sells one thing: social posts)
 // - the homepage's and /reviews page's opening: literal headline, one main action, WhatsApp and price as small links.
-//   The main action is a "Get started" button that opens the chat (the Google search box read like a directory
+//   The main action is a "Get a free demo" button (3 sample posts, 9 Oct) that opens the chat (the Google search box read like a directory
 //   search on this page, Jeremy 9 Oct); the chat saves the lead the moment a business is picked
 // - proof early, from real SP2 posts and numbers (clientProof.ts), never typed by hand
 // - never a posting frequency (Jeremy, 8 Oct): posts are made for you, made from your photos, or posted yourself
@@ -161,12 +161,15 @@ export default function SocialLight() {
               them on Facebook, Instagram and Google.
             </p>
             {/* One plain button, not the Google search box: on this page "Find my business" read like a directory
-                search (Jeremy, 9 Oct). The chat it opens asks for the business on Google and saves the lead on pick. */}
+                search (Jeremy, 9 Oct). Since 9 Oct it offers a free demo (3 sample posts) instead of "Get started", so
+                there is a reason to tap. The chat asks for the business on Google and saves the lead on pick. */}
             <div className="sol-cta">
-              <button type="button" className="dd-btn dd-btn-primary sol-cta-btn" onClick={() => openSiteChat('social')}>
-                Get started
+              <button type="button" className="dd-btn dd-btn-primary sol-cta-btn" onClick={() => openSiteChat('social', { offer: 'social-demo' })}>
+                Get a free demo
               </button>
-              <p className="sol-cta-note">Tell us your business name and we’ll WhatsApp you to set it up.</p>
+              <p className="sol-cta-note">
+                See what your Facebook could look like. We’ll make 3 sample posts for your business and WhatsApp them to you.
+              </p>
               <p className="sol-or">
                 Or{' '}
                 <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
@@ -360,7 +363,7 @@ export default function SocialLight() {
 
       <PostLightbox post={openPost} onClose={() => setOpenPost(null)} />
 
-      {/* The site chat: "Get started" and "Start now" open it with social media posts picked; it saves the lead to
+      {/* The site chat: "Get a free demo" and "Start now" open it with social media posts picked; it saves the lead to
           Airtable the moment a business is picked. It never opens by itself here. */}
       <SiteChat page="social" />
     </div>
