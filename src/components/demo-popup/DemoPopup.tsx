@@ -231,7 +231,7 @@ const loadMaps = () => {
   return mapsPromise;
 };
 
-// Opens once per visit: after `delayMs`, or sooner once the visitor is 40% down the page
+// Opens once per visit after `delayMs`, unless the visitor has already opened the chat or WhatsApp themselves
 const useOpenOnce = (enabled: boolean, delayMs: number, force: boolean, show: () => void) => {
   const showRef = useRef(show);
   showRef.current = show;
@@ -255,15 +255,27 @@ const useOpenOnce = (enabled: boolean, delayMs: number, force: boolean, show: ()
         /* ignore */
       }
     };
-    const timer = window.setTimeout(show, delayMs);
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max > 0 && window.scrollY / max > 0.4) show();
+    // Only if they haven't started anything themselves: a tap that opens the chat or a WhatsApp link cancels
+    // it for the rest of the visit (Jeremy, 9 Oct 2026). The 40%-scroll trigger was dropped at the same time.
+    const cancel = () => {
+      done = true;
+      window.clearTimeout(timer);
+      try {
+        sessionStorage.setItem(SEEN_KEY, '1');
+      } catch {
+        /* ignore */
+      }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    const onClick = (e: MouseEvent) => {
+      if ((e.target as Element | null)?.closest?.('a[href*="wa.me/"], a[href*="api.whatsapp.com/"]')) cancel();
+    };
+    const timer = window.setTimeout(show, delayMs);
+    window.addEventListener(OPEN_CHAT_EVENT, cancel);
+    document.addEventListener('click', onClick, true);
     return () => {
       window.clearTimeout(timer);
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener(OPEN_CHAT_EVENT, cancel);
+      document.removeEventListener('click', onClick, true);
     };
   }, [enabled, delayMs, force]);
 };

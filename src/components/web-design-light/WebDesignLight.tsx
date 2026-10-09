@@ -10,14 +10,12 @@ import FitCheck from '../section-library/sections/FitCheck';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import SiteChat from '../demo-popup/DemoPopup';
 import RecentWork from './RecentWork';
-import ClientReviews, { GoogleG, GOOGLE_REVIEWS_URL } from './ClientReviews';
+import ClientReviews from './ClientReviews';
+import WebDesignHero from './WebDesignHero';
 import PriceThreeWays from './PriceThreeWays';
 import FreeDemoBand from './FreeDemoBand';
 // Closing picture: three sites up front with more behind, from design/web-montage (rows layout, 8 Oct 2026)
 import montage from '../../assets/images/portfolio/web-closing-montage.webp';
-// Montage of client sites and example designs, built from design/web-montage (8 Oct 2026)
-import heroWide from '../../assets/images/portfolio/web-hero-wide.webp';
-import heroPhone from '../../assets/images/portfolio/web-hero-phone.webp';
 // Photos made for this page on 7 Oct 2026 in the homepage's photographic style; the people are teams
 // on purpose, since the page is for any size of business.
 import teamEnquiries from './img/team-new-enquiries.webp';
@@ -31,21 +29,9 @@ import ownerCall from './img/owner-short-call.webp';
 // Prices and terms are the live page's (confirmed by Jeremy on 1 Oct 2026).
 // Ad page: no site menu, so ad visitors stay here. The site chat opens once per visit with the free demo.
 
-const HERO_ALT =
-  'Websites we built on phones, each for a different business: paving, gas, pet transport, fencing, a vet clinic, attorneys, a driving school, plumbers, an estate agent, a guest house, pool cleaning, dog grooming, tutoring, a panel beater and more';
-
 // Same analytics event and labels as the old page (wd_ads_*, wd_site_*), so clicks can still be compared week on week
 const trackClick = (prefix: string, label: string) =>
   window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: `${prefix}_${label}`, value: 1 });
-
-const WhatsAppIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-    <path
-      fill="currentColor"
-      d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 01-1.44-5.02c0-5.2 4.23-9.43 9.44-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 012.76 6.67c0 5.2-4.24 9.43-9.44 9.43zm8.03-17.46A11.27 11.27 0 0012.04.75C5.8.75.72 5.83.72 12.07c0 2 .52 3.94 1.51 5.66L.62 23.6l6.01-1.58a11.3 11.3 0 005.41 1.38c6.24 0 11.32-5.08 11.32-11.32 0-3.03-1.18-5.87-3.32-8.01z"
-    />
-  </svg>
-);
 
 // What every website does, beside a photo instead of an icon grid
 const OUTCOMES = [
@@ -190,52 +176,8 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
       <SiteHeader minimal={isAd} whatsAppUrl={WA_URL} pricingHref="#pricing" />
 
       <main>
-        {/* HERO: what, who, the problem, one main button. Price in the small print (DESIGN-SYSTEM.md section 2) */}
-        <section className="dd-hero wdl-hero">
-          <div className="dd-container">
-            <h1 className="dd-kw">Website design for South African businesses</h1>
-            <p className="dd-display wdl-display">
-              A new website for your business, <span className="wdl-u">live in 7 days</span>
-            </p>
-            <p className="dd-lede">
-              We write, build and look after websites for South African businesses. Your customers look you up on their phone first,
-              and a slow or dated website sends them to someone else.
-            </p>
-            <div className="dd-actions">
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="dd-btn dd-btn-primary" onClick={() => track('hero_whatsapp')}>
-                <WhatsAppIcon />
-                WhatsApp us
-              </a>
-              <a href="#pricing" className="dd-btn dd-btn-secondary" onClick={() => track('hero_costs')}>
-                See what it costs
-              </a>
-            </div>
-            <p className="dd-hero-note">R9,900 once-off, or R450 a month. A real person replies.</p>
-            <a
-              href={GOOGLE_REVIEWS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="wdl-rating"
-              onClick={() => track('hero_google_reviews')}
-            >
-              <GoogleG />
-              <span>
-                <strong>4.7 stars</strong> from 1,400+ Google reviews <span className="wdl-rating-src">(Local Pros)</span>
-              </span>
-            </a>
-            {/* Websites we built for many kinds of business, so it feels like lots (Jeremy, 8 Oct 2026).
-                Phones get their own picture with fewer, bigger phones. */}
-            <figure className="wdl-hero-media">
-              <picture>
-                <source media="(max-width: 767px)" srcSet={heroPhone} />
-                <img src={heroWide} alt={HERO_ALT} width={1600} height={760} />
-              </picture>
-              <p className="wdl-badge">
-                <strong>500+</strong> websites built since 2015
-              </p>
-            </figure>
-          </div>
-        </section>
+        {/* HERO: what, who, and the free demo as the one main action (version C, 8 Oct 2026) */}
+        <WebDesignHero waUrl={WA_URL} track={track} />
 
         {/* PROOF, EARLY: recent work, one row per client site, then our Google reviews (both from the old page, 8 Oct 2026) */}
         <RecentWork onVisit={(d) => track(`work_${d}`)} />
@@ -303,7 +245,7 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
 
         {/* FREE DEMO: a Google search box that opens the chat, with the ReachMax-style pointer (version C, 8 Oct 2026; after How it works,
             whose first step is the demo) */}
-        <FreeDemoBand variant="c" onOpen={() => track('demo_band')} />
+        <FreeDemoBand onOpen={() => track('demo_band')} />
 
         {/* FIT: who it suits and who it does not, in the shared fit section */}
         <FitCheck
@@ -346,8 +288,9 @@ export default function WebDesignLight({ variant = 'ad' }: { variant?: 'ad' | 's
 
       <SiteFooter minimal={isAd} whatsAppUrl={WA_URL} pricingHref="#pricing" faqHref="#faq" />
 
-      {/* The site chat; leads go to Airtable (8 Oct 2026). On the ad page it opens once per visit with the free demo offer */}
-      <SiteChat page={isAd ? 'website-design' : 'web-design'} autoOpen={isAd} trackPrefix={`${prefix}_demo_popup`} />
+      {/* The site chat; leads go to Airtable (8 Oct 2026). On the ad page it opens by itself once per visit after
+          30 seconds, unless they have already tapped something that opens the chat or WhatsApp (9 Oct 2026) */}
+      <SiteChat page={isAd ? 'website-design' : 'web-design'} autoOpen={isAd} delayMs={30000} trackPrefix={`${prefix}_demo_popup`} />
     </div>
   );
 }
