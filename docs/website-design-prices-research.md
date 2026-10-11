@@ -75,4 +75,4 @@ Gap: Reddit was blocked for the research tool, so forum points come from MyBroad
 ## For the Google Ads build (Google Ads repo)
 
 Leave "cheap" and "affordable" out of the price campaign, or bid them low: a R9,900 site is not what those searchers want.
-Rent to own (R450 x 24 = R10,800, hosting included) costs less over two years than paying once (R9,900 + R290 x 24 = R16,860). Price shoppers who do the sum will notice; the page does not show the sum.
+Rent to own is 36 months since 11 Oct 2026 (was 24): R450 x 36 = R16,200, hosting included. Paying once over the same 3 years is R9,900 + R290 x 36 = R20,340.

@@ -39,7 +39,7 @@ const WAYS = [
     name: 'Rent to own',
     price: 'R450',
     unit: 'a month',
-    terms: 'Nothing upfront, hosting included. Yours after 24 months.',
+    terms: 'Nothing upfront, hosting included. Yours after 36 months.',
   },
   {
     key: 'free',
@@ -90,7 +90,7 @@ const SITES = [
 const FAQ: { q: string; a: string; link?: boolean }[] = [
   {
     q: 'How much does a website cost?',
-    a: 'With us, R9,900 once-off plus R290 a month for hosting and support, or R450 a month for 24 months with nothing upfront. It is free with our R2,500 a month Google reviews and social media package on a 12-month commitment.',
+    a: 'With us, R9,900 once-off plus R290 a month for hosting and support, or R450 a month for 36 months with nothing upfront. It is free with our R2,500 a month Google reviews and social media package on a 12-month commitment.',
   },
   {
     q: 'How much is a 5-page website?',
@@ -106,7 +106,7 @@ const FAQ: { q: string; a: string; link?: boolean }[] = [
   },
   {
     q: 'Who owns the website and the domain?',
-    a: 'The domain is always registered for your business. The website is yours from launch if you pay once, after your 24th payment on rent to own, or after 12 months on the package.',
+    a: 'The domain is always registered for your business. The website is yours from launch if you pay once, after your 36th payment on rent to own, or after 12 months on the package.',
     link: true,
   },
   {

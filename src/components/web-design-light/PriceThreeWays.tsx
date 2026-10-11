@@ -37,9 +37,9 @@ const OPTIONS: {
     featured: true,
     price: 'R450',
     unit: 'a month',
-    terms: 'For 24 months, then it is yours',
+    terms: 'For 36 months, then it is yours',
     summary: 'No big amount upfront. Hosting and support are included while you pay it off.',
-    points: ['Nothing to pay upfront for the build', 'Hosting, support and 1 hour of changes a month included', 'After 24 months it is yours and hosting is R290 a month'],
+    points: ['Nothing to pay upfront for the build', 'Hosting, support and 1 hour of changes a month included', 'After 36 months it is yours and hosting is R290 a month'],
     cta: 'Start with rent to own',
   },
   {
