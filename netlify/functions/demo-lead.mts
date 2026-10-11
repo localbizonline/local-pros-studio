@@ -8,10 +8,13 @@
 // Never Source = "Incoming": that starts the join form's WhatsApp opener automation.
 // It also WhatsApps Jeremy and Ashley through SP2 (POST WEBSITE_LEAD_ALERT_URL, recipients = SP2's
 // "Website leads" group): kind "started" when someone first uses the chat (alert only, nothing saved)
-// and kind "lead" when a lead is saved. Team devices never call this (src/teamDevice.ts).
+// and kind "lead" when a lead is saved. When a visitor who wants a website presses send, it also starts
+// their free demo website (netlify/lib/demo.mts). Team devices never call this (src/teamDevice.ts).
 // Dry run unless DEMO_LEAD_LIVE_WRITES is exactly "true" (production only): then it returns the fields instead.
 
 declare const Netlify: { env: { get(name: string): string | undefined } };
+
+import { sendAlert, startDemo } from '../lib/demo.mts';
 
 const AIRTABLE_URL = 'https://api.airtable.com/v0/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN';
 const MAX_BODY_BYTES = 10_000;
@@ -297,26 +300,9 @@ const sameText = (a: string, b: string) => {
   return diff === 0;
 };
 
-// Never blocks or fails the visitor's request: a missed alert is logged, the lead is still saved
-async function sendAlert(kind: 'started' | 'lead', text: string) {
-  const url = Netlify.env.get('WEBSITE_LEAD_ALERT_URL');
-  const key = Netlify.env.get('WEBSITE_LEAD_ALERT_KEY');
-  if (!url || !key) {
-    console.error('Lead alert not sent: WEBSITE_LEAD_ALERT_URL or WEBSITE_LEAD_ALERT_KEY is not set');
-    return;
-  }
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ kind, text }),
-      signal: AbortSignal.timeout(6000),
-    });
-    if (!res.ok) console.error('Lead alert failed', res.status, (await res.text()).slice(0, 300));
-  } catch (err) {
-    console.error('Lead alert error', err instanceof Error ? err.message : String(err));
-  }
-}
+// A free demo website (netlify/lib/demo.mts) for visitors who asked for one: the free demo offer or the
+// website plan, found on Google. Started when they press send, once per lead.
+const wantsDemoWebsite = (body: Record<string, unknown>) => body.mode === 'google' && !body.offer && (!body.plan || body.plan === 'website');
 
 export default async (request: Request) => {
   const origin = request.headers.get('Origin') || '';
@@ -384,7 +370,21 @@ export default async (request: Request) => {
       if (old[F.companyName] && old[F.companyName] !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
       if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
       if (stepsFrom(body).includes('answered') && !oldNote.includes(STEP_NOTE.answered)) await sendAlert('lead', answersText(body, fields, recordId));
-      if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) await sendAlert('lead', sentText(body, fields, recordId));
+      if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) {
+        await sendAlert('lead', sentText(body, fields, recordId));
+        if (wantsDemoWebsite(body)) {
+          await startDemo({
+            recordId,
+            name: String(fields[F.companyName]),
+            category: (fields[F.gbpCategory] as string) || undefined,
+            phone: (fields[F.gbpPhone] as string) || undefined,
+            website: (fields[F.gbpWebsite] as string) || undefined,
+            googleMapsUrl: (fields[F.gbpUrl] as string) || undefined,
+            rating: fields[F.gbpReviewScore] as number | undefined,
+            reviewCount: fields[F.gbpReviewCount] as number | undefined,
+          });
+        }
+      }
       return json({ ok: true }, 200);
     } catch (err) {
       console.error('Airtable update error', err instanceof Error ? err.message : String(err));
