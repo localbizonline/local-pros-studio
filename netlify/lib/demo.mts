@@ -121,6 +121,7 @@ export type DemoLead = {
   recordId: string;
   name: string;
   category?: string;
+  address?: string;
   phone?: string;
   website?: string;
   googleMapsUrl?: string;

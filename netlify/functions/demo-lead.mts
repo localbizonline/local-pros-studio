@@ -380,6 +380,7 @@ export default async (request: Request, context?: Context) => {
             recordId,
             name: String(fields[F.companyName]),
             category: (fields[F.gbpCategory] as string) || undefined,
+            address: text(body.address, 200) || undefined,
             phone: (fields[F.gbpPhone] as string) || undefined,
             website: (fields[F.gbpWebsite] as string) || undefined,
             googleMapsUrl: (fields[F.gbpUrl] as string) || undefined,
