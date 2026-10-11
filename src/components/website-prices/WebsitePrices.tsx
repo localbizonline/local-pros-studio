@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Check, ChevronDown, ArrowUpRight } from 'lucide-react';
+import { useEffect } from 'react';
+import { Check } from 'lucide-react';
 import '../design-directions/directions.css';
 import './websiteprices.css';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
@@ -8,47 +7,19 @@ import { trackPriceIntent } from '../../analytics';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import SiteChat from '../demo-popup/DemoPopup';
-import { openSiteChat } from '../demo-popup/openSiteChat';
-import { GoogleG, GOOGLE_REVIEWS_URL } from '../web-design-light/ClientReviews';
-import pavingMobile from '../../assets/images/portfolio/pavingpros-mobile.webp';
-import petportMobile from '../../assets/images/portfolio/petport-mobile.webp';
-import winelandsMobile from '../../assets/images/portfolio/winelandsgas-mobile.webp';
-import bkcMobile from '../../assets/images/portfolio/bkcpet-mobile.webp';
-import marambaMobile from '../../assets/images/portfolio/maramba-mobile.webp';
-import jacuzziMobile from '../../assets/images/portfolio/jacuzzipros-mobile.webp';
+import ClientReviews from '../web-design-light/ClientReviews';
+import RecentWork from '../web-design-light/RecentWork';
+import { Buttons, Facts, FaqItem, makeTrack, Montage, PriceClosing, PriceList, Rating } from './parts';
 
 // Website design prices (11 Oct 2026): the landing page for the Google Ads price campaign. People searching
 // "website design prices / cost / packages" landed on /website-design-package, which opens with the free demo,
 // and left in seconds without scrolling to the prices. This page answers the price on the first phone screen,
 // then what is included, what costs extra, how it compares and the questions price shoppers ask.
 // Research behind it: docs/website-design-prices-research.md. Prices and terms are the live website design page's
-// and the website terms page's (/website-faq); change them there too.
+// and the website terms page's (/website-faq); change them there too. Since 11 Oct 2026 Google Ads tests it against
+// the cost guide (/prices/website-design-cost-guide); both use the parts in parts.tsx.
 // The address must start with /pric: the Google Ads audience "Studio - Price page visitors (180d)" matches URLs
 // containing studio.localpros.co.za/pric, so /website-design-prices would not count.
-
-const WAYS = [
-  {
-    key: 'buy',
-    name: 'Pay once',
-    price: 'R9,900',
-    unit: 'once-off',
-    terms: 'Plus R290 a month hosting. Yours from launch.',
-  },
-  {
-    key: 'rent',
-    name: 'Rent to own',
-    price: 'R450',
-    unit: 'a month',
-    terms: 'Nothing upfront, hosting included. Yours after 36 months.',
-  },
-  {
-    key: 'free',
-    name: 'Free with our package',
-    price: 'R0',
-    unit: 'for the website',
-    terms: 'With Google reviews and social posts, R2,500 a month for 12 months.',
-  },
-] as const;
 
 const INCLUDED = [
   'Up to 10 pages for your services and areas',
@@ -76,15 +47,6 @@ const COMPARE: { row: string; diy: string; cheap: string; us: string }[] = [
   { row: 'Domain, hosting and security', diy: 'You set it up', cheap: 'Sometimes extra', us: 'Included' },
   { row: 'Changes after launch', diy: 'You do them', cheap: 'Often charged per change', us: '1 hour a month included' },
   { row: 'Who owns it', diy: 'Tied to the builder', cheap: 'Check the contract', us: 'You (see the options)' },
-];
-
-const SITES = [
-  { name: 'Paving Pros', what: 'Paving, four cities', img: pavingMobile, href: 'https://www.pavingpros.co.za/' },
-  { name: 'PETport', what: 'Pet transport', img: petportMobile, href: 'https://www.petport.co.za/' },
-  { name: 'Winelands Gas', what: 'Gas installations', img: winelandsMobile, href: 'https://winelandsgas.co.za/' },
-  { name: 'BKC Pet', what: 'Pet boarding, Benoni', img: bkcMobile, href: 'https://bkcpet.co.za/' },
-  { name: 'Maramba', what: 'Fencing and gates', img: marambaMobile, href: 'https://maramba.co.za/' },
-  { name: 'Jacuzzi Pros', what: 'Hot tubs', img: jacuzziMobile, href: 'https://jacuzzipros.co.za/' },
 ];
 
 const FAQ: { q: string; a: string; link?: boolean }[] = [
@@ -140,84 +102,9 @@ const FAQ: { q: string; a: string; link?: boolean }[] = [
   },
 ];
 
-const track = (label: string) =>
-  window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: `wp_${label}`, value: 1 });
+const track = makeTrack('wp');
 
-function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className={`dd-faq-item ${open ? 'is-open' : ''}`}>
-      <h3 className="dd-faq-q">
-        <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)}>
-          <span>{q}</span>
-          <ChevronDown className="dd-faq-chev" size={22} aria-hidden="true" />
-        </button>
-      </h3>
-      <div id={id} className="dd-faq-a" hidden={!open}>
-        <p>
-          {a}
-          {link && (
-            <>
-              {' '}
-              The full terms are on our{' '}
-              <Link to="/website-faq" className="wp-link">
-                website terms page
-              </Link>
-              .
-            </>
-          )}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Rating() {
-  return (
-    <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="wp-rating" onClick={() => track('hero_google_reviews')}>
-      <GoogleG />
-      <span>
-        <strong>4.7 stars</strong> from 1,400+ Google reviews <span className="wp-muted">(Local Pros)</span>
-      </span>
-    </a>
-  );
-}
-
-// The two biggest worries on price searches, ownership and time, answered on the first screen
-function Facts() {
-  return (
-    <ul className="wp-facts">
-      {['Live in 7 days', 'Domain in your business’s name', 'Hosting R290 a month from day one'].map((t) => (
-        <li key={t}>
-          <Check size={16} strokeWidth={2.5} aria-hidden="true" />
-          {t}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Buttons({ waUrl }: { waUrl: string }) {
-  return (
-    <div className="wp-actions">
-      <a href={waUrl} target="_blank" rel="noopener noreferrer" className="dd-btn dd-btn-primary" onClick={() => track('hero_whatsapp')}>
-        WhatsApp us for a quote
-      </a>
-      <button
-        type="button"
-        className="dd-btn dd-btn-secondary"
-        onClick={() => {
-          track('hero_demo');
-          openSiteChat();
-        }}
-      >
-        Get a free demo first
-      </button>
-    </div>
-  );
-}
-
-// The three ways to pay as a price list, straight under the headline
+// The three ways to pay as a price list, straight under the headline; the montage under it
 function HeroList({ waUrl }: { waUrl: string }) {
   return (
     <section className="dd-hero wp-hero">
@@ -227,23 +114,14 @@ function HeroList({ waUrl }: { waUrl: string }) {
           What your website <span className="wp-u">will cost</span>
         </p>
         <p className="dd-lede wp-lede">Up to 10 pages, wording and photos done for you, live in 7 days.</p>
-        <ul className="wp-list" aria-label="Three ways to pay">
-          {WAYS.map((w) => (
-            <li key={w.key} className={`wp-list-row${w.key === 'rent' ? ' is-pop' : ''}`}>
-              <div className="wp-list-name">
-                <strong>{w.name}</strong>
-                <span>{w.terms}</span>
-              </div>
-              <p className="wp-list-price">
-                {w.price}
-                <small>{w.unit}</small>
-              </p>
-            </li>
-          ))}
-        </ul>
-        <Buttons waUrl={waUrl} />
+        <PriceList />
+        <Buttons waUrl={waUrl} track={track} />
         <Facts />
-        <Rating />
+        <Rating track={track} />
+      </div>
+      <div className="dd-container">
+        {/* Under the prices, so the price list and buttons stay on the first phone screen */}
+        <Montage />
       </div>
     </section>
   );
@@ -255,7 +133,7 @@ export default function WebsitePrices() {
   useEffect(() => trackPriceIntent('/prices/website-design'), []);
 
   return (
-    <div className="dd dd-a wp">
+    <div className="dd dd-a wdl wp">
       <SiteHeader whatsAppUrl={WA_URL} pricingHref="#included" />
 
       <main>
@@ -333,29 +211,9 @@ export default function WebsitePrices() {
           </div>
         </section>
 
-        {/* PROOF: real client websites and our own Google rating */}
-        <section className="dd-sec wp-proof">
-          <div className="dd-container">
-            <div className="dd-head">
-              <p className="dd-eyebrow">Our work</p>
-              <h2 className="dd-h2">500+ websites built since 2015</h2>
-              <p className="dd-sub">A few recent ones for South African businesses. Tap one to see it live.</p>
-            </div>
-            <ul className="wp-sites">
-              {SITES.map((s) => (
-                <li key={s.name}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" onClick={() => track(`site_${s.name}`)}>
-                    <img src={s.img} alt={`${s.name} website on a phone`} width={585} height={1266} loading="lazy" />
-                    <strong>
-                      {s.name} <ArrowUpRight size={15} aria-hidden="true" />
-                    </strong>
-                    <span>{s.what}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        {/* PROOF: the website design page's Recent work (six client sites on a computer and a phone) and our Google reviews */}
+        <RecentWork onVisit={(d) => track(`work_${d}`)} />
+        <ClientReviews onGoogle={() => track('reviews_google')} />
 
         {/* FAQ: the questions price shoppers ask, each answered in its first sentence */}
         <section className="dd-sec" id="faq">
@@ -372,31 +230,7 @@ export default function WebsitePrices() {
           </div>
         </section>
 
-        {/* CLOSING: one next step, a quote on WhatsApp; the free demo for those not ready to talk */}
-        <section className="wp-close">
-          <div className="dd-container">
-            <div className="wp-close-card">
-              <h2 className="dd-h2">Get a price for your website</h2>
-              <p>Tell us about your business on WhatsApp and we’ll tell you exactly what it costs. A real person replies.</p>
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="dd-btn dd-btn-primary wp-close-btn" onClick={() => track('final_whatsapp')}>
-                WhatsApp us for a quote
-              </a>
-              <p className="wp-close-or">
-                Not ready to talk?{' '}
-                <button
-                  type="button"
-                  className="wp-link"
-                  onClick={() => {
-                    track('final_demo');
-                    openSiteChat();
-                  }}
-                >
-                  Get a free demo of your website
-                </button>
-              </p>
-            </div>
-          </div>
-        </section>
+        <PriceClosing waUrl={WA_URL} track={track} />
       </main>
 
       <SiteFooter whatsAppUrl={WA_URL} pricingHref="#included" faqHref="#faq" />

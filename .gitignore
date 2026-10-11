@@ -30,3 +30,6 @@ dist-server
 # Review screenshots and large image explorations: kept on disk, not in git
 .review-shots
 design/logo-options
+
+# Research with competitor names (the repo is public): kept on this machine only
+research-private/

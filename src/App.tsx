@@ -22,12 +22,15 @@ const SocialLight = lazy(() => import('./components/social-light/SocialLight'));
 const PricingLight = lazy(() => import('./components/pricing-light/PricingLight'));
 // Website design prices, the Google Ads price campaign's landing page (11 Oct 2026)
 const WebsitePrices = lazy(() => import('./components/website-prices/WebsitePrices'));
+// What SA web design companies charge, tested against the price page in the same Ads campaign (11 Oct 2026)
+const CostGuide = lazy(() => import('./components/website-cost-guide/CostGuide'));
 // Its styles load with the site's main stylesheet, not with the page's code: the pre-built HTML only links
 // the main stylesheet, so a lazy page's own CSS arrived late and the hero flashed unstyled on refresh
 // (8 Oct 2026). Do the same for any lazy-loaded page that has its own CSS file.
 import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
 import './components/website-prices/websiteprices.css';
+import './components/website-cost-guide/costguide.css';
 import './components/about-light/aboutlight.css';
 import './components/legallight.css';
 import './components/not-found/notfound.css';
@@ -252,6 +255,7 @@ export const AppContent = () => {
               became this one address on 9 Oct 2026 */}
           <Route path="/website-design-package" element={<WebDesignLight />} />
           <Route path="/prices/website-design" element={<WebsitePrices />} />
+          <Route path="/prices/website-design-cost-guide" element={<CostGuide />} />
           <Route path="/about" element={<AboutLight />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />

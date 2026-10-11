@@ -299,90 +299,26 @@
   text-align: center;
 }
 
-/* ---------- Proof ---------- */
+/* ---------- Hero montage and closing ---------- */
 
-.wp-sites {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 20px;
-}
-
-.wp-sites a {
-  display: block;
-  color: var(--ink);
-}
-
-.wp-sites img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 585 / 1000;
-  object-fit: cover;
-  object-position: top;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
-  margin-bottom: 12px;
-}
-
-.wp-sites strong {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 1rem;
-}
-
-.wp-sites span {
-  display: block;
-  font-size: 0.875rem;
-  color: var(--muted);
-}
-
-.wp-sites a:hover strong {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-underline-offset: 3px;
-}
-
-/* ---------- Closing ---------- */
-
-.wp-close {
-  padding: 96px 0;
-  background: var(--cream);
-}
-
-.wp-close-card {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 56px 48px;
-  border-radius: 24px;
-  background: var(--dark);
-  text-align: center;
-}
-
-.wp-close-card .dd-h2 {
-  color: var(--on-dark);
-}
-
-.wp-close-card > p {
-  margin: 16px auto 0;
-  max-width: 30em;
-  font-size: 1.1875rem;
-  line-height: 1.55;
-  color: var(--on-dark-body);
+.wp-hero-media {
+  margin-top: 40px;
 }
 
 .wp-close-btn {
-  margin-top: 28px;
+  align-self: flex-start;
   min-height: 60px;
   font-size: 1.1875rem;
 }
 
-.wp-close-card .wp-close-or {
-  margin-top: 18px;
+.wp-close-or {
+  margin-top: 16px;
   font-size: 1rem;
+  line-height: 1.5;
+  color: var(--on-dark-body);
 }
 
-.wp-close-card .wp-link {
+.wp-close-or .wp-link {
   color: var(--on-dark);
   min-height: 44px;
 }
@@ -395,9 +331,6 @@
     gap: 24px;
   }
 
-  .wp-sites {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 @media (max-width: 640px) {
@@ -410,8 +343,13 @@
     margin-top: 20px;
   }
 
-  .wp-actions .dd-btn {
+  .wp-actions .dd-btn,
+  .wp-close-btn {
     width: 100%;
+  }
+
+  .wp-hero-media {
+    margin-top: 28px;
   }
 
   .wp-list {
@@ -473,16 +411,5 @@
     border-radius: 8px;
   }
 
-  .wp-sites {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
 
-  .wp-close {
-    padding: 64px 0;
-  }
-
-  .wp-close-card {
-    padding: 40px 24px;
-  }
 }
