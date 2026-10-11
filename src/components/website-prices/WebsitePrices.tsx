@@ -52,15 +52,16 @@ const COMPARE: { row: string; diy: string; cheap: string; us: string }[] = [
 const FAQ: { q: string; a: string; link?: boolean }[] = [
   {
     q: 'How much does a website cost?',
-    a: 'With us, R9,900 once-off plus R290 a month for hosting and support, or R450 a month for 36 months with nothing upfront. It is free with our R2,500 a month Google reviews and social media package on a 12-month commitment.',
+    a: 'With us, R9,900 once-off, including the first 12 months of hosting and changes (worth R3,000), or R450 a month for 36 months with nothing upfront. It is free with our R2,500 a month Google reviews and social media package on a 12-month commitment.',
   },
   {
     q: 'How much is a 5-page website?',
     a: 'The same: R9,900 once-off, or R450 a month. The price covers up to 10 pages, so you get a page for each service and area without paying per page.',
   },
   {
-    q: 'Why is there a monthly fee if I pay once?',
-    a: 'The R290 keeps the website online and safe: your domain renewed every year, hosting, the SSL padlock, security updates, backups and 1 hour of changes a month. Without it, a website quietly breaks or the domain lapses.',
+    q: 'What happens after the first 12 months?',
+    a: 'Hosting and changes carry on for a monthly fee, set out when you sign up. It keeps your domain renewed and the website online, safe and backed up, with 1 hour of changes a month.',
+    link: true,
   },
   {
     q: 'Are there any other costs?',

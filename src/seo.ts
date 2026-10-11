@@ -52,7 +52,7 @@ export const PAGES: Record<string, PageSeo> = {
   '/prices/website-design': {
     title: 'Website Design Prices South Africa | Local Pros Studio',
     description:
-      'Website design prices: R9,900 once-off plus R290 a month hosting, or R450 a month with nothing upfront. Up to 10 pages, wording done, live in 7 days.',
+      'Website design prices: R9,900 once-off with 12 months of hosting and changes included, or R450 a month with nothing upfront. Live in 7 days.',
   },
   // The cost guide, tested against /prices/website-design in the price campaign (11 Oct 2026). The figures here are
   // typed by hand from src/components/website-cost-guide/costGuideStats.ts: update them when the survey is redone.

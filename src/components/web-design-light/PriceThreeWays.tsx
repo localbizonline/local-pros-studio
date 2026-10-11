@@ -24,9 +24,9 @@ const OPTIONS: {
     name: 'Pay once',
     price: 'R9,900',
     unit: 'once-off',
-    terms: 'Plus R290 a month for hosting and support',
+    terms: 'Includes 12 months of hosting and changes, worth R3,000',
     summary: 'Pay once and the website is yours from day one.',
-    points: ['Yours from launch', 'R290 a month covers your domain, hosting, security, backups and support', '1 hour of changes every month'],
+    points: ['Yours from launch', 'Domain, hosting, security, backups and support for 12 months', '1 hour of changes every month for 12 months'],
     cta: 'Start with pay once',
   },
   {
@@ -39,7 +39,7 @@ const OPTIONS: {
     unit: 'a month',
     terms: 'For 36 months, then it is yours',
     summary: 'No big amount upfront. Hosting and support are included while you pay it off.',
-    points: ['Nothing to pay upfront for the build', 'Hosting, support and 1 hour of changes a month included', 'After 36 months it is yours and hosting is R290 a month'],
+    points: ['Nothing to pay upfront for the build', 'Hosting, support and 1 hour of changes a month included', 'After 36 months it is yours'],
     cta: 'Start with rent to own',
   },
   {

@@ -412,7 +412,7 @@ const ONE_SERVICE: Record<
     price: 'R9,900',
     unit: 'once-off',
     just: 'Just the website',
-    alone: 'A website on its own is R9,900 once-off, plus R290 a month for hosting.',
+    alone: 'A website on its own is R9,900 once-off, with the first 12 months of hosting and changes included.',
     extra: 0,
     adds: [['⭐', 'A Google review request to every customer'], ['📲', 'Facebook and Instagram posts, made and published for you']],
   },

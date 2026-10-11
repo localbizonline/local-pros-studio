@@ -12,6 +12,8 @@ import closingMontage from '../../assets/images/portfolio/web-closing-montage.we
 // Parts shared by the two website price pages Google Ads tests against each other (11 Oct 2026):
 // /prices/website-design (our prices first) and /prices/website-design-cost-guide (market prices first, then ours).
 // Prices and terms are the website design page's and the website terms page's (/website-faq); change them there too.
+// Pay once includes the first 12 months of hosting and changes, "worth R3,000" (Jeremy, 11 Oct 2026). The monthly fee
+// after that is only on the website terms page, not on the marketing pages (his call).
 
 export const WAYS = [
   {
@@ -19,7 +21,7 @@ export const WAYS = [
     name: 'Pay once',
     price: 'R9,900',
     unit: 'once-off',
-    terms: 'Plus R290 a month hosting. Yours from launch.',
+    terms: 'Includes 12 months of hosting and changes, worth R3,000. Yours from launch.',
   },
   {
     key: 'rent',
@@ -89,7 +91,7 @@ export function Rating({ track }: { track: Track }) {
 export function Facts() {
   return (
     <ul className="wp-facts">
-      {['Live in 7 days', 'Domain in your business’s name', 'Hosting R290 a month from day one'].map((t) => (
+      {['Live in 7 days', 'Domain in your business’s name', 'Hosting included from day one'].map((t) => (
         <li key={t}>
           <Check size={16} strokeWidth={2.5} aria-hidden="true" />
           {t}

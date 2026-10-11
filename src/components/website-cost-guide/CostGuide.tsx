@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import '../design-directions/directions.css';
 import '../website-prices/websiteprices.css';
@@ -82,7 +83,7 @@ const FAQ: { q: string; a: string; link?: boolean }[] = [
   },
   {
     q: 'What does a website cost with Local Pros Studio?',
-    a: 'R9,900 once-off plus R290 a month for hosting and support, or R450 a month for 36 months with nothing upfront. It is free with our R2,500 a month Google reviews and social media package on a 12-month commitment.',
+    a: 'R9,900 once-off, including the first 12 months of hosting and changes (worth R3,000), or R450 a month for 36 months with nothing upfront. It is free with our R2,500 a month Google reviews and social media package on a 12-month commitment.',
   },
   {
     q: 'Who owns the website and the domain with you?',
@@ -340,7 +341,11 @@ export default function CostGuide() {
                 wording and photos, and 1 hour of changes every month.
               </p>
               <p className="cg-p">
-                Hosting is R290 a month, shown upfront. Rent to own is R450 a month for up to 10 pages, below the{' '}
+                The first 12 months of hosting and changes are included, worth R3,000; the fee after that is on our{' '}
+                <Link to="/website-faq" className="wp-link">
+                  website terms page
+                </Link>
+                . Rent to own is R450 a month for up to 10 pages, below the{' '}
                 {rand(M10.min)} to {rand(M10.max)} pay-monthly price for a site that size.
               </p>
               <ul className="wp-ticks cg-ticks">

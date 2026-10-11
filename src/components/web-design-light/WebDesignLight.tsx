@@ -66,7 +66,7 @@ const FAQ = [
   },
   {
     q: 'How much does a website cost?',
-    a: 'R9,900 once-off, plus R290 a month for hosting and support. Or rent to own at R450 a month for 36 months, after which it is yours and hosting drops to R290 a month. It is free with our R2,500 a month package on a 12-month commitment.',
+    a: 'R9,900 once-off, including the first 12 months of hosting and changes (worth R3,000). Or rent to own at R450 a month for 36 months, after which it is yours. It is free with our R2,500 a month package on a 12-month commitment.',
   },
   {
     q: 'Can I see a demo first?',

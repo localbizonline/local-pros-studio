@@ -42,7 +42,7 @@ The same chat opens from buttons on other pages: render `<SiteChat page="join" /
 - **Google reviews**: R1,200/month
 - **Social media posting**: R2,000/month
 - **R2,500 plan**: reviews + social posting, 6-month commitment; free website on a 12-month commitment
-- **Web design**: R9,900 once-off
+- **Web design**: R9,900 once-off, including the first 12 months of hosting and changes ("worth R3,000", 11 Oct 2026); rent to own R450 a month for 36 months. The monthly fee after year one (R290) appears only on the website terms page (/website-faq), not on marketing pages (Jeremy's call)
 
 Check the live pages before quoting a price; prices are still repeated across several page files.
 

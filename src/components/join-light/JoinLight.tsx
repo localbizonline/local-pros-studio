@@ -30,11 +30,11 @@ const faqs = [
   },
   {
     question: 'Do you build websites too?',
-    answer: 'Yes. If you sign up and don’t have a website, or yours is outdated, we’ll build you a new one for free (normally R9,900) on a 12-month commitment. After 12 months it’s yours. If you then stop the plan, you keep it on our R290 a month hosting and management, which includes 1 hour of changes a month.',
+    answer: 'Yes. If you sign up and don’t have a website, or yours is outdated, we’ll build you a new one for free (normally R9,900) on a 12-month commitment. After 12 months it’s yours. If you then stop the plan, you keep it with our monthly hosting and management, which includes 1 hour of changes a month.',
   },
   {
     question: 'I already have a website. Can you refresh it?',
-    answer: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free (normally R9,900) on the 12-month plan, or R9,900 once-off on its own, plus R290 a month for hosting.',
+    answer: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free (normally R9,900) on the 12-month plan, or R9,900 once-off on its own, with the first 12 months of hosting and changes included.',
   },
   {
     question: 'What if a customer is unhappy?',

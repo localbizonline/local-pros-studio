@@ -691,7 +691,8 @@ const websiteFaqSections: LegalSection[] = [
         <Question question="When do I pay the R290/month fee?">
           <ul>
             <li>
-              <strong>Bought outright:</strong> from launch.
+              <strong>Bought outright:</strong> from month 13. The first 12 months of hosting and management are
+              included in the R9,900.
             </li>
             <li>
               <strong>Rent to own:</strong> hosting and management is included in your R450/month. After your 36th
