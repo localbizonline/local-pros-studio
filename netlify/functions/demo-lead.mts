@@ -304,7 +304,10 @@ const sameText = (a: string, b: string) => {
 // website plan, found on Google. Started when they press send, once per lead.
 const wantsDemoWebsite = (body: Record<string, unknown>) => body.mode === 'google' && !body.offer && (!body.plan || body.plan === 'website');
 
-export default async (request: Request) => {
+// Netlify's context: waitUntil lets the demo start finish after the visitor has their answer
+type Context = { waitUntil?: (promise: Promise<unknown>) => void };
+
+export default async (request: Request, context?: Context) => {
   const origin = request.headers.get('Origin') || '';
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405);
   if (!allowedOrigin(origin)) return json({ ok: false, error: 'forbidden' }, 403);
@@ -373,7 +376,7 @@ export default async (request: Request) => {
       if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) {
         await sendAlert('lead', sentText(body, fields, recordId));
         if (wantsDemoWebsite(body)) {
-          await startDemo({
+          const demo = startDemo({
             recordId,
             name: String(fields[F.companyName]),
             category: (fields[F.gbpCategory] as string) || undefined,
@@ -383,6 +386,8 @@ export default async (request: Request) => {
             rating: fields[F.gbpReviewScore] as number | undefined,
             reviewCount: fields[F.gbpReviewCount] as number | undefined,
           });
+          if (context?.waitUntil) context.waitUntil(demo);
+          else await demo;
         }
       }
       return json({ ok: true }, 200);
