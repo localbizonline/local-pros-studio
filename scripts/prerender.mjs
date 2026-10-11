@@ -1,7 +1,7 @@
 // Runs after `vite build`: saves every page in src/seo.ts as finished HTML with its own title,
 // description and canonical address, then writes sitemap.xml and robots.txt from the same list.
 // Netlify serves dist/reviews.html at /reviews; anything else falls back to spa.html (public/_redirects).
-import { readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { Writable } from 'node:stream';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -92,6 +92,8 @@ for (const [route, seo] of Object.entries(PAGES)) {
   const url = canonicalUrl(route);
   const html = withHead(template, { ...seo, url }).replace('<div id="root"></div>', `<div id="root">${body}</div>`);
   const file = route === '/' ? 'index.html' : `${route.slice(1)}.html`;
+  // Pages one level down (/prices/website-design) need their folder
+  await mkdir(path.dirname(path.join(dist, file)), { recursive: true });
   await writeFile(path.join(dist, file), html);
 
   if (!seo.noindex && !seo.canonicalPath) sitemap.push(url);

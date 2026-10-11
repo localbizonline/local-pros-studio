@@ -1,0 +1,488 @@
+/* Website design prices page (11 Oct 2026), /prices/website-design. Light look, DESIGN-SYSTEM.md section 4.
+   Imported in App.tsx too, so the pre-built page doesn't flash unstyled. */
+
+.wp-u {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.12em;
+  text-decoration-skip-ink: none;
+}
+
+.wp-link {
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+.wp-muted {
+  color: var(--muted);
+}
+
+.wp-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+  padding: 28px;
+}
+
+.wp-card-quiet {
+  background: var(--surface-2);
+  box-shadow: none;
+}
+
+.wp-card-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.wp-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+
+.wp-card-foot {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+/* ---------- Hero ---------- */
+
+.wp-hero {
+  padding-top: 56px;
+}
+
+.wp-hero-in {
+  max-width: 760px;
+}
+
+.wp-display {
+  max-width: 14em;
+}
+
+.wp-lede strong {
+  color: var(--ink);
+}
+
+.wp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.wp-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  color: var(--body);
+}
+
+.wp-rating strong {
+  color: var(--ink);
+}
+
+.wp-rating:hover > span {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+.wp-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 14px;
+  font-size: 0.9375rem;
+  color: var(--body);
+}
+
+.wp-facts li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wp-facts svg {
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+/* A: price list */
+.wp-list {
+  margin-top: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+  overflow: hidden;
+}
+
+.wp-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+}
+
+.wp-list-row + .wp-list-row {
+  border-top: 1px solid var(--line);
+}
+
+.wp-list-row.is-pop {
+  background: #fffbeb;
+}
+
+.wp-list-name strong {
+  display: block;
+  font-size: 1.125rem;
+  color: var(--ink);
+}
+
+.wp-list-name span {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--body);
+}
+
+.wp-list-price {
+  flex-shrink: 0;
+  text-align: right;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.wp-list-price small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.wp-ticks {
+  display: grid;
+  gap: 12px;
+}
+
+.wp-ticks li {
+  display: flex;
+  gap: 10px;
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  color: var(--body);
+}
+
+.wp-ticks svg {
+  margin-top: 3px;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+
+/* ---------- Included / extra ---------- */
+
+.wp-inc-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.wp-extras {
+  display: grid;
+  gap: 16px;
+}
+
+.wp-extras strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1.0625rem;
+}
+
+.wp-extras span {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+/* ---------- Compare ---------- */
+
+.wp-compare {
+  background: var(--cream);
+}
+
+.wp-compare + .dd-sec {
+  border-top: 0;
+}
+
+.wp-table {
+  max-width: 980px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  overflow: hidden;
+}
+
+.wp-tr {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+}
+
+.wp-tr > span {
+  padding: 14px 18px;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--body);
+}
+
+.wp-tr + .wp-tr {
+  border-top: 1px solid var(--line);
+}
+
+.wp-th > span {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wp-row-label {
+  font-weight: 700;
+  color: var(--ink) !important;
+}
+
+.wp-tr > .wp-us {
+  background: #fffbeb;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wp-compare-note {
+  max-width: 980px;
+  margin: 14px auto 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- Proof ---------- */
+
+.wp-sites {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+.wp-sites a {
+  display: block;
+  color: var(--ink);
+}
+
+.wp-sites img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 585 / 1000;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px -24px rgba(28, 25, 23, 0.45);
+  margin-bottom: 12px;
+}
+
+.wp-sites strong {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1rem;
+}
+
+.wp-sites span {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.wp-sites a:hover strong {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+/* ---------- Closing ---------- */
+
+.wp-close {
+  padding: 96px 0;
+  background: var(--cream);
+}
+
+.wp-close-card {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 48px;
+  border-radius: 24px;
+  background: var(--dark);
+  text-align: center;
+}
+
+.wp-close-card .dd-h2 {
+  color: var(--on-dark);
+}
+
+.wp-close-card > p {
+  margin: 16px auto 0;
+  max-width: 30em;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--on-dark-body);
+}
+
+.wp-close-btn {
+  margin-top: 28px;
+  min-height: 60px;
+  font-size: 1.1875rem;
+}
+
+.wp-close-card .wp-close-or {
+  margin-top: 18px;
+  font-size: 1rem;
+}
+
+.wp-close-card .wp-link {
+  color: var(--on-dark);
+  min-height: 44px;
+}
+
+/* ---------- Phones ---------- */
+
+@media (max-width: 900px) {
+  .wp-inc-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .wp-sites {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .wp-hero {
+    padding-top: 32px;
+  }
+
+  .wp-actions {
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .wp-actions .dd-btn {
+    width: 100%;
+  }
+
+  .wp-list {
+    margin-top: 20px;
+  }
+
+  .wp-list-row {
+    padding: 14px 16px;
+  }
+
+  .wp-list-name strong {
+    font-size: 1.0625rem;
+  }
+
+  .wp-list-name span {
+    font-size: 0.875rem;
+  }
+
+  .wp-list-price {
+    font-size: 1.5rem;
+  }
+
+  .wp-card {
+    padding: 22px 20px;
+  }
+
+  /* The table becomes one block per row, the three answers under its label */
+  .wp-th {
+    display: none !important;
+  }
+
+  .wp-tr {
+    grid-template-columns: 1fr;
+    padding: 14px 16px;
+  }
+
+  .wp-tr > span {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+    font-size: 0.9375rem;
+  }
+
+  .wp-tr > span[data-col]::before {
+    content: attr(data-col);
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .wp-tr > .wp-row-label {
+    padding-bottom: 6px;
+    font-size: 1.0625rem;
+  }
+
+  .wp-tr > .wp-us {
+    margin: 4px -8px 0;
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+
+  .wp-sites {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .wp-close {
+    padding: 64px 0;
+  }
+
+  .wp-close-card {
+    padding: 40px 24px;
+  }
+}

@@ -36,6 +36,7 @@ const OFFER_LABEL: Record<string, string> = {
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'studio.localpros.co.za/website-design',
   'web-design': 'studio.localpros.co.za/website-design-package',
+  'website-prices': 'the website design prices page',
   home: 'the homepage',
   join: 'the join page',
   reviews: 'the Google reviews page',
@@ -48,6 +49,8 @@ const PAGE_SOURCE: Record<string, string> = {
   'website-design': 'Website – website design page',
   // The same page with the site menu, reached from the site rather than from Google Ads (8 Oct 2026)
   'web-design': 'Website – website design page (site menu)',
+  // The website design prices page, for the Google Ads price campaign (11 Oct 2026)
+  'website-prices': 'Website – website design prices page',
   home: 'Website – homepage',
   join: 'Website – join page',
   reviews: 'Website – Google reviews page',

@@ -18,5 +18,7 @@ interface Window {
     capture: (event: string, properties?: Record<string, unknown>) => void;
     register: (properties: Record<string, unknown>) => void;
     unregister: (property: string) => void;
+    register_for_session: (properties: Record<string, unknown>) => void;
+    setPersonProperties: (set?: Record<string, unknown>, setOnce?: Record<string, unknown>) => void;
   };
 }

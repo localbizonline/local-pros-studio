@@ -68,6 +68,7 @@ const answerLabel = (id: QuestionId, value?: string) => QUESTIONS[id].options.fi
 const OPENING: Record<ChatPage, string> = {
   'website-design': WHATSAPP_MESSAGES.googleAds,
   'web-design': WHATSAPP_MESSAGES.webDesign,
+  'website-prices': WHATSAPP_MESSAGES.webDesign,
   home: WHATSAPP_MESSAGES.site,
   join: WHATSAPP_MESSAGES.site,
   reviews: WHATSAPP_MESSAGES.site,

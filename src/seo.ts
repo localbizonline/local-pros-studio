@@ -47,6 +47,13 @@ export const PAGES: Record<string, PageSeo> = {
     description:
       'We write, build and look after websites for South African businesses, set up for Google with WhatsApp and call buttons. Live in 7 days, from R450 a month.',
   },
+  // The Google Ads price campaign lands here (11 Oct 2026). The address must start with /pric: the Ads
+  // remarketing audience "Studio - Price page visitors (180d)" (id 9487031850) matches studio.localpros.co.za/pric.
+  '/prices/website-design': {
+    title: 'Website Design Prices South Africa | Local Pros Studio',
+    description:
+      'Website design prices: R9,900 once-off plus R290 a month hosting, or R450 a month with nothing upfront. Up to 10 pages, wording done, live in 7 days.',
+  },
   '/about': {
     title: 'About Local Pros Studio | Google Reviews, Social Media & Websites',
     description:
