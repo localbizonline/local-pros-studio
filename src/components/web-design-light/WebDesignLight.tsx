@@ -185,6 +185,9 @@ export default function WebDesignLight() {
         {/* HOW IT WORKS: "All we need is one link" (9 Oct 2026) */}
         <HowItWorks onStart={(route) => track(`how_${route}`)} />
 
+        {/* PRICE: three ways to pay, from the old page (Jeremy liked it, 8 Oct 2026). Moved above the fit
+            section on 11 Oct 2026 so it comes straight after the proof and how it works */}
+        <PriceThreeWays onStart={(k) => track(`price_${k}`)} />
 
         {/* FIT: who it suits and who it does not, in the shared fit section */}
         <FitCheck
@@ -193,9 +196,6 @@ export default function WebDesignLight() {
           goodFit={GOOD_FIT}
           notAFit={NOT_A_FIT}
         />
-
-        {/* PRICE: three ways to pay, from the old page (Jeremy liked it, 8 Oct 2026) */}
-        <PriceThreeWays onStart={(k) => track(`price_${k}`)} />
 
         {/* FAQ: the objections, each answered in its first sentence */}
         <section className="dd-sec" id="faq">
