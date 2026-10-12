@@ -178,8 +178,8 @@ function Nudge({ blocked, onOpen }: { blocked: boolean; onOpen: () => void }) {
       </div>
       <div className="wx-nudge-body">
         <p className="wx-nudge-eyebrow">Not sure where to start?</p>
-        <p className="wx-nudge-title">Get sample websites for businesses like yours</p>
-        <p className="wx-nudge-text">Pick your type of business and we’ll WhatsApp you sample websites, with prices.</p>
+        <p className="wx-nudge-title">Get sample websites for your industry</p>
+        <p className="wx-nudge-text">Tap your industry and we’ll WhatsApp you sample websites, with prices.</p>
         <button type="button" className="dd-btn dd-btn-primary wx-nudge-btn" onClick={() => hide('opened')}>
           Send me samples
         </button>
@@ -416,7 +416,7 @@ export default function ExamplesChat() {
 
           <div className="wx-log" ref={logRef}>
             <div className="wx-log-start" />
-            <Bot>Hi 👋 Let’s find websites like the one you want.</Bot>
+            <Bot>Hi 👋 Let’s get you sample websites for your industry.</Bot>
             <Bot strong>What type of business do you run?</Bot>
             {stage === 'group' ? (
               <div className="wx-rows">

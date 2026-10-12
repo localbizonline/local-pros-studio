@@ -22,7 +22,7 @@ export function ExamplesHero({ waUrl, track }: { waUrl: string; track: (label: s
         <p className="dd-display wdl-display">
           A new website for your business, <span className="wdl-u">live in 7 days</span>
         </p>
-        <p className="dd-lede">Pick your type of business and we’ll WhatsApp you sample websites for it, with prices.</p>
+        <p className="dd-lede">Get sample websites for your industry on WhatsApp, with prices. Pick yours below.</p>
         <div className="wx-pick">
           <p className="wx-pick-q">What type of business do you run?</p>
           <div className="wx-pick-grid">
@@ -93,8 +93,8 @@ export function ExamplesShop({ track }: { track: (label: string) => void }) {
     <section className="dd-sec wx-shop" id="examples" data-section="Websites like yours">
       <div className="dd-container">
         <div className="dd-head">
-          <p className="dd-eyebrow">Websites we’ve made</p>
-          <h2 className="dd-h2">Find one like your business</h2>
+          <p className="dd-eyebrow">Sample websites</p>
+          <h2 className="dd-h2">Find your industry</h2>
           <p className="dd-sub">
             <strong>500+ websites since 2015.</strong> Real client sites and example designs, each written for the business it’s for.
           </p>
@@ -142,9 +142,9 @@ export function ExamplesShop({ track }: { track: (label: string) => void }) {
 }
 
 const STEPS = [
-  { title: 'Pick your type of business', body: 'Plumber, salon, accountant or anything else: tap the closest one.' },
+  { title: 'Pick your industry', body: 'Plumber, salon, accountant or anything else: tap the closest one.' },
   { title: 'Tell us where to WhatsApp you', body: 'Your name, your number and your business name. That’s all.' },
-  { title: 'Get samples on WhatsApp', body: 'Tyran from our team sends sample websites for your kind of business, with our prices. Go ahead, and most websites are live in 7 days.' },
+  { title: 'Get samples on WhatsApp', body: 'Tyran from our team sends sample websites for your industry, with our prices. Go ahead, and most websites are live in 7 days.' },
 ];
 
 export function ExamplesSteps({ track }: { track: (label: string) => void }) {
