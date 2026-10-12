@@ -399,7 +399,7 @@ export function IndustryRows({ onPick }: { onPick: (g: Group) => void }) {
       {GROUPS.map((g) => {
         const thumbs = thumbsFor(g);
         return (
-          <button key={g.id} type="button" className="wx-row-btn" onClick={() => onPick(g)}>
+          <button key={g.id} type="button" className="wx-row-btn" data-pick-group={g.id} onClick={() => onPick(g)}>
             {g.id !== 'other' && thumbs.length > 0 && (
               <span className="wx-thumbs" aria-hidden="true">
                 {thumbs.map((t: Site) => (
@@ -516,6 +516,16 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
     window.addEventListener(OPEN_EXAMPLES_EVENT, onOpen);
     return () => window.removeEventListener(OPEN_EXAMPLES_EVENT, onOpen);
   });
+
+  // A tap on the hero's picker before the code loaded (index.html remembers it): open the chat at that type now
+  useEffect(() => {
+    const w = window as Window & { __lpsChatReady?: boolean; __lpsEarlyPick?: string };
+    w.__lpsChatReady = true;
+    const early = w.__lpsEarlyPick;
+    if (!early) return;
+    delete w.__lpsEarlyPick;
+    window.setTimeout(() => openExamplesChat({ group: early, from: 'hero-early' }), 0);
+  }, []);
 
   // Keep the newest lines in view, but never scroll past the start of the new question: on a short screen
   // the first step (greeting, question and seven rows) is taller than the chat, so it starts at the top and
