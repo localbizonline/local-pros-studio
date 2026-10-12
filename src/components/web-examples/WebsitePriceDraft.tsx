@@ -7,7 +7,7 @@ import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import FitCheck from '../section-library/sections/FitCheck';
 import ClientReviews from '../web-design-light/ClientReviews';
-import ExamplesChat from './ExamplesChat';
+import ExamplesChat, { openExamplesChat } from './ExamplesChat';
 import { ExamplesClosing, ExamplesShop, ExamplesSteps, InstantHero, PriceBand } from './ExamplesSections';
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
 
@@ -99,7 +99,8 @@ export default function WebsitePriceDraft() {
 
   return (
     <div className="dd dd-a wdl wx-page">
-      <SiteHeader whatsAppUrl={WA_URL} pricingHref="#pricing" />
+      {/* "Instant price" always in view, like Cosmo Pools' "Get Quote" (Jeremy, 12 Oct 2026) */}
+      <SiteHeader whatsAppUrl={WA_URL} pricingHref="#pricing" cta={{ label: 'Instant price', onClick: () => openExamplesChat({ from: 'menu' }) }} />
 
       <main>
         <InstantHero waUrl={WA_URL} track={trackClick} />

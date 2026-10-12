@@ -300,8 +300,8 @@ export function InstantHero({ waUrl, track }: { waUrl: string; track: (label: st
 }
 
 // What it costs, without a price table ("no grid", Jeremy): two ways to buy, each with a button that gets them
-// started straight away (name and number, no samples: Jeremy, 12 Oct 2026), plus "get my exact price" for
-// anyone still comparing
+// started straight away (name and number, no samples: Jeremy, 12 Oct 2026). Anyone still comparing has the
+// "Instant price" button in the menu bar, always in view
 export function PriceBand({ track }: { track: (label: string) => void }) {
   return (
     <section className="dd-sec wx-priceband" id="pricing" data-section="What it costs">
@@ -317,7 +317,7 @@ export function PriceBand({ track }: { track: (label: string) => void }) {
               From <strong>R6,500</strong> once-off
             </p>
             <p>Written, designed and built for you, live in 7 days. Your price depends on your industry and how many services you offer.</p>
-            <p className="wx-priceband-small">Optional hosting and management package available.</p>
+            <p className="wx-priceband-small">Optional hosting and management package available. Online shops from R30,000.</p>
             <button
               type="button"
               className="dd-btn dd-btn-primary"
@@ -327,16 +327,6 @@ export function PriceBand({ track }: { track: (label: string) => void }) {
               }}
             >
               Start my website
-            </button>
-            <button
-              type="button"
-              className="wx-priceband-link"
-              onClick={() => {
-                track('price_get');
-                openExamplesChat({ from: 'price' });
-              }}
-            >
-              Or see my exact price first
             </button>
           </div>
           <div className="wx-priceband-card is-package">
