@@ -28,6 +28,33 @@
   text-align: center;
 }
 
+/* The chat's rows in the hero: two columns on computers, one on phones */
+.wx-pick-rows {
+  position: relative;
+}
+
+.wx-pick .wx-rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.wx-pick .wx-row-btn:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+/* The floating pointer (business-search-box.css .fd-guide) on the first row's arrow, its note hanging over
+   the arrow of the row below, clear of the words */
+.wx-pick .wx-guide {
+  top: 20px;
+  right: calc(50% - 6px);
+}
+
+.wx-pick .wx-guide .fd-guide-label {
+  font-size: 14px;
+}
+
 .wx-pick-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1051,6 +1078,14 @@
 
   .wx-pick-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wx-pick .wx-rows {
+    grid-template-columns: 1fr;
+  }
+
+  .wx-pick .wx-guide {
+    right: -6px;
   }
 
   .wx-pick-btn:last-child:nth-child(odd) {

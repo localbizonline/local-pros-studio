@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MousePointer2 } from 'lucide-react';
 import { GROUPS, SITES, type Site } from './catalogue';
-import { SiteCard, openExamplesChat } from './ExamplesChat';
+import { IndustryRows, SiteCard, openExamplesChat } from './ExamplesChat';
 import { GoogleG, GOOGLE_REVIEWS_URL } from '../web-design-light/ClientReviews';
 import heroWide from '../../assets/images/portfolio/web-hero-wide.webp';
 import heroPhone from '../../assets/images/portfolio/web-hero-phone.webp';
@@ -14,6 +14,26 @@ import montage from '../../assets/images/portfolio/web-closing-montage.webp';
 const HERO_ALT =
   'Websites we built on phones, each for a different business: paving, gas, pet transport, fencing, a vet clinic, attorneys, a driving school, plumbers, an estate agent, a guest house, pool cleaning, dog grooming, tutoring, a panel beater and more';
 
+// "What type of business do you run?" with the chat's own rows and a floating pointer (Jeremy, 12 Oct 2026):
+// a hero section any page can use. Tapping a row opens the examples chat at that type of business; what the
+// chat says next depends on the page's chat variant (ExamplesChat.tsx VARIANTS).
+export function IndustryPicker({ onPick, note = 'Tap yours' }: { onPick: (groupId: string) => void; note?: string }) {
+  return (
+    <div className="wx-pick">
+      <p className="wx-pick-q">What type of business do you run?</p>
+      <div className="wx-pick-rows">
+        <IndustryRows onPick={(g) => onPick(g.id)} />
+        {note && (
+          <span className="fd-guide wx-guide" aria-hidden="true">
+            <MousePointer2 className="fd-guide-arrow" size={40} fill="#1C1917" stroke="#fff" strokeWidth={1.7} />
+            <span className="fd-guide-label">{note}</span>
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function ExamplesHero({ waUrl, track }: { waUrl: string; track: (label: string) => void }) {
   return (
     <section className="dd-hero wdl-hero wx-hero">
@@ -23,25 +43,12 @@ export function ExamplesHero({ waUrl, track }: { waUrl: string; track: (label: s
           A new website for your business, <span className="wdl-u">live in 7 days</span>
         </p>
         <p className="dd-lede">Get popular website designs for your industry on WhatsApp, with prices. Pick yours below.</p>
-        <div className="wx-pick">
-          <p className="wx-pick-q">What type of business do you run?</p>
-          <div className="wx-pick-grid">
-            {GROUPS.map((g) => (
-              <button
-                key={g.id}
-                type="button"
-                className="wx-pick-btn"
-                onClick={() => {
-                  track(`hero_group_${g.id}`);
-                  openExamplesChat({ group: g.id, from: 'hero' });
-                }}
-              >
-                <strong>{g.label}</strong>
-                <span>{g.hint}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+        <IndustryPicker
+          onPick={(id) => {
+            track(`hero_group_${id}`);
+            openExamplesChat({ group: id, from: 'hero' });
+          }}
+        />
         <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="wdl-rating" onClick={() => track('hero_google_reviews')}>
           <GoogleG />
           <span>

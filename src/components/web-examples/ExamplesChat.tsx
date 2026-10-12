@@ -285,8 +285,36 @@ function Nudge({ variant, blocked, onOpen }: { variant: ChatVariant; blocked: bo
   );
 }
 
-// Two small website pictures for a type of business, on its row in the chat
+// Two small website pictures for a type of business, on its row
 const thumbsFor = (g: Group) => g.sites.map((s) => SITES[s]).filter(Boolean).slice(0, 2);
+
+// The seven types of business as rows with two small website pictures each. One piece for the chat's first
+// step and the page heroes (ExamplesSections.tsx IndustryPicker), so both always look and read the same.
+export function IndustryRows({ onPick }: { onPick: (g: Group) => void }) {
+  return (
+    <div className="wx-rows">
+      {GROUPS.map((g) => {
+        const thumbs = thumbsFor(g);
+        return (
+          <button key={g.id} type="button" className="wx-row-btn" onClick={() => onPick(g)}>
+            {g.id !== 'other' && thumbs.length > 0 && (
+              <span className="wx-thumbs" aria-hidden="true">
+                {thumbs.map((t: Site) => (
+                  <img key={t.slug} src={t.img} alt="" width={585} height={780} loading="lazy" />
+                ))}
+              </span>
+            )}
+            <span className="wx-row-text">
+              <strong>{g.label}</strong>
+              {g.id !== 'other' && <span>{g.hint.replace('…', '')}</span>}
+            </span>
+            <ChevronRight size={20} aria-hidden="true" className="wx-chev" />
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVariant }) {
   const cfg: VariantConfig = VARIANTS[variant];
@@ -551,27 +579,7 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
             <Bot>{cfg.intro}</Bot>
             <Bot strong>What type of business do you run?</Bot>
             {stage === 'group' ? (
-              <div className="wx-rows">
-                {GROUPS.map((g) => {
-                  const thumbs = thumbsFor(g);
-                  return (
-                    <button key={g.id} type="button" className="wx-row-btn" onClick={() => chooseGroup(g)}>
-                      {g.id !== 'other' && thumbs.length > 0 && (
-                        <span className="wx-thumbs" aria-hidden="true">
-                          {thumbs.map((t: Site) => (
-                            <img key={t.slug} src={t.img} alt="" width={585} height={780} loading="lazy" />
-                          ))}
-                        </span>
-                      )}
-                      <span className="wx-row-text">
-                        <strong>{g.label}</strong>
-                        {g.id !== 'other' && <span>{g.hint.replace('…', '')}</span>}
-                      </span>
-                      <ChevronRight size={20} aria-hidden="true" className="wx-chev" />
-                    </button>
-                  );
-                })}
-              </div>
+              <IndustryRows onPick={(g) => chooseGroup(g)} />
             ) : (
               group && <Me>{group.label}</Me>
             )}
