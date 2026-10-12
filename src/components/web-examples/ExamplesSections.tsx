@@ -183,7 +183,7 @@ export function ExamplesSteps({ track }: { track: (label: string) => void }) {
 
 const RECAP = ['Written, designed and built for you', 'Live in 7 days', 'R9,900 once-off, or R450 a month'];
 
-// Same look as the page's closing card (web-design-light/DemoClosing.tsx), with the examples button
+// Same look as the shared closing card (section-library/sections/ClosingCard.tsx): dark card on the cream band
 export function ExamplesClosing({ waUrl, track }: { waUrl: string; track: (label: string) => void }) {
   return (
     <section className="cc wdc py-16 md:py-24 px-6 bg-[#FBF6EC]">

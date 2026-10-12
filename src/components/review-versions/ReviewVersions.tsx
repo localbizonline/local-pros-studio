@@ -24,10 +24,6 @@ const VERSIONS = {
   services: { name: 'Services section options', Page: lazy(() => import('../services-options/ServicesOptions')) },
   // Prices as a chat: tap "Prices" in the menu (test, 9 Oct 2026)
   'prices-chat': { name: 'Prices chat (test)', Page: lazy(() => import('../prices-chat-test/PricesChatTest')) },
-  // Website design page, examples first: "What type of business do you run?" instead of the Google box (12 Oct 2026)
-  'web-examples': { name: 'Website page: examples first', Page: lazy(() => import('../web-examples/WebExamplesDraft')) },
-  // Homepage with the examples pop-up and chat, hero unchanged (12 Oct 2026)
-  'home-examples': { name: 'Homepage: examples pop-up', Page: lazy(() => import('../web-examples/HomeExamplesDraft')) },
 } as const;
 
 type VersionId = keyof typeof VERSIONS;

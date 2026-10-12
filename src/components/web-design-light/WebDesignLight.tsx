@@ -1,49 +1,31 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
-import '../design-directions/directions.css';
-import './webdesignlight.css';
+// Styles load with the site's main stylesheet (App.tsx), so the pre-built page doesn't flash
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import FitCheck from '../section-library/sections/FitCheck';
-import SiteChat from '../demo-popup/DemoPopup';
-import RecentWork from './RecentWork';
 import ClientReviews from './ClientReviews';
-import WebDesignHero from './WebDesignHero';
-import HowItWorks from './HowItWorks';
 import PriceThreeWays from './PriceThreeWays';
-import DemoClosing from './DemoClosing';
-// Photos made for this page on 7 Oct 2026 in the homepage's photographic style; the people are teams
-// on purpose, since the page is for any size of business.
+import { openSiteChat } from '../demo-popup/openSiteChat';
+import ExamplesChat, { openExamplesChat } from '../web-examples/ExamplesChat';
+import { ExamplesClosing, ExamplesHero, ExamplesShop, ExamplesSteps } from '../web-examples/ExamplesSections';
 import teamEnquiries from './img/team-new-enquiries.webp';
 
-// Website design page in the light look (8 Oct 2026), replacing the dark /website-design Google Ads
-// page. Built from the page flow in DESIGN-SYSTEM.md section 2 and the shared sections, with the copy
-// and photos of the 7 Oct draft Jeremy liked: for established businesses and teams, headline "A website
-// that turns Google searches into new customers" (changed on 8 Oct to "A new website for your business, live in
-// 7 days": Jeremy did not want "about" or "working days"; the whole page now says 7 days), proof led by PETport, Paving Pros and Winelands Gas.
-// Prices and terms are the live page's (confirmed by Jeremy on 1 Oct 2026).
-// Ad page: no site menu, so ad visitors stay here. The site chat opens once per visit with the free demo.
+// The website design page, /website-design-package, "examples first" (live 12 Oct 2026, replacing the free demo
+// page of 8 Oct). Jeremy found "find your business on Google" confusing as the first step and "free demo"
+// cheapening. The first step is now "What type of business do you run?"; the shared examples chat
+// (../web-examples/ExamplesChat.tsx) takes their WhatsApp number, and Tyran sends 3 popular designs for their
+// industry with our prices. Look borrowed from cosmopools.co.za (shop-window cards, slide-up card).
+// Sections: ../web-examples/ExamplesSections.tsx; proof, price, fit and FAQ as before.
 
-// Same analytics event and labels as the old page (wd_ads_*, wd_site_*), so clicks can still be compared week on week
-const trackClick = (prefix: string, label: string) =>
-  window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: `${prefix}_${label}`, value: 1 });
+const trackClick = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: `wd_site_${label}`, value: 1 });
 
-// What every website does, beside a photo instead of an icon grid
 const OUTCOMES = [
-  {
-    title: 'Found on Google',
-    body: 'A page for each service and area you work in, with the titles and wording Google reads.',
-  },
-  {
-    title: 'Trusted at first glance',
-    body: 'Your real work, your team and your Google reviews up front, so you look like the safe choice.',
-  },
-  {
-    title: 'Easy to get in touch',
-    body: 'WhatsApp, call and quote buttons on every page, easy to tap on a phone.',
-  },
+  { title: 'Found on Google', body: 'A page for each service and area you work in, with the titles and wording Google reads.' },
+  { title: 'Trusted at first glance', body: 'Your real work, your team and your Google reviews up front, so you look like the safe choice.' },
+  { title: 'Easy to get in touch', body: 'WhatsApp, call and quote buttons on every page, easy to tap on a phone.' },
 ];
 
 const GOOD_FIT = [
@@ -53,32 +35,25 @@ const GOOD_FIT = [
   'You want the writing and building done for you',
 ];
 
-const NOT_A_FIT = [
-  'You need an online shop with a product catalogue and checkout',
-  'You want to design every page yourself',
-  'You need a website live tomorrow',
-];
+const NOT_A_FIT = ['You want to design every page yourself', 'You need a website live tomorrow'];
 
 const FAQ = [
+  {
+    q: 'How much does a website cost?',
+    a: 'R9,900 once-off, including the first 12 months of hosting and changes (worth R3,000). Or rent to own at R450 a month for 36 months, after which it is yours. It is free with our R2,500 a month package on a 12-month commitment. Online shops are quoted separately.',
+  },
+  {
+    q: 'Can I see website designs for my industry first?',
+    a: 'Yes. Pick your type of business at the top of this page and we WhatsApp you 3 popular designs for your industry, with our prices.',
+  },
   {
     q: 'How is this different from a cheap website or doing it myself?',
     a: 'We write the wording, choose the photos and set up a page for each of your services and areas, then look after it once it is live. A R199 a month template usually leaves the writing to you and often gets rebuilt within a year, doing it yourself costs your evenings, and a big agency charges far more and takes weeks.',
   },
-  {
-    q: 'How much does a website cost?',
-    a: 'R9,900 once-off, including the first 12 months of hosting and changes (worth R3,000). Or rent to own at R450 a month for 36 months, after which it is yours. It is free with our R2,500 a month package on a 12-month commitment.',
-  },
-  {
-    q: 'Can I see a demo first?',
-    a: 'Yes. Find your business on Google in our chat and we build a free demo from your listing and send it to you on WhatsApp.',
-  },
-  {
-    q: 'How long does it take?',
-    a: 'Most websites go live within 7 days once we have your details. Slow feedback or missing information can move that date.',
-  },
+  { q: 'How long does it take?', a: 'Most websites go live within 7 days once we have your details. Slow feedback or missing information can move that date.' },
   {
     q: 'How much of my time does it take?',
-    a: 'Very little. Send us your Google listing or Facebook page, check the demo we send you and tell us what to change. We write the wording and choose the photos; send us your logo and real photos of your work if you have them.',
+    a: 'Very little. Send us your Google listing or Facebook page, check the first version and tell us what to change. We write the wording and choose the photos; send us your logo and real photos of your work if you have them.',
   },
   {
     q: 'I already have a website. Can you redo it?',
@@ -88,21 +63,9 @@ const FAQ = [
     q: 'Will my website show up on Google?',
     a: 'It is built with what Google needs: fast pages, a page for each service and area, and proper titles. No honest provider can promise the top spot, and a new website can take 2 to 3 months to show.',
   },
-  {
-    q: 'Who owns the website?',
-    a: 'You do: from day one if you pay once, after 36 months on rent to own, or after 12 months on the package.',
-    link: true,
-  },
-  {
-    q: 'What happens after launch?',
-    a: 'We look after hosting, security, backups and support, plus 1 hour of changes every month. Bigger changes are quoted before we start.',
-  },
-  {
-    q: 'Is it a custom design?',
-    a: 'We start from layouts that work for local businesses, then make the branding, wording, photos and pages yours. That keeps the price fair and the turnaround fast.',
-  },
+  { q: 'Who owns the website?', a: 'You do: from day one if you pay once, after 36 months on rent to own, or after 12 months on the package.', link: true },
+  { q: 'What happens after launch?', a: 'We look after hosting, security, backups and support, plus 1 hour of changes every month. Bigger changes are quoted before we start.' },
 ];
-
 
 function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id: string }) {
   const [open, setOpen] = useState(false);
@@ -133,36 +96,23 @@ function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id:
   );
 }
 
-// /website-design-package, with the site menu and footer; the chat opens only from buttons. Until 9 Oct 2026 there was
-// also a Google Ads copy at /website-design with no menu and a chat that opened by itself; ads now come here too.
 export default function WebDesignLight() {
   const WA_URL = whatsAppLink(WHATSAPP_MESSAGES.webDesign);
-  const prefix = 'wd_site';
-  const track = (label: string) => trackClick(prefix, label);
 
   return (
-    <div className="dd dd-a wdl">
+    <div className="dd dd-a wdl wx-page">
       <SiteHeader whatsAppUrl={WA_URL} pricingHref="#pricing" />
 
       <main>
-        {/* HERO: what, who, and the free demo as the one main action (version C, 8 Oct 2026) */}
-        <WebDesignHero waUrl={WA_URL} track={track} />
+        <ExamplesHero waUrl={WA_URL} track={trackClick} />
+        <ExamplesShop track={trackClick} />
+        <ExamplesSteps track={trackClick} />
+        <ClientReviews onGoogle={() => trackClick('reviews_google')} />
 
-        {/* PROOF, EARLY: recent work, one row per client site, then our Google reviews (both from the old page, 8 Oct 2026) */}
-        <RecentWork onVisit={(d) => track(`work_${d}`)} />
-        <ClientReviews onGoogle={() => track('reviews_google')} />
-
-        {/* WHAT EVERY WEBSITE DOES: the dark band, a real-looking moment instead of an icon grid */}
         <section className="dd-sec dd-demo wdl-get">
           <div className="dd-container wdl-split">
             <div className="wdl-split-media">
-              <img
-                src={teamEnquiries}
-                alt="A business owner and his receptionist smiling at new enquiries on the front-desk computer"
-                width={1200}
-                height={800}
-                loading="lazy"
-              />
+              <img src={teamEnquiries} alt="A business owner and his receptionist smiling at new enquiries on the front-desk computer" width={1200} height={800} loading="lazy" />
             </div>
             <div>
               <p className="dd-eyebrow">What every website does</p>
@@ -182,22 +132,13 @@ export default function WebDesignLight() {
           </div>
         </section>
 
-        {/* HOW IT WORKS: "All we need is one link" (9 Oct 2026) */}
-        <HowItWorks onStart={(route) => track(`how_${route}`)} />
-
-        {/* PRICE: three ways to pay, from the old page (Jeremy liked it, 8 Oct 2026). Moved above the fit
-            section on 11 Oct 2026 so it comes straight after the proof and how it works */}
-        <PriceThreeWays onStart={(k) => track(`price_${k}`)} />
-
-        {/* FIT: who it suits and who it does not, in the shared fit section */}
-        <FitCheck
-          title="Is a new website right for you?"
-          sub="It suits businesses whose customers look them up before they call, book or buy."
-          goodFit={GOOD_FIT}
-          notAFit={NOT_A_FIT}
+        <PriceThreeWays
+          onStart={(k) => trackClick(`price_${k}`)}
+          onChoose={(plan) => (plan === 'package' ? openSiteChat(plan) : openExamplesChat({ from: 'price' }))}
         />
 
-        {/* FAQ: the objections, each answered in its first sentence */}
+        <FitCheck title="Is a new website right for you?" sub="It suits businesses whose customers look them up before they call, book or buy." goodFit={GOOD_FIT} notAFit={NOT_A_FIT} />
+
         <section className="dd-sec" id="faq">
           <div className="dd-container">
             <div className="dd-head">
@@ -206,20 +147,17 @@ export default function WebDesignLight() {
             </div>
             <div className="dd-faq-list">
               {FAQ.map((f, i) => (
-                <FaqItem key={f.q} q={f.q} a={f.a} link={f.link} id={`wdl-faq-${i}`} />
+                <FaqItem key={f.q} q={f.q} a={f.a} link={f.link} id={`wx-faq-${i}`} />
               ))}
             </div>
           </div>
         </section>
 
-        {/* CLOSING: the free demo again, so the page ends on the action it starts with (9 Oct 2026) */}
-        <DemoClosing waUrl={WA_URL} track={track} />
+        <ExamplesClosing waUrl={WA_URL} track={trackClick} />
       </main>
 
       <SiteFooter whatsAppUrl={WA_URL} pricingHref="#pricing" faqHref="#faq" />
-
-      {/* The site chat; leads go to Airtable (8 Oct 2026) */}
-      <SiteChat page="web-design" trackPrefix={`${prefix}_demo_popup`} />
+      <ExamplesChat />
     </div>
   );
 }

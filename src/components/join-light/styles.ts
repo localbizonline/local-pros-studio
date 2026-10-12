@@ -15,3 +15,5 @@ import '../section-library/sections/whynote.css';
 import '../demo-popup/business-search-box.css';
 import '../section-library/sections/reputationstory.css';
 import '../section-library/sections/closingcard.css';
+// The examples pop-up and chat (../web-examples/ExamplesChat.tsx, 12 Oct 2026)
+import '../web-examples/web-examples.css';

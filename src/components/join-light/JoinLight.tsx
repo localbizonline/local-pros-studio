@@ -9,6 +9,7 @@ import SiteFooter from '../section-library/sections/SiteFooter';
 import Pricing from '../section-library/sections/Pricing';
 import WhyNote from '../section-library/sections/WhyNote';
 import SiteChat from '../demo-popup/DemoPopup';
+import ExamplesChat from '../web-examples/ExamplesChat';
 import ReputationStory from '../section-library/sections/ReputationStory';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import closingPhoto from '../../assets/images/review-contractor-happy.webp';
@@ -134,6 +135,8 @@ export default function JoinLight() {
       {/* The site chat: "Start now" buttons open it with the plan picked; it saves the lead to Airtable
           and opens WhatsApp (8 Oct 2026). It never opens by itself on the homepage. */}
       <SiteChat page="home" />
+      {/* The "Not sure where to start?" pop-up and examples chat: reviews, posts or a website (12 Oct 2026) */}
+      <ExamplesChat variant="home" />
     </div>
   );
 }

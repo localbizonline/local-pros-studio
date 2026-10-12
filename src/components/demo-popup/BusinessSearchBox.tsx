@@ -8,7 +8,7 @@ import './business-search-box.css';
 // A Google business search box on the page itself (9 Oct 2026, Jeremy): they type here, Google's matches drop
 // down under the box, and picking one opens the site chat at "Is this your business?" with it selected (the chat
 // saves the lead then, the rule for every Google box). The page must render <SiteChat page="…" /> too.
-// Used by the website page's free demo box (../web-design-light/DemoSearchBox.tsx) and the homepage hero.
+// Used by the Google reviews page (until 12 Oct 2026 also by the website page's free demo box).
 // If Google search isn't available, the button opens the chat, which has the typed-details fallback.
 
 // Google's "G", the same mark as the website page's reviews (../web-design-light/ClientReviews.tsx)

@@ -29,6 +29,7 @@ const CostGuide = lazy(() => import('./components/website-cost-guide/CostGuide')
 // (8 Oct 2026). Do the same for any lazy-loaded page that has its own CSS file.
 import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
+import './components/web-examples/web-examples.css';
 import './components/website-prices/websiteprices.css';
 import './components/website-cost-guide/costguide.css';
 import './components/about-light/aboutlight.css';
