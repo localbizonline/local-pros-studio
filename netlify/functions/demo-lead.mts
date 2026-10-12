@@ -258,7 +258,9 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
     fields[F.facebook] && `Facebook: ${fields[F.facebook]}`,
     fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
     typeof rating === 'number' && `Rating: ${rating} (${reviews ?? 0} reviews)`,
-    body.mode === 'manual' && 'Not found on Google (typed their details).',
+    body.mode === 'manual' && String(fields[F.companyName]).includes(PLACEHOLDER_NAME)
+      ? "Business name not given yet: you'll get another message if they add it."
+      : body.mode === 'manual' && 'Not found on Google (typed their details).',
     ...answersFrom(body).map((a) => a.text),
     stepsFrom(body).includes('requested') && '👉 WhatsApp them examples for their type of business and our prices.',
     stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && !stepsFrom(body).includes('requested') && body.offer !== 'examples' && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
@@ -300,6 +302,25 @@ const sentText = (body: Record<string, unknown>, fields: Record<string, unknown>
     ...answersFrom(body).map((a) => a.text),
     `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
   ].join('\n');
+
+// The examples chat saves the lead before it knows the business, named "<their name> (business name to follow)"
+// (src/components/web-examples/ExamplesChat.tsx PLACEHOLDER); its business name arrives in a later update
+const PLACEHOLDER_NAME = 'business name to follow';
+const namedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) => {
+  const rating = fields[F.gbpReviewScore];
+  return [
+    `🏢 ${text(body.contactName, 60) || 'The website visitor'} gave their business name: ${fields[F.companyName]}`,
+    body.mode === 'google' ? fields[F.gbpCategory] && `Type: ${fields[F.gbpCategory]}` : 'Not picked on Google (typed it).',
+    fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
+    fields[F.website] && `Website: ${fields[F.website]}`,
+    fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
+    typeof rating === 'number' && `Rating: ${rating} (${fields[F.gbpReviewCount] ?? 0} reviews)`,
+    fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
+    `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+};
 
 const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
   [
@@ -397,7 +418,9 @@ export default async (request: Request, context?: Context) => {
         return json({ ok: false, error: 'server' }, 502);
       }
       const oldNote = typeof old[F.message] === 'string' ? (old[F.message] as string) : '';
-      if (old[F.companyName] && old[F.companyName] !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
+      const oldName = typeof old[F.companyName] === 'string' ? (old[F.companyName] as string) : '';
+      if (oldName.includes(PLACEHOLDER_NAME) && oldName !== fields[F.companyName]) await sendAlert('lead', namedText(body, fields, recordId));
+      else if (oldName && oldName !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
       const requested = stepsFrom(body).includes('requested') && !oldNote.includes(STEP_NOTE.requested);
       // Asking for the examples says it all in one message, number included
       if (requested) await sendAlert('lead', requestedText(body, fields, recordId));

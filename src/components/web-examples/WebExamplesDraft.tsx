@@ -45,7 +45,7 @@ const FAQ = [
   },
   {
     q: 'Can I see websites for my kind of business first?',
-    a: 'Yes. Pick your type of business at the top of this page and we show you websites we’ve made for businesses like yours, then send more examples and our prices on WhatsApp.',
+    a: 'Yes. Pick your type of business at the top of this page and we WhatsApp you websites we’ve made for businesses like yours, with our prices.',
   },
   {
     q: 'How is this different from a cheap website or doing it myself?',

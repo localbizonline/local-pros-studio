@@ -22,7 +22,7 @@ export function ExamplesHero({ waUrl, track }: { waUrl: string; track: (label: s
         <p className="dd-display wdl-display">
           A new website for your business, <span className="wdl-u">live in 7 days</span>
         </p>
-        <p className="dd-lede">See websites we’ve made for businesses like yours, with prices. We write, build and look after it for you.</p>
+        <p className="dd-lede">Pick your type of business and we’ll WhatsApp you websites we’ve made for businesses like yours, with prices.</p>
         <div className="wx-pick">
           <p className="wx-pick-q">What type of business do you run?</p>
           <div className="wx-pick-grid">
@@ -142,9 +142,9 @@ export function ExamplesShop({ track }: { track: (label: string) => void }) {
 }
 
 const STEPS = [
-  { title: 'Pick your type of business', body: 'See websites we’ve made for businesses like yours, with the price.' },
-  { title: 'Tell us your business name', body: 'We look you up on Google, so the examples we send fit what you do.' },
-  { title: 'Get examples on WhatsApp', body: 'Tyran from our team sends more examples and our prices. Go ahead, and most websites are live in 7 days.' },
+  { title: 'Pick your type of business', body: 'Plumber, salon, accountant or anything else: tap the closest one.' },
+  { title: 'Tell us where to WhatsApp you', body: 'Your name, your number and your business name. That’s all.' },
+  { title: 'Get examples on WhatsApp', body: 'Tyran from our team sends websites we’ve made for businesses like yours, with our prices. Go ahead, and most websites are live in 7 days.' },
 ];
 
 export function ExamplesSteps({ track }: { track: (label: string) => void }) {
@@ -153,7 +153,7 @@ export function ExamplesSteps({ track }: { track: (label: string) => void }) {
       <div className="dd-container">
         <div className="dd-head">
           <p className="dd-eyebrow">How it works</p>
-          <h2 className="dd-h2">See your kind of website in 3 steps</h2>
+          <h2 className="dd-h2">Get examples for your business in 3 steps</h2>
         </div>
         <ol className="wx-steps">
           {STEPS.map((s, i) => (
@@ -173,7 +173,7 @@ export function ExamplesSteps({ track }: { track: (label: string) => void }) {
               openExamplesChat({ from: 'steps' });
             }}
           >
-            Show me examples
+            Send me examples
           </button>
         </div>
       </div>
@@ -211,7 +211,7 @@ export function ExamplesClosing({ waUrl, track }: { waUrl: string; track: (label
               openExamplesChat({ from: 'closing' });
             }}
           >
-            Show me examples
+            Send me examples
           </button>
           <p className="wdc-or">
             Or{' '}
