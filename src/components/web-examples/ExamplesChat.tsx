@@ -13,7 +13,8 @@ import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 // The team sends the examples by hand (alert to Jeremy and Ashley, netlify/functions/demo-lead.mts, offer "examples").
 // Leads follow the Google box rule: one Airtable record, created when they pick their business on Google (or
 // give their number), then updated. Every step is counted in PostHog (examples_chat_step) to see where people leave.
-// Look and pop-up from cosmopools.co.za: a card slides up from the bottom after a few seconds, once per visit.
+// Look and pop-up from cosmopools.co.za: a card slides up from the bottom once they scroll past the hero's question
+// (or after 20 seconds), once per visit.
 
 export const OPEN_EXAMPLES_EVENT = 'lps:open-examples-chat';
 
@@ -128,11 +129,12 @@ function Nudge({ blocked, onOpen }: { blocked: boolean; onOpen: () => void }) {
       capture('examples_nudge', { action: 'shown', page: PAGE });
       cleanup();
     };
+    // The hero already asks the question, so the card waits until they've scrolled past it (or 20 seconds)
     const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max > 0 && window.scrollY / max > 0.35) trigger();
+      const pick = document.querySelector('.wx-pick');
+      if (pick ? pick.getBoundingClientRect().bottom < 0 : window.scrollY > window.innerHeight) trigger();
     };
-    const timer = window.setTimeout(trigger, 8000);
+    const timer = window.setTimeout(trigger, 20000);
     window.addEventListener('scroll', onScroll, { passive: true });
     const cleanup = () => {
       window.clearTimeout(timer);
