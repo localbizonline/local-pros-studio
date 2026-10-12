@@ -31,13 +31,13 @@ const OFFER_NOTE: Record<string, string> = {
   'social-demo': 'Free social media demo (3 sample posts)',
   'review-check': 'Checked their Google reviews, wants Google reviews',
   // The examples chat (src/components/web-examples/, draft 12 Oct 2026): we WhatsApp them websites for their type of business
-  examples: 'Wants example websites for their type of business and our prices, on WhatsApp',
+  examples: 'Wants sample websites for their type of business and our prices, on WhatsApp',
 };
 const OFFER_LABEL: Record<string, string> = {
   checkup: 'free check-up',
   'social-demo': 'free social media demo',
   'review-check': 'review check',
-  examples: 'example websites',
+  examples: 'sample websites',
 };
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'studio.localpros.co.za/website-design',
@@ -262,7 +262,7 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
       ? "Business name not given yet: you'll get another message if they add it."
       : body.mode === 'manual' && 'Not found on Google (typed their details).',
     ...answersFrom(body).map((a) => a.text),
-    stepsFrom(body).includes('requested') && '👉 WhatsApp them examples for their type of business and our prices.',
+    stepsFrom(body).includes('requested') && '👉 WhatsApp them sample websites for their type of business and our prices.',
     stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && !stepsFrom(body).includes('requested') && body.offer !== 'examples' && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
     stepsFrom(body).includes('picked') && body.offer === 'examples' && !stepsFrom(body).includes('requested') && "Picked on Google. You'll get another message if they leave their WhatsApp number.",
     recordId ? `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}` : 'Not saved to Airtable (error). Details above.',
@@ -324,11 +324,11 @@ const namedText = (body: Record<string, unknown>, fields: Record<string, unknown
 
 const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
   [
-    `📨 ${fields[F.companyName]} wants example websites: WhatsApp them now.`,
+    `📨 ${fields[F.companyName]} wants sample websites: WhatsApp them now.`,
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
     fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
-    'Send 2 or 3 websites for their type of business and our prices.',
+    'Send 2 or 3 sample websites for their type of business (a client site, an example design or a template with their name) and our prices.',
     `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
   ]
     .filter(Boolean)

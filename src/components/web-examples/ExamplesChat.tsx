@@ -9,7 +9,7 @@ import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 // "Websites for businesses like yours" chat (draft, 12 Oct 2026, Jeremy). Replaces "find your business on Google"
 // as the first step. Jeremy's pick (mock-up E in design/examples-chat-mockups/): a full-screen chat with a 4-step
 // progress bar, and no examples or prices in the chat itself ("the point is to WhatsApp them"):
-//   1. type of business (7 rows)  2. the closest type  3. name + WhatsApp number ("Send me examples": the lead is
+//   1. type of business (7 rows)  2. the closest type  3. name + WhatsApp number ("Send me samples": the lead is
 //   saved here)  4. "what's your business called?" (Google check behind the scenes; "Is it one of these?" only for
 //   close matches), then "On its way. Tyran from our team will WhatsApp you…".
 // The team sends the examples by hand (alert to Jeremy and Ashley, netlify/functions/demo-lead.mts, offer "examples").
@@ -178,10 +178,10 @@ function Nudge({ blocked, onOpen }: { blocked: boolean; onOpen: () => void }) {
       </div>
       <div className="wx-nudge-body">
         <p className="wx-nudge-eyebrow">Not sure where to start?</p>
-        <p className="wx-nudge-title">See websites for businesses like yours</p>
-        <p className="wx-nudge-text">Pick your type of business and we’ll WhatsApp you examples, with prices.</p>
+        <p className="wx-nudge-title">Get sample websites for businesses like yours</p>
+        <p className="wx-nudge-text">Pick your type of business and we’ll WhatsApp you sample websites, with prices.</p>
         <button type="button" className="dd-btn dd-btn-primary wx-nudge-btn" onClick={() => hide('opened')}>
-          Send me examples
+          Send me samples
         </button>
         <button type="button" className="wx-nudge-no" onClick={() => hide('dismissed')}>
           No thanks, I’ll look around
@@ -479,8 +479,8 @@ export default function ExamplesChat() {
                   <>
                     <Bot>
                       {group.id === 'shop'
-                        ? 'Great. We’ll WhatsApp you online shops we’ve made, and how we price them.'
-                        : `Great. We’ll WhatsApp you websites we’ve made for ${plural}, with our prices.`}
+                        ? 'Great. We’ll WhatsApp you sample online shops, and how we price them.'
+                        : `Great. We’ll WhatsApp you sample websites for ${plural}, with our prices.`}
                     </Bot>
                     <Bot strong>Where should we WhatsApp them?</Bot>
                     {stage !== 'contact' && <Me>{[contactName.trim(), shownNumber].filter(Boolean).join(' · ')}</Me>}
@@ -497,7 +497,7 @@ export default function ExamplesChat() {
                   <>
                     <Bot>Thanks{firstName ? ` ${firstName}` : ''}, got it. 👍</Bot>
                     <Bot>
-                      Last one, so we send the closest examples: <strong>what’s your business called?</strong>
+                      Last one, so we can make the samples fit: <strong>what’s your business called?</strong>
                     </Bot>
                     {bizName && stage !== 'name' && <Me>{bizName}</Me>}
                   </>
@@ -545,7 +545,7 @@ export default function ExamplesChat() {
                     </span>
                     <span>
                       <strong>On its way</strong>
-                      Tyran from our team will WhatsApp you websites for {plural} and our prices on {shownNumber}.
+                      Tyran from our team will WhatsApp you sample websites for {plural} and our prices on {shownNumber}.
                     </span>
                   </div>
                   <Bot>
@@ -592,9 +592,9 @@ export default function ExamplesChat() {
                 </p>
               )}
               <button type="submit" className="dd-btn dd-btn-primary wx-send">
-                Send me examples
+                Send me samples
               </button>
-              <p className="wx-small">We only use your number to send you the examples and prices.</p>
+              <p className="wx-small">We only use your number to send you the samples and prices.</p>
             </form>
           )}
           {(stage === 'name' || stage === 'other') && !typing && (
