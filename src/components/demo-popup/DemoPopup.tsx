@@ -29,14 +29,14 @@ const PLAN: Record<ChatPlan, { chat: string; whatsApp: string }> = {
 
 // Quick questions after we have their number, one tap each (Jeremy, 8 Oct 2026): a feel for how they would
 // pay and how ready they are. Nothing is binding; the answers go to Airtable, the alert and the WhatsApp message.
-// Prices are the website page's (src/components/web-design-light). Never mention a posting frequency.
+// Prices are the website page's (src/components/web-design-light): from R6,500, hosting extra (12 Oct 2026). The two
+// Google Ads price pages keep R9,900 / R450 until their A/B test ends (OLD_PRICE_PAGES). Never mention a posting frequency.
 type QuestionId = 'pay' | 'site' | 'when';
 const QUESTIONS: Record<QuestionId, { ask: string; options: { value: string; label: string }[] }> = {
   pay: {
     ask: 'Which way of paying suits you best? Just so we know: it doesn’t lock you in.',
     options: [
-      { value: 'once', label: 'Once-off: R9,900' },
-      { value: 'rent', label: 'Rent to own: R450 a month' },
+      { value: 'once', label: 'Once-off: from R6,500' },
       { value: 'package', label: 'Free with reviews + social posts (R2,500 a month)' },
       { value: 'unsure', label: 'Not sure yet' },
     ],
@@ -62,7 +62,16 @@ const QUESTIONS: Record<QuestionId, { ask: string; options: { value: string; lab
 const questionsFor = (plan?: ChatPlan): QuestionId[] =>
   !plan || plan === 'website' ? ['pay', 'site', 'when'] : plan === 'package' ? ['site', 'when'] : ['when'];
 type Answers = Partial<Record<QuestionId, string>>;
-const answerLabel = (id: QuestionId, value?: string) => QUESTIONS[id].options.find((o) => o.value === value)?.label || '';
+// The Google Ads price pages still show R9,900 once-off or R450 a month (rent to own) until their test ends
+const OLD_PRICE_PAGES: ChatPage[] = ['website-prices', 'website-cost-guide'];
+const OLD_PAY_OPTIONS = [
+  { value: 'once', label: 'Once-off: R9,900' },
+  { value: 'rent', label: 'Rent to own: R450 a month' },
+  { value: 'package', label: 'Free with reviews + social posts (R2,500 a month)' },
+  { value: 'unsure', label: 'Not sure yet' },
+];
+const optionsFor = (id: QuestionId, page?: ChatPage) => (id === 'pay' && page && OLD_PRICE_PAGES.includes(page) ? OLD_PAY_OPTIONS : QUESTIONS[id].options);
+const answerLabel = (id: QuestionId, value?: string, page?: ChatPage) => optionsFor(id, page).find((o) => o.value === value)?.label || '';
 
 // Each page keeps the WhatsApp opening the bot and the weekly scoreboard already count (src/whatsapp.ts)
 const OPENING: Record<ChatPage, string> = {
@@ -142,7 +151,7 @@ const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, offer: ChatOffe
         ]
       : [name.trim() && `Business name: ${name.trim()}`, link.trim() && `Facebook or website: ${link.trim()}`]),
     whatsApp && `My WhatsApp: ${showMobile(whatsApp)}`,
-    answers.pay && `Paying: ${answerLabel('pay', answers.pay)}`,
+    answers.pay && `Paying: ${answerLabel('pay', answers.pay, page)}`,
     answers.site && `Website now: ${answerLabel('site', answers.site)}`,
     answers.when && `When: ${answerLabel('when', answers.when)}`,
   ]
@@ -395,7 +404,7 @@ const ONE_SERVICE: Record<
     just: 'Just Google reviews',
     alone: 'Google reviews on their own is R1,200 a month, month to month.',
     extra: 1300,
-    adds: [['📲', 'Facebook and Instagram posts, made and published for you'], ['🌐', 'A website, free on 12 months (worth R9,900)']],
+    adds: [['📲', 'Facebook and Instagram posts, made and published for you'], ['🌐', 'A website, free on 12 months (worth up to R9,900)']],
   },
   social: {
     label: 'Social media posts',
@@ -406,16 +415,16 @@ const ONE_SERVICE: Record<
     just: 'Just social media posts',
     alone: 'Social media posts on their own is R2,000 a month, month to month.',
     extra: 500,
-    adds: [['⭐', 'A Google review request to every customer'], ['🌐', 'A website, free on 12 months (worth R9,900)']],
+    adds: [['⭐', 'A Google review request to every customer'], ['🌐', 'A website, free on 12 months (worth up to R9,900)']],
   },
   website: {
     label: 'A website',
     short: 'Website',
     emoji: '🌐',
-    price: 'R9,900',
+    price: 'From R6,500',
     unit: 'once-off',
     just: 'Just the website',
-    alone: 'A website on its own is R9,900 once-off, with the first 12 months of hosting and changes included.',
+    alone: 'A website on its own is from R6,500 once-off, with an optional hosting and management package.',
     extra: 0,
     adds: [['⭐', 'A Google review request to every customer'], ['📲', 'Facebook and Instagram posts, made and published for you']],
   },
@@ -444,7 +453,7 @@ const PackageCard = () => (
       <EmojiLine emoji="📲">Facebook and Instagram posts, done for you</EmojiLine>
       <EmojiLine emoji="🌐">
         A new website, free on 12 months{' '}
-        <span className="whitespace-nowrap rounded-full bg-amber-100 px-1.5 text-[12px] font-bold">Worth R9,900</span>
+        <span className="whitespace-nowrap rounded-full bg-amber-100 px-1.5 text-[12px] font-bold">Worth up to R9,900</span>
       </EmojiLine>
       <EmojiLine emoji="✅" className="font-semibold">
         Free setup, normally R5,000
@@ -1160,7 +1169,7 @@ function ChatWindow({
                   <p>{QUESTIONS[id].ask}</p>
                   {!answers[id] && (
                     <div className="mt-2 flex flex-col gap-1.5">
-                      {QUESTIONS[id].options.map((o) => (
+                      {optionsFor(id, page).map((o) => (
                         <button
                           key={o.value}
                           type="button"
@@ -1177,7 +1186,7 @@ function ChatWindow({
                   <Bubble mine>
                     <span className="flex items-center gap-1.5 font-semibold">
                       <Check className="h-4 w-4 flex-none text-[#008069]" aria-hidden="true" />
-                      {answerLabel(id, answers[id])}
+                      {answerLabel(id, answers[id], page)}
                     </span>
                   </Bubble>
                 )}

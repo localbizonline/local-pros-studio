@@ -87,7 +87,7 @@ const placeOf = (slug: string) => {
 
 const FILTERS = [{ id: 'all', label: 'All' }, ...GROUPS.filter((g) => g.id !== 'other').map((g) => ({ id: g.id, label: g.label }))];
 
-export function ExamplesShop({ track, price = 'R9,900' }: { track: (label: string) => void; price?: string }) {
+export function ExamplesShop({ track, price = 'R6,500' }: { track: (label: string) => void; price?: string }) {
   const [filter, setFilter] = useState('all');
   const group = GROUPS.find((g) => g.id === filter);
   const slugs = group ? [...new Set([...group.subs.flatMap((s) => s.sites), ...group.sites])] : Object.keys(SITES);
@@ -198,7 +198,7 @@ export function ExamplesSteps({
   );
 }
 
-const RECAP = ['Written, designed and built for you', 'Live in 7 days', 'R9,900 once-off, or R450 a month'];
+const RECAP = ['Written, designed and built for you', 'Live in 7 days', 'Websites from R6,500'];
 
 // Same look as the shared closing card (section-library/sections/ClosingCard.tsx): dark card on the cream band
 export function ExamplesClosing({

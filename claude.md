@@ -44,8 +44,8 @@ The same chat opens from buttons on other pages: render `<SiteChat page="join" /
 - **Google reviews**: R1,200/month
 - **Social media posting**: R2,000/month
 - **R2,500 plan**: reviews + social posting, 6-month commitment; free website on a 12-month commitment
-- **Web design**: R9,900 once-off, including the first 12 months of hosting and changes ("worth R3,000", 11 Oct 2026); rent to own R450 a month for 36 months. The monthly fee after year one (R290) appears only on the website terms page (/website-faq), not on marketing pages (Jeremy's call)
-- **Website page instant price (12 Oct 2026)**: from R6,500 (1–3 services), R9,900 (4+ services or professional), online shops from R30,000, hosting extra (optional package, not priced on the page). Only the website design page uses these so far; the pricing page, homepage, prices pages (Google Ads A/B test, retire after it ends), terms page and FAQ still say R9,900 / R450.
+- **Web design** (since 12 Oct 2026): from R6,500 once-off (1–3 services), R9,900 (4+ services or professional), online shops from R30,000; hosting extra (optional hosting and management package, not priced on marketing pages). The exact price shows only in the examples chat. Free (worth up to R9,900) with the R2,500 package on 12 months.
+- **Still on the old R9,900 / R450 (rent to own) prices**: the two Google Ads price pages (/prices/website-design and the cost guide, with their site chat), until the A/B test ends; and the website terms page (/website-faq, R290 a month after year one), waiting for Jeremy's hosting package price and rent-to-own decision.
 
 Check the live pages before quoting a price; prices are still repeated across several page files.
 

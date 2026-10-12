@@ -28,15 +28,15 @@ const CTA = SITE_WHATSAPP_URL;
 const faqs = [
   {
     question: 'Why does it cost R2,500 a month?',
-    answer: 'You get two services for one price, plus a bonus website worth R9,900 if you need a new one or a refresh (on a 12-month commitment). An agency usually charges R5,000 a month or more for social media alone, and hiring someone costs R3,000 to R11,000 a month plus your time managing them. We can charge R2,500 because most of the repetitive work is automated, using the same system that got Local Pros over 1,400 Google reviews.',
+    answer: 'You get two services for one price, plus a bonus website worth up to R9,900 if you need a new one or a refresh (on a 12-month commitment). An agency usually charges R5,000 a month or more for social media alone, and hiring someone costs R3,000 to R11,000 a month plus your time managing them. We can charge R2,500 because most of the repetitive work is automated, using the same system that got Local Pros over 1,400 Google reviews.',
   },
   {
     question: 'Do you build websites too?',
-    answer: 'Yes. If you sign up and don’t have a website, or yours is outdated, we’ll build you a new one for free (normally R9,900) on a 12-month commitment. After 12 months it’s yours. If you then stop the plan, you keep it with our monthly hosting and management, which includes 1 hour of changes a month.',
+    answer: 'Yes. If you sign up and don’t have a website, or yours is outdated, we’ll build you a new one for free (worth up to R9,900) on a 12-month commitment. After 12 months it’s yours. If you then stop the plan, you keep it with our monthly hosting and management, which includes 1 hour of changes a month.',
   },
   {
     question: 'I already have a website. Can you refresh it?',
-    answer: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free (normally R9,900) on the 12-month plan, or R9,900 once-off on its own, with the first 12 months of hosting and changes included.',
+    answer: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free (worth up to R9,900) on the 12-month plan, or from R6,500 once-off on its own, with an optional hosting and management package.',
   },
   {
     question: 'What if a customer is unhappy?',

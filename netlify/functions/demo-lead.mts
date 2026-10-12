@@ -111,7 +111,7 @@ const STEP_NOTE: Record<string, string> = {
 };
 // The chat's quick questions (src/components/demo-popup/DemoPopup.tsx QUESTIONS): only these answers are kept
 const ANSWERS: Record<string, { label: string; options: Record<string, string> }> = {
-  pay: { label: 'Prefers to pay', options: { once: 'once-off (R9,900)', rent: 'rent to own (R450 a month)', package: 'free with reviews + social posts (R2,500 a month)', unsure: 'not sure yet' } },
+  pay: { label: 'Prefers to pay', options: { once: 'once-off (from R6,500; R9,900 on the Google Ads price pages)', rent: 'rent to own (R450 a month, Google Ads price pages only)', package: 'free with reviews + social posts (R2,500 a month)', unsure: 'not sure yet' } },
   site: { label: 'Website now', options: { none: 'none', 'needs-work': 'has one, needs work', fine: 'has one, it’s fine' } },
   when: { label: 'Timing', options: { asap: 'as soon as possible', month: 'in the next month', looking: 'just looking for now' } },
 };

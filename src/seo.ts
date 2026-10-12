@@ -28,7 +28,7 @@ export const PAGES: Record<string, PageSeo> = {
   '/pricing': {
     title: 'Prices: Google Reviews, Social Media & Websites | Local Pros Studio',
     description:
-      'Google reviews, social media posts and a website for R2,500 a month, with free setup. Or one service on its own: reviews R1,200, posts R2,000, website R9,900.',
+      'Google reviews, social media posts and a website for R2,500 a month, with free setup. Or one service on its own: reviews R1,200, posts R2,000, website from R6,500.',
   },
   '/social-media-posting-service': {
     title: 'Social Media Posting Service for SA Businesses | Local Pros Studio',
