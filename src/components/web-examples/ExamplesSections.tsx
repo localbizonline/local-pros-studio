@@ -22,7 +22,7 @@ export function ExamplesHero({ waUrl, track }: { waUrl: string; track: (label: s
         <p className="dd-display wdl-display">
           A new website for your business, <span className="wdl-u">live in 7 days</span>
         </p>
-        <p className="dd-lede">Get sample websites for your industry on WhatsApp, with prices. Pick yours below.</p>
+        <p className="dd-lede">Get popular website designs for your industry on WhatsApp, with prices. Pick yours below.</p>
         <div className="wx-pick">
           <p className="wx-pick-q">What type of business do you run?</p>
           <div className="wx-pick-grid">
@@ -93,7 +93,7 @@ export function ExamplesShop({ track }: { track: (label: string) => void }) {
     <section className="dd-sec wx-shop" id="examples" data-section="Websites like yours">
       <div className="dd-container">
         <div className="dd-head">
-          <p className="dd-eyebrow">Sample websites</p>
+          <p className="dd-eyebrow">Popular designs</p>
           <h2 className="dd-h2">Find your industry</h2>
           <p className="dd-sub">
             <strong>500+ websites since 2015.</strong> Real client sites and example designs, each written for the business it’s for.
@@ -144,7 +144,7 @@ export function ExamplesShop({ track }: { track: (label: string) => void }) {
 const STEPS = [
   { title: 'Pick your industry', body: 'Plumber, salon, accountant or anything else: tap the closest one.' },
   { title: 'Tell us where to WhatsApp you', body: 'Your name, your number and your business name. That’s all.' },
-  { title: 'Get samples on WhatsApp', body: 'Tyran from our team sends sample websites for your industry, with our prices. Go ahead, and most websites are live in 7 days.' },
+  { title: 'Get designs on WhatsApp', body: 'Tyran from our team sends 3 popular designs for your industry, with our prices. Go ahead, and most websites are live in 7 days.' },
 ];
 
 export function ExamplesSteps({ track }: { track: (label: string) => void }) {
@@ -153,7 +153,7 @@ export function ExamplesSteps({ track }: { track: (label: string) => void }) {
       <div className="dd-container">
         <div className="dd-head">
           <p className="dd-eyebrow">How it works</p>
-          <h2 className="dd-h2">Get sample websites for your business in 3 steps</h2>
+          <h2 className="dd-h2">Get popular designs for your business in 3 steps</h2>
         </div>
         <ol className="wx-steps">
           {STEPS.map((s, i) => (
@@ -173,7 +173,7 @@ export function ExamplesSteps({ track }: { track: (label: string) => void }) {
               openExamplesChat({ from: 'steps' });
             }}
           >
-            Send me samples
+            Show me popular designs
           </button>
         </div>
       </div>
@@ -211,7 +211,7 @@ export function ExamplesClosing({ waUrl, track }: { waUrl: string; track: (label
               openExamplesChat({ from: 'closing' });
             }}
           >
-            Send me samples
+            Show me popular designs
           </button>
           <p className="wdc-or">
             Or{' '}

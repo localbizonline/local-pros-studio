@@ -31,13 +31,13 @@ const OFFER_NOTE: Record<string, string> = {
   'social-demo': 'Free social media demo (3 sample posts)',
   'review-check': 'Checked their Google reviews, wants Google reviews',
   // The examples chat (src/components/web-examples/, draft 12 Oct 2026): we WhatsApp them websites for their type of business
-  examples: 'Wants sample websites for their type of business and our prices, on WhatsApp',
+  examples: 'Wants popular website designs for their type of business and our prices, on WhatsApp',
 };
 const OFFER_LABEL: Record<string, string> = {
   checkup: 'free check-up',
   'social-demo': 'free social media demo',
   'review-check': 'review check',
-  examples: 'sample websites',
+  examples: 'popular designs',
 };
 // The homepage examples chat's extra question, "What would help most?" (src/components/web-examples/ExamplesChat.tsx NEEDS)
 const NEED_NOTE: Record<string, string> = {
@@ -51,7 +51,7 @@ const needOf = (body: Record<string, unknown>) => (typeof body.need === 'string'
 const sendWhat = (body: Record<string, unknown>) =>
   needOf(body)
     ? `Send 2 or 3 examples of our work for their type of business (they want ${needOf(body)}) and our prices.`
-    : 'Send 2 or 3 sample websites for their type of business (a client site, an example design or a template with their name) and our prices.';
+    : 'Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and our prices.';
 
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'studio.localpros.co.za/website-design',
@@ -349,7 +349,7 @@ const namedText = (body: Record<string, unknown>, fields: Record<string, unknown
 
 const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
   [
-    `📨 ${fields[F.companyName]} wants ${needOf(body) ? 'examples of our work' : 'sample websites'}: WhatsApp them now.`,
+    `📨 ${fields[F.companyName]} wants ${needOf(body) ? 'examples of our work' : 'popular designs'}: WhatsApp them now.`,
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     needOf(body) && `Wants most: ${needOf(body)}`,
     text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,

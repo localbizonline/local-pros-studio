@@ -14,7 +14,7 @@ import socialPost from '../../assets/images/clients/posts-dfy/rj-master-plumbers
 // "Websites for businesses like yours" chat (draft, 12 Oct 2026, Jeremy). Replaces "find your business on Google"
 // as the first step. Jeremy's pick (mock-up E in design/examples-chat-mockups/): a full-screen chat with a 4-step
 // progress bar, and no examples or prices in the chat itself ("the point is to WhatsApp them"):
-//   1. type of business (7 rows)  2. the closest type  3. name + WhatsApp number ("Send me samples": the lead is
+//   1. type of business (7 rows)  2. the closest type  3. name + WhatsApp number ("Send me the designs": the lead is
 //   saved here)  4. "what's your business called?" (Google check behind the scenes; "Is it one of these?" only for
 //   close matches), then "On its way. Tyran from our team will WhatsApp you…".
 // The team sends the examples by hand (alert to Jeremy and Ashley, netlify/functions/demo-lead.mts, offer "examples").
@@ -40,7 +40,7 @@ type Need = { id: string; label: string; plan: ChatPlan; done: (plural: string) 
 const NEEDS: Need[] = [
   { id: 'reviews', label: 'More Google reviews', plan: 'reviews', done: (p) => `how we get ${p} more Google reviews` },
   { id: 'social', label: 'Social media posts', plan: 'social', done: (p) => `social media posts for ${p}` },
-  { id: 'website', label: 'A new website', plan: 'website', done: (p) => `sample websites for ${p}` },
+  { id: 'website', label: 'A new website', plan: 'website', done: (p) => `popular website designs for ${p}` },
   { id: 'package', label: 'All three, R2,500 a month', plan: 'package', done: (p) => `our work for ${p}: reviews, social posts and websites` },
 ];
 
@@ -51,22 +51,20 @@ const VARIANTS = {
     page: 'web-design' as ChatPage,
     plan: 'website' as ChatPlan,
     withNeed: false,
-    headSub: '500+ websites since 2015',
-    intro: 'Hi 👋 Let’s get you sample websites for your industry.',
+    intro: 'Hi 👋 Let’s find popular website designs for your industry.',
     promise: (plural: string, g: Group) =>
-      g.id === 'shop' ? 'Great. We’ll WhatsApp you sample online shops, and how we price them.' : `Great. We’ll WhatsApp you sample websites for ${plural}, with our prices.`,
-    nameAsk: 'Last one, so we can make the samples fit: ',
-    send: 'Send me samples',
-    small: 'We only use your number to send you the samples and prices.',
-    done: (plural: string) => `sample websites for ${plural}`,
+      g.id === 'shop' ? 'Great. We’ll WhatsApp you 3 popular online shop designs, and how we price them.' : `Great. We’ll WhatsApp you 3 popular designs for ${plural}, with our prices.`,
+    nameAsk: 'Last one, so we can make the designs fit: ',
+    send: 'Send me the designs',
+    small: 'We only use your number to send you the designs and prices.',
+    done: (plural: string) => `3 popular designs for ${plural}`,
     // The hero already asks the question, so the pop-up waits until they've scrolled past it (or 20 seconds)
-    nudge: { wait: 'after-hero', title: 'Get sample websites for your industry', text: 'Tap your industry and we’ll WhatsApp you sample websites, with prices.', button: 'Send me samples', label: 'Sample websites for your industry' },
+    nudge: { wait: 'after-hero', title: 'See popular designs for your industry', text: 'Tap your industry and we’ll WhatsApp you 3 popular designs, with prices.', button: 'Show me popular designs', label: 'Popular designs for your industry' },
   },
   home: {
     page: 'home' as ChatPage,
     plan: 'package' as ChatPlan,
     withNeed: true,
-    headSub: 'Reviews, posts and websites',
     intro: 'Hi 👋 Let’s show you our work for businesses like yours.',
     promise: (plural: string) => `Great. We’ll WhatsApp you our work for ${plural}, with our prices.`,
     nameAsk: 'Last one: ',
@@ -74,7 +72,7 @@ const VARIANTS = {
     small: 'We only use your number to send you the examples and prices.',
     done: (plural: string, need?: Need | null) => (need ? need.done(plural) : `our work for ${plural}`),
     // The homepage hero doesn't ask the question, so the pop-up comes after 8 seconds or a third of the page
-    nudge: { wait: 'timer', title: 'See our work and prices for businesses like yours', text: 'Tap your type of business and we’ll WhatsApp you examples and prices.', button: 'Show me examples', label: 'Our work for businesses like yours' },
+    nudge: { wait: 'timer', title: 'See what’s popular for businesses like yours', text: 'Tap your type of business and we’ll WhatsApp you examples of our work, with prices.', button: 'Show me what’s popular', label: 'Our work for businesses like yours' },
   },
 };
 type VariantConfig = (typeof VARIANTS)['website'] | (typeof VARIANTS)['home'];
@@ -157,8 +155,8 @@ export function SiteCard({ site, small = false }: { site: Site; small?: boolean 
 
 // The card that slides up from the bottom (Cosmo Pools' "Not sure where to start?"), once per visit, and never
 // once they've opened a chat or tapped WhatsApp themselves
-const GoogleG = () => (
-  <svg viewBox="0 0 24 24" width={18} height={18} aria-hidden="true">
+const GoogleG = ({ size = 18 }: { size?: number }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z" />
     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z" />
     <path fill="#FBBC05" d="M5.84 14.09A6.6 6.6 0 0 1 5.5 12c0-.73.13-1.43.34-2.09V7.07H2.18A11 11 0 0 0 1 12c0 1.78.43 3.45 1.18 4.93l3.66-2.84Z" />
@@ -520,7 +518,15 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
             </span>
             <div className="wx-head-text">
               <p className="wx-head-title">Local Pros Studio</p>
-              <p className="wx-head-sub">{cfg.headSub}</p>
+              {/* Our Google rating on every step (Jeremy, 12 Oct 2026); the reviews are on the Local Pros profile */}
+              <p className="wx-head-sub wx-head-rating">
+                <GoogleG size={14} />
+                <strong>4.7</strong>
+                <span className="wx-stars" aria-hidden="true">
+                  ★★★★★
+                </span>
+                <span>1,400+ reviews</span>
+              </p>
             </div>
             <button type="button" className="wx-icon-btn wx-x" aria-label="Close" onClick={() => setOpen(false)}>
               <X size={20} aria-hidden="true" />

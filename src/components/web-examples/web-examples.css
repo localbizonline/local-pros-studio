@@ -367,6 +367,23 @@
   color: var(--muted);
 }
 
+.wx-head-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.wx-head-rating strong {
+  color: var(--ink);
+}
+
+.wx-stars {
+  font-size: 0.8125rem;
+  letter-spacing: 0.5px;
+  color: #fbbc05;
+}
+
 .wx-icon-btn {
   display: inline-flex;
   flex: none;
