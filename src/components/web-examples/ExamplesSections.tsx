@@ -88,7 +88,7 @@ const placeOf = (slug: string) => {
 
 const FILTERS = [{ id: 'all', label: 'All' }, ...GROUPS.filter((g) => g.id !== 'other').map((g) => ({ id: g.id, label: g.label }))];
 
-export function ExamplesShop({ track }: { track: (label: string) => void }) {
+export function ExamplesShop({ track, price = 'R9,900' }: { track: (label: string) => void; price?: string }) {
   const [filter, setFilter] = useState('all');
   const group = GROUPS.find((g) => g.id === filter);
   const slugs = group ? [...new Set([...group.subs.flatMap((s) => s.sites), ...group.sites])] : Object.keys(SITES);
@@ -120,7 +120,7 @@ export function ExamplesShop({ track }: { track: (label: string) => void }) {
               <div key={s.slug} className="wx-item">
                 <SiteCard site={s} />
                 <div className="wx-item-meta">
-                  <p className="wx-item-price">{s.slug === 'shop' ? 'Quoted for your shop' : <>From <strong>R9,900</strong></>}</p>
+                  <p className="wx-item-price">{s.slug === 'shop' ? <>From <strong>R30,000</strong></> : <>From <strong>{price}</strong></>}</p>
                   {s.href && (
                     <a href={s.href} target="_blank" rel="noopener noreferrer" className="wx-item-visit" onClick={() => track(`visit_${s.slug}`)}>
                       Visit site <ArrowUpRight size={16} aria-hidden="true" />
@@ -154,16 +154,27 @@ const STEPS = [
   { title: 'Get designs on WhatsApp', body: 'Tyran from our team sends 3 popular designs for your industry, with our prices. Go ahead, and most websites are live in 7 days.' },
 ];
 
-export function ExamplesSteps({ track }: { track: (label: string) => void }) {
+type Step = { title: string; body: string };
+export function ExamplesSteps({
+  track,
+  title = 'Get popular designs for your business in 3 steps',
+  steps = STEPS,
+  button = 'Show me popular designs',
+}: {
+  track: (label: string) => void;
+  title?: string;
+  steps?: Step[];
+  button?: string;
+}) {
   return (
     <section className="dd-sec wx-steps-sec" data-section="How it works">
       <div className="dd-container">
         <div className="dd-head">
           <p className="dd-eyebrow">How it works</p>
-          <h2 className="dd-h2">Get popular designs for your business in 3 steps</h2>
+          <h2 className="dd-h2">{title}</h2>
         </div>
         <ol className="wx-steps">
-          {STEPS.map((s, i) => (
+          {steps.map((s, i) => (
             <li key={s.title}>
               <span className="wx-step-num">{i + 1}</span>
               <h3 className="dd-h3">{s.title}</h3>
@@ -180,7 +191,7 @@ export function ExamplesSteps({ track }: { track: (label: string) => void }) {
               openExamplesChat({ from: 'steps' });
             }}
           >
-            Show me popular designs
+            {button}
           </button>
         </div>
       </div>
@@ -191,7 +202,19 @@ export function ExamplesSteps({ track }: { track: (label: string) => void }) {
 const RECAP = ['Written, designed and built for you', 'Live in 7 days', 'R9,900 once-off, or R450 a month'];
 
 // Same look as the shared closing card (section-library/sections/ClosingCard.tsx): dark card on the cream band
-export function ExamplesClosing({ waUrl, track }: { waUrl: string; track: (label: string) => void }) {
+export function ExamplesClosing({
+  waUrl,
+  track,
+  heading = 'See websites for your kind of business',
+  recap = RECAP,
+  button = 'Show me popular designs',
+}: {
+  waUrl: string;
+  track: (label: string) => void;
+  heading?: string;
+  recap?: string[];
+  button?: string;
+}) {
   return (
     <section className="cc wdc py-16 md:py-24 px-6 bg-[#FBF6EC]">
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 rounded-3xl bg-[#1C1917]">
@@ -200,10 +223,10 @@ export function ExamplesClosing({ waUrl, track }: { waUrl: string; track: (label
         </div>
         <div className="p-8 md:p-12 flex flex-col justify-center">
           <h2 className="cc-head text-[clamp(2rem,3.6vw,2.9rem)] font-extrabold tracking-[-0.025em] leading-[1.1] text-[#FBF6EC] mb-6">
-            See websites for your kind of business
+            {heading}
           </h2>
           <ul className="flex flex-col gap-3 mb-8">
-            {RECAP.map((t) => (
+            {recap.map((t) => (
               <li key={t} className="flex items-center gap-3 text-[clamp(1.05rem,1.6vw,1.15rem)] text-[#FBF6EC] font-semibold">
                 <span className="w-7 h-7 rounded-full bg-[#FBF6EC]/15 text-[#FBBF24] flex items-center justify-center shrink-0 text-[0.9rem]">✓</span>
                 {t}
@@ -218,7 +241,7 @@ export function ExamplesClosing({ waUrl, track }: { waUrl: string; track: (label
               openExamplesChat({ from: 'closing' });
             }}
           >
-            Show me popular designs
+            {button}
           </button>
           <p className="wdc-or">
             Or{' '}
@@ -227,6 +250,113 @@ export function ExamplesClosing({ waUrl, track }: { waUrl: string; track: (label
             </a>{' '}
             to talk it through. A real person replies.
           </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// The instant price hero (draft, 12 Oct 2026, Jeremy's call after comparing with cosmopools.co.za: proof, price
+// and speed up front). The picker gives the reason to tap: their price and popular designs for their industry.
+export function InstantHero({ waUrl, track }: { waUrl: string; track: (label: string) => void }) {
+  return (
+    <section className="dd-hero wdl-hero wx-hero">
+      <div className="dd-container">
+        <p className="wx-proof">
+          <span aria-hidden="true">★</span> 500+ websites built since 2015
+        </p>
+        <h1 className="dd-display wdl-display wx-instant-title">
+          Websites from R6,500. <span className="wdl-u">Instant price.</span> Live in 7 days.
+        </h1>
+        <p className="dd-lede">Tap your industry to see your price and 3 popular designs for businesses like yours.</p>
+        <IndustryPicker
+          onPick={(id) => {
+            track(`hero_group_${id}`);
+            openExamplesChat({ group: id, from: 'hero' });
+          }}
+        />
+        <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="wdl-rating" onClick={() => track('hero_google_reviews')}>
+          <GoogleG />
+          <span>
+            <strong>4.7 stars</strong> from 1,400+ Google reviews <span className="wdl-rating-src">(Local Pros)</span>
+          </span>
+        </a>
+        <p className="wdh-or">
+          Or{' '}
+          <a href={waUrl} target="_blank" rel="noopener noreferrer" className="wdl-inline-link" onClick={() => track('hero_whatsapp')}>
+            WhatsApp us
+          </a>{' '}
+          to talk it through.
+        </p>
+        <figure className="wdl-hero-media">
+          <picture>
+            <source media="(max-width: 767px)" srcSet={heroPhone} />
+            <img src={heroWide} alt={HERO_ALT} width={1600} height={760} />
+          </picture>
+        </figure>
+      </div>
+    </section>
+  );
+}
+
+// What it costs, without a price table ("no grid", Jeremy): two ways to buy, each with a button that gets them
+// started straight away (name and number, no samples: Jeremy, 12 Oct 2026), plus "get my exact price" for
+// anyone still comparing
+export function PriceBand({ track }: { track: (label: string) => void }) {
+  return (
+    <section className="dd-sec wx-priceband" id="pricing" data-section="What it costs">
+      <div className="dd-container">
+        <div className="dd-head">
+          <p className="dd-eyebrow">What it costs</p>
+          <h2 className="dd-h2">Two ways to get your website</h2>
+        </div>
+        <div className="wx-priceband-grid">
+          <div className="wx-priceband-card">
+            <h3 className="dd-h3">Your own website</h3>
+            <p className="wx-priceband-price">
+              From <strong>R6,500</strong> once-off
+            </p>
+            <p>Written, designed and built for you, live in 7 days. Your price depends on your industry and how many services you offer.</p>
+            <p className="wx-priceband-small">Optional hosting and management package available.</p>
+            <button
+              type="button"
+              className="dd-btn dd-btn-primary"
+              onClick={() => {
+                track('price_start_website');
+                openExamplesChat({ from: 'price', start: 'website' });
+              }}
+            >
+              Start my website
+            </button>
+            <button
+              type="button"
+              className="wx-priceband-link"
+              onClick={() => {
+                track('price_get');
+                openExamplesChat({ from: 'price' });
+              }}
+            >
+              Or see my exact price first
+            </button>
+          </div>
+          <div className="wx-priceband-card is-package">
+            <p className="wx-priceband-tag">Website included</p>
+            <h3 className="dd-h3">Website, social posts and Google reviews</h3>
+            <p className="wx-priceband-price">
+              <strong>R2,500</strong> a month
+            </p>
+            <p>Your website is included, with social media posts and Google review management, on a 12-month plan.</p>
+            <button
+              type="button"
+              className="dd-btn dd-btn-secondary"
+              onClick={() => {
+                track('price_start_package');
+                openExamplesChat({ from: 'price', start: 'package' });
+              }}
+            >
+              Start the package
+            </button>
+          </div>
         </div>
       </div>
     </section>

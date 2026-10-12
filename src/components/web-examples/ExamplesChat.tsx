@@ -25,15 +25,35 @@ import socialPost from '../../assets/images/clients/posts-dfy/rj-master-plumbers
 
 export const OPEN_EXAMPLES_EVENT = 'lps:open-examples-chat';
 
-type OpenOptions = { group?: string; sub?: string; site?: string; from: string };
+// start: from a price button. They've already chosen, so the chat skips the questions and samples and goes
+// straight to "Where should we WhatsApp you?" (Jeremy, 12 Oct 2026: "more direct, get them started")
+export type StartPlan = 'website' | 'package';
+type OpenOptions = { group?: string; sub?: string; site?: string; from: string; start?: StartPlan };
+const START = {
+  website: { intro: 'Great, let’s get your website started. 🚀', done: 'to get your website started. Most websites are live in 7 days.' },
+  package: {
+    intro: 'Great, let’s get your R2,500 a month package started: your website, social media posts and Google review management.',
+    done: 'to get your package started.',
+  },
+};
 export const openExamplesChat = (opts: OpenOptions) => window.dispatchEvent(new CustomEvent(OPEN_EXAMPLES_EVENT, { detail: opts }));
 
-type Stage = 'group' | 'sub' | 'other' | 'need' | 'contact' | 'name' | 'checking' | 'matches' | 'done';
-const ORDER: Stage[] = ['group', 'sub', 'other', 'need', 'contact', 'name', 'checking', 'matches', 'done'];
+type Stage = 'group' | 'sub' | 'other' | 'need' | 'services' | 'contact' | 'name' | 'checking' | 'matches' | 'done';
+const ORDER: Stage[] = ['group', 'sub', 'other', 'need', 'services', 'contact', 'name', 'checking', 'matches', 'done'];
 const reached = (stage: Stage, at: Stage) => ORDER.indexOf(stage) >= ORDER.indexOf(at);
-// The progress bar: one segment per question (the homepage has one more, "What would help most?")
-const PROGRESS: Record<Stage, number> = { group: 1, sub: 2, other: 2, need: 3, contact: 3, name: 4, checking: 4, matches: 4, done: 9 };
-const progressOf = (stage: Stage, withNeed: boolean) => (withNeed && ORDER.indexOf(stage) >= ORDER.indexOf('contact') ? PROGRESS[stage] + 1 : PROGRESS[stage]);
+// The progress bar: one segment per question; a page's extra question ("What would help most?" on the homepage,
+// "How many services?" with the instant price) adds one
+const STEP_OF: Record<Stage, string> = { group: 'group', sub: 'type', other: 'type', need: 'extra', services: 'extra', contact: 'contact', name: 'name', checking: 'name', matches: 'name', done: 'done' };
+const progressSteps = (extra: boolean) => (extra ? ['group', 'type', 'extra', 'contact', 'name'] : ['group', 'type', 'contact', 'name']);
+
+// The instant price (website page draft, Jeremy 12 Oct 2026). Shown in the chat only, never as a public table.
+// Website prices exclude hosting: an optional hosting and management package is mentioned, never priced here.
+const SERVICES = [
+  { id: '1-3', label: '1 to 3' },
+  { id: '4+', label: '4 or more' },
+];
+const priceOf = (g: Group, services: string | null) =>
+  g.id === 'shop' ? 'from R30,000' : g.id === 'professional' || services === '4+' ? 'R9,900' : 'R6,500';
 
 // The homepage's extra question; plan is what the lead is filed under, done is what Tyran sends
 type Need = { id: string; label: string; plan: ChatPlan; done: (plural: string) => string };
@@ -45,12 +65,14 @@ const NEEDS: Need[] = [
 ];
 
 // Everything that differs between the pages, in one place (wording included)
-export type ChatVariant = 'website' | 'home';
+export type ChatVariant = 'website' | 'home' | 'website-price';
 const VARIANTS = {
   website: {
     page: 'web-design' as ChatPage,
     plan: 'website' as ChatPlan,
-    withNeed: false,
+    extra: null as null | 'need' | 'services',
+    showPrice: false,
+    doneTail: 'and our prices',
     intro: 'Hi 👋 Let’s find popular website designs for your industry.',
     promise: (plural: string, g: Group) =>
       g.id === 'shop' ? 'Great. We’ll WhatsApp you 3 popular online shop designs, and how we price them.' : `Great. We’ll WhatsApp you 3 popular designs for ${plural}, with our prices.`,
@@ -64,7 +86,9 @@ const VARIANTS = {
   home: {
     page: 'home' as ChatPage,
     plan: 'package' as ChatPlan,
-    withNeed: true,
+    extra: 'need' as null | 'need' | 'services',
+    showPrice: false,
+    doneTail: 'and our prices',
     intro: 'Hi 👋 Let’s show you our work for businesses like yours.',
     promise: (plural: string) => `Great. We’ll WhatsApp you our work for ${plural}, with our prices.`,
     nameAsk: 'Last one: ',
@@ -74,8 +98,25 @@ const VARIANTS = {
     // The homepage hero doesn't ask the question, so the pop-up comes after 8 seconds or a third of the page
     nudge: { wait: 'timer', title: 'See what’s popular for businesses like yours', text: 'Tap your type of business and we’ll WhatsApp you examples of our work, with prices.', button: 'Show me what’s popular', label: 'Our work for businesses like yours' },
   },
+  // Website page draft with the instant price (/review-versions/instant-price, 12 Oct 2026): one more question,
+  // "How many services do you offer?", and their price on screen straight after their number
+  'website-price': {
+    page: 'web-design' as ChatPage,
+    plan: 'website' as ChatPlan,
+    extra: 'services' as null | 'need' | 'services',
+    showPrice: true,
+    doneTail: 'and your price',
+    intro: 'Hi 👋 Let’s get your price and popular designs for your industry.',
+    promise: (plural: string, g: Group) =>
+      g.id === 'shop' ? 'Great, your price is ready. We’ll also WhatsApp you 3 popular online shop designs.' : `Great, your price is ready. We’ll also WhatsApp you 3 popular designs for ${plural}.`,
+    nameAsk: 'Last one, so we can make the designs fit: ',
+    send: 'Show my price',
+    small: 'We only use your number to send you the designs and your price.',
+    done: (plural: string) => `3 popular designs for ${plural}`,
+    nudge: { wait: 'after-hero', title: 'See your price and popular designs', text: 'Tap your industry: your price shows in seconds, and we WhatsApp you 3 popular designs.', button: 'Get my price', label: 'Your price and popular designs' },
+  },
 };
-type VariantConfig = (typeof VARIANTS)['website'] | (typeof VARIANTS)['home'];
+type VariantConfig = (typeof VARIANTS)[ChatVariant];
 
 // Until they give their business name, the Airtable record is named after them (the server knows this wording)
 const PLACEHOLDER = 'business name to follow';
@@ -167,7 +208,7 @@ const GoogleG = ({ size = 18 }: { size?: number }) => (
 // Three pictures fanned out: websites on the website page; a website, a client's social post and our Google
 // rating on the homepage (one per service)
 function NudgeFan({ variant }: { variant: ChatVariant }) {
-  if (variant === 'website')
+  if (variant !== 'home')
     return (
       <div className="wx-fan" aria-hidden="true">
         {['plumber', 'willa', 'pavingpros'].map((slug) => SITES[slug] && <img key={slug} src={SITES[slug].img} alt="" width={585} height={780} />)}
@@ -321,6 +362,7 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
   const step = (name: string, p: Record<string, string | undefined> = {}) => capture('examples_chat_step', { step: name, page: cfg.page, ...p });
   const [open, setOpen] = useState(false);
   const [need, setNeed] = useState<Need | null>(null);
+  const [services, setServices] = useState<string | null>(null);
   const [everOpened, setEverOpened] = useState(false);
   const [stage, setStage] = useState<Stage>('group');
   const [typing, setTyping] = useState(false);
@@ -336,12 +378,13 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
   const [matches, setMatches] = useState<Business[]>([]);
   const [picked, setPicked] = useState<Business | 'none' | null>(null);
   const [from, setFrom] = useState('');
+  const [start, setStart] = useState<StartPlan | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const saveLead = useLeadRecord(cfg.page, cfg.plan, 'examples');
 
   const businessType = group ? [group.label, sub?.label ?? otherText].filter(Boolean).join(' – ') : '';
   const props = () => ({ group: group?.id, sub: sub?.id, need: need?.id, from });
-  const afterType: Stage = cfg.withNeed ? 'need' : 'contact';
+  const afterType = (g: Group | null): Stage => (cfg.extra === 'need' ? 'need' : cfg.extra === 'services' && g?.id !== 'shop' ? 'services' : 'contact');
   const plural = sub?.plural ?? (group?.id === 'shop' ? 'online shops' : group?.id === 'other' ? 'businesses like yours' : group?.label.toLowerCase());
   const firstName = contactName.trim().split(' ')[0];
   const shownNumber = mobile.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3');
@@ -362,12 +405,17 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
     notifyStarted(cfg.page, cfg.plan, 'examples');
     if (g.subs.length) advance('sub');
     else if (g.id === 'other') advance('other');
-    else advance(afterType);
+    else advance(afterType(g));
   };
   const chooseSub = (s: Sub) => {
     setSub(s);
     step('sub', { group: group?.id, sub: s.id, from });
-    advance(afterType);
+    advance(afterType(group));
+  };
+  const chooseServices = (id: string) => {
+    setServices(id);
+    step('services', { group: group?.id, sub: sub?.id, services: id, from });
+    advance('contact');
   };
   const chooseNeed = (n: Need) => {
     setNeed(n);
@@ -382,7 +430,15 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
       setOpen(true);
       setEverOpened(true);
       setFrom(o.from);
-      step('opened', { from: o.from, group: o.group, sub: o.sub });
+      step('opened', { from: o.from, group: o.group, sub: o.sub, start: o.start });
+      // A price button: straight to their number, unless they're already part-way through
+      if (o.start && (stage === 'group' || stage === 'done')) {
+        setStart(o.start);
+        setGroup(null);
+        setSub(null);
+        notifyStarted(cfg.page, o.start, 'examples');
+        return advance('contact');
+      }
       const g = o.group ? groupById(o.group) : undefined;
       // Already part-way through: carry on where they were
       if (!g || stage !== 'group') return;
@@ -393,7 +449,7 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
       step('group', { group: g.id, from: o.from });
       step('sub', { group: g.id, sub: s.id, from: o.from });
       notifyStarted(cfg.page, cfg.plan, 'examples');
-      advance(afterType);
+      advance(afterType(g));
     };
     window.addEventListener(OPEN_EXAMPLES_EVENT, onOpen);
     return () => window.removeEventListener(OPEN_EXAMPLES_EVENT, onOpen);
@@ -428,19 +484,24 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
   }, [open]);
 
   // Back, until they've left their number
-  const canGoBack = stage === 'sub' || stage === 'other' || stage === 'need' || stage === 'contact';
+  const canGoBack = !start && (stage === 'sub' || stage === 'other' || stage === 'need' || stage === 'services' || stage === 'contact');
   const goBack = () => {
     step('back', { ...props(), at: stage });
     setError('');
-    if (stage === 'contact' && cfg.withNeed) {
+    if (stage === 'contact' && cfg.extra === 'need') {
       setNeed(null);
       return setStage('need');
     }
-    if ((stage === 'contact' || stage === 'need') && group?.subs.length) {
+    if (stage === 'contact' && cfg.extra === 'services' && group?.id !== 'shop') {
+      setServices(null);
+      return setStage('services');
+    }
+    const fromType = stage === 'contact' || stage === 'need' || stage === 'services';
+    if (fromType && group?.subs.length) {
       setSub(null);
       return setStage('sub');
     }
-    if ((stage === 'contact' || stage === 'need') && group?.id === 'other') return setStage('other');
+    if (fromType && group?.id === 'other') return setStage('other');
     setGroup(null);
     setSub(null);
     setOtherText('');
@@ -453,7 +514,7 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
     if (!t) return;
     setOtherText(t.slice(0, 80));
     step('other_typed', { group: group?.id, from });
-    advance(afterType);
+    advance(afterType(group));
   };
 
   // Step 3: where to WhatsApp them. The lead is saved here, named after them until they give the business name.
@@ -475,6 +536,8 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
       whatsApp: m,
       whatsAppFrom: 'typed',
       ...(need ? { need: need.id, plan: need.plan } : {}),
+      ...(cfg.showPrice && group ? { services: services ?? undefined, price: priceOf(group, services) } : {}),
+      ...(start ? { start: true, plan: start } : {}),
     });
     step('requested', props());
     advance('name');
@@ -486,6 +549,8 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
     whatsApp: mobile,
     whatsAppFrom: 'typed',
     ...(need ? { need: need.id, plan: need.plan } : {}),
+    ...(cfg.showPrice && group ? { services: services ?? undefined, price: priceOf(group, services) } : {}),
+    ...(start ? { start: true, plan: start } : {}),
   });
   const finishTyped = (name: string) => {
     saveLead(['typed', 'number', 'requested'], { mode: 'manual', name, ...lead() });
@@ -533,8 +598,9 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
   }, [stage]);
 
   const latest = (s: Stage) => stage === s && typing;
-  const progress = progressOf(stage, cfg.withNeed);
-  const segments = cfg.withNeed ? 5 : 4;
+  const stepsShown = start ? ['contact', 'name'] : progressSteps(!!cfg.extra);
+  const segments = stepsShown.length;
+  const progress = stage === 'done' ? segments : stepsShown.indexOf(STEP_OF[stage]) + 1;
 
   // Its own token scope, so it looks the same on any page (the homepage isn't inside .dd)
   return (
@@ -576,12 +642,12 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
 
           <div className="wx-log" ref={logRef}>
             <div className="wx-log-start" />
-            <Bot>{cfg.intro}</Bot>
-            <Bot strong>What type of business do you run?</Bot>
-            {stage === 'group' ? (
-              <IndustryRows onPick={(g) => chooseGroup(g)} />
-            ) : (
-              group && <Me>{group.label}</Me>
+            {!start && (
+              <>
+                <Bot>{cfg.intro}</Bot>
+                <Bot strong>What type of business do you run?</Bot>
+                {stage === 'group' ? <IndustryRows onPick={(g) => chooseGroup(g)} /> : group && <Me>{group.label}</Me>}
+              </>
             )}
 
             {group && group.subs.length > 0 && reached(stage, 'sub') && (
@@ -611,7 +677,30 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
               <>{latest('other') ? <Typing /> : <>{<Bot strong>What does your business do?</Bot>}{stage !== 'other' && <Me>{otherText}</Me>}</>}</>
             )}
 
-            {cfg.withNeed && group && reached(stage, 'need') && (
+            {cfg.extra === 'services' && group && group.id !== 'shop' && reached(stage, 'services') && (
+              <>
+                {latest('services') ? (
+                  <Typing />
+                ) : (
+                  <>
+                    <Bot strong>How many services do you offer?</Bot>
+                    {stage === 'services' ? (
+                      <div className="wx-chips">
+                        {SERVICES.map((o) => (
+                          <button key={o.id} type="button" className="wx-chip" onClick={() => chooseServices(o.id)}>
+                            {o.label}
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      services && <Me>{SERVICES.find((o) => o.id === services)?.label}</Me>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+
+            {cfg.extra === 'need' && group && reached(stage, 'need') && (
               <>
                 {latest('need') ? (
                   <Typing />
@@ -634,14 +723,14 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
               </>
             )}
 
-            {group && reached(stage, 'contact') && (
+            {(group || start) && reached(stage, 'contact') && (
               <>
                 {latest('contact') ? (
                   <Typing />
                 ) : (
                   <>
-                    <Bot>{cfg.promise(plural ?? 'businesses like yours', group)}</Bot>
-                    <Bot strong>Where should we WhatsApp them?</Bot>
+                    {start ? <Bot>{START[start].intro}</Bot> : group && <Bot>{cfg.promise(plural ?? 'businesses like yours', group)}</Bot>}
+                    <Bot strong>{start ? 'Where should we WhatsApp you?' : 'Where should we WhatsApp them?'}</Bot>
                     {stage !== 'contact' && <Me>{[contactName.trim(), shownNumber].filter(Boolean).join(' · ')}</Me>}
                   </>
                 )}
@@ -655,8 +744,23 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
                 ) : (
                   <>
                     <Bot>Thanks{firstName ? ` ${firstName}` : ''}, got it. 👍</Bot>
+                    {cfg.showPrice && group && (
+                      <>
+                        <div className="wx-bot wx-price">
+                          <span className="wx-price-label">Your price</span>
+                          <strong className="wx-price-amount">{priceOf(group, services)}</strong>
+                          <span className="wx-price-note">
+                            {group.id === 'shop' ? 'Online shop, quoted for what you sell.' : `Your website, once-off. Live in 7 days.`} Optional hosting and management package available.
+                          </span>
+                        </div>
+                        <Bot>
+                          Or get your website <strong>included</strong> in our <strong>R2,500 a month</strong> package, with social media posts and Google review management (12-month plan).
+                        </Bot>
+                        <Bot>3 popular designs for {plural ?? 'businesses like yours'} are on their way to your WhatsApp.</Bot>
+                      </>
+                    )}
                     <Bot>
-                      {cfg.nameAsk}
+                      {start ? 'Last one: ' : cfg.nameAsk}
                       <strong>what’s your business called?</strong>
                     </Bot>
                     {bizName && stage !== 'name' && <Me>{bizName}</Me>}
@@ -705,7 +809,9 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
                     </span>
                     <span>
                       <strong>On its way</strong>
-                      Tyran from our team will WhatsApp you on {shownNumber} with {cfg.done(plural ?? 'businesses like yours', need)} and our prices.
+                      {start
+                        ? `Tyran from our team will WhatsApp you on ${shownNumber} ${START[start].done}`
+                        : `Tyran from our team will WhatsApp you on ${shownNumber} with ${cfg.done(plural ?? 'businesses like yours', need)} ${cfg.doneTail}.`}
                     </span>
                   </div>
                   <Bot>
@@ -752,9 +858,9 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
                 </p>
               )}
               <button type="submit" className="dd-btn dd-btn-primary wx-send">
-                {cfg.send}
+                {start ? 'Get started' : cfg.send}
               </button>
-              <p className="wx-small">{cfg.small}</p>
+              <p className="wx-small">{start ? 'Tyran from our team WhatsApps you to get started.' : cfg.small}</p>
             </form>
           )}
           {(stage === 'name' || stage === 'other') && !typing && (

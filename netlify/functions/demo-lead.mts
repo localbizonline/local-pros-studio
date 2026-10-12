@@ -46,10 +46,21 @@ const NEED_NOTE: Record<string, string> = {
   website: 'a new website',
   package: 'all three: reviews, posts and a website (R2,500 a month)',
 };
+// The instant price chat (website page draft): how many services they offer and the price they were shown
+const SERVICES_NOTE: Record<string, string> = { '1-3': '1 to 3', '4+': '4 or more' };
+const servicesOf = (body: Record<string, unknown>) => (typeof body.services === 'string' && Object.hasOwn(SERVICES_NOTE, body.services) ? SERVICES_NOTE[body.services] : '');
+const priceShown = (body: Record<string, unknown>) => (typeof body.price === 'string' && /^(from )?R[\d,]{4,8}$/.test(body.price) ? body.price : '');
 const needOf = (body: Record<string, unknown>) => (typeof body.need === 'string' && Object.hasOwn(NEED_NOTE, body.need) ? NEED_NOTE[body.need] : '');
 // What the team should send someone from the examples chat
+// A price button's "get started" (src/components/web-examples/ExamplesChat.tsx START): they've chosen already
+const isStart = (body: Record<string, unknown>) => body.start === true;
+const startPlan = (body: Record<string, unknown>) => (body.plan === 'package' ? 'the R2,500 a month package (website, social posts, reviews)' : 'a website');
 const sendWhat = (body: Record<string, unknown>) =>
-  needOf(body)
+  isStart(body)
+    ? `They want to get started with ${startPlan(body)}: confirm what they need and send the next steps.`
+    : priceShown(body)
+    ? `Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and confirm the ${priceShown(body)} price they saw, plus the optional hosting and management package.`
+    : needOf(body)
     ? `Send 2 or 3 examples of our work for their type of business (they want ${needOf(body)}) and our prices.`
     : 'Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and our prices.';
 
@@ -117,7 +128,9 @@ const noteFor = (body: Record<string, unknown>) => {
   const contact = text(body.contactName, 60);
   const need = needOf(body);
   return [
-    offer && need
+    isStart(body)
+      ? `Wants to get started with ${startPlan(body)}, from ${page}.`
+      : offer && need
       ? `Wants examples of our work for their type of business and our prices, on WhatsApp, from ${page}.`
       : offer
       ? `${offer}, from ${page}.`
@@ -126,6 +139,8 @@ const noteFor = (body: Record<string, unknown>) => {
       : `Free demo website request, from ${page}.`,
     type ? `Type of business (they picked): ${type}.` : '',
     need ? `What would help most: ${need}.` : '',
+    servicesOf(body) ? `Services they offer: ${servicesOf(body)}.` : '',
+    priceShown(body) ? `Price shown in the chat: ${priceShown(body)} (hosting package extra).` : '',
     contact ? `Name: ${contact}.` : '',
     steps.length ? `So far: ${steps.join(', ')}.` : '',
   ]
@@ -256,7 +271,9 @@ const ALERT_PAGE: Record<string, string> = {
 const pageLabel = (body: Record<string, unknown>) =>
   typeof body.page === 'string' && Object.hasOwn(ALERT_PAGE, body.page) ? ALERT_PAGE[body.page] : 'the website';
 const planLabel = (body: Record<string, unknown>) =>
-  body.offer === 'examples' && body.page === 'home'
+  body.start === true
+    ? `get started: ${body.plan === 'package' ? 'R2,500 package' : 'website'}`
+    : body.offer === 'examples' && body.page === 'home'
     ? 'examples of our work'
     : typeof body.offer === 'string' && Object.hasOwn(OFFER_LABEL, body.offer)
     ? OFFER_LABEL[body.offer]
@@ -275,6 +292,8 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
     `From ${pageLabel(body)} (${planLabel(body)})`,
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     needOf(body) && `Wants most: ${needOf(body)}`,
+    servicesOf(body) && `Services: ${servicesOf(body)}`,
+    priceShown(body) && `Price shown: ${priceShown(body)}`,
     fields[F.gbpCategory] && `Type: ${fields[F.gbpCategory]}`,
     text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
     fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
@@ -349,9 +368,12 @@ const namedText = (body: Record<string, unknown>, fields: Record<string, unknown
 
 const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
   [
-    `📨 ${fields[F.companyName]} wants ${needOf(body) ? 'examples of our work' : 'popular designs'}: WhatsApp them now.`,
+    isStart(body)
+      ? `🚀 ${fields[F.companyName]} wants to get started (${body.plan === 'package' ? 'R2,500 package' : 'website'}): WhatsApp them now.`
+      : `📨 ${fields[F.companyName]} wants ${needOf(body) ? 'examples of our work' : 'popular designs'}: WhatsApp them now.`,
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     needOf(body) && `Wants most: ${needOf(body)}`,
+    priceShown(body) && `Price shown: ${priceShown(body)}${servicesOf(body) ? ` (${servicesOf(body)} services)` : ''}`,
     text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
     fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
     sendWhat(body),

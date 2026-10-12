@@ -676,6 +676,36 @@
   color: var(--ink);
 }
 
+/* Their price, straight after their number (instant price draft) */
+.wx-price {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 70%;
+  border: 2px solid var(--accent);
+}
+
+.wx-price-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.wx-bot .wx-price-amount {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.wx-price-note {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
 .wx-done {
   display: flex;
   align-items: flex-start;
@@ -1120,5 +1150,117 @@
 
   .wx-steps {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Instant price draft (WebsitePriceDraft.tsx): proof line, headline and the price band ---------- */
+
+.wx-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wx-proof span {
+  color: #fbbc05;
+}
+
+.wx-page h1.wx-instant-title {
+  max-width: 14em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+}
+
+.wx-priceband {
+  border-top: 1px solid var(--line);
+}
+
+.wx-priceband-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.wx-priceband-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.wx-priceband-card.is-package {
+  background: var(--cream);
+}
+
+.wx-priceband-tag {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wx-priceband-price {
+  font-size: 1.0625rem;
+  color: var(--body);
+}
+
+.wx-priceband-price strong {
+  font-family: var(--font-head);
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.wx-priceband-small {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.wx-priceband-card .dd-btn {
+  margin-top: auto;
+}
+
+.wx-priceband-link {
+  align-self: center;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .wx-priceband-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wx-priceband-card {
+    padding: 24px 20px;
   }
 }
