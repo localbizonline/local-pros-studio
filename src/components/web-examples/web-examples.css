@@ -763,6 +763,11 @@
   color: var(--muted);
 }
 
+/* The chat brings its own .dd token scope (ExamplesChat.tsx) without adding a box to the page */
+.wx-root {
+  display: contents;
+}
+
 /* ---------- The slide-up card ("Not sure where to start?") ---------- */
 
 .wx-nudge {
@@ -799,7 +804,7 @@
   margin-top: -44px;
 }
 
-.wx-fan img {
+.wx-fan > * {
   width: 92px;
   height: 123px;
   object-fit: cover;
@@ -809,17 +814,46 @@
   box-shadow: 0 10px 24px -8px rgba(28, 25, 23, 0.45);
 }
 
-.wx-fan img:nth-child(1) {
+.wx-fan > :nth-child(1) {
   transform: rotate(-9deg) translate(14px, 12px);
 }
 
-.wx-fan img:nth-child(2) {
+.wx-fan > :nth-child(2) {
   position: relative;
   z-index: 1;
 }
 
-.wx-fan img:nth-child(3) {
+.wx-fan > :nth-child(3) {
   transform: rotate(9deg) translate(-14px, 12px);
+}
+
+/* Our Google rating as a little card, for the homepage pop-up */
+.wx-fan-card {
+  padding: 0 4px 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: #fff;
+  font-size: 0.6875rem;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--muted);
+}
+
+.wx-fan-card strong {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.wx-fan-stars {
+  font-size: 0.8125rem;
+  letter-spacing: 1px;
+  color: #fbbc05;
 }
 
 .wx-nudge-body {

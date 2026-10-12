@@ -39,6 +39,20 @@ const OFFER_LABEL: Record<string, string> = {
   'review-check': 'review check',
   examples: 'sample websites',
 };
+// The homepage examples chat's extra question, "What would help most?" (src/components/web-examples/ExamplesChat.tsx NEEDS)
+const NEED_NOTE: Record<string, string> = {
+  reviews: 'more Google reviews',
+  social: 'social media posts',
+  website: 'a new website',
+  package: 'all three: reviews, posts and a website (R2,500 a month)',
+};
+const needOf = (body: Record<string, unknown>) => (typeof body.need === 'string' && Object.hasOwn(NEED_NOTE, body.need) ? NEED_NOTE[body.need] : '');
+// What the team should send someone from the examples chat
+const sendWhat = (body: Record<string, unknown>) =>
+  needOf(body)
+    ? `Send 2 or 3 examples of our work for their type of business (they want ${needOf(body)}) and our prices.`
+    : 'Send 2 or 3 sample websites for their type of business (a client site, an example design or a template with their name) and our prices.';
+
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'studio.localpros.co.za/website-design',
   'web-design': 'studio.localpros.co.za/website-design-package',
@@ -101,9 +115,17 @@ const noteFor = (body: Record<string, unknown>) => {
   const steps = stepsFrom(body).map((step) => STEP_NOTE[step]);
   const type = text(body.businessType, 120);
   const contact = text(body.contactName, 60);
+  const need = needOf(body);
   return [
-    offer ? `${offer}, from ${page}.` : plan ? `Start now: ${plan}, from ${page}.` : `Free demo website request, from ${page}.`,
+    offer && need
+      ? `Wants examples of our work for their type of business and our prices, on WhatsApp, from ${page}.`
+      : offer
+      ? `${offer}, from ${page}.`
+      : plan
+      ? `Start now: ${plan}, from ${page}.`
+      : `Free demo website request, from ${page}.`,
     type ? `Type of business (they picked): ${type}.` : '',
+    need ? `What would help most: ${need}.` : '',
     contact ? `Name: ${contact}.` : '',
     steps.length ? `So far: ${steps.join(', ')}.` : '',
   ]
@@ -234,7 +256,9 @@ const ALERT_PAGE: Record<string, string> = {
 const pageLabel = (body: Record<string, unknown>) =>
   typeof body.page === 'string' && Object.hasOwn(ALERT_PAGE, body.page) ? ALERT_PAGE[body.page] : 'the website';
 const planLabel = (body: Record<string, unknown>) =>
-  typeof body.offer === 'string' && Object.hasOwn(OFFER_LABEL, body.offer)
+  body.offer === 'examples' && body.page === 'home'
+    ? 'examples of our work'
+    : typeof body.offer === 'string' && Object.hasOwn(OFFER_LABEL, body.offer)
     ? OFFER_LABEL[body.offer]
     : typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan)
     ? PLAN_NOTE[body.plan]
@@ -250,6 +274,7 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
     `🟢 New website lead: ${fields[F.companyName]}`,
     `From ${pageLabel(body)} (${planLabel(body)})`,
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
+    needOf(body) && `Wants most: ${needOf(body)}`,
     fields[F.gbpCategory] && `Type: ${fields[F.gbpCategory]}`,
     text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
     fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
@@ -262,7 +287,7 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
       ? "Business name not given yet: you'll get another message if they add it."
       : body.mode === 'manual' && 'Not found on Google (typed their details).',
     ...answersFrom(body).map((a) => a.text),
-    stepsFrom(body).includes('requested') && '👉 WhatsApp them sample websites for their type of business and our prices.',
+    stepsFrom(body).includes('requested') && `👉 WhatsApp them. ${sendWhat(body)}`,
     stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && !stepsFrom(body).includes('requested') && body.offer !== 'examples' && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
     stepsFrom(body).includes('picked') && body.offer === 'examples' && !stepsFrom(body).includes('requested') && "Picked on Google. You'll get another message if they leave their WhatsApp number.",
     recordId ? `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}` : 'Not saved to Airtable (error). Details above.',
@@ -324,11 +349,12 @@ const namedText = (body: Record<string, unknown>, fields: Record<string, unknown
 
 const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
   [
-    `📨 ${fields[F.companyName]} wants sample websites: WhatsApp them now.`,
+    `📨 ${fields[F.companyName]} wants ${needOf(body) ? 'examples of our work' : 'sample websites'}: WhatsApp them now.`,
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
+    needOf(body) && `Wants most: ${needOf(body)}`,
     text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
     fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
-    'Send 2 or 3 sample websites for their type of business (a client site, an example design or a template with their name) and our prices.',
+    sendWhat(body),
     `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
   ]
     .filter(Boolean)
