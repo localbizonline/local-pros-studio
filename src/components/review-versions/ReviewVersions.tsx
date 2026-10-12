@@ -24,8 +24,6 @@ const VERSIONS = {
   services: { name: 'Services section options', Page: lazy(() => import('../services-options/ServicesOptions')) },
   // Prices as a chat: tap "Prices" in the menu (test, 9 Oct 2026)
   'prices-chat': { name: 'Prices chat (test)', Page: lazy(() => import('../prices-chat-test/PricesChatTest')) },
-  // Website design page with the instant price: "Websites from R6,500. Instant price." (12 Oct 2026)
-  'instant-price': { name: 'Website page: instant price', Page: lazy(() => import('../web-examples/WebsitePriceDraft')) },
 } as const;
 
 type VersionId = keyof typeof VERSIONS;

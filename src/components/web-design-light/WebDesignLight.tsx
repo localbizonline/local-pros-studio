@@ -7,18 +7,17 @@ import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import FitCheck from '../section-library/sections/FitCheck';
 import ClientReviews from './ClientReviews';
-import PriceThreeWays from './PriceThreeWays';
-import { openSiteChat } from '../demo-popup/openSiteChat';
 import ExamplesChat, { openExamplesChat } from '../web-examples/ExamplesChat';
-import { ExamplesClosing, ExamplesHero, ExamplesShop, ExamplesSteps } from '../web-examples/ExamplesSections';
+import { ExamplesClosing, ExamplesShop, ExamplesSteps, InstantHero, PriceBand } from '../web-examples/ExamplesSections';
 import teamEnquiries from './img/team-new-enquiries.webp';
 
-// The website design page, /website-design-package, "examples first" (live 12 Oct 2026, replacing the free demo
-// page of 8 Oct). Jeremy found "find your business on Google" confusing as the first step and "free demo"
-// cheapening. The first step is now "What type of business do you run?"; the shared examples chat
-// (../web-examples/ExamplesChat.tsx) takes their WhatsApp number, and Tyran sends 3 popular designs for their
-// industry with our prices. Look borrowed from cosmopools.co.za (shop-window cards, slide-up card).
-// Sections: ../web-examples/ExamplesSections.tsx; proof, price, fit and FAQ as before.
+// The website design page, /website-design-package, with the instant price (live 12 Oct 2026, Jeremy's call
+// after comparing with cosmopools.co.za: proof, price and speed in the headline, "Websites from R6,500. Instant
+// price. Live in 7 days."). The shared examples chat (../web-examples/ExamplesChat.tsx, variant "website-price")
+// asks industry, closest type and how many services, takes their WhatsApp number (lead saved), then shows their
+// price (R6,500, R9,900 or from R30,000) and asks the business name. Prices exclude hosting: only "optional
+// hosting and management package available" is said. The R2,500 a month package includes the website.
+// No public price table. "Instant price" sits in the menu bar. Before 12 Oct: examples first with R9,900.
 
 const trackClick = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: `wd_site_${label}`, value: 1 });
 
@@ -40,15 +39,15 @@ const NOT_A_FIT = ['You want to design every page yourself', 'You need a website
 const FAQ = [
   {
     q: 'How much does a website cost?',
-    a: 'R9,900 once-off, including the first 12 months of hosting and changes (worth R3,000). Or rent to own at R450 a month for 36 months, after which it is yours. It is free with our R2,500 a month package on a 12-month commitment. Online shops are quoted separately.',
+    a: 'From R6,500 once-off. Your price depends on your industry and how many services you offer: tap your industry at the top of this page and it shows in seconds. Online shops are from R30,000. An optional hosting and management package is available, or get your website included in our R2,500 a month package with social media posts and Google review management (12-month plan).',
   },
   {
     q: 'Can I see website designs for my industry first?',
-    a: 'Yes. Pick your type of business at the top of this page and we WhatsApp you 3 popular designs for your industry, with our prices.',
+    a: 'Yes. Tap your industry at the top of this page and we WhatsApp you 3 popular designs for your industry, with your price.',
   },
   {
     q: 'How is this different from a cheap website or doing it myself?',
-    a: 'We write the wording, choose the photos and set up a page for each of your services and areas, then look after it once it is live. A R199 a month template usually leaves the writing to you and often gets rebuilt within a year, doing it yourself costs your evenings, and a big agency charges far more and takes weeks.',
+    a: 'We write the wording, choose the photos and set up a page for each of your services and areas. A R199 a month template usually leaves the writing to you and often gets rebuilt within a year, doing it yourself costs your evenings, and a big agency charges far more and takes weeks.',
   },
   { q: 'How long does it take?', a: 'Most websites go live within 7 days once we have your details. Slow feedback or missing information can move that date.' },
   {
@@ -63,8 +62,8 @@ const FAQ = [
     q: 'Will my website show up on Google?',
     a: 'It is built with what Google needs: fast pages, a page for each service and area, and proper titles. No honest provider can promise the top spot, and a new website can take 2 to 3 months to show.',
   },
-  { q: 'Who owns the website?', a: 'You do: from day one if you pay once, after 36 months on rent to own, or after 12 months on the package.', link: true },
-  { q: 'What happens after launch?', a: 'We look after hosting, security, backups and support, plus 1 hour of changes every month. Bigger changes are quoted before we start.' },
+  { q: 'Who owns the website?', a: 'You do, once it is paid for. On the R2,500 a month package, it is yours after 12 months.', link: true },
+  { q: 'What happens after launch?', a: 'With our optional hosting and management package, we look after hosting, security, backups and changes for you. Bigger changes are quoted before we start.' },
 ];
 
 function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id: string }) {
@@ -101,12 +100,22 @@ export default function WebDesignLight() {
 
   return (
     <div className="dd dd-a wdl wx-page">
-      <SiteHeader whatsAppUrl={WA_URL} pricingHref="#pricing" />
+      {/* "Instant price" always in view, like Cosmo Pools' "Get Quote" (Jeremy, 12 Oct 2026) */}
+      <SiteHeader whatsAppUrl={WA_URL} pricingHref="#pricing" cta={{ label: 'Instant price', onClick: () => openExamplesChat({ from: 'menu' }) }} />
 
       <main>
-        <ExamplesHero waUrl={WA_URL} track={trackClick} />
-        <ExamplesShop track={trackClick} />
-        <ExamplesSteps track={trackClick} />
+        <InstantHero waUrl={WA_URL} track={trackClick} />
+        <ExamplesShop track={trackClick} price="R6,500" />
+        <ExamplesSteps
+          track={trackClick}
+          title="Your price in 3 quick steps"
+          steps={[
+            { title: 'Tap your industry', body: 'Plumber, salon, accountant or anything else: tap the closest one.' },
+            { title: 'Tell us how many services', body: 'And where to WhatsApp you. That’s all.' },
+            { title: 'See your price', body: 'It shows straight away, and Tyran WhatsApps you 3 popular designs for your industry. Most websites are live in 7 days.' },
+          ]}
+          button="Get my instant price"
+        />
         <ClientReviews onGoogle={() => trackClick('reviews_google')} />
 
         <section className="dd-sec dd-demo wdl-get">
@@ -132,10 +141,7 @@ export default function WebDesignLight() {
           </div>
         </section>
 
-        <PriceThreeWays
-          onStart={(k) => trackClick(`price_${k}`)}
-          onChoose={(plan) => (plan === 'package' ? openSiteChat(plan) : openExamplesChat({ from: 'price' }))}
-        />
+        <PriceBand track={trackClick} />
 
         <FitCheck title="Is a new website right for you?" sub="It suits businesses whose customers look them up before they call, book or buy." goodFit={GOOD_FIT} notAFit={NOT_A_FIT} />
 
@@ -153,11 +159,17 @@ export default function WebDesignLight() {
           </div>
         </section>
 
-        <ExamplesClosing waUrl={WA_URL} track={trackClick} />
+        <ExamplesClosing
+          waUrl={WA_URL}
+          track={trackClick}
+          heading="See your price in seconds"
+          recap={['Written, designed and built for you', 'Live in 7 days', 'Websites from R6,500']}
+          button="Get my instant price"
+        />
       </main>
 
       <SiteFooter whatsAppUrl={WA_URL} pricingHref="#pricing" faqHref="#faq" />
-      <ExamplesChat />
+      <ExamplesChat variant="website-price" />
     </div>
   );
 }

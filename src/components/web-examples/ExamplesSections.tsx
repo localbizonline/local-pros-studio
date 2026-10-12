@@ -34,48 +34,6 @@ export function IndustryPicker({ onPick, note = 'Tap yours' }: { onPick: (groupI
   );
 }
 
-export function ExamplesHero({ waUrl, track }: { waUrl: string; track: (label: string) => void }) {
-  return (
-    <section className="dd-hero wdl-hero wx-hero">
-      <div className="dd-container">
-        <h1 className="dd-kw">Website design for South African businesses</h1>
-        <p className="dd-display wdl-display">
-          A new website for your business, <span className="wdl-u">live in 7 days</span>
-        </p>
-        <p className="dd-lede">Get popular website designs for your industry on WhatsApp, with prices. Pick yours below.</p>
-        <IndustryPicker
-          onPick={(id) => {
-            track(`hero_group_${id}`);
-            openExamplesChat({ group: id, from: 'hero' });
-          }}
-        />
-        <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="wdl-rating" onClick={() => track('hero_google_reviews')}>
-          <GoogleG />
-          <span>
-            <strong>4.7 stars</strong> from 1,400+ Google reviews <span className="wdl-rating-src">(Local Pros)</span>
-          </span>
-        </a>
-        <p className="wdh-or">
-          Or{' '}
-          <a href={waUrl} target="_blank" rel="noopener noreferrer" className="wdl-inline-link" onClick={() => track('hero_whatsapp')}>
-            WhatsApp us
-          </a>{' '}
-          to talk it through. R9,900 once-off, or R450 a month.
-        </p>
-        <figure className="wdl-hero-media">
-          <picture>
-            <source media="(max-width: 767px)" srcSet={heroPhone} />
-            <img src={heroWide} alt={HERO_ALT} width={1600} height={760} />
-          </picture>
-          <p className="wdl-badge">
-            <strong>500+</strong> websites built since 2015
-          </p>
-        </figure>
-      </div>
-    </section>
-  );
-}
-
 // Where a site sits in the business types, so its card opens the chat at the right place
 const placeOf = (slug: string) => {
   for (const g of GROUPS) {

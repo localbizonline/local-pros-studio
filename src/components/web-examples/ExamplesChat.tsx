@@ -98,7 +98,7 @@ const VARIANTS = {
     // The homepage hero doesn't ask the question, so the pop-up comes after 8 seconds or a third of the page
     nudge: { wait: 'timer', title: 'See what’s popular for businesses like yours', text: 'Tap your type of business and we’ll WhatsApp you examples of our work, with prices.', button: 'Show me what’s popular', label: 'Our work for businesses like yours' },
   },
-  // Website page draft with the instant price (/review-versions/instant-price, 12 Oct 2026): one more question,
+  // The website design page with the instant price (live 12 Oct 2026): one more question,
   // "How many services do you offer?", and their price on screen straight after their number
   'website-price': {
     page: 'web-design' as ChatPage,
