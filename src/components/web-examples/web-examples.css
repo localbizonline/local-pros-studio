@@ -991,13 +991,45 @@
 
 /* ---------- Sizes ---------- */
 
+/* Shorter screens (small laptops, small phones): tighter rows so more of each step fits */
+@media (max-height: 780px) {
+  .wx-log {
+    gap: 6px;
+    padding-top: 12px;
+  }
+
+  .wx-row-btn {
+    min-height: 52px;
+    padding: 6px 12px;
+  }
+
+  .wx-thumbs {
+    width: 44px;
+    height: 38px;
+  }
+
+  .wx-thumbs img {
+    width: 26px;
+    height: 34px;
+  }
+
+  .wx-thumbs img:nth-child(2) {
+    left: 16px;
+  }
+
+  .wx-bot,
+  .wx-me {
+    padding: 8px 12px;
+  }
+}
+
 @media (min-width: 768px) {
   .wx-sheet {
     inset: auto;
     left: 50%;
     top: 50%;
     width: 440px;
-    height: min(86vh, 760px);
+    height: min(calc(100vh - 48px), 820px);
     border-radius: 20px;
     transform: translate(-50%, -50%);
     animation: wx-pop 0.22s ease-out;

@@ -371,11 +371,19 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
     return () => window.removeEventListener(OPEN_EXAMPLES_EVENT, onOpen);
   });
 
-  // Keep the newest line in view
+  // Keep the newest lines in view, but never scroll past the start of the new question: on a short screen
+  // the first step (greeting, question and seven rows) is taller than the chat, so it starts at the top and
+  // they scroll down, as on any page (Jeremy, 12 Oct 2026: it used to open at the bottom)
   useEffect(() => {
     const el = logRef.current;
     if (!el || !open) return;
-    window.requestAnimationFrame(() => el.scrollTo({ top: el.scrollHeight, behavior: reducedMotion() ? 'auto' : 'smooth' }));
+    window.requestAnimationFrame(() => {
+      const bottom = el.scrollHeight - el.clientHeight;
+      const answers = el.querySelectorAll<HTMLElement>('.wx-me');
+      const lastAnswer = answers[answers.length - 1];
+      const top = stage === 'group' || !lastAnswer ? (stage === 'group' ? 0 : bottom) : Math.min(bottom, lastAnswer.offsetTop - 12);
+      el.scrollTo({ top, behavior: reducedMotion() ? 'auto' : 'smooth' });
+    });
   }, [stage, typing, open, matches.length, error]);
 
   // Escape closes; the page behind doesn't scroll while the chat is open
