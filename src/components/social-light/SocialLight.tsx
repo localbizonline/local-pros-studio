@@ -15,6 +15,8 @@ import { PostCard } from '../section-library/sections/ProofBlocks';
 import { PROOF_AS_OF, PROOF_NUMBERS, WALL_POSTS, type ClientPost } from '../section-library/sections/clientProof';
 import SiteChat from '../demo-popup/DemoPopup';
 import { openSiteChat } from '../demo-popup/openSiteChat';
+import ExamplesChat, { openExamplesChat } from '../web-examples/ExamplesChat';
+import { IndustryPicker } from '../web-examples/ExamplesSections';
 // Hero (9 Oct 2026, Jeremy's request): the homepage's Cape Town builder photo with his Instagram feed beside him.
 // Closing: a baker photographing a cake (the job photo that becomes a post), so the page reads as any business
 // people look up, not only trades.
@@ -160,16 +162,14 @@ export default function SocialLight() {
               People check your Facebook before they call, and a quiet page looks closed. We make your posts and publish
               them on Facebook, Instagram and Google.
             </p>
-            {/* One plain button, not the Google search box: on this page "Find my business" read like a directory
-                search (Jeremy, 9 Oct). Since 9 Oct it offers a free demo (3 sample posts) instead of "Get started", so
-                there is a reason to tap. The chat asks for the business on Google and saves the lead on pick. */}
+            {/* The industry picker, as on every service page (12 Oct 2026; was "Get a free demo", 3 sample posts) */}
             <div className="sol-cta">
-              <button type="button" className="dd-btn dd-btn-primary sol-cta-btn" onClick={() => openSiteChat('social', { offer: 'social-demo' })}>
-                Get a free demo
-              </button>
-              <p className="sol-cta-note">
-                See what your Facebook could look like. We’ll make 3 sample posts for your business and WhatsApp them to you.
-              </p>
+              {/* The same industry picker as every service page (12 Oct 2026, replacing the free demo button):
+                  it opens the examples chat with the social media price */}
+              <IndustryPicker
+                reason="See your price and examples of posts for businesses like yours."
+                onPick={(id) => openExamplesChat({ group: id, from: 'hero' })}
+              />
               <p className="sol-or">
                 Or{' '}
                 <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
@@ -366,6 +366,7 @@ export default function SocialLight() {
       {/* The site chat: "Get a free demo" and "Start now" open it with social media posts picked; it saves the lead to
           Airtable the moment a business is picked. It never opens by itself here. */}
       <SiteChat page="social" />
+      <ExamplesChat variant="social" />
     </div>
   );
 }

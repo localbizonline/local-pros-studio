@@ -49,7 +49,10 @@ const NEED_NOTE: Record<string, string> = {
 // The instant price chat (website page draft): how many services they offer and the price they were shown
 const SERVICES_NOTE: Record<string, string> = { '1-3': '1 to 3', '4+': '4 or more' };
 const servicesOf = (body: Record<string, unknown>) => (typeof body.services === 'string' && Object.hasOwn(SERVICES_NOTE, body.services) ? SERVICES_NOTE[body.services] : '');
-const priceShown = (body: Record<string, unknown>) => (typeof body.price === 'string' && /^(from )?R[\d,]{4,8}$/.test(body.price) ? body.price : '');
+const priceShown = (body: Record<string, unknown>) => (typeof body.price === 'string' && /^(from )?R[\d,]{4,8}( a month)?$/.test(body.price) ? body.price : '');
+// What the examples chat promised, by page and plan (src/components/web-examples/ExamplesChat.tsx VARIANTS)
+const examplesWhat = (body: Record<string, unknown>) =>
+  body.page === 'home' ? 'examples of our work' : body.plan === 'reviews' ? 'Google review examples' : body.plan === 'social' ? 'social media post examples' : 'popular designs';
 const needOf = (body: Record<string, unknown>) => (typeof body.need === 'string' && Object.hasOwn(NEED_NOTE, body.need) ? NEED_NOTE[body.need] : '');
 // What the team should send someone from the examples chat
 // A price button's "get started" (src/components/web-examples/ExamplesChat.tsx START): they've chosen already
@@ -58,6 +61,10 @@ const startPlan = (body: Record<string, unknown>) => (body.plan === 'package' ? 
 const sendWhat = (body: Record<string, unknown>) =>
   isStart(body)
     ? `They want to get started with ${startPlan(body)}: confirm what they need and send the next steps.`
+    : priceShown(body) && body.plan === 'reviews'
+    ? `Send them how we get their type of business more Google reviews and confirm the ${priceShown(body)} price they saw.`
+    : priceShown(body) && body.plan === 'social'
+    ? `Send examples of posts for their type of business and confirm the ${priceShown(body)} price they saw.`
     : priceShown(body)
     ? `Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and confirm the ${priceShown(body)} price they saw, plus the optional hosting and management package.`
     : needOf(body)
@@ -130,8 +137,8 @@ const noteFor = (body: Record<string, unknown>) => {
   return [
     isStart(body)
       ? `Wants to get started with ${startPlan(body)}, from ${page}.`
-      : offer && need
-      ? `Wants examples of our work for their type of business and our prices, on WhatsApp, from ${page}.`
+      : body.offer === 'examples'
+      ? `Wants ${examplesWhat(body)} for their type of business and the price, on WhatsApp, from ${page}.`
       : offer
       ? `${offer}, from ${page}.`
       : plan
@@ -273,8 +280,8 @@ const pageLabel = (body: Record<string, unknown>) =>
 const planLabel = (body: Record<string, unknown>) =>
   body.start === true
     ? `get started: ${body.plan === 'package' ? 'R2,500 package' : 'website'}`
-    : body.offer === 'examples' && body.page === 'home'
-    ? 'examples of our work'
+    : body.offer === 'examples'
+    ? examplesWhat(body)
     : typeof body.offer === 'string' && Object.hasOwn(OFFER_LABEL, body.offer)
     ? OFFER_LABEL[body.offer]
     : typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan)
@@ -370,7 +377,7 @@ const requestedText = (body: Record<string, unknown>, fields: Record<string, unk
   [
     isStart(body)
       ? `🚀 ${fields[F.companyName]} wants to get started (${body.plan === 'package' ? 'R2,500 package' : 'website'}): WhatsApp them now.`
-      : `📨 ${fields[F.companyName]} wants ${needOf(body) ? 'examples of our work' : 'popular designs'}: WhatsApp them now.`,
+      : `📨 ${fields[F.companyName]} wants ${examplesWhat(body)}: WhatsApp them now.`,
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     needOf(body) && `Wants most: ${needOf(body)}`,
     priceShown(body) && `Price shown: ${priceShown(body)}${servicesOf(body) ? ` (${servicesOf(body)} services)` : ''}`,

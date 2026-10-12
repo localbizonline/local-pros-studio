@@ -65,13 +65,17 @@ const NEEDS: Need[] = [
 ];
 
 // Everything that differs between the pages, in one place (wording included)
-export type ChatVariant = 'website' | 'home' | 'website-price';
+export type ChatVariant = 'website' | 'home' | 'website-price' | 'reviews' | 'social';
 const VARIANTS = {
   website: {
     page: 'web-design' as ChatPage,
     plan: 'website' as ChatPlan,
     extra: null as null | 'need' | 'services',
     showPrice: false,
+    price: null as null | ((g: Group, services: string | null) => string),
+    priceNote: (_g: Group) => '',
+    packageLine: null as ReactNode,
+    onTheWay: (_plural: string) => '',
     doneTail: 'and our prices',
     intro: 'Hi 👋 Let’s find popular website designs for your industry.',
     promise: (plural: string, g: Group) =>
@@ -88,6 +92,10 @@ const VARIANTS = {
     plan: 'package' as ChatPlan,
     extra: 'need' as null | 'need' | 'services',
     showPrice: false,
+    price: null as null | ((g: Group, services: string | null) => string),
+    priceNote: (_g: Group) => '',
+    packageLine: null as ReactNode,
+    onTheWay: (_plural: string) => '',
     doneTail: 'and our prices',
     intro: 'Hi 👋 Let’s show you our work for businesses like yours.',
     promise: (plural: string) => `Great. We’ll WhatsApp you our work for ${plural}, with our prices.`,
@@ -95,8 +103,8 @@ const VARIANTS = {
     send: 'Send me examples',
     small: 'We only use your number to send you the examples and prices.',
     done: (plural: string, need?: Need | null) => (need ? need.done(plural) : `our work for ${plural}`),
-    // The homepage hero doesn't ask the question, so the pop-up comes after 8 seconds or a third of the page
-    nudge: { wait: 'timer', title: 'See what’s popular for businesses like yours', text: 'Tap your type of business and we’ll WhatsApp you examples of our work, with prices.', button: 'Show me what’s popular', label: 'Our work for businesses like yours' },
+    // The homepage hero asks the question too (12 Oct 2026), so the pop-up waits until they've scrolled past it
+    nudge: { wait: 'after-hero', title: 'See what’s popular for businesses like yours', text: 'Tap your type of business and we’ll WhatsApp you examples of our work, with prices.', button: 'Show me what’s popular', label: 'Our work for businesses like yours' },
   },
   // The website design page with the instant price (live 12 Oct 2026): one more question,
   // "How many services do you offer?", and their price on screen straight after their number
@@ -105,6 +113,14 @@ const VARIANTS = {
     plan: 'website' as ChatPlan,
     extra: 'services' as null | 'need' | 'services',
     showPrice: true,
+    price: priceOf as null | ((g: Group, services: string | null) => string),
+    priceNote: (g: Group) => `${g.id === 'shop' ? 'Online shop, quoted for what you sell.' : 'Your website, once-off. Live in 7 days.'} Optional hosting and management package available.`,
+    packageLine: (
+      <>
+        Or get your website <strong>included</strong> in our <strong>R2,500 a month</strong> package, with social media posts and Google review management (12-month plan).
+      </>
+    ) as ReactNode,
+    onTheWay: (plural: string) => `3 popular designs for ${plural} are on their way to your WhatsApp.`,
     doneTail: 'and your price',
     intro: 'Hi 👋 Let’s get your price and popular designs for your industry.',
     promise: (plural: string, g: Group) =>
@@ -114,6 +130,52 @@ const VARIANTS = {
     small: 'We only use your number to send you the designs and your price.',
     done: (plural: string) => `3 popular designs for ${plural}`,
     nudge: { wait: 'after-hero', title: 'See your price and popular designs', text: 'Tap your industry: your price shows in seconds, and we WhatsApp you 3 popular designs.', button: 'Get my price', label: 'Your price and popular designs' },
+  },
+  // Google reviews page (12 Oct 2026): the same picker and chat, with the reviews price
+  reviews: {
+    page: 'reviews' as ChatPage,
+    plan: 'reviews' as ChatPlan,
+    extra: null as null | 'need' | 'services',
+    showPrice: true,
+    price: (() => 'R1,200 a month') as null | ((g: Group, services: string | null) => string),
+    priceNote: (_g: Group) => 'Month to month. Send us your customer’s name and number, and we WhatsApp them your review link.',
+    packageLine: (
+      <>
+        Or get Google reviews, social media posts <strong>and a website</strong> in our <strong>R2,500 a month</strong> package (12-month plan).
+      </>
+    ) as ReactNode,
+    onTheWay: (plural: string) => `How we get ${plural} more Google reviews is on its way to your WhatsApp.`,
+    doneTail: 'and your price',
+    intro: 'Hi 👋 Let’s get your price and show you how we get businesses like yours more Google reviews.',
+    promise: (plural: string) => `Great, your price is ready. We’ll also WhatsApp you how we get ${plural} more Google reviews.`,
+    nameAsk: 'Last one, so we can look you up on Google: ',
+    send: 'Show my price',
+    small: 'We only use your number to send you your price and examples.',
+    done: (plural: string) => `how we get ${plural} more Google reviews`,
+    nudge: { wait: 'after-hero', title: 'More Google reviews for your industry', text: 'Tap your industry: your price shows in seconds, and we WhatsApp you how we do it for businesses like yours.', button: 'Get my price', label: 'Google reviews for your industry' },
+  },
+  // Social media posting page (12 Oct 2026)
+  social: {
+    page: 'social' as ChatPage,
+    plan: 'social' as ChatPlan,
+    extra: null as null | 'need' | 'services',
+    showPrice: true,
+    price: (() => 'R2,000 a month') as null | ((g: Group, services: string | null) => string),
+    priceNote: (_g: Group) => 'Month to month. We make your posts and publish them on Facebook, Instagram and Google.',
+    packageLine: (
+      <>
+        Or get social media posts, Google reviews <strong>and a website</strong> in our <strong>R2,500 a month</strong> package (12-month plan).
+      </>
+    ) as ReactNode,
+    onTheWay: (plural: string) => `Examples of posts for ${plural} are on their way to your WhatsApp.`,
+    doneTail: 'and your price',
+    intro: 'Hi 👋 Let’s get your price and examples of posts for your industry.',
+    promise: (plural: string) => `Great, your price is ready. We’ll also WhatsApp you examples of posts for ${plural}.`,
+    nameAsk: 'Last one, so we can look you up: ',
+    send: 'Show my price',
+    small: 'We only use your number to send you your price and examples.',
+    done: (plural: string) => `examples of posts for ${plural}`,
+    nudge: { wait: 'after-hero', title: 'Social media posts for your industry', text: 'Tap your industry: your price shows in seconds, and we WhatsApp you examples of posts for businesses like yours.', button: 'Get my price', label: 'Social media posts for your industry' },
   },
 };
 type VariantConfig = (typeof VARIANTS)[ChatVariant];
@@ -536,7 +598,7 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
       whatsApp: m,
       whatsAppFrom: 'typed',
       ...(need ? { need: need.id, plan: need.plan } : {}),
-      ...(cfg.showPrice && group ? { services: services ?? undefined, price: priceOf(group, services) } : {}),
+      ...(cfg.price && group ? { services: services ?? undefined, price: cfg.price(group, services) } : {}),
       ...(start ? { start: true, plan: start } : {}),
     });
     step('requested', props());
@@ -549,7 +611,7 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
     whatsApp: mobile,
     whatsAppFrom: 'typed',
     ...(need ? { need: need.id, plan: need.plan } : {}),
-    ...(cfg.showPrice && group ? { services: services ?? undefined, price: priceOf(group, services) } : {}),
+    ...(cfg.price && group ? { services: services ?? undefined, price: cfg.price(group, services) } : {}),
     ...(start ? { start: true, plan: start } : {}),
   });
   const finishTyped = (name: string) => {
@@ -744,19 +806,15 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
                 ) : (
                   <>
                     <Bot>Thanks{firstName ? ` ${firstName}` : ''}, got it. 👍</Bot>
-                    {cfg.showPrice && group && (
+                    {cfg.showPrice && cfg.price && group && (
                       <>
                         <div className="wx-bot wx-price">
                           <span className="wx-price-label">Your price</span>
-                          <strong className="wx-price-amount">{priceOf(group, services)}</strong>
-                          <span className="wx-price-note">
-                            {group.id === 'shop' ? 'Online shop, quoted for what you sell.' : `Your website, once-off. Live in 7 days.`} Optional hosting and management package available.
-                          </span>
+                          <strong className="wx-price-amount">{cfg.price(group, services)}</strong>
+                          <span className="wx-price-note">{cfg.priceNote(group)}</span>
                         </div>
-                        <Bot>
-                          Or get your website <strong>included</strong> in our <strong>R2,500 a month</strong> package, with social media posts and Google review management (12-month plan).
-                        </Bot>
-                        <Bot>3 popular designs for {plural ?? 'businesses like yours'} are on their way to your WhatsApp.</Bot>
+                        {cfg.packageLine && <Bot>{cfg.packageLine}</Bot>}
+                        <Bot>{cfg.onTheWay(plural ?? 'businesses like yours')}</Bot>
                       </>
                     )}
                     <Bot>

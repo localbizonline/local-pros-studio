@@ -9,7 +9,8 @@ import SiteFooter from '../section-library/sections/SiteFooter';
 import Pricing from '../section-library/sections/Pricing';
 import WhyNote from '../section-library/sections/WhyNote';
 import SiteChat from '../demo-popup/DemoPopup';
-import ExamplesChat from '../web-examples/ExamplesChat';
+import ExamplesChat, { openExamplesChat } from '../web-examples/ExamplesChat';
+import { IndustryPicker } from '../web-examples/ExamplesSections';
 import ReputationStory from '../section-library/sections/ReputationStory';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import closingPhoto from '../../assets/images/review-contractor-happy.webp';
@@ -72,7 +73,16 @@ export default function JoinLight() {
 
       <main>
         {/* HERO: "More Google reviews. Social media posts. A better website." (picked 8 Oct 2026) */}
-        <HeroThreeServices costsHref="#pricing" checkup />
+        {/* The same industry picker as every service page (12 Oct 2026): it opens the examples chat below */}
+        <HeroThreeServices
+          costsHref="#pricing"
+          cta={
+            <IndustryPicker
+              reason="See what’s popular for businesses like yours, with prices."
+              onPick={(id) => openExamplesChat({ group: id, from: 'hero' })}
+            />
+          }
+        />
 
         {/* YOUR REPUTATION: the customer path, animated "Follow the customer" (picked 7 Oct 2026) */}
         <ReputationStory variant="follow" />

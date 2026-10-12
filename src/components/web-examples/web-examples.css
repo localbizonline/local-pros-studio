@@ -44,11 +44,24 @@
   grid-column: 1 / -1;
 }
 
-/* The floating pointer (business-search-box.css .fd-guide) on the first row's arrow, its note hanging over
-   the arrow of the row below, clear of the words */
+/* The floating pointer (business-search-box.css .fd-guide): placed on a row's arrow by IndustryPicker, it
+   glides to the next row every couple of seconds; its note hangs over the arrow of the row below */
 .wx-pick .wx-guide {
-  top: 20px;
-  right: calc(50% - 6px);
+  right: auto;
+  transition: left 0.7s cubic-bezier(0.45, 0, 0.2, 1), top 0.7s cubic-bezier(0.45, 0, 0.2, 1);
+}
+
+.wx-pick-reason {
+  margin: -6px 0 12px;
+  font-size: 0.9375rem;
+  text-align: center;
+  color: var(--body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wx-pick .wx-guide {
+    transition: none;
+  }
 }
 
 .wx-pick .wx-guide .fd-guide-label {
@@ -1114,9 +1127,7 @@
     grid-template-columns: 1fr;
   }
 
-  .wx-pick .wx-guide {
-    right: -6px;
-  }
+
 
   .wx-pick-btn:last-child:nth-child(odd) {
     grid-column: 1 / -1;

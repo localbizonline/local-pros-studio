@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, MousePointer2 } from 'lucide-react';
 import { GROUPS, SITES, type Site } from './catalogue';
 import { IndustryRows, SiteCard, openExamplesChat } from './ExamplesChat';
@@ -17,14 +17,55 @@ const HERO_ALT =
 // "What type of business do you run?" with the chat's own rows and a floating pointer (Jeremy, 12 Oct 2026):
 // a hero section any page can use. Tapping a row opens the examples chat at that type of business; what the
 // chat says next depends on the page's chat variant (ExamplesChat.tsx VARIANTS).
-export function IndustryPicker({ onPick, note = 'Tap yours' }: { onPick: (groupId: string) => void; note?: string }) {
+export function IndustryPicker({
+  onPick,
+  note = 'Tap yours',
+  reason,
+}: {
+  onPick: (groupId: string) => void;
+  note?: string;
+  // One line under the question: why tap (each page says what it gives, e.g. "See your price and…")
+  reason?: string;
+}) {
+  const rowsRef = useRef<HTMLDivElement>(null);
+  const [spot, setSpot] = useState<{ x: number; y: number } | null>(null);
+  const [still, setStill] = useState(false);
+
+  // The pointer hops from row to row, resting on each for a moment, to show any one can be picked
+  // (Jeremy, 12 Oct 2026). It stops once they reach for the rows, and doesn't move with reduced motion.
+  useEffect(() => {
+    const box = rowsRef.current;
+    if (!box) return;
+    const order = [0, 3, 1, 5, 2, 4, 6];
+    let i = 0;
+    const place = () => {
+      const rows = box.querySelectorAll<HTMLElement>('.wx-row-btn');
+      const row = rows[order[i % order.length]] ?? rows[0];
+      if (row) setSpot({ x: row.offsetLeft + row.offsetWidth - 36, y: row.offsetTop + row.offsetHeight / 2 - 8 });
+    };
+    place();
+    window.addEventListener('resize', place);
+    const moving = !still && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const timer = moving
+      ? window.setInterval(() => {
+          i++;
+          place();
+        }, 2200)
+      : 0;
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener('resize', place);
+    };
+  }, [still]);
+
   return (
     <div className="wx-pick">
       <p className="wx-pick-q">What type of business do you run?</p>
-      <div className="wx-pick-rows">
+      {reason && <p className="wx-pick-reason">{reason}</p>}
+      <div className="wx-pick-rows" ref={rowsRef} onPointerEnter={() => setStill(true)}>
         <IndustryRows onPick={(g) => onPick(g.id)} />
-        {note && (
-          <span className="fd-guide wx-guide" aria-hidden="true">
+        {note && spot && (
+          <span className="fd-guide wx-guide" aria-hidden="true" style={{ left: spot.x, top: spot.y }}>
             <MousePointer2 className="fd-guide-arrow" size={40} fill="#1C1917" stroke="#fff" strokeWidth={1.7} />
             <span className="fd-guide-label">{note}</span>
           </span>

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import '../../design-directions/directions.css';
 import './herothreeservices.css';
 import { SITE_WHATSAPP_URL } from '../../../whatsapp';
@@ -26,7 +27,8 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-export default function HeroThreeServices({ costsHref = '#pricing', checkup = false }: { costsHref?: string; checkup?: boolean }) {
+// cta: the page's own main action in place of the buttons (the homepage's industry picker, 12 Oct 2026)
+export default function HeroThreeServices({ costsHref = '#pricing', checkup = false, cta }: { costsHref?: string; checkup?: boolean; cta?: ReactNode }) {
   return (
     <section className="dd dd-a hsc">
       <div className="dd-container">
@@ -45,7 +47,18 @@ export default function HeroThreeServices({ costsHref = '#pricing', checkup = fa
         <p className="hsc-lede">
           We ask your customers for reviews on WhatsApp, post your work on Facebook and Instagram, and build you a new website or refresh the one you have.
         </p>
-        {checkup ? (
+        {cta ? (
+          <div className="hsc-cta">
+            {cta}
+            <p className="hsc-or">
+              Or{' '}
+              <a href={SITE_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                WhatsApp us
+              </a>{' '}
+              · <a href={costsHref}>See what it costs</a>
+            </p>
+          </div>
+        ) : checkup ? (
           <div className="hsc-cta">
             <button type="button" className="dd-btn dd-btn-primary hsc-cta-btn" onClick={() => openSiteChat('package', { offer: 'checkup' })}>
               Get a free check-up
