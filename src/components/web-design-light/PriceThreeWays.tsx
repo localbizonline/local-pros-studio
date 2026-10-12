@@ -71,7 +71,8 @@ const INCLUDED = [
   '1 hour of changes every month',
 ];
 
-export default function PriceThreeWays({ onStart }: { onStart?: (key: string) => void }) {
+// onChoose: a page with its own chat (the examples draft, ../web-examples/) opens that instead of the site chat
+export default function PriceThreeWays({ onStart, onChoose }: { onStart?: (key: string) => void; onChoose?: (plan: ChatPlan) => void }) {
   return (
     <section id="pricing" className="dd-sec wdl-price p3">
       <div className="dd-container">
@@ -103,7 +104,8 @@ export default function PriceThreeWays({ onStart }: { onStart?: (key: string) =>
                 className={`dd-btn ${o.featured ? 'dd-btn-primary' : 'dd-btn-secondary'} p3-btn`}
                 onClick={() => {
                   onStart?.(o.key);
-                  openSiteChat(o.plan);
+                  if (onChoose) onChoose(o.plan);
+                  else openSiteChat(o.plan);
                 }}
               >
                 {o.cta}

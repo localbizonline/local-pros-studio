@@ -190,8 +190,11 @@ const postLead = (body: Record<string, unknown>) => {
 // One Airtable record per chat (Jeremy, 8 Oct 2026): created the moment they pick their business on Google
 // (or send typed details), then updated as they confirm, change business or press send, so a visitor who
 // never presses send is still on the list. The server hands back the record id and a pass for the updates.
-type LeadStep = 'picked' | 'confirmed' | 'number' | 'typed' | 'answered' | 'sent';
-const useLeadRecord = (page: ChatPage, plan?: ChatPlan, offer?: ChatOffer) => {
+// requested: asked for example websites on WhatsApp (the examples chat, ../web-examples/ExamplesChat.tsx)
+export type LeadStep = 'picked' | 'confirmed' | 'number' | 'typed' | 'answered' | 'sent' | 'requested';
+// The examples chat (../web-examples/ExamplesChat.tsx) saves leads the same way, with its own offer
+export type LeadOffer = ChatOffer | 'examples';
+export const useLeadRecord = (page: ChatPage, plan?: ChatPlan, offer?: LeadOffer) => {
   const record = useRef<{ id: string; pass: string } | null>(null);
   const steps = useRef<LeadStep[]>([]);
   // One request at a time, so an update never overtakes the create it depends on
@@ -226,7 +229,7 @@ const useLeadRecord = (page: ChatPage, plan?: ChatPlan, offer?: ChatOffer) => {
 // "Someone started using the chat" alert: the first time a visitor taps into it, once per page per visit
 const STARTED_KEY = 'lps_chat_started';
 const startedThisLoad = new Set<string>();
-export const notifyStarted = (page: ChatPage, plan?: ChatPlan, offer?: ChatOffer) => {
+export const notifyStarted = (page: ChatPage, plan?: ChatPlan, offer?: LeadOffer) => {
   try {
     const seen = JSON.parse(sessionStorage.getItem(STARTED_KEY) || '[]') as string[];
     if (seen.includes(page)) return;

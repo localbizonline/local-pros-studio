@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hilton Physio &amp; Rehab, Hilton, Pietermaritzburg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E2240; --navy-2:#173158; --cobalt:#2457D6; --mint:#DDF3EA; --mint-ink:#1D6B4F;
+    --bg:#F3F6FB; --white:#FFFFFF; --ink:#13213A; --soft:#56627A; --line:#DFE5EF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--white);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+
+  .util{border-bottom:1px solid var(--line);font-size:13.5px;color:var(--soft)}
+  .util .wrap{display:flex;justify-content:space-between;height:40px;align-items:center}
+  .util b{color:var(--ink);font-weight:600}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:78px;gap:24px}
+  .mark{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .mark .sq{width:36px;height:36px;border-radius:10px;background:var(--cobalt);display:grid;place-items:center;color:#fff}
+  .mark .sq svg{width:20px;height:20px}
+  .mark small{display:block;font-weight:600;font-size:12px;color:var(--soft);letter-spacing:0}
+  nav{display:flex;gap:30px;font-size:15px;font-weight:600;color:var(--soft)}
+  .head-right{display:flex;gap:12px;align-items:center}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--cobalt);color:#fff;border-radius:10px;padding:15px 24px;font-size:16px;font-weight:700;white-space:nowrap}
+  .btn svg{width:19px;height:19px;flex:none}
+  .btn-sm{padding:11px 18px;font-size:14.5px}
+  .btn-light{background:#fff;color:var(--navy)}
+  .btn-out{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+
+  .hero-panel{background:var(--navy);border-radius:28px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;color:#C4D0E4}
+  .hero-text{padding:64px 56px}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:7px 14px;font-size:13.5px;font-weight:600}
+  .pill i{width:8px;height:8px;border-radius:50%;background:#5ED3A2}
+  h1{color:#fff;font-weight:800;font-size:clamp(38px,4.3vw,58px);line-height:1.05;letter-spacing:-.035em;margin-top:22px}
+  .sub{margin-top:20px;font-size:18px;max-width:28em}
+  .ticks{list-style:none;margin-top:24px;display:grid;gap:9px;font-size:15.5px}
+  .ticks li{display:flex;gap:10px;align-items:flex-start}
+  .ticks svg{width:20px;height:20px;color:#5ED3A2;flex:none;margin-top:2px}
+  .actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .hero-photo{position:relative;min-height:100%}
+  .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .rating{position:absolute;left:24px;bottom:24px;background:#fff;color:var(--ink);border-radius:14px;padding:12px 16px;font-size:14px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 30px rgba(14,34,64,.25)}
+  .rating b{font-size:15px}
+  .stars{display:inline-flex;gap:2px;color:#F2A93B}
+  .stars svg{width:16px;height:16px}
+
+  .aids{padding:34px 0 0;display:flex;gap:16px 34px;flex-wrap:wrap;align-items:center;font-size:14.5px;color:var(--soft)}
+  .aids b{color:var(--ink);font-weight:700}
+  .aids span{font-weight:700;color:#8A95A8;letter-spacing:.02em}
+
+  .treat{padding:92px 0 80px}
+  .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:38px}
+  h2{font-weight:800;font-size:clamp(30px,3.2vw,42px);line-height:1.1;letter-spacing:-.03em}
+  .head p{color:var(--soft);max-width:30em}
+  .conds{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .cond{background:var(--bg);border-radius:16px;padding:22px}
+  .cond svg{width:26px;height:26px;color:var(--cobalt)}
+  .cond h3{font-size:17px;font-weight:700;margin-top:14px;letter-spacing:-.01em}
+  .cond p{font-size:14.5px;color:var(--soft);margin-top:4px}
+
+  .first{background:var(--bg);padding:90px 0}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+  .step{background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+  .step img{width:100%;aspect-ratio:16/10;object-fit:cover}
+  .step .body{padding:22px 24px 26px}
+  .num{font-size:13px;font-weight:800;color:var(--cobalt);letter-spacing:.08em}
+  .step h3{font-size:20px;font-weight:700;margin:6px 0 6px;letter-spacing:-.02em}
+  .step p{font-size:15px;color:var(--soft)}
+  .fees{margin-top:32px;background:var(--mint);color:var(--mint-ink);border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-weight:600}
+  .fees b{color:var(--navy)}
+
+  .people{padding:90px 0}
+  .p-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .team{display:grid;gap:14px;margin-top:26px}
+  .doc{display:flex;gap:16px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:18px}
+  .doc i{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-style:normal;font-weight:800;color:#fff;background:var(--cobalt);flex:none}
+  .doc b{display:block;font-size:16.5px}
+  .doc span{font-size:14px;color:var(--soft)}
+  .revs{display:grid;gap:14px}
+  .rev{background:var(--bg);border-radius:16px;padding:24px}
+  .rev p{margin:10px 0 12px}
+  .rev span{font-size:14px;color:var(--soft)}
+  .rev span b{color:var(--ink)}
+
+  .contact{background:var(--navy);color:#C4D0E4;padding:84px 0 32px}
+  .c-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  .contact h2{color:#fff}
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px}
+  .info h4{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#7F95BB;margin-bottom:10px}
+  .info p{line-height:1.8}
+  form{background:#fff;color:var(--ink);border-radius:20px;padding:30px}
+  form h3{font-size:20px;font-weight:800;letter-spacing:-.02em}
+  form p{font-size:14.5px;color:var(--soft);margin-top:4px}
+  label{display:block;font-size:13.5px;font-weight:700;margin:16px 0 6px}
+  .field{border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;font-size:15.5px;color:#8A95A8;background:#FAFBFD}
+  form .btn{width:100%;margin-top:20px}
+  .fine{margin-top:60px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;font-size:13.5px;color:#7F95BB}
+
+  @media (max-width:1000px){ nav{display:none} .conds{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 16px}
+    .util .wrap{justify-content:center;font-size:12.5px}
+    .util .wrap span:last-child{display:none}
+    .bar{height:66px}
+    .mark{font-size:18px} .mark .sq{width:34px;height:34px}
+    .head-right .btn-out{display:none}
+    .hero-panel{grid-template-columns:1fr;border-radius:22px}
+    .hero-text{padding:30px 22px 26px}
+    h1{font-size:36px;margin-top:16px}
+    .sub{font-size:16px;margin-top:14px}
+    .ticks{margin-top:16px;font-size:14.5px}
+    .actions{margin-top:22px}
+    .actions .btn{width:100%}
+    .actions .btn-light{display:none}
+    .hero-photo{min-height:0}
+    .hero-photo img{position:static;aspect-ratio:4/3}
+    .rating{left:12px;bottom:12px;padding:9px 12px;font-size:13px}
+    .aids{padding-top:22px;gap:8px 18px;font-size:13.5px}
+    .treat{padding:56px 0}
+    .head{flex-direction:column;align-items:start;gap:10px;margin-bottom:24px}
+    .conds{gap:10px}
+    .cond{padding:16px}
+    .cond h3{font-size:15.5px;margin-top:10px}
+    .cond p{font-size:13.5px}
+    .first,.people{padding:56px 0}
+    .steps{grid-template-columns:1fr;gap:14px;margin-top:24px}
+    .step{display:grid;grid-template-columns:104px 1fr}
+    .step img{height:100%;aspect-ratio:auto}
+    .step .body{padding:14px 16px}
+    .step h3{font-size:17px}
+    .step p{font-size:14px}
+    .fees{flex-direction:column;gap:6px;font-size:14.5px}
+    .p-grid,.c-grid{grid-template-columns:1fr;gap:36px}
+    .contact{padding:56px 0 28px}
+    .info{grid-template-columns:1fr;gap:20px}
+    form{padding:22px}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+  /* keep side gutters on sections that are also .wrap */
+  .wrap.wrap{padding-left:32px;padding-right:32px}
+  @media (max-width:760px){ .wrap.wrap{padding-left:16px;padding-right:16px} }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.5 3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="spine" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="2.5" width="6" height="4" rx="1.5"/><rect x="9" y="10" width="6" height="4" rx="1.5"/><rect x="9" y="17.5" width="6" height="4" rx="1.5"/><path d="M12 6.5V10M12 14v3.5"/></g></symbol>
+  <symbol id="run" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14.5" cy="4.5" r="2"/><path d="m9 21 3-6 3 2.5V22M6 11l3.5-3.5 4 .5 2.5 3.5 3 1M12 15l1.5-7"/></g></symbol>
+  <symbol id="knee" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v7a4 4 0 0 0 4 4h0a4 4 0 0 1 4 4v5"/><circle cx="12" cy="13" r="2.5"/></g></symbol>
+  <symbol id="arm" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="6" r="3"/><path d="M10 6h6a3 3 0 0 1 3 3v11M4 21v-8a3 3 0 0 1 3-3h3"/></g></symbol>
+  <symbol id="head" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M10 13v3h4v-3M7 21c1-2.5 3-4 5-4s4 1.5 5 4"/></g></symbol>
+  <symbol id="scalpel" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21 14 10l3 3L8 20Z"/><path d="m14 10 6-6"/></g></symbol>
+  <symbol id="foot" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v11l-4 4a2 2 0 0 0 1.5 3.5H17a2 2 0 0 0 2-2c0-2-3-3-5-4V2"/></g></symbol>
+  <symbol id="balance" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6h6ZM19 7l-3 6h6Z"/></g></symbol>
+</svg>
+
+<div class="util"><div class="wrap"><span><b>Medical aid accepted</b> · HPCSA-registered physiotherapists</span><span>Mon to Fri 07:00 to 18:00 · Sat 08:00 to 12:00</span></div></div>
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="sq"><svg><use href="#plus"/></svg></span><span>Hilton Physio<small>&amp; Rehab · Hilton, KZN</small></span></a>
+    <nav><a href="#treat">What we treat</a><a href="#first">First visit</a><a href="#team">Our team</a><a href="#contact">Contact</a></nav>
+    <div class="head-right">
+      <a class="btn btn-out btn-sm" href="#">033 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>Book</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <div class="hero-panel">
+      <div class="hero-text">
+        <span class="pill"><i></i>New patients seen this week</span>
+        <h1>Physiotherapy in Hilton for pain, injuries and recovery</h1>
+        <p class="sub">We find out what's causing the problem, explain it in plain language and give you a plan you can follow at home.</p>
+        <ul class="ticks">
+          <li><svg><use href="#tick"/></svg>45-minute first assessment, one-on-one</li>
+          <li><svg><use href="#tick"/></svg>We claim from your medical aid where your plan covers it</li>
+          <li><svg><use href="#tick"/></svg>No referral needed</li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="#"><svg><use href="#wa"/></svg>Book an assessment</a>
+          <a class="btn btn-light" href="#treat">What we treat</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="images/hero.jpg" alt="Physiotherapist guiding a patient through a knee exercise">
+        <div class="rating"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><span><b>4.9 on Google</b> · 130+ reviews</span></div>
+      </div>
+    </div>
+    <div class="aids"><b>We work with:</b><span>Discovery</span><span>Bonitas</span><span>Momentum</span><span>GEMS</span><span>Medshield</span><span>Bestmed</span></div>
+  </section>
+
+  <section class="treat wrap" id="treat">
+    <div class="head">
+      <h2>What we treat</h2>
+      <p>Not sure if physio is right for you? Send us a short message about the problem and we'll tell you honestly.</p>
+    </div>
+    <div class="conds">
+      <div class="cond"><svg><use href="#spine"/></svg><h3>Back and neck pain</h3><p>Including desk-related stiffness</p></div>
+      <div class="cond"><svg><use href="#run"/></svg><h3>Sports injuries</h3><p>Rugby, running, hockey, cycling</p></div>
+      <div class="cond"><svg><use href="#scalpel"/></svg><h3>After an operation</h3><p>Knee, hip and shoulder rehab</p></div>
+      <div class="cond"><svg><use href="#knee"/></svg><h3>Knee and hip pain</h3><p>Including arthritis</p></div>
+      <div class="cond"><svg><use href="#arm"/></svg><h3>Shoulder and elbow</h3><p>Frozen shoulder, tennis elbow</p></div>
+      <div class="cond"><svg><use href="#head"/></svg><h3>Headaches from the neck</h3><p>Assessed, then treated hands-on</p></div>
+      <div class="cond"><svg><use href="#foot"/></svg><h3>Ankle and foot</h3><p>Sprains, heel pain, Achilles</p></div>
+      <div class="cond"><svg><use href="#balance"/></svg><h3>Balance and falls</h3><p>Strength classes for over-60s</p></div>
+    </div>
+  </section>
+
+  <section class="first" id="first">
+    <div class="wrap">
+      <h2>Your first visit</h2>
+      <div class="steps">
+        <div class="step"><img src="images/back.jpg" alt="Physiotherapist assessing a patient's lower back"><div class="body"><span class="num">STEP 1</span><h3>Assessment</h3><p>We ask about your history and test movement and strength to find the cause.</p></div></div>
+        <div class="step"><img src="images/sport.jpg" alt="Physiotherapist strapping a rugby player's ankle"><div class="body"><span class="num">STEP 2</span><h3>Hands-on treatment</h3><p>Mobilisation, dry needling or strapping where it helps, explained before we start.</p></div></div>
+        <div class="step"><img src="images/rehab.jpg" alt="Patient doing a shoulder exercise with a resistance band"><div class="body"><span class="num">STEP 3</span><h3>Your home plan</h3><p>Three or four exercises sent to your phone, and how many sessions we expect you'll need.</p></div></div>
+      </div>
+      <div class="fees"><span>First assessment, 45 minutes: <b>R720</b></span><span>Follow-up, 30 minutes: <b>R560</b></span><span>Medical aid rates apply where your plan covers physio</span></div>
+    </div>
+  </section>
+
+  <section class="people wrap" id="team">
+    <div class="p-grid">
+      <div>
+        <h2>Two physiotherapists, one practice</h2>
+        <div class="team">
+          <div class="doc"><i>PN</i><div><b>Priya Naidoo</b><span>BSc Physiotherapy (UKZN) · knees, hips and post-op rehab</span></div></div>
+          <div class="doc"><i style="background:#1D6B4F">SM</i><div><b>Sipho Mthembu</b><span>BSc Physiotherapy (Wits) · sports injuries and dry needling</span></div></div>
+        </div>
+      </div>
+      <div class="revs">
+        <div class="rev"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Priya explained my knee replacement rehab week by week. I was walking the dogs again sooner than I expected.</p><span><b>Graham W.</b> · Hilton</span></div>
+        <div class="rev"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Sipho sorted out my ankle before the season started and gave me a plan for the gym. Claimed straight from Discovery.</p><span><b>Lwazi D.</b> · Pietermaritzburg</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <div class="c-grid">
+      <div>
+        <h2>Book an assessment</h2>
+        <div class="info">
+          <div><h4>Address</h4><p>Unit 4, Hilton Quarry Centre<br>Hilton Avenue, Hilton, 3245<br>Ground floor, wheelchair access</p></div>
+          <div><h4>Hours</h4><p>Mon to Fri · 07:00 to 18:00<br>Saturday · 08:00 to 12:00<br>Phone · 033 000 0000</p></div>
+        </div>
+      </div>
+      <form onsubmit="return false">
+        <h3>Ask for an appointment</h3>
+        <p>We'll reply on WhatsApp with the next open times.</p>
+        <label>Your name</label><div class="field">Full name</div>
+        <label>Cell number</label><div class="field">082 000 0000</div>
+        <label>What's the problem?</label><div class="field">e.g. lower back pain for two weeks</div>
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>Send on WhatsApp</a>
+      </form>
+    </div>
+    <div class="fine"><span>© 2026 Hilton Physio &amp; Rehab · Practice no. 0724831</span><span>Privacy · Directions</span></div>
+  </div>
+</footer>
+</body>
+</html>

@@ -30,11 +30,14 @@ const OFFER_NOTE: Record<string, string> = {
   checkup: 'Free check-up of their Google profile, Facebook and website',
   'social-demo': 'Free social media demo (3 sample posts)',
   'review-check': 'Checked their Google reviews, wants Google reviews',
+  // The examples chat (src/components/web-examples/, draft 12 Oct 2026): we WhatsApp them websites for their type of business
+  examples: 'Wants example websites for their type of business and our prices, on WhatsApp',
 };
 const OFFER_LABEL: Record<string, string> = {
   checkup: 'free check-up',
   'social-demo': 'free social media demo',
   'review-check': 'review check',
+  examples: 'example websites',
 };
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'studio.localpros.co.za/website-design',
@@ -72,6 +75,7 @@ const STEP_NOTE: Record<string, string> = {
   typed: 'typed their details (not found on Google)',
   answered: 'answered the quick questions',
   sent: 'pressed send (WhatsApp opened)',
+  requested: 'asked for the examples on WhatsApp',
 };
 // The chat's quick questions (src/components/demo-popup/DemoPopup.tsx QUESTIONS): only these answers are kept
 const ANSWERS: Record<string, { label: string; options: Record<string, string> }> = {
@@ -95,7 +99,14 @@ const noteFor = (body: Record<string, unknown>) => {
   const plan = typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan) ? PLAN_NOTE[body.plan] : '';
   const offer = typeof body.offer === 'string' && Object.hasOwn(OFFER_NOTE, body.offer) ? OFFER_NOTE[body.offer] : '';
   const steps = stepsFrom(body).map((step) => STEP_NOTE[step]);
-  return [offer ? `${offer}, from ${page}.` : plan ? `Start now: ${plan}, from ${page}.` : `Free demo website request, from ${page}.`, steps.length ? `So far: ${steps.join(', ')}.` : '']
+  const type = text(body.businessType, 120);
+  const contact = text(body.contactName, 60);
+  return [
+    offer ? `${offer}, from ${page}.` : plan ? `Start now: ${plan}, from ${page}.` : `Free demo website request, from ${page}.`,
+    type ? `Type of business (they picked): ${type}.` : '',
+    contact ? `Name: ${contact}.` : '',
+    steps.length ? `So far: ${steps.join(', ')}.` : '',
+  ]
     .filter(Boolean)
     .join('\n');
 };
@@ -238,7 +249,9 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
   return [
     `🟢 New website lead: ${fields[F.companyName]}`,
     `From ${pageLabel(body)} (${planLabel(body)})`,
+    text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     fields[F.gbpCategory] && `Type: ${fields[F.gbpCategory]}`,
+    text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
     fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
     fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
     fields[F.website] && `Website: ${fields[F.website]}`,
@@ -247,7 +260,9 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
     typeof rating === 'number' && `Rating: ${rating} (${reviews ?? 0} reviews)`,
     body.mode === 'manual' && 'Not found on Google (typed their details).',
     ...answersFrom(body).map((a) => a.text),
-    stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
+    stepsFrom(body).includes('requested') && '👉 WhatsApp them examples for their type of business and our prices.',
+    stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && !stepsFrom(body).includes('requested') && body.offer !== 'examples' && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
+    stepsFrom(body).includes('picked') && body.offer === 'examples' && !stepsFrom(body).includes('requested') && "Picked on Google. You'll get another message if they leave their WhatsApp number.",
     recordId ? `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}` : 'Not saved to Airtable (error). Details above.',
   ]
     .filter(Boolean)
@@ -285,6 +300,18 @@ const sentText = (body: Record<string, unknown>, fields: Record<string, unknown>
     ...answersFrom(body).map((a) => a.text),
     `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
   ].join('\n');
+
+const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
+  [
+    `📨 ${fields[F.companyName]} wants example websites: WhatsApp them now.`,
+    text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
+    text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
+    fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
+    'Send 2 or 3 websites for their type of business and our prices.',
+    `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
 
 // The pass for one record: HMAC-SHA256 of its id, keyed with the server-only Airtable token
 async function passFor(recordId: string, secret: string) {
@@ -371,7 +398,10 @@ export default async (request: Request, context?: Context) => {
       }
       const oldNote = typeof old[F.message] === 'string' ? (old[F.message] as string) : '';
       if (old[F.companyName] && old[F.companyName] !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
-      if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
+      const requested = stepsFrom(body).includes('requested') && !oldNote.includes(STEP_NOTE.requested);
+      // Asking for the examples says it all in one message, number included
+      if (requested) await sendAlert('lead', requestedText(body, fields, recordId));
+      else if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
       if (stepsFrom(body).includes('answered') && !oldNote.includes(STEP_NOTE.answered)) await sendAlert('lead', answersText(body, fields, recordId));
       if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) {
         await sendAlert('lead', sentText(body, fields, recordId));

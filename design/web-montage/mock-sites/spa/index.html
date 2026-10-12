@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fynbos &amp; Salt Day Spa, Hermanus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone:#EEE9E1; --linen:#F8F5F0; --white:#FFFEFB; --ink:#262B23; --soft:#636A5E;
+    --sage:#7C8B6F; --forest:#2F3B2C; --clay:#C07A55; --clay-soft:#F1DDCF; --line:#DCD5C9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--linen);color:var(--ink);font-family:"Karla",system-ui,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  .top{background:var(--forest);color:#CBD3C3;font-size:13.5px;text-align:center;padding:8px 16px}
+  .top b{color:#fff;font-weight:500}
+  .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:90px}
+  nav{display:flex;gap:30px;font-size:15px;color:var(--soft)}
+  .word{text-align:center;line-height:1}
+  .word b{display:block;font-family:"Marcellus",serif;font-weight:400;font-size:28px;letter-spacing:.04em}
+  .word span{display:block;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--sage);margin-top:6px}
+  .head-right{display:flex;justify-content:flex-end;align-items:center;gap:20px}
+  .tel{font-size:15px;font-weight:700}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--forest);color:#fff;border-radius:6px;padding:15px 28px;font-size:16px;font-weight:700;white-space:nowrap}
+  .btn svg{width:19px;height:19px;flex:none}
+  .btn-sm{padding:10px 18px;font-size:14.5px}
+  .btn-ghost{background:transparent;color:var(--forest);border:1.5px solid var(--forest)}
+  .btn-clay{background:var(--clay);color:#fff}
+
+  .hero{text-align:center;padding-top:44px}
+  .loc{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--sage);font-weight:700}
+  h1{font-family:"Marcellus",serif;font-weight:400;font-size:clamp(42px,5vw,70px);line-height:1.08;max-width:15em;margin:16px auto 0;letter-spacing:-.005em}
+  .sub{margin:20px auto 0;max-width:34em;font-size:18.5px;color:var(--soft)}
+  .actions{display:flex;justify-content:center;gap:14px;margin-top:30px;flex-wrap:wrap}
+  .pic{margin-top:52px;position:relative}
+  .pic img{width:100%;aspect-ratio:21/9;object-fit:cover;border-radius:4px}
+  .facts{display:flex;justify-content:center;gap:0;background:var(--white);border:1px solid var(--line);border-radius:4px;width:max-content;max-width:calc(100% - 48px);margin:-34px auto 0;position:relative}
+  .facts div{padding:16px 30px;font-size:15px;color:var(--soft);border-left:1px solid var(--line)}
+  .facts div:first-child{border-left:0}
+  .facts b{display:block;color:var(--ink);font-weight:700;font-size:16px}
+  .stars{display:inline-flex;gap:2px;color:#D9A03F;vertical-align:-2px}
+  .stars svg{width:15px;height:15px}
+
+  .treat{padding:96px 0}
+  .t-head{text-align:center;margin-bottom:46px}
+  h2{font-family:"Marcellus",serif;font-weight:400;font-size:clamp(32px,3.4vw,46px);line-height:1.1}
+  .t-head p{color:var(--soft);margin-top:10px}
+  .groups{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .group img{width:100%;aspect-ratio:1/1.08;object-fit:cover;border-radius:4px}
+  .group h3{font-family:"Marcellus",serif;font-weight:400;font-size:26px;margin:22px 0 6px}
+  .item{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:13px 0;border-top:1px solid var(--line)}
+  .item b{font-weight:700;grid-column:1;grid-row:1}
+  .item small{grid-column:1;grid-row:2;color:var(--soft);font-size:14px}
+  .item em{font-style:normal;font-weight:700;color:var(--clay);grid-column:2;grid-row:1;text-align:right}
+
+  .packs{background:var(--clay-soft);padding:90px 0}
+  .packs-grid{display:grid;grid-template-columns:.9fr 1.1fr 1.1fr;gap:28px;align-items:stretch}
+  .packs-grid > div:first-child p{color:var(--soft);margin-top:14px}
+  .pack{background:var(--white);border-radius:4px;padding:32px}
+  .pack .len{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);font-weight:700}
+  .pack h3{font-family:"Marcellus",serif;font-weight:400;font-size:28px;margin:8px 0 14px}
+  .pack ul{list-style:none;font-size:16px;color:var(--soft)}
+  .pack li{padding:6px 0 6px 22px;position:relative}
+  .pack li:before{content:"";position:absolute;left:0;top:15px;width:10px;height:1.5px;background:var(--clay)}
+  .pack .cost{display:flex;justify-content:space-between;align-items:baseline;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+  .pack .cost b{font-family:"Marcellus",serif;font-size:30px;font-weight:400}
+
+  .words{padding:96px 0}
+  .big{max-width:860px;margin:0 auto;text-align:center}
+  .big p{font-family:"Marcellus",serif;font-size:clamp(24px,2.6vw,34px);line-height:1.35;margin:18px 0 18px}
+  .big span{color:var(--soft);font-size:15px}
+  .small-q{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px}
+  .small-q div{background:var(--white);border:1px solid var(--line);border-radius:4px;padding:26px}
+  .small-q p{margin:10px 0 12px}
+  .small-q span{font-size:14.5px;color:var(--soft)}
+  .small-q b{color:var(--ink)}
+  .g{text-align:center;margin-top:30px;color:var(--soft);font-size:15px}
+
+  .visit{background:var(--forest);color:#CBD3C3;padding:84px 0 32px}
+  .v-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:56px}
+  .visit h2{color:#fff}
+  .visit .btn{background:var(--clay);margin-top:26px}
+  .visit h4{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#9FB096;margin-bottom:12px;font-weight:700}
+  .visit p{line-height:1.85}
+  .fine{margin-top:60px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;font-size:13.5px;color:#93A08B}
+
+  @media (max-width:980px){ nav{display:none} .bar{grid-template-columns:auto 1fr} .word{text-align:left} .packs-grid{grid-template-columns:1fr 1fr} .packs-grid > div:first-child{grid-column:1/-1} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    .top{font-size:12.5px}
+    .bar{height:72px}
+    .word b{font-size:23px} .word span{font-size:10px;letter-spacing:.26em}
+    .tel{display:none}
+    .hero{padding-top:26px}
+    .loc{font-size:11.5px;letter-spacing:.2em}
+    h1{font-size:37px;margin-top:12px}
+    .sub{font-size:16.5px;margin-top:14px}
+    .actions{margin-top:22px;flex-direction:column;gap:10px}
+    .actions .btn{width:100%}
+    .pic{margin:30px -20px 0}
+    .pic img{aspect-ratio:4/3;border-radius:0}
+    .facts{width:auto;max-width:none;margin:-26px 12px 0;display:grid;grid-template-columns:1fr 1fr 1fr}
+    .facts div{padding:12px 10px;font-size:12.5px;text-align:center;line-height:1.35}
+    .facts b{font-size:14px}
+    .treat{padding:58px 0}
+    .t-head{text-align:left;margin-bottom:28px}
+    .groups{grid-template-columns:1fr;gap:42px}
+    .group img{aspect-ratio:16/10}
+    .group h3{margin-top:16px;font-size:24px}
+    .packs,.words{padding:58px 0}
+    .packs-grid{grid-template-columns:1fr;gap:16px}
+    .pack{padding:24px}
+    .big{text-align:left}
+    .small-q{grid-template-columns:1fr;gap:14px;margin-top:32px}
+    .g{text-align:left}
+    .visit{padding:58px 0 28px}
+    .v-grid{grid-template-columns:1fr;gap:30px}
+    .visit .btn{width:100%}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+  /* keep side gutters on sections that are also .wrap */
+  .wrap.wrap{padding-left:40px;padding-right:40px}
+  @media (max-width:760px){ .wrap.wrap{padding-left:20px;padding-right:20px} }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+</svg>
+
+<div class="top">Gift vouchers sent on WhatsApp the same day · <b>Open 7 days</b></div>
+<header>
+  <div class="wrap bar">
+    <nav><a href="#treatments">Treatments</a><a href="#packages">Half days</a><a href="#visit">Visit</a></nav>
+    <a class="word" href="#"><b>Fynbos &amp; Salt</b><span>Day Spa · Hermanus</span></a>
+    <div class="head-right">
+      <a class="tel" href="#">028 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>Book</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <span class="loc">Westcliff, Hermanus</span>
+    <h1>Massages and facials in a quiet room that looks out to sea</h1>
+    <p class="sub">Four treatment rooms, one for couples. Local oils made with buchu and rose geranium. Whale season from June to November.</p>
+    <div class="actions">
+      <a class="btn" href="#"><svg><use href="#wa"/></svg>Book a treatment on WhatsApp</a>
+      <a class="btn btn-ghost" href="#treatments">Treatments and prices</a>
+    </div>
+    <div class="pic"><img src="images/hero.jpg" alt="Treatment room with a massage bed and a window over fynbos and the sea"></div>
+    <div class="facts">
+      <div><b>Open 7 days</b>09:00 to 18:00</div>
+      <div><b>Couples room</b>sea view</div>
+      <div><b><span class="stars"><svg><use href="#star"/></svg></span> 4.9</b>290+ Google reviews</div>
+    </div>
+  </section>
+
+  <section class="treat" id="treatments">
+    <div class="wrap">
+      <div class="t-head">
+        <h2>Treatments and prices</h2>
+        <p>Arrive 15 minutes early for tea in the garden. Robes and slippers are ready for you.</p>
+      </div>
+      <div class="groups">
+        <div class="group">
+          <img src="images/massage.jpg" alt="Therapist massaging a client's shoulders">
+          <h3>Massage</h3>
+          <div class="item"><b>Swedish full body</b><em>R795</em><small>60 minutes, light to medium pressure</small></div>
+          <div class="item"><b>Deep tissue back, neck and shoulders</b><em>R560</em><small>45 minutes</small></div>
+          <div class="item"><b>Hot stone</b><em>R920</em><small>75 minutes</small></div>
+        </div>
+        <div class="group">
+          <img src="images/facial.jpg" alt="Client relaxing during a facial">
+          <h3>Face</h3>
+          <div class="item"><b>Hydrating facial</b><em>R690</em><small>60 minutes, for dry and sun-tired skin</small></div>
+          <div class="item"><b>Deep cleanse facial</b><em>R620</em><small>50 minutes</small></div>
+          <div class="item"><b>Brow and lash tint</b><em>R240</em><small>30 minutes</small></div>
+        </div>
+        <div class="group">
+          <img src="images/feet.jpg" alt="Foot soak with protea petals and fynbos">
+          <h3>Hands and feet</h3>
+          <div class="item"><b>Fynbos foot ritual</b><em>R480</em><small>45 minutes, soak, scrub and massage</small></div>
+          <div class="item"><b>Gel pedicure</b><em>R420</em><small>60 minutes</small></div>
+          <div class="item"><b>Manicure with polish</b><em>R320</em><small>40 minutes</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="packs" id="packages">
+    <div class="wrap packs-grid">
+      <div>
+        <h2>Half days</h2>
+        <p>For birthdays, a mother and daughter morning, or a proper rest. Light lunch on the deck included.</p>
+      </div>
+      <div class="pack">
+        <span class="len">3 hours · one person</span>
+        <h3>Cliff Path half day</h3>
+        <ul><li>60-minute Swedish massage</li><li>Hydrating facial</li><li>Fynbos foot ritual</li><li>Lunch and a glass of local bubbly</li></ul>
+        <div class="cost"><span>Per person</span><b>R1,850</b></div>
+      </div>
+      <div class="pack">
+        <span class="len">2 hours · for two</span>
+        <h3>Couples by the sea</h3>
+        <ul><li>Side-by-side massage, 60 minutes</li><li>Private couples room with the sea view</li><li>Foot soak for two</li><li>Cheese board and two glasses of wine</li></ul>
+        <div class="cost"><span>For two</span><b>R2,690</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="words">
+    <div class="wrap">
+      <div class="big">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <p>"We watched a whale breach from the couples room halfway through the massage. Best birthday present I've been given."</p>
+        <span>Anwar and Shereen D., visiting from Cape Town</span>
+      </div>
+      <div class="small-q">
+        <div><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Michelle found every knot in my shoulders without me saying a word. Calm, spotless, and they kept to my time.</p><span><b>Elsabé V.</b> · Onrus</span></div>
+        <div><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Bought a voucher on WhatsApp at 10pm for my mom. It was in her inbox the next morning.</p><span><b>Thabo N.</b> · Somerset West</span></div>
+      </div>
+      <p class="g">4.9 average from 290+ reviews on Google</p>
+    </div>
+  </section>
+</main>
+
+<footer class="visit" id="visit">
+  <div class="wrap">
+    <div class="v-grid">
+      <div>
+        <h2>Tell us the day and the treatment. We'll reply with the open times.</h2>
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp 082 000 0000</a>
+      </div>
+      <div><h4>Find us</h4><p>14 Marine Drive, Westcliff<br>Hermanus, 7200<br>Parking in front, 2 min walk to the cliff path</p></div>
+      <div><h4>Hours</h4><p>Every day · 09:00 to 18:00<br>Last booking · 16:30<br>Public holidays · 10:00 to 16:00</p></div>
+    </div>
+    <div class="fine"><span>© 2026 Fynbos &amp; Salt Day Spa</span><span>Gift vouchers · Instagram · Directions</span></div>
+  </div>
+</footer>
+</body>
+</html>

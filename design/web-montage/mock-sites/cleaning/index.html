@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neat Street Cleaning, Bedfordview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF; --lilac:#F4EFF7; --lilac-2:#E9DFF0; --plum:#3E1F4D; --plum-2:#5A3270; --ink:#24132D; --soft:#6B5C73;
+    --lime:#CDE36A; --lime-dk:#9DB43A; --line:#E6DDEB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--white);color:var(--ink);font-family:"Lexend",system-ui,sans-serif;font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  b,strong{font-weight:500}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px}
+  h1,h2,h3{font-weight:600;letter-spacing:-.03em;color:var(--plum)}
+
+  header .bar{display:flex;align-items:center;justify-content:space-between;height:84px;gap:24px}
+  .mark{display:flex;align-items:center;gap:10px;font-weight:600;font-size:22px;color:var(--plum);letter-spacing:-.03em}
+  .mark i{width:30px;height:30px;border-radius:9px;background:var(--lime);display:grid;place-items:center;flex:none}
+  .mark i svg{width:18px;height:18px;color:var(--plum)}
+  nav{display:flex;gap:30px;font-size:15px;font-weight:400;color:var(--soft)}
+  .head-right{display:flex;align-items:center;gap:18px}
+  .phone{font-size:15.5px;font-weight:500;color:var(--plum)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--plum);color:#fff;border-radius:14px;padding:17px 26px;font-size:16.5px;font-weight:500;white-space:nowrap}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:11px 16px;font-size:14.5px;border-radius:11px}
+  .btn-lime{background:var(--lime);color:var(--plum)}
+
+  /* hero */
+  .hero{padding:40px 0 80px}
+  .hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--lilac);border-radius:999px;padding:7px 14px 7px 8px;font-size:14px;color:var(--plum-2);font-weight:400}
+  .badge i{background:var(--lime);border-radius:999px;padding:2px 10px;font-style:normal;font-weight:600;color:var(--plum);font-size:13px}
+  h1{font-size:clamp(42px,5vw,68px);line-height:1.02;margin-top:20px}
+  h1 span{background:linear-gradient(transparent 62%, var(--lime) 62%, var(--lime) 92%, transparent 92%)}
+  .sub{margin-top:20px;font-size:19px;color:var(--soft);max-width:28em}
+  .chips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}
+  .chip{border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--white)}
+  .chip span{display:block;font-size:13.5px;color:var(--soft)}
+  .chip b{display:block;font-size:21px;font-weight:600;color:var(--plum);letter-spacing:-.02em}
+  .chip.on{border-color:var(--plum);background:var(--lilac)}
+  .actions{margin-top:22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .rating{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--soft)}
+  .rating svg.gl{width:18px;height:18px}
+  .stars{display:flex;gap:2px;color:#F2B01E}
+  .stars svg{width:16px;height:16px}
+  .photo{position:relative}
+  .photo img{width:100%;aspect-ratio:1/1.05;object-fit:cover;object-position:40% 50%;border-radius:28px}
+  .pill{position:absolute;background:var(--white);border-radius:999px;padding:10px 16px 10px 10px;font-size:14px;font-weight:400;display:flex;align-items:center;gap:10px;box-shadow:0 10px 28px rgba(62,31,77,.16)}
+  .pill i{width:28px;height:28px;border-radius:50%;background:var(--lime);display:grid;place-items:center;flex:none}
+  .pill i svg{width:16px;height:16px;color:var(--plum)}
+  .p1{left:-28px;top:44px}
+  .p2{right:-20px;bottom:56px}
+
+  /* types */
+  .types{background:var(--lilac);padding:90px 0;border-radius:40px 40px 0 0}
+  .head{max-width:620px;margin-bottom:40px}
+  h2{font-size:clamp(32px,3.6vw,48px);line-height:1.06}
+  .head p{color:var(--soft);margin-top:12px}
+  .type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .type{background:var(--white);border-radius:24px;padding:14px 14px 24px}
+  .type img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px}
+  .type h3{font-size:24px;margin:18px 10px 4px}
+  .type .pr{margin:0 10px;font-size:15px;color:var(--soft)}
+  .type .pr b{color:var(--plum);font-weight:600;font-size:18px}
+  .type ul{list-style:none;margin:14px 10px 0;display:grid;gap:7px;font-size:15px}
+  .type li{display:flex;gap:9px;align-items:start}
+  .type li svg{width:17px;height:17px;flex:none;margin-top:4px;color:var(--lime-dk)}
+
+  /* trust */
+  .trust{background:var(--lilac);padding:0 0 90px}
+  .trust-box{background:var(--plum);color:#E9DFF0;border-radius:32px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+  .trust-box img{width:100%;height:100%;object-fit:cover;min-height:420px}
+  .trust-text{padding:54px 52px}
+  .trust h2{color:#fff}
+  .trust h2 span{color:var(--lime)}
+  .tlist{list-style:none;margin-top:26px;display:grid;gap:18px}
+  .tlist li{display:grid;grid-template-columns:42px 1fr;gap:14px}
+  .tlist li i{width:42px;height:42px;border-radius:12px;background:rgba(205,227,106,.14);display:grid;place-items:center;color:var(--lime);font-style:normal;font-weight:600}
+  .tlist b{display:block;color:#fff;font-size:17.5px}
+  .tlist span{font-size:15px}
+
+  /* reviews */
+  .reviews{padding:90px 0}
+  .rv-top{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:34px}
+  .score{display:flex;align-items:center;gap:14px;background:var(--lilac);border-radius:18px;padding:14px 20px}
+  .score b{font-size:34px;font-weight:600;color:var(--plum);letter-spacing:-.03em}
+  .score svg.gl{width:26px;height:26px}
+  .score small{display:block;font-size:13.5px;color:var(--soft)}
+  .rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .rv{border:1.5px solid var(--line);border-radius:22px;padding:26px}
+  .rv p{margin:12px 0 18px;font-size:16.5px;font-weight:400;color:var(--ink)}
+  .who{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--soft)}
+  .who i{width:34px;height:34px;border-radius:50%;background:var(--lime);color:var(--plum);display:grid;place-items:center;font-style:normal;font-weight:600;flex:none}
+  .who b{display:block;color:var(--ink);line-height:1.2}
+
+  /* book */
+  .book{padding:0 0 90px}
+  .book-box{background:var(--lime);border-radius:32px;padding:56px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+  .book h2{color:var(--plum)}
+  .book p{color:var(--plum-2);margin-top:12px;font-weight:400}
+  .areas{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .areas span{background:rgba(255,255,255,.55);border-radius:999px;padding:6px 14px;font-size:14.5px;font-weight:400;color:var(--plum)}
+  .book-card{background:var(--white);border-radius:22px;padding:28px}
+  .book-card h3{font-size:22px}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+  .opt{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14.5px}
+  .opt.on{border-color:var(--plum);background:var(--lilac);font-weight:500}
+  .book-card .btn{width:100%}
+  .book-card small{display:block;text-align:center;margin-top:12px;color:var(--soft);font-size:13.5px}
+
+  footer{border-top:1px solid var(--line);padding:28px 0;font-size:14px;color:var(--soft)}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:1100px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 18px}
+    header .bar{height:66px}
+    .mark{font-size:19px}
+    .mark i{width:26px;height:26px;border-radius:8px}
+    .phone{display:none}
+    .btn-sm{padding:9px 13px;font-size:14px;gap:7px}
+    .btn-sm svg{width:17px;height:17px}
+    .hero{padding:14px 0 56px}
+    .hero .wrap{grid-template-columns:1fr;gap:30px}
+    .badge{font-size:12.5px}
+    h1{font-size:40px;margin-top:16px}
+    .sub{font-size:16.5px;margin-top:14px}
+    .chips{margin-top:20px;gap:8px}
+    .chip{padding:10px 10px;border-radius:12px}
+    .chip span{font-size:12px}
+    .chip b{font-size:17px}
+    .actions{margin-top:16px;gap:14px}
+    .actions .btn{width:100%;padding:16px 20px}
+    .photo img{aspect-ratio:4/3.4;border-radius:22px}
+    .p1{left:12px;top:12px;font-size:12.5px;padding:7px 12px 7px 7px}
+    .p2{right:12px;bottom:12px;font-size:12.5px;padding:7px 12px 7px 7px}
+    .pill i{width:24px;height:24px}
+    .types{padding:56px 0;border-radius:28px 28px 0 0}
+    .head{margin-bottom:24px}
+    h2{font-size:31px}
+    .type-grid{grid-template-columns:1fr;gap:14px}
+    .trust{padding-bottom:56px}
+    .trust-box{grid-template-columns:1fr;border-radius:24px}
+    .trust-box img{min-height:0;height:240px}
+    .trust-text{padding:28px 22px 32px}
+    .reviews{padding:56px 0}
+    .rv-top{flex-direction:column;align-items:start;gap:16px;margin-bottom:22px}
+    .rv-grid{grid-template-columns:1fr;gap:14px}
+    .book{padding-bottom:56px}
+    .book-box{grid-template-columns:1fr;padding:28px 20px;gap:26px;border-radius:24px}
+    .book-card{padding:22px}
+    footer .wrap{flex-direction:column;gap:4px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="g" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.6 12.3c0-.8-.1-1.5-.2-2.3H12v4.3h6a5 5 0 0 1-2.2 3.3v2.8h3.6c2-1.9 3.2-4.7 3.2-8.1Z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.4-2.7l-3.6-2.8c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2v2.9A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.7 14a6.6 6.6 0 0 1 0-4.2V6.9H2a11 11 0 0 0 0 9.9L5.7 14Z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 0 0 2 6.9l3.7 2.9C6.6 7.3 9.1 5.4 12 5.4Z"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#"><i><svg><use href="#check"/></svg></i>Neat Street</a>
+    <nav><a href="#types">Cleans and prices</a><a href="#trust">Our cleaners</a><a href="#reviews">Reviews</a><a href="#book">Book</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#">011 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="badge"><i>New</i>Weekend move-out cleans in Bedfordview</span>
+      <h1>House and office cleaning, <span>same cleaner</span> every visit</h1>
+      <p class="sub">Vetted, trained cleaners who bring their own products and equipment. Book once-off or weekly on WhatsApp.</p>
+      <div class="chips">
+        <div class="chip on"><span>Home clean</span><b>R420</b></div>
+        <div class="chip"><span>Office</span><b>R650</b></div>
+        <div class="chip"><span>Move-out</span><b>R1,350</b></div>
+      </div>
+      <div class="actions">
+        <a class="btn" href="#"><svg><use href="#wa"/></svg>Book a clean on WhatsApp</a>
+        <span class="rating"><svg class="gl"><use href="#g"/></svg><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><b>4.9</b> · 410 reviews</span>
+      </div>
+    </div>
+    <div class="photo">
+      <img src="images/hero.jpg" alt="Cleaner wiping down a marble kitchen island">
+      <span class="pill p1"><i><svg><use href="#check"/></svg></i>Products and vacuum included</span>
+      <span class="pill p2"><i><svg><use href="#check"/></svg></i>Police-cleared cleaners</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="types" id="types">
+    <div class="wrap">
+      <div class="head"><h2>Pick your clean</h2><p>Prices for a 2-bedroom home or a 10-desk office. Bigger spaces are priced on WhatsApp in a few minutes.</p></div>
+      <div class="type-grid">
+        <article class="type"><img src="images/windows.jpg" alt="Cleaner washing a glass sliding door"><h3>Home cleaning</h3><p class="pr">from <b>R420</b> per visit</p><ul><li><svg><use href="#check"/></svg>Kitchen, bathrooms and floors</li><li><svg><use href="#check"/></svg>Beds made, dusting, inside windows</li><li><svg><use href="#check"/></svg>Weekly or every two weeks</li></ul></article>
+        <article class="type"><img src="images/office.jpg" alt="Cleaner vacuuming an open-plan office in the evening"><h3>Office cleaning</h3><p class="pr">from <b>R650</b> per visit</p><ul><li><svg><use href="#check"/></svg>After hours, so work isn't disturbed</li><li><svg><use href="#check"/></svg>Kitchens, bathrooms, desks and bins</li><li><svg><use href="#check"/></svg>Monthly invoice for your accounts team</li></ul></article>
+        <article class="type"><img src="images/moveout.jpg" alt="Gloved hands scrubbing an oven door"><h3>Move-in and move-out</h3><p class="pr">from <b>R1,350</b> once-off</p><ul><li><svg><use href="#check"/></svg>Inside oven, fridge and cupboards</li><li><svg><use href="#check"/></svg>Walls spot-cleaned, windows done</li><li><svg><use href="#check"/></svg>Ready for your deposit inspection</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust" id="trust">
+    <div class="wrap">
+      <div class="trust-box">
+        <img src="images/bedroom.jpg" alt="Cleaner making a bed with fresh white linen">
+        <div class="trust-text">
+          <h2>Who comes into <span>your home</span></h2>
+          <ul class="tlist">
+            <li><i>1</i><div><b>Police-cleared and referenced</b><span>Every cleaner is checked before their first job, and we keep the records.</span></div></li>
+            <li><i>2</i><div><b>The same person each time</b><span>She gets to know your home. If she's off sick, we tell you who's coming.</span></div></li>
+            <li><i>3</i><div><b>Paid properly and insured</b><span>Above minimum wage, UIF registered, and covered for breakages.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="rv-top"><h2>Clean homes, happy reviews</h2><div class="score"><svg class="gl"><use href="#g"/></svg><b>4.9</b><div><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><small>410 Google reviews</small></div></div></div>
+      <div class="rv-grid">
+        <div class="rv"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Zanele has cleaned for us every Thursday for two years. The house is spotless and she's like family now.</p><div class="who"><i>D</i><div><b>Debbie R.</b>Bedfordview</div></div></div>
+        <div class="rv"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Move-out clean on a Saturday. Got our full deposit back, the agent said it was cleaner than when we moved in.</p><div class="who"><i>K</i><div><b>Kagiso M.</b>Edenvale</div></div></div>
+        <div class="rv"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>They clean our 14-person office three evenings a week. Reliable, and the kitchen finally stays clean.</p><div class="who"><i>S</i><div><b>Sunil P.</b>Senderwood</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="book" id="book">
+    <div class="wrap">
+      <div class="book-box">
+        <div>
+          <h2>Book your first clean</h2>
+          <p>WhatsApp us your suburb, the size of your home and a day that suits you. We confirm your cleaner the same day.</p>
+          <div class="areas"><span>Bedfordview</span><span>Edenvale</span><span>Senderwood</span><span>Primrose</span><span>Germiston</span><span>Kensington</span><span>Dowerglen</span><span>Greenstone</span></div>
+        </div>
+        <div class="book-card">
+          <h3>What do you need?</h3>
+          <div class="opts"><span class="opt on">Home, weekly</span><span class="opt">Home, once-off</span><span class="opt">Office</span><span class="opt">Move-out</span></div>
+          <a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp 082 000 0000</a>
+          <small>Or call 011 000 0000 · Mon to Sat, 7am to 6pm</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Neat Street Cleaning · Bedfordview, Johannesburg</span><span>Homes · Offices · Move-in and move-out</span></div></footer>
+</body>
+</html>

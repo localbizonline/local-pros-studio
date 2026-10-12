@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wild Fig Garden Services, Hillcrest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5F1E6; --paper:#FBF9F3; --forest:#1F3B2C; --forest-2:#2A4A38; --ink:#1B2A21; --soft:#5C665E;
+    --leaf:#8DB461; --leaf-lt:#E3ECD3; --clay:#B5643B; --line:#E0DACB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:"Mulish",system-ui,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px}
+  h1,h2,h3{font-family:"Lora",Georgia,serif;font-weight:600;letter-spacing:-.01em}
+
+  header{background:var(--forest);color:#E7EEE3}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:80px;gap:24px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .mark{display:flex;align-items:center;gap:11px}
+  .leafmark{width:34px;height:34px;flex:none;color:var(--leaf)}
+  .mark b{font-family:"Lora",serif;font-weight:600;font-size:24px;color:#fff;line-height:1}
+  .mark small{display:block;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#A9BFA3;margin-top:4px}
+  nav{display:flex;gap:30px;font-size:15px;font-weight:600;color:#C4D3BF}
+  .head-right{display:flex;align-items:center;gap:20px}
+  .phone{font-weight:700;font-size:15.5px;color:#fff}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--leaf);color:var(--forest);border-radius:10px;padding:16px 26px;font-size:16.5px;font-weight:700;white-space:nowrap}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:10px 16px;font-size:14.5px}
+  .btn-dark{background:var(--forest);color:#fff}
+
+  /* hero: dark green text block + photo */
+  .hero{background:var(--forest);color:#DCE6D8;display:grid;grid-template-columns:.9fr 1.1fr;min-height:600px}
+  .hero-text{padding:70px 56px 80px max(40px, calc((100vw - 1220px)/2 + 40px));align-self:center}
+  .eyebrow{font-size:14px;font-weight:700;color:var(--leaf);display:flex;align-items:center;gap:8px}
+  .eyebrow svg{width:16px;height:16px}
+  h1{font-size:clamp(40px,4.6vw,64px);line-height:1.06;color:#fff;margin-top:16px}
+  h1 em{font-style:italic;font-weight:500;color:#C9DFA6}
+  .sub{margin-top:20px;font-size:18.5px;max-width:28em}
+  .actions{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+  .rating{margin-top:28px;display:flex;align-items:center;gap:10px;font-size:15px;color:#B9CBB3}
+  .rating svg.gl{width:20px;height:20px;background:#fff;border-radius:50%;padding:2px}
+  .stars{display:flex;gap:2px;color:#F2B43A}
+  .stars svg{width:16px;height:16px}
+  .rating strong{color:#fff}
+  .hero-photo{position:relative}
+  .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 50%;border-radius:0 0 0 80px}
+  .note{position:absolute;left:28px;bottom:28px;background:var(--paper);color:var(--ink);border-radius:14px;padding:14px 18px;font-size:14px;max-width:270px;box-shadow:0 10px 26px rgba(0,0,0,.2)}
+  .note b{font-family:"Lora",serif;font-size:19px;display:block;line-height:1.2}
+
+  /* plans */
+  .plans{padding:90px 0}
+  .center{text-align:center;max-width:620px;margin:0 auto 44px}
+  h2{font-size:clamp(32px,3.5vw,48px);line-height:1.08}
+  .center p{color:var(--soft);margin-top:12px}
+  .plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+  .plan{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:30px;display:flex;flex-direction:column}
+  .plan.pop{background:var(--forest);color:#D5E1D0;border-color:var(--forest);position:relative}
+  .plan.pop h3,.plan.pop .amt b{color:#fff}
+  .plan .flag{position:absolute;top:-13px;left:30px;background:var(--leaf);color:var(--forest);font-size:12.5px;font-weight:700;border-radius:999px;padding:4px 12px}
+  .plan h3{font-size:25px}
+  .plan .for{font-size:15px;color:var(--soft);margin-top:2px}
+  .plan.pop .for{color:#A9BFA3}
+  .amt{margin:20px 0 18px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+  .plan.pop .amt{border-color:rgba(255,255,255,.14)}
+  .amt b{font-family:"Lora",serif;font-size:40px;font-weight:600;color:var(--forest);line-height:1}
+  .amt span{font-size:15px;margin-left:4px}
+  .plan ul{list-style:none;display:grid;gap:9px;font-size:15.5px;flex:1}
+  .plan li{display:flex;gap:10px;align-items:start}
+  .plan li svg{width:17px;height:17px;flex:none;margin-top:4px;color:var(--leaf)}
+  .plan .btn{margin-top:24px}
+
+  /* services */
+  .services{background:var(--paper);padding:90px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .svc-list{display:grid;gap:56px}
+  .svc{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .svc:nth-child(2) .svc-img{order:2}
+  .svc-img img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:18px}
+  .svc .k{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--clay)}
+  .svc h3{font-size:34px;line-height:1.1;margin:8px 0 12px}
+  .svc p{color:var(--soft)}
+  .svc .from{margin-top:16px;font-weight:700;color:var(--forest)}
+
+  /* reviews */
+  .reviews{padding:90px 0}
+  .rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .rv{background:var(--paper);border-radius:18px;padding:28px;border:1px solid var(--line)}
+  .rv p{font-family:"Lora",serif;font-size:19px;line-height:1.45;margin:14px 0 18px}
+  .who{font-size:14.5px;color:var(--soft)}
+  .who b{color:var(--ink)}
+  .g-line{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:-26px;margin-bottom:36px;font-size:15px;color:var(--soft)}
+  .g-line svg.gl{width:20px;height:20px}
+
+  /* contact */
+  .contact{background:var(--leaf-lt);padding:84px 0}
+  .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .contact p{color:var(--soft);margin-top:12px}
+  .suburbs{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;margin-top:22px;list-style:none;font-weight:600}
+  .suburbs li{display:flex;gap:8px;align-items:center;padding:6px 0}
+  .suburbs svg{width:16px;height:16px;color:var(--clay)}
+  .ccard{background:var(--paper);border-radius:20px;padding:34px}
+  .ccard h3{font-size:26px}
+  .ccard .rowc{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:12px 0;font-size:16px;gap:12px}
+  .ccard .rowc span{color:var(--soft)}
+  .ccard .btn{width:100%;margin-top:22px}
+
+  footer{background:var(--forest);color:#A9BFA3;padding:28px 0;font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:1100px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 18px}
+    .bar{height:66px}
+    .leafmark{width:28px;height:28px}
+    .mark b{font-size:20px}
+    .mark small{font-size:9.5px}
+    .phone{display:none}
+    .hide-m{display:none}
+    .btn-sm{padding:9px 13px;font-size:14px;gap:7px}
+    .btn-sm svg{width:17px;height:17px}
+    .hero{grid-template-columns:1fr;min-height:0}
+    .hero-text{padding:28px 18px 30px}
+    .eyebrow{font-size:13px}
+    h1{font-size:38px;margin-top:12px}
+    .sub{font-size:16.5px;margin-top:14px}
+    .actions{margin-top:22px}
+    .actions .btn{width:100%;padding:15px 20px}
+    .rating{margin-top:18px;font-size:14px;flex-wrap:wrap}
+    .hero-photo{height:330px}
+    .hero-photo img{border-radius:48px 0 0 0}
+    .note{left:14px;bottom:14px;right:14px;max-width:none;padding:11px 14px;font-size:13px}
+    .note b{font-size:16.5px}
+    .plans,.services,.reviews,.contact{padding:56px 0}
+    .center{margin-bottom:28px}
+    h2{font-size:31px}
+    .plan-grid{grid-template-columns:1fr;gap:22px}
+    .plan{padding:24px}
+    .amt b{font-size:34px}
+    .svc-list{gap:36px}
+    .svc{grid-template-columns:1fr;gap:18px}
+    .svc:nth-child(2) .svc-img{order:0}
+    .svc h3{font-size:26px}
+    .rv-grid{grid-template-columns:1fr;gap:14px}
+    .rv p{font-size:17.5px}
+    .g-line{margin-top:-12px;margin-bottom:22px}
+    .contact .wrap{grid-template-columns:1fr;gap:30px}
+    .ccard{padding:24px}
+    footer .wrap{flex-direction:column;gap:4px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="g" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.6 12.3c0-.8-.1-1.5-.2-2.3H12v4.3h6a5 5 0 0 1-2.2 3.3v2.8h3.6c2-1.9 3.2-4.7 3.2-8.1Z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.4-2.7l-3.6-2.8c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2v2.9A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.7 14a6.6 6.6 0 0 1 0-4.2V6.9H2a11 11 0 0 0 0 9.9L5.7 14Z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 0 0 2 6.9l3.7 2.9C6.6 7.3 9.1 5.4 12 5.4Z"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#">
+      <svg class="leafmark" viewBox="0 0 34 34"><path d="M6 28C6 15 14 6 28 6c0 14-9 22-22 22Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M6 28 20 14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+      <span><b>Wild Fig</b><small>Garden services<span class="hide-m"> · Hillcrest</span></small></span>
+    </a>
+    <nav><a href="#plans">Monthly plans</a><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#">031 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow"><svg><use href="#pin"/></svg>Hillcrest, Kloof and Gillitts</p>
+    <h1>Garden care for the Upper Highway, <em>every week</em> or once&#8209;off</h1>
+    <p class="sub">Lawns cut and edged, beds weeded, hedges trimmed and all the refuse taken away. The same team, on the same day.</p>
+    <div class="actions"><a class="btn" href="#"><svg><use href="#wa"/></svg>Ask for a garden visit</a></div>
+    <div class="rating"><svg class="gl"><use href="#g"/></svg><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><span><strong>4.9</strong> · 87 Google reviews</span></div>
+  </div>
+  <div class="hero-photo">
+    <img src="images/hero.jpg" alt="Neatly mowed garden with strelitzias and a gardener trimming a hedge">
+    <div class="note"><b>Refuse removal included</b>We take every bag and branch away the same day.</div>
+  </div>
+</section>
+
+<main>
+  <section class="plans" id="plans">
+    <div class="wrap">
+      <div class="center"><h2>Monthly garden plans</h2><p>Fixed monthly price, no contract. Pause for a month whenever you're away.</p></div>
+      <div class="plan-grid">
+        <div class="plan"><h3>Small garden</h3><p class="for">Townhouses and cluster homes</p><div class="amt"><b>R1,150</b><span>/ month</span></div><ul><li><svg><use href="#check"/></svg>Visit every two weeks</li><li><svg><use href="#check"/></svg>Mow, edge and blow</li><li><svg><use href="#check"/></svg>Beds weeded</li></ul><a class="btn btn-dark" href="#">Choose small</a></div>
+        <div class="plan pop"><span class="flag">Most booked</span><h3>Family garden</h3><p class="for">Up to 1,000 m² of garden</p><div class="amt"><b>R2,400</b><span>/ month</span></div><ul><li><svg><use href="#check"/></svg>Weekly visit, team of two</li><li><svg><use href="#check"/></svg>Mow, edge, weed and prune</li><li><svg><use href="#check"/></svg>Hedges trimmed monthly</li><li><svg><use href="#check"/></svg>Refuse removed every visit</li></ul><a class="btn" href="#">Choose family</a></div>
+        <div class="plan"><h3>Once-off clean-up</h3><p class="for">Overgrown gardens, moving house</p><div class="amt"><b>R1,800</b><span>from</span></div><ul><li><svg><use href="#check"/></svg>Cut back, clear and tidy</li><li><svg><use href="#check"/></svg>Trailer of refuse included</li><li><svg><use href="#check"/></svg>Usually done in one day</li></ul><a class="btn btn-dark" href="#">Get a price</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="wrap svc-list">
+      <div class="svc"><div class="svc-img"><img src="images/lawn.jpg" alt="Lawnmower cutting a kikuyu lawn"></div><div><span class="k">Lawns</span><h3>Kikuyu that stays thick and green</h3><p>Cut at the right height for the season, edged along every path, fed in spring and autumn.</p><p class="from">Included in every plan</p></div></div>
+      <div class="svc"><div class="svc-img"><img src="images/planting.jpg" alt="Landscaper planting aloes and agapanthus"></div><div><span class="k">Landscaping</span><h3>New beds with indigenous plants</h3><p>Megan designs beds that suit KZN rain and shade: aloes, agapanthus, clivias and spekboom. Planted, mulched and watered in.</p><p class="from">Designs from R3,500</p></div></div>
+      <div class="svc"><div class="svc-img"><img src="images/cleanup.jpg" alt="Garden refuse loaded onto a trailer"></div><div><span class="k">Clean-ups</span><h3>Overgrown? We'll get it back</h3><p>Big prunes, storm damage and empty-house gardens. We bring the trailer and take everything to the garden refuse site.</p><p class="from">From R1,800 a day</p></div></div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="center"><h2>Gardens we look after</h2></div>
+      <p class="g-line"><svg class="gl"><use href="#g"/></svg><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>4.9 from 87 reviews</p>
+      <div class="rv-grid">
+        <div class="rv"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Baba Mthembu and his team have done our garden every Tuesday for three years. It has never looked better.</p><div class="who"><b>Fiona L.</b> · Kloof</div></div>
+        <div class="rv"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Megan redid our front beds with aloes. Hardly needs water and the sunbirds love it.</p><div class="who"><b>Thulani N.</b> · Hillcrest</div></div>
+        <div class="rv"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>My late mother's garden was a jungle. Two days, three trailers, and it was ready to show buyers.</p><div class="who"><b>Rashid A.</b> · Gillitts</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <h2>Where we work</h2>
+        <p>We keep our rounds close together, so the team is never stuck in traffic and always arrives on your day.</p>
+        <ul class="suburbs"><li><svg><use href="#pin"/></svg>Hillcrest</li><li><svg><use href="#pin"/></svg>Kloof</li><li><svg><use href="#pin"/></svg>Gillitts</li><li><svg><use href="#pin"/></svg>Waterfall</li><li><svg><use href="#pin"/></svg>Botha's Hill</li><li><svg><use href="#pin"/></svg>Assagay</li><li><svg><use href="#pin"/></svg>Forest Hills</li><li><svg><use href="#pin"/></svg>Winston Park</li></ul>
+      </div>
+      <div class="ccard">
+        <h3>Ask for a garden visit</h3>
+        <div class="rowc"><span>WhatsApp</span><b>082 000 0000</b></div>
+        <div class="rowc"><span>Phone</span><b>031 000 0000</b></div>
+        <div class="rowc"><span>Office</span><b>Old Main Road, Hillcrest</b></div>
+        <a class="btn btn-dark" href="#"><svg><use href="#wa"/></svg>Send a photo of your garden</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Wild Fig Garden Services · Hillcrest, KwaZulu-Natal</span><span>Garden maintenance · Landscaping · Clean-ups</span></div></footer>
+</body>
+</html>
