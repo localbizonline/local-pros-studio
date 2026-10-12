@@ -41,7 +41,7 @@ const NEEDS: Need[] = [
   { id: 'reviews', label: 'More Google reviews', plan: 'reviews', done: (p) => `how we get ${p} more Google reviews` },
   { id: 'social', label: 'Social media posts', plan: 'social', done: (p) => `social media posts for ${p}` },
   { id: 'website', label: 'A new website', plan: 'website', done: (p) => `popular website designs for ${p}` },
-  { id: 'package', label: 'All three, R2,500 a month', plan: 'package', done: (p) => `our work for ${p}: reviews, social posts and websites` },
+  { id: 'package', label: 'All three, R2,500 a month', plan: 'package', done: (p) => `our work for ${p} (reviews, posts and websites)` },
 ];
 
 // Everything that differs between the pages, in one place (wording included)
@@ -689,7 +689,7 @@ export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVa
                     </span>
                     <span>
                       <strong>On its way</strong>
-                      Tyran from our team will WhatsApp you {cfg.done(plural ?? 'businesses like yours', need)} and our prices on {shownNumber}.
+                      Tyran from our team will WhatsApp you on {shownNumber} with {cfg.done(plural ?? 'businesses like yours', need)} and our prices.
                     </span>
                   </div>
                   <Bot>
