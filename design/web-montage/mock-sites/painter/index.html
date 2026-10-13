@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sithole &amp; Sons Painting, Hilton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7F0; --white:#FFFFFF; --ink:#1F2A26; --soft:#5E6862; --green:#2F4B3A; --green-dk:#223829;
+    --terra:#C4613A; --sage:#9DB08F; --mustard:#D9A441; --blue:#7C9CB0; --line:#E7DFD2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:"Outfit",system-ui,sans-serif;font-size:17.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:700}
+
+  .top{background:var(--green);color:#E5EDE6;font-size:14px;text-align:center;padding:9px 16px}
+  .top b{color:#fff;font-weight:600}
+  header .bar{display:flex;align-items:center;justify-content:space-between;height:86px;gap:24px}
+  .mark{font-family:"Playfair Display",serif;font-size:27px;font-weight:700;line-height:1}
+  .mark i{font-style:italic;color:var(--terra);font-weight:600}
+  nav{display:flex;gap:32px;font-size:15.5px;color:var(--soft)}
+  .head-right{display:flex;align-items:center;gap:18px}
+  .phone{font-size:15.5px;font-weight:500;color:var(--soft)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--green);color:#fff;border-radius:999px;padding:16px 28px;font-size:16.5px;font-weight:500;white-space:nowrap}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:10px 18px;font-size:14.5px}
+  .btn-line{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+  /* hero: centered text, wide photo, swatches */
+  .hero{text-align:center;padding:56px 0 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:500;color:var(--terra);letter-spacing:.04em}
+  .eyebrow::before,.eyebrow::after{content:"";width:22px;height:1.5px;background:var(--terra)}
+  h1{font-size:clamp(42px,5.4vw,76px);line-height:1.03;letter-spacing:-.01em;max-width:13em;margin:18px auto 0}
+  h1 em{font-style:italic;font-weight:600;color:var(--terra)}
+  .sub{margin:22px auto 0;font-size:19px;color:var(--soft);max-width:34em}
+  .actions{margin-top:30px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  .rating{display:inline-flex;align-items:center;gap:10px;margin-top:24px;font-size:15px;color:var(--soft)}
+  .stars{display:flex;gap:2px;color:#E2A72E}
+  .stars svg{width:17px;height:17px}
+  .rating strong{color:var(--ink);font-weight:600}
+  .hero-photo{position:relative;margin-top:48px}
+  .hero-photo img{width:100%;aspect-ratio:21/9;object-fit:cover;object-position:50% 18%;border-radius:22px}
+  .swatches{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);display:flex;gap:10px;background:var(--white);padding:12px;border-radius:16px;box-shadow:0 12px 30px rgba(31,42,38,.14)}
+  .sw{width:120px;border-radius:10px;overflow:hidden;font-size:12.5px;text-align:left;border:1px solid var(--line)}
+  .sw i{display:block;height:46px}
+  .sw span{display:block;padding:6px 9px;line-height:1.25}
+
+  /* services */
+  .services{padding:120px 0 90px}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 48px}
+  h2{font-size:clamp(32px,3.6vw,50px);line-height:1.08}
+  .sec-head p{color:var(--soft);margin-top:12px}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .svc{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+  .svc img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .svc div{padding:22px 24px 26px}
+  .svc h3{font-size:25px}
+  .svc p{color:var(--soft);font-size:16px;margin-top:6px}
+  .svc .rate{display:inline-block;margin-top:14px;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:14.5px;font-weight:500}
+  .svc .rate b{color:var(--terra)}
+
+  /* promise */
+  .promise{background:var(--green);color:#DCE6DE;padding:84px 0}
+  .promise-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .promise h2{color:#fff}
+  .promise h2 em{font-style:italic;color:#F0B596;font-weight:600}
+  .promise ul{list-style:none;display:grid;gap:18px}
+  .promise li{display:grid;grid-template-columns:34px 1fr;gap:14px}
+  .promise li i{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;color:#F0B596}
+  .promise li i svg{width:18px;height:18px}
+  .promise li b{display:block;color:#fff;font-weight:600;font-size:18px}
+  .promise li span{font-size:15.5px}
+
+  /* reviews */
+  .reviews{padding:90px 0}
+  .quotes{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:22px}
+  .quote{background:var(--white);border-radius:18px;padding:28px;border:1px solid var(--line)}
+  .quote.big{background:#F3E6DA;border-color:#EBD5C3}
+  .quote.big p{font-family:"Playfair Display",serif;font-size:25px;line-height:1.3;font-style:italic}
+  .quote p{margin:14px 0 18px;font-size:17px}
+  .who{font-size:14.5px;color:var(--soft)}
+  .who b{color:var(--ink);font-weight:600}
+  .g-note{text-align:center;margin-top:28px;color:var(--soft);font-size:15px;display:flex;justify-content:center;align-items:center;gap:8px}
+  .g-note svg{width:20px;height:20px}
+
+  /* contact */
+  .contact{padding:0 0 90px}
+  .contact-box{background:var(--white);border:1px solid var(--line);border-radius:24px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+  .contact-box > div{padding:48px}
+  .contact-box h2{font-size:clamp(30px,3vw,42px)}
+  .contact-box p{color:var(--soft);margin-top:12px}
+  .towns{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px}
+  .towns span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14.5px}
+  .side{background:#F3EEE4}
+  .side h3{font-size:24px}
+  .lines{margin-top:18px;display:grid;gap:12px;font-size:16px}
+  .lines div{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px;gap:12px}
+  .lines span{color:var(--soft)}
+  .side .btn{margin-top:26px;width:100%}
+
+  footer{border-top:1px solid var(--line);padding:28px 0;font-size:14px;color:var(--soft)}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:1000px){ nav{display:none} .quotes{grid-template-columns:1fr 1fr} .quote.big{grid-column:span 2} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 18px}
+    .top{font-size:12.5px;padding:8px 12px}
+    .hide-m{display:none}
+    header .bar{height:66px}
+    .mark{font-size:22px}
+    .phone{display:none}
+    .btn-sm{padding:9px 14px;font-size:14px;gap:7px}
+    .btn-sm svg{width:17px;height:17px}
+    .hero{padding-top:30px}
+    .eyebrow{font-size:12.5px}
+    h1{font-size:40px;margin-top:12px}
+    .sub{font-size:16.5px;margin-top:14px}
+    .actions{margin-top:22px;flex-direction:column;gap:10px}
+    .actions .btn{width:100%;padding:15px 20px}
+    .rating{margin-top:18px;font-size:14px}
+    .hero-photo{margin-top:28px}
+    .hero-photo img{aspect-ratio:4/3.3;border-radius:16px}
+    .swatches{left:12px;right:12px;transform:none;bottom:-26px;gap:6px;padding:8px}
+    .sw{width:auto;flex:1}
+    .sw i{height:32px}
+    .sw span{font-size:10.5px;padding:4px 6px}
+    .services{padding:80px 0 60px}
+    .sec-head{margin-bottom:28px}
+    h2{font-size:31px}
+    .svc-grid{grid-template-columns:1fr;gap:18px}
+    .promise{padding:60px 0}
+    .promise-grid{grid-template-columns:1fr;gap:30px}
+    .reviews{padding:60px 0}
+    .quotes{grid-template-columns:1fr;gap:14px}
+    .quote.big{grid-column:auto}
+    .quote.big p{font-size:21px}
+    .contact{padding-bottom:60px}
+    .contact-box{grid-template-columns:1fr;border-radius:18px}
+    .contact-box > div{padding:26px 22px}
+    footer .wrap{flex-direction:column;gap:4px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="g" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.6 12.3c0-.8-.1-1.5-.2-2.3H12v4.3h6a5 5 0 0 1-2.2 3.3v2.8h3.6c2-1.9 3.2-4.7 3.2-8.1Z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.4-2.7l-3.6-2.8c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2v2.9A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.7 14a6.6 6.6 0 0 1 0-4.2V6.9H2a11 11 0 0 0 0 9.9L5.7 14Z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 0 0 2 6.9l3.7 2.9C6.6 7.3 9.1 5.4 12 5.4Z"/></symbol>
+</svg>
+
+<div class="top">Booking for <b>November</b> now<span class="hide-m"> · free quotes in Hilton, Howick and Pietermaritzburg</span></div>
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#">Sithole <i>&amp; Sons</i></a>
+    <nav><a href="#services">Services</a><a href="#promise">Our promise</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#">033 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Painting contractors · Hilton, KZN</p>
+    <h1>Interior, exterior and roof painting, <em>done neatly</em></h1>
+    <p class="sub">A family team of painters in the Midlands since 1998. We prepare properly, protect your floors and leave the house cleaner than we found it.</p>
+    <div class="actions">
+      <a class="btn" href="#"><svg><use href="#wa"/></svg>Get a free quote</a>
+      <a class="btn btn-line" href="#services">See our prices</a>
+    </div>
+    <div class="rating"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><span><strong>4.9 on Google</strong> · 132 reviews</span></div>
+    <div class="hero-photo">
+      <img src="images/hero.jpg" alt="Painter rolling white paint onto a farmhouse wall in the Midlands">
+      <div class="swatches">
+        <div class="sw"><i style="background:#F1ECE1"></i><span>Warm white<br>exterior</span></div>
+        <div class="sw"><i style="background:#9DB08F"></i><span>Sage<br>lounge</span></div>
+        <div class="sw"><i style="background:#C4613A"></i><span>Terracotta<br>feature wall</span></div>
+        <div class="sw"><i style="background:#2F4B3A"></i><span>Forest<br>trim</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="sec-head"><h2>What we paint</h2><p>Rates include prep, paint and two coats. Exterior walls from R65 / m². We measure on site and send a fixed quote within two days.</p></div>
+      <div class="svc-grid">
+        <article class="svc"><img src="images/interior.jpg" alt="Freshly painted sage green living room"><div><h3>Interiors</h3><p>Walls, ceilings, doors and skirtings. Furniture moved and covered, floors sheeted.</p><span class="rate">from <b>R48 / m²</b></span></div></article>
+        <article class="svc"><img src="images/cutin.jpg" alt="Painter cutting in a straight line at the ceiling"><div><h3>Feature walls and trim</h3><p>Sharp cut-in lines, feature colours, doors, frames and skirtings in enamel.</p><span class="rate">from <b>R55 / m²</b></span></div></article>
+        <article class="svc"><img src="images/waterproof.jpg" alt="Waterproofing membrane brushed onto a parapet wall"><div><h3>Waterproofing</h3><p>Flat roofs, parapets and balconies sealed with membrane. Five-year guarantee.</p><span class="rate">from <b>R185 / m²</b></span></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="promise" id="promise">
+    <div class="wrap promise-grid">
+      <h2>Three things we <em>always</em> do on your job</h2>
+      <ul>
+        <li><i><svg><use href="#check"/></svg></i><div><b>Proper prep first</b><span>Washing, scraping, filling and sanding before a drop of paint goes on.</span></div></li>
+        <li><i><svg><use href="#check"/></svg></i><div><b>Trade paint, not cheap paint</b><span>Plascon and Dulux trade ranges. The tins stay on site so you can check.</span></div></li>
+        <li><i><svg><use href="#check"/></svg></i><div><b>Sipho on site every day</b><span>The owner checks the work daily and does the final walk-through with you.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="sec-head"><h2>Kind words from the Midlands</h2></div>
+      <div class="quotes">
+        <div class="quote big"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Our old farmhouse looks brand new. They fixed every crack before painting and covered all the roses.</p><div class="who"><b>Gillian H.</b> · Hilton</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Whole interior done in four days while we were away. Not a drop on the floors.</p><div class="who"><b>Bongani Z.</b> · Montrose, PMB</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Balcony leaked for years. Waterproofed in March, dry all winter.</p><div class="who"><b>Riaan V.</b> · Howick</div></div>
+      </div>
+      <p class="g-note"><svg><use href="#g"/></svg>4.9 average from 132 Google reviews</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2>Free quotes across the Midlands</h2>
+          <p>Send us a few photos of the rooms or walls on WhatsApp. We'll come and measure within the week.</p>
+          <div class="towns"><span>Hilton</span><span>Howick</span><span>Pietermaritzburg</span><span>Merrivale</span><span>Wartburg</span><span>Nottingham Road</span><span>Lions River</span><span>Cedara</span></div>
+        </div>
+        <div class="side">
+          <h3>Get in touch</h3>
+          <div class="lines">
+            <div><span>Phone</span><b>033 000 0000</b></div>
+            <div><span>WhatsApp</span><b>082 000 0000</b></div>
+            <div><span>Hours</span><b>Mon to Sat, 7am to 5pm</b></div>
+          </div>
+          <a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp Sipho</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Sithole &amp; Sons Painting · Hilton, KwaZulu-Natal</span><span>Painting · Waterproofing · Roof painting</span></div></footer>
+</body>
+</html>

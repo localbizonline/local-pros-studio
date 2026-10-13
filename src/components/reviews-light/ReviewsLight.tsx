@@ -12,7 +12,8 @@ import HowItWorksPhone from '../section-library/sections/HowItWorksPhone';
 import FitCheck from '../section-library/sections/FitCheck';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import SiteChat from '../demo-popup/DemoPopup';
-import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
+import ExamplesChat, { openExamplesChat } from '../web-examples/ExamplesChat';
+import { IndustryPicker } from '../web-examples/ExamplesSections';
 import { openSiteChat } from '../demo-popup/openSiteChat';
 import ResultsCards from './ResultsCards';
 // Hero (9 Oct 2026, Jeremy's request): the homepage's Cape Town builder photo, with the floating phone showing his
@@ -130,7 +131,8 @@ export default function ReviewsLight() {
 
       <main>
         {/* HERO: what (Google reviews), who (people look you up), why (they read reviews before they call), and
-            one action: find your business on Google, as on the homepage */}
+            one action: the industry picker (12 Oct 2026; was a free review check), which opens the examples chat
+            with the reviews price */}
         <section className="rvl-hero">
           <div className="dd-container">
             <h1 className="dd-kw rvl-kw">Google review collection on WhatsApp</h1>
@@ -142,11 +144,11 @@ export default function ReviewsLight() {
               them your review link.
             </p>
             <div className="rvl-search">
-              <BusinessSearchBox
-                page="reviews"
-                plan="reviews"
-                buttonLabel="Find my business"
-                notOnGoogleLabel="Can’t find your business? Send us your details"
+              {/* The same industry picker as every service page (12 Oct 2026, replacing the free review check):
+                  it opens the examples chat with the reviews price */}
+              <IndustryPicker
+                reason="See your price and how we get businesses like yours more Google reviews."
+                onPick={(id) => openExamplesChat({ group: id, from: 'hero' })}
               />
               <p className="rvl-or">
                 Or{' '}
@@ -312,6 +314,7 @@ export default function ReviewsLight() {
       {/* The site chat: the search box and "Start now" open it with Google reviews picked; it saves the lead to
           Airtable the moment a business is picked. It never opens by itself here. */}
       <SiteChat page="reviews" />
+      <ExamplesChat variant="reviews" />
     </div>
   );
 }

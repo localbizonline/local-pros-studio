@@ -35,7 +35,7 @@ const PACKAGE_GROUPS: { name: string; items: string[] }[] = [
 const SINGLES: { plan: ChatPlan; name: string; price: string; unit: string; terms: string }[] = [
   { plan: 'reviews', name: 'Google reviews', price: 'R1,200', unit: 'a month', terms: 'Month to month. 30-day money-back guarantee.' },
   { plan: 'social', name: 'Social media posts', price: 'R2,000', unit: 'a month', terms: 'Month to month.' },
-  { plan: 'website', name: 'Website', price: 'R9,900', unit: 'once-off', terms: 'Plus R290 a month for hosting.' },
+  { plan: 'website', name: 'Website', price: 'From R6,500', unit: 'once-off', terms: 'Optional hosting and management package available.' },
 ];
 
 const TITLE = (
@@ -86,7 +86,7 @@ export default function Pricing({ page = false }: { page?: boolean }) {
           <div className="pr-addon">
             <p className="pr-addon-tag">Free on 12 months</p>
             <p className="pr-addon-name">
-              A new website, or yours refreshed <span>Worth R9,900</span>
+              A new website, or yours refreshed <span>Worth up to R9,900</span>
             </p>
             <p className="pr-addon-line">Hosting included, and after 12 months it’s yours.</p>
           </div>

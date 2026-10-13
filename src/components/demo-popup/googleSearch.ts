@@ -17,7 +17,7 @@ export type Business = {
 };
 
 // Public browser key, the same one the join form uses; its website restrictions decide where it works
-const MAPS_KEY = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
+export const MAPS_KEY = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
 
 // Google files many service businesses under a bare "Services"; that says nothing, so leave it out
 export const usefulCategory = (label: string) => (/^services?$/i.test(label.trim()) ? '' : label.trim());
@@ -46,7 +46,7 @@ const FIELDS = [
   .join(',');
 const SOUTH_AFRICA = { rectangle: { low: { latitude: -34.9, longitude: 16.4 }, high: { latitude: -22.1, longitude: 32.95 } } };
 
-const searchGoogle = async (textQuery: string): Promise<Business[]> => {
+export const searchGoogle = async (textQuery: string): Promise<Business[]> => {
   const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': MAPS_KEY, 'X-Goog-FieldMask': FIELDS },

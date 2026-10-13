@@ -21,7 +21,7 @@ import closingPhoto from '../../assets/images/review-contractor-happy.webp';
 const FAQ = [
   {
     q: 'Why does it cost R2,500 a month?',
-    a: 'You get two services for less than the price of both, plus a free website worth R9,900 on a 12-month commitment. We can charge R2,500 because most of the repetitive work is automated, using the same system that got Local Pros over 1,400 Google reviews.',
+    a: 'You get two services for less than the price of both, plus a free website worth up to R9,900 on a 12-month commitment. We can charge R2,500 because most of the repetitive work is automated, using the same system that got Local Pros over 1,400 Google reviews.',
   },
   {
     q: 'Is there a contract?',
@@ -29,11 +29,11 @@ const FAQ = [
   },
   {
     q: 'Can I take just one service?',
-    a: 'Yes. Google reviews is R1,200 a month and social media posts R2,000 a month, both month to month. A website on its own is R9,900 once-off, plus R290 a month for hosting.',
+    a: 'Yes. Google reviews is R1,200 a month and social media posts R2,000 a month, both month to month. A website on its own is from R6,500 once-off, with an optional hosting and management package: see your exact price on our website page.',
   },
   {
     q: 'I already have a website. Can you refresh it?',
-    a: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free on the 12-month package, or R9,900 once-off on its own.',
+    a: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free on the 12-month package, or from R6,500 once-off on its own.',
   },
   {
     q: 'How much of my time does it take?',

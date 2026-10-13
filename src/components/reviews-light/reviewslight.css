@@ -62,6 +62,14 @@
   text-align: left;
 }
 
+.rvl .rvl-check-label {
+  margin: 0 0 10px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+}
+
 .rvl .rvl-or {
   margin: 14px 0 0;
   font-size: 0.9375rem;

@@ -9,7 +9,8 @@ import SiteFooter from '../section-library/sections/SiteFooter';
 import Pricing from '../section-library/sections/Pricing';
 import WhyNote from '../section-library/sections/WhyNote';
 import SiteChat from '../demo-popup/DemoPopup';
-import BusinessSearchBox from '../demo-popup/BusinessSearchBox';
+import ExamplesChat, { openExamplesChat } from '../web-examples/ExamplesChat';
+import { IndustryPicker } from '../web-examples/ExamplesSections';
 import ReputationStory from '../section-library/sections/ReputationStory';
 import ClosingCard from '../section-library/sections/ClosingCard';
 import closingPhoto from '../../assets/images/review-contractor-happy.webp';
@@ -27,15 +28,15 @@ const CTA = SITE_WHATSAPP_URL;
 const faqs = [
   {
     question: 'Why does it cost R2,500 a month?',
-    answer: 'You get two services for one price, plus a bonus website worth R9,900 if you need a new one or a refresh (on a 12-month commitment). An agency usually charges R5,000 a month or more for social media alone, and hiring someone costs R3,000 to R11,000 a month plus your time managing them. We can charge R2,500 because most of the repetitive work is automated, using the same system that got Local Pros over 1,400 Google reviews.',
+    answer: 'You get two services for one price, plus a bonus website worth up to R9,900 if you need a new one or a refresh (on a 12-month commitment). An agency usually charges R5,000 a month or more for social media alone, and hiring someone costs R3,000 to R11,000 a month plus your time managing them. We can charge R2,500 because most of the repetitive work is automated, using the same system that got Local Pros over 1,400 Google reviews.',
   },
   {
     question: 'Do you build websites too?',
-    answer: 'Yes. If you sign up and don’t have a website, or yours is outdated, we’ll build you a new one for free (normally R9,900) on a 12-month commitment. After 12 months it’s yours. If you then stop the plan, you keep it on our R290 a month hosting and management, which includes 1 hour of changes a month.',
+    answer: 'Yes. If you sign up and don’t have a website, or yours is outdated, we’ll build you a new one for free (worth up to R9,900) on a 12-month commitment. After 12 months it’s yours. If you then stop the plan, you keep it with our monthly hosting and management, which includes 1 hour of changes a month.',
   },
   {
     question: 'I already have a website. Can you refresh it?',
-    answer: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free (normally R9,900) on the 12-month plan, or R9,900 once-off on its own, plus R290 a month for hosting.',
+    answer: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free (worth up to R9,900) on the 12-month plan, or from R6,500 once-off on its own, with an optional hosting and management package.',
   },
   {
     question: 'What if a customer is unhappy?',
@@ -72,7 +73,16 @@ export default function JoinLight() {
 
       <main>
         {/* HERO: "More Google reviews. Social media posts. A better website." (picked 8 Oct 2026) */}
-        <HeroThreeServices costsHref="#pricing" search={<BusinessSearchBox page="home" plan="package" buttonLabel="Find my business" />} />
+        {/* The same industry picker as every service page (12 Oct 2026): it opens the examples chat below */}
+        <HeroThreeServices
+          costsHref="#pricing"
+          cta={
+            <IndustryPicker
+              reason="See what’s popular for businesses like yours, with prices."
+              onPick={(id) => openExamplesChat({ group: id, from: 'hero' })}
+            />
+          }
+        />
 
         {/* YOUR REPUTATION: the customer path, animated "Follow the customer" (picked 7 Oct 2026) */}
         <ReputationStory variant="follow" />
@@ -135,6 +145,8 @@ export default function JoinLight() {
       {/* The site chat: "Start now" buttons open it with the plan picked; it saves the lead to Airtable
           and opens WhatsApp (8 Oct 2026). It never opens by itself on the homepage. */}
       <SiteChat page="home" />
+      {/* The "Not sure where to start?" pop-up and examples chat: reviews, posts or a website (12 Oct 2026) */}
+      <ExamplesChat variant="home" />
     </div>
   );
 }

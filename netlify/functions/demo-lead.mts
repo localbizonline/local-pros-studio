@@ -8,10 +8,13 @@
 // Never Source = "Incoming": that starts the join form's WhatsApp opener automation.
 // It also WhatsApps Jeremy and Ashley through SP2 (POST WEBSITE_LEAD_ALERT_URL, recipients = SP2's
 // "Website leads" group): kind "started" when someone first uses the chat (alert only, nothing saved)
-// and kind "lead" when a lead is saved. Team devices never call this (src/teamDevice.ts).
+// and kind "lead" when a lead is saved. When a visitor who wants a website presses send, it also starts
+// their free demo website (netlify/lib/demo.mts). Team devices never call this (src/teamDevice.ts).
 // Dry run unless DEMO_LEAD_LIVE_WRITES is exactly "true" (production only): then it returns the fields instead.
 
 declare const Netlify: { env: { get(name: string): string | undefined } };
+
+import { sendAlert, startDemo } from '../lib/demo.mts';
 
 const AIRTABLE_URL = 'https://api.airtable.com/v0/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN';
 const MAX_BODY_BYTES = 10_000;
@@ -22,8 +25,54 @@ const PLAN_NOTE: Record<string, string> = {
   social: 'social media posting',
   website: 'website',
 };
+// A hero's free offer (src/components/demo-popup/openSiteChat.ts ChatOffer, 9 Oct 2026) says what they asked for instead
+const OFFER_NOTE: Record<string, string> = {
+  checkup: 'Free check-up of their Google profile, Facebook and website',
+  'social-demo': 'Free social media demo (3 sample posts)',
+  'review-check': 'Checked their Google reviews, wants Google reviews',
+  // The examples chat (src/components/web-examples/, draft 12 Oct 2026): we WhatsApp them websites for their type of business
+  examples: 'Wants popular website designs for their type of business and our prices, on WhatsApp',
+};
+const OFFER_LABEL: Record<string, string> = {
+  checkup: 'free check-up',
+  'social-demo': 'free social media demo',
+  'review-check': 'review check',
+  examples: 'popular designs',
+};
+// The homepage examples chat's extra question, "What would help most?" (src/components/web-examples/ExamplesChat.tsx NEEDS)
+const NEED_NOTE: Record<string, string> = {
+  reviews: 'more Google reviews',
+  social: 'social media posts',
+  website: 'a new website',
+  package: 'all three: reviews, posts and a website (R2,500 a month)',
+};
+// The instant price chat (website page draft): how many services they offer and the price they were shown
+const SERVICES_NOTE: Record<string, string> = { '1-3': '1 to 3', '4+': '4 or more' };
+const servicesOf = (body: Record<string, unknown>) => (typeof body.services === 'string' && Object.hasOwn(SERVICES_NOTE, body.services) ? SERVICES_NOTE[body.services] : '');
+const priceShown = (body: Record<string, unknown>) => (typeof body.price === 'string' && /^(from )?R[\d,]{4,8}( a month)?$/.test(body.price) ? body.price : '');
+// What the examples chat promised, by page and plan (src/components/web-examples/ExamplesChat.tsx VARIANTS)
+const examplesWhat = (body: Record<string, unknown>) =>
+  body.page === 'home' ? 'examples of our work' : body.plan === 'reviews' ? 'Google review examples' : body.plan === 'social' ? 'social media post examples' : 'popular designs';
+const needOf = (body: Record<string, unknown>) => (typeof body.need === 'string' && Object.hasOwn(NEED_NOTE, body.need) ? NEED_NOTE[body.need] : '');
+// What the team should send someone from the examples chat
+// A price button's "get started" (src/components/web-examples/ExamplesChat.tsx START): they've chosen already
+const isStart = (body: Record<string, unknown>) => body.start === true;
+const startPlan = (body: Record<string, unknown>) => (body.plan === 'package' ? 'the R2,500 a month package (website, social posts, reviews)' : 'a website');
+const sendWhat = (body: Record<string, unknown>) =>
+  isStart(body)
+    ? `They want to get started with ${startPlan(body)}: confirm what they need and send the next steps.`
+    : priceShown(body) && body.plan === 'reviews'
+    ? `Send them how we get their type of business more Google reviews and confirm the ${priceShown(body)} price they saw.`
+    : priceShown(body) && body.plan === 'social'
+    ? `Send examples of posts for their type of business and confirm the ${priceShown(body)} price they saw.`
+    : priceShown(body)
+    ? `Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and confirm the ${priceShown(body)} price they saw, plus the optional hosting and management package.`
+    : needOf(body)
+    ? `Send 2 or 3 examples of our work for their type of business (they want ${needOf(body)}) and our prices.`
+    : 'Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and our prices.';
+
 const PAGE_NOTE: Record<string, string> = {
-  'website-design': 'studio.localpros.co.za/website-design',
+  'website-design': 'the Google Ads website page (/go/website-design)',
   'web-design': 'studio.localpros.co.za/website-design-package',
   home: 'the homepage',
   join: 'the join page',
@@ -34,6 +83,7 @@ const PAGE_NOTE: Record<string, string> = {
 // A second Source tag per page, beside "Website", so leads can be filtered by where they came from.
 // typecast creates the option the first time a page sends a lead.
 const PAGE_SOURCE: Record<string, string> = {
+  // The Google Ads page: /website-design until 9 Oct 2026, /go/website-design since 13 Oct 2026
   'website-design': 'Website – website design page',
   // The same page with the site menu, reached from the site rather than from Google Ads (8 Oct 2026)
   'web-design': 'Website – website design page (site menu)',
@@ -52,10 +102,11 @@ const STEP_NOTE: Record<string, string> = {
   typed: 'typed their details (not found on Google)',
   answered: 'answered the quick questions',
   sent: 'pressed send (WhatsApp opened)',
+  requested: 'asked for the examples on WhatsApp',
 };
 // The chat's quick questions (src/components/demo-popup/DemoPopup.tsx QUESTIONS): only these answers are kept
 const ANSWERS: Record<string, { label: string; options: Record<string, string> }> = {
-  pay: { label: 'Prefers to pay', options: { once: 'once-off (R9,900)', rent: 'rent to own (R450 a month)', package: 'free with reviews + social posts (R2,500 a month)', unsure: 'not sure yet' } },
+  pay: { label: 'Prefers to pay', options: { once: 'once-off (from R6,500; R9,900 on the Google Ads price pages)', rent: 'rent to own (R450 a month, Google Ads price pages only)', package: 'free with reviews + social posts (R2,500 a month)', unsure: 'not sure yet' } },
   site: { label: 'Website now', options: { none: 'none', 'needs-work': 'has one, needs work', fine: 'has one, it’s fine' } },
   when: { label: 'Timing', options: { asap: 'as soon as possible', month: 'in the next month', looking: 'just looking for now' } },
 };
@@ -73,8 +124,28 @@ const stepsFrom = (body: Record<string, unknown>) =>
 const noteFor = (body: Record<string, unknown>) => {
   const page = typeof body.page === 'string' && Object.hasOwn(PAGE_NOTE, body.page) ? PAGE_NOTE[body.page] : 'the website';
   const plan = typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan) ? PLAN_NOTE[body.plan] : '';
+  const offer = typeof body.offer === 'string' && Object.hasOwn(OFFER_NOTE, body.offer) ? OFFER_NOTE[body.offer] : '';
   const steps = stepsFrom(body).map((step) => STEP_NOTE[step]);
-  return [plan ? `Start now: ${plan}, from ${page}.` : `Free demo website request, from ${page}.`, steps.length ? `So far: ${steps.join(', ')}.` : '']
+  const type = text(body.businessType, 120);
+  const contact = text(body.contactName, 60);
+  const need = needOf(body);
+  return [
+    isStart(body)
+      ? `Wants to get started with ${startPlan(body)}, from ${page}.`
+      : body.offer === 'examples'
+      ? `Wants ${examplesWhat(body)} for their type of business and the price, on WhatsApp, from ${page}.`
+      : offer
+      ? `${offer}, from ${page}.`
+      : plan
+      ? `Start now: ${plan}, from ${page}.`
+      : `Free demo website request, from ${page}.`,
+    type ? `Type of business (they picked): ${type}.` : '',
+    need ? `What would help most: ${need}.` : '',
+    servicesOf(body) ? `Services they offer: ${servicesOf(body)}.` : '',
+    priceShown(body) ? `Price shown in the chat: ${priceShown(body)} (hosting package extra).` : '',
+    contact ? `Name: ${contact}.` : '',
+    steps.length ? `So far: ${steps.join(', ')}.` : '',
+  ]
     .filter(Boolean)
     .join('\n');
 };
@@ -202,7 +273,15 @@ const ALERT_PAGE: Record<string, string> = {
 const pageLabel = (body: Record<string, unknown>) =>
   typeof body.page === 'string' && Object.hasOwn(ALERT_PAGE, body.page) ? ALERT_PAGE[body.page] : 'the website';
 const planLabel = (body: Record<string, unknown>) =>
-  typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan) ? PLAN_NOTE[body.plan] : 'free demo';
+  body.start === true
+    ? `get started: ${body.plan === 'package' ? 'R2,500 package' : 'website'}`
+    : body.offer === 'examples'
+    ? examplesWhat(body)
+    : typeof body.offer === 'string' && Object.hasOwn(OFFER_LABEL, body.offer)
+    ? OFFER_LABEL[body.offer]
+    : typeof body.plan === 'string' && Object.hasOwn(PLAN_NOTE, body.plan)
+    ? PLAN_NOTE[body.plan]
+    : 'free demo';
 
 const startedText = (body: Record<string, unknown>) =>
   `👀 Someone started using the chat on ${pageLabel(body)} (${planLabel(body)}).\nNo details yet. You'll get another message if they leave them.`;
@@ -213,16 +292,25 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
   return [
     `🟢 New website lead: ${fields[F.companyName]}`,
     `From ${pageLabel(body)} (${planLabel(body)})`,
+    text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
+    needOf(body) && `Wants most: ${needOf(body)}`,
+    servicesOf(body) && `Services: ${servicesOf(body)}`,
+    priceShown(body) && `Price shown: ${priceShown(body)}`,
     fields[F.gbpCategory] && `Type: ${fields[F.gbpCategory]}`,
+    text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
     fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
     fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
     fields[F.website] && `Website: ${fields[F.website]}`,
     fields[F.facebook] && `Facebook: ${fields[F.facebook]}`,
     fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
     typeof rating === 'number' && `Rating: ${rating} (${reviews ?? 0} reviews)`,
-    body.mode === 'manual' && 'Not found on Google (typed their details).',
+    body.mode === 'manual' && String(fields[F.companyName]).includes(PLACEHOLDER_NAME)
+      ? "Business name not given yet: you'll get another message if they add it."
+      : body.mode === 'manual' && 'Not found on Google (typed their details).',
     ...answersFrom(body).map((a) => a.text),
-    stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
+    stepsFrom(body).includes('requested') && `👉 WhatsApp them. ${sendWhat(body)}`,
+    stepsFrom(body).includes('picked') && !stepsFrom(body).includes('confirmed') && !stepsFrom(body).includes('requested') && body.offer !== 'examples' && "Picked on Google, not confirmed yet. You'll get another message if they press send.",
+    stepsFrom(body).includes('picked') && body.offer === 'examples' && !stepsFrom(body).includes('requested') && "Picked on Google. You'll get another message if they leave their WhatsApp number.",
     recordId ? `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}` : 'Not saved to Airtable (error). Details above.',
   ]
     .filter(Boolean)
@@ -261,6 +349,41 @@ const sentText = (body: Record<string, unknown>, fields: Record<string, unknown>
     `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
   ].join('\n');
 
+// The examples chat saves the lead before it knows the business, named "<their name> (business name to follow)"
+// (src/components/web-examples/ExamplesChat.tsx PLACEHOLDER); its business name arrives in a later update
+const PLACEHOLDER_NAME = 'business name to follow';
+const namedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) => {
+  const rating = fields[F.gbpReviewScore];
+  return [
+    `🏢 ${text(body.contactName, 60) || 'The website visitor'} gave their business name: ${fields[F.companyName]}`,
+    body.mode === 'google' ? fields[F.gbpCategory] && `Type: ${fields[F.gbpCategory]}` : 'Not picked on Google (typed it).',
+    fields[F.gbpPhone] && `Phone: ${fields[F.gbpPhone]}`,
+    fields[F.website] && `Website: ${fields[F.website]}`,
+    fields[F.gbpUrl] && `Google: ${fields[F.gbpUrl]}`,
+    typeof rating === 'number' && `Rating: ${rating} (${fields[F.gbpReviewCount] ?? 0} reviews)`,
+    fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
+    `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+};
+
+const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
+  [
+    isStart(body)
+      ? `🚀 ${fields[F.companyName]} wants to get started (${body.plan === 'package' ? 'R2,500 package' : 'website'}): WhatsApp them now.`
+      : `📨 ${fields[F.companyName]} wants ${examplesWhat(body)}: WhatsApp them now.`,
+    text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
+    needOf(body) && `Wants most: ${needOf(body)}`,
+    priceShown(body) && `Price shown: ${priceShown(body)}${servicesOf(body) ? ` (${servicesOf(body)} services)` : ''}`,
+    text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
+    fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
+    sendWhat(body),
+    `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
 // The pass for one record: HMAC-SHA256 of its id, keyed with the server-only Airtable token
 async function passFor(recordId: string, secret: string) {
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(`demo-lead:${secret}`), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
@@ -275,28 +398,14 @@ const sameText = (a: string, b: string) => {
   return diff === 0;
 };
 
-// Never blocks or fails the visitor's request: a missed alert is logged, the lead is still saved
-async function sendAlert(kind: 'started' | 'lead', text: string) {
-  const url = Netlify.env.get('WEBSITE_LEAD_ALERT_URL');
-  const key = Netlify.env.get('WEBSITE_LEAD_ALERT_KEY');
-  if (!url || !key) {
-    console.error('Lead alert not sent: WEBSITE_LEAD_ALERT_URL or WEBSITE_LEAD_ALERT_KEY is not set');
-    return;
-  }
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ kind, text }),
-      signal: AbortSignal.timeout(6000),
-    });
-    if (!res.ok) console.error('Lead alert failed', res.status, (await res.text()).slice(0, 300));
-  } catch (err) {
-    console.error('Lead alert error', err instanceof Error ? err.message : String(err));
-  }
-}
+// A free demo website (netlify/lib/demo.mts) for visitors who asked for one: the free demo offer or the
+// website plan, found on Google. Started when they press send, once per lead.
+const wantsDemoWebsite = (body: Record<string, unknown>) => body.mode === 'google' && !body.offer && (!body.plan || body.plan === 'website');
 
-export default async (request: Request) => {
+// Netlify's context: waitUntil lets the demo start finish after the visitor has their answer
+type Context = { waitUntil?: (promise: Promise<unknown>) => void };
+
+export default async (request: Request, context?: Context) => {
   const origin = request.headers.get('Origin') || '';
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405);
   if (!allowedOrigin(origin)) return json({ ok: false, error: 'forbidden' }, 403);
@@ -359,10 +468,32 @@ export default async (request: Request) => {
         return json({ ok: false, error: 'server' }, 502);
       }
       const oldNote = typeof old[F.message] === 'string' ? (old[F.message] as string) : '';
-      if (old[F.companyName] && old[F.companyName] !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
-      if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
+      const oldName = typeof old[F.companyName] === 'string' ? (old[F.companyName] as string) : '';
+      if (oldName.includes(PLACEHOLDER_NAME) && oldName !== fields[F.companyName]) await sendAlert('lead', namedText(body, fields, recordId));
+      else if (oldName && oldName !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
+      const requested = stepsFrom(body).includes('requested') && !oldNote.includes(STEP_NOTE.requested);
+      // Asking for the examples says it all in one message, number included
+      if (requested) await sendAlert('lead', requestedText(body, fields, recordId));
+      else if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
       if (stepsFrom(body).includes('answered') && !oldNote.includes(STEP_NOTE.answered)) await sendAlert('lead', answersText(body, fields, recordId));
-      if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) await sendAlert('lead', sentText(body, fields, recordId));
+      if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) {
+        await sendAlert('lead', sentText(body, fields, recordId));
+        if (wantsDemoWebsite(body)) {
+          const demo = startDemo({
+            recordId,
+            name: String(fields[F.companyName]),
+            category: (fields[F.gbpCategory] as string) || undefined,
+            address: text(body.address, 200) || undefined,
+            phone: (fields[F.gbpPhone] as string) || undefined,
+            website: (fields[F.gbpWebsite] as string) || undefined,
+            googleMapsUrl: (fields[F.gbpUrl] as string) || undefined,
+            rating: fields[F.gbpReviewScore] as number | undefined,
+            reviewCount: fields[F.gbpReviewCount] as number | undefined,
+          });
+          if (context?.waitUntil) context.waitUntil(demo);
+          else await demo;
+        }
+      }
       return json({ ok: true }, 200);
     } catch (err) {
       console.error('Airtable update error', err instanceof Error ? err.message : String(err));

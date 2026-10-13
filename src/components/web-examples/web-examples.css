@@ -1,0 +1,1277 @@
+/* The website design page (web-design-light/WebDesignLight.tsx) and the shared examples chat and pop-up (ExamplesChat.tsx, also on the homepage), 12 Oct 2026, on the .dd-a tokens.
+   Shop-window cards and the slide-up card follow cosmopools.co.za, in our light look. Scoped to .wx-page. */
+
+/* ---------- Hero: "What type of business do you run?" ---------- */
+
+.wx-page .wx-hero .dd-lede {
+  max-width: 34em;
+}
+
+.wx-pick {
+  max-width: 760px;
+  margin: 28px auto 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+  text-align: left;
+}
+
+.wx-pick-q {
+  margin-bottom: 12px;
+  font-family: var(--font-head);
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* The chat's rows in the hero: two columns on computers, one on phones */
+.wx-pick-rows {
+  position: relative;
+}
+
+.wx-pick .wx-rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.wx-pick .wx-row-btn:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+/* The floating pointer (business-search-box.css .fd-guide): placed on a row's arrow by IndustryPicker, it
+   glides to the next row every couple of seconds; its note hangs over the arrow of the row below */
+.wx-pick .wx-guide {
+  right: auto;
+  transition: left 0.7s cubic-bezier(0.45, 0, 0.2, 1), top 0.7s cubic-bezier(0.45, 0, 0.2, 1);
+}
+
+.wx-pick-reason {
+  margin: -6px 0 12px;
+  font-size: 0.9375rem;
+  text-align: center;
+  color: var(--body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wx-pick .wx-guide {
+    transition: none;
+  }
+}
+
+.wx-pick .wx-guide .fd-guide-label {
+  font-size: 14px;
+}
+
+.wx-pick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.wx-pick-btn,
+.wx-chip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-height: 56px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.wx-pick-btn strong,
+.wx-chip strong {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.wx-pick-btn span,
+.wx-chip span {
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  color: var(--muted);
+}
+
+.wx-pick-btn:hover,
+.wx-chip:hover {
+  border-color: var(--ink);
+}
+
+.wx-pick-btn:active,
+.wx-chip:active {
+  background: var(--surface-2);
+}
+
+/* ---------- Shop window: cards per website ---------- */
+
+.wx-shop {
+  border-top: 1px solid var(--line);
+}
+
+.wx-shop .dd-sub strong {
+  color: var(--ink);
+}
+
+.wx-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -16px 0 24px;
+}
+
+.wx-filter {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.wx-filter:hover {
+  border-color: var(--ink);
+}
+
+.wx-filter.is-on {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+
+.wx-shelf {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 272px;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 4px var(--gutter) 16px;
+  scroll-padding: 0 var(--gutter);
+  scrollbar-width: thin;
+}
+
+.wx-item {
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.wx-site {
+  margin: 0;
+}
+
+.wx-site-shot {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.wx-site-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.wx-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(28, 25, 23, 0.18);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.wx-tag.is-client {
+  background: var(--ink);
+  color: #fff;
+}
+
+.wx-item .wx-site-shot {
+  aspect-ratio: 5 / 6;
+}
+
+.wx-site figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px 0;
+}
+
+.wx-site figcaption strong {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.wx-site figcaption span {
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.wx-item-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  padding: 2px 14px 0;
+}
+
+.wx-item-price {
+  font-size: 0.9375rem;
+  color: var(--body);
+}
+
+.wx-item-price strong {
+  color: var(--ink);
+}
+
+.wx-item-actions {
+  display: flex;
+  margin-top: auto;
+  padding: 4px 14px 14px;
+}
+
+.wx-page .wx-item-btn {
+  flex: 1;
+  white-space: nowrap;
+  min-height: 44px;
+  padding: 10px 14px;
+  font-size: 0.9375rem;
+}
+
+.wx-item-visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+
+/* ---------- Three steps ---------- */
+
+.wx-steps-sec {
+  border-top: 1px solid var(--line);
+}
+
+.wx-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wx-steps li {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+}
+
+.wx-step-num {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-head);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.wx-steps .dd-h3 {
+  margin-bottom: 6px;
+}
+
+.wx-steps p {
+  font-size: 1.0625rem;
+}
+
+.wx-center {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.wx-page .wx-closing-btn {
+  width: 100%;
+  min-height: 60px;
+  font-size: 1.1875rem;
+}
+
+/* ---------- The chat: full screen on phones, a tall card on computers (mock-up E, 12 Oct 2026) ---------- */
+
+.wx-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(28, 25, 23, 0.45);
+  animation: wx-fade 0.2s ease-out;
+}
+
+.wx-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 91;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  background: #fff;
+  font-family: var(--font-body);
+  animation: wx-up 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wx-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px 10px 14px;
+}
+
+.wx-avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--ink);
+  font-family: var(--font-head);
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.wx-head-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.wx-head-title {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.wx-head-sub {
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  color: var(--muted);
+}
+
+.wx-head-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.wx-head-rating strong {
+  color: var(--ink);
+}
+
+.wx-stars {
+  font-size: 0.8125rem;
+  letter-spacing: 0.5px;
+  color: #fbbc05;
+}
+
+.wx-icon-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.wx-progress {
+  display: flex;
+  gap: 6px;
+  padding: 0 16px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.wx-progress i {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  transition: background-color 0.3s;
+}
+
+.wx-progress i.is-on {
+  background: var(--accent);
+}
+
+.wx-log {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 16px 20px;
+  background: var(--cream);
+}
+
+.wx-log > * {
+  flex-shrink: 0;
+}
+
+/* Few lines sit at the bottom, near the thumb, like a messaging app */
+.wx-log-start {
+  margin-top: auto;
+}
+
+.wx-bot,
+.wx-me {
+  max-width: 86%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.wx-bot {
+  align-self: flex-start;
+  border-radius: 16px 16px 16px 4px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.06);
+  color: var(--body);
+}
+
+.wx-bot.is-strong,
+.wx-bot strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wx-me {
+  align-self: flex-end;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--accent-soft);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* The seven types of business: full-width rows with two small website pictures */
+.wx-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.wx-row-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.wx-row-btn:hover {
+  border-color: var(--ink);
+}
+
+.wx-thumbs {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 44px;
+}
+
+.wx-thumbs img {
+  position: absolute;
+  top: 2px;
+  width: 30px;
+  height: 40px;
+  object-fit: cover;
+  object-position: top;
+  border: 1.5px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(28, 25, 23, 0.25);
+}
+
+.wx-thumbs img:first-child {
+  left: 2px;
+  transform: rotate(-6deg);
+}
+
+.wx-thumbs img:nth-child(2) {
+  left: 20px;
+  transform: rotate(5deg);
+}
+
+.wx-row-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.wx-row-text strong {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.wx-row-text span {
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.wx-chev {
+  flex: none;
+  color: var(--muted);
+}
+
+.wx-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wx-chip {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.wx-chip:hover {
+  border-color: var(--ink);
+}
+
+.wx-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wx-typing-label {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.wx-dots {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.wx-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: wx-dot 1s infinite ease-in-out;
+}
+
+.wx-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.wx-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.wx-matches {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wx-match {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 56px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wx-match:hover {
+  border-color: var(--ink);
+}
+
+.wx-match strong {
+  font-size: 0.9375rem;
+  color: var(--ink);
+}
+
+.wx-match span {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.wx-match.is-none {
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Their price, straight after their number (instant price draft) */
+.wx-price {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 70%;
+  border: 2px solid var(--accent);
+}
+
+.wx-price-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.wx-bot .wx-price-amount {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.wx-price-note {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.wx-done {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.wx-done-tick {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.wx-done strong {
+  display: block;
+}
+
+/* What they type: pinned at the bottom */
+.wx-foot {
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+
+.wx-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wx-composer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wx-composer .wx-input {
+  border-radius: 999px;
+}
+
+.wx-send-round {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.wx-send-round:hover {
+  background: var(--btn-bg-hover);
+}
+
+.wx-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.wx-input:focus {
+  border-color: var(--ink);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+}
+
+.wx-input[aria-invalid='true'] {
+  border-color: #b91c1c;
+}
+
+.wx-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wx-phone {
+  display: flex;
+  gap: 8px;
+}
+
+.wx-cc {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface-2);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.wx-page .wx-send,
+.wx-page .wx-back-page {
+  width: 100%;
+}
+
+.wx-error {
+  font-size: 0.875rem;
+  color: #b91c1c;
+}
+
+.wx-small {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* The chat brings its own .dd token scope (ExamplesChat.tsx) without adding a box to the page */
+.wx-root {
+  display: contents;
+}
+
+/* ---------- The slide-up card ("Not sure where to start?") ---------- */
+
+.wx-nudge {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 80;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 60px -12px rgba(28, 25, 23, 0.5), 0 2px 8px rgba(28, 25, 23, 0.08);
+  animation: wx-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wx-nudge.is-closing {
+  transform: translateY(120%);
+  transition: transform 0.2s ease-in;
+}
+
+.wx-nudge-x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(28, 25, 23, 0.15);
+}
+
+.wx-fan {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 124px;
+  margin-top: -44px;
+}
+
+.wx-fan > * {
+  width: 92px;
+  height: 123px;
+  object-fit: cover;
+  object-position: top;
+  border: 3px solid #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px -8px rgba(28, 25, 23, 0.45);
+}
+
+.wx-fan > :nth-child(1) {
+  transform: rotate(-9deg) translate(14px, 12px);
+}
+
+.wx-fan > :nth-child(2) {
+  position: relative;
+  z-index: 1;
+}
+
+.wx-fan > :nth-child(3) {
+  transform: rotate(9deg) translate(-14px, 12px);
+}
+
+/* Our Google rating as a little card, for the homepage pop-up */
+.wx-fan-card {
+  padding: 0 4px 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: #fff;
+  font-size: 0.6875rem;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--muted);
+}
+
+.wx-fan-card strong {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.wx-fan-stars {
+  font-size: 0.8125rem;
+  letter-spacing: 1px;
+  color: #fbbc05;
+}
+
+.wx-nudge-body {
+  padding: 16px 20px 12px;
+}
+
+.wx-nudge-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.wx-nudge-eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.wx-nudge-title {
+  margin-top: 6px;
+  font-family: var(--font-head);
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.wx-nudge-text {
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+.wx-page .wx-nudge-btn {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.wx-nudge-no {
+  display: block;
+  width: 100%;
+  min-height: 40px;
+  margin-top: 4px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes wx-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes wx-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wx-pop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes wx-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wx-sheet,
+  .wx-nudge,
+  .wx-backdrop,
+  .wx-dots i {
+    animation: none;
+  }
+  .wx-nudge.is-closing {
+    transition: none;
+  }
+}
+
+/* ---------- Sizes ---------- */
+
+/* Shorter screens (small laptops, small phones): tighter rows so more of each step fits */
+@media (max-height: 780px) {
+  .wx-log {
+    gap: 6px;
+    padding-top: 12px;
+  }
+
+  .wx-row-btn {
+    min-height: 52px;
+    padding: 6px 12px;
+  }
+
+  .wx-thumbs {
+    width: 44px;
+    height: 38px;
+  }
+
+  .wx-thumbs img {
+    width: 26px;
+    height: 34px;
+  }
+
+  .wx-thumbs img:nth-child(2) {
+    left: 16px;
+  }
+
+  .wx-bot,
+  .wx-me {
+    padding: 8px 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .wx-sheet {
+    inset: auto;
+    left: 50%;
+    top: 50%;
+    width: 440px;
+    height: min(calc(100vh - 48px), 820px);
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    animation: wx-pop 0.22s ease-out;
+  }
+
+  .wx-nudge {
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    width: 380px;
+  }
+}
+
+@media (max-width: 767px) {
+  .wx-pick {
+    margin-top: 22px;
+    padding: 14px;
+  }
+
+  .wx-pick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wx-pick .wx-rows {
+    grid-template-columns: 1fr;
+  }
+
+
+
+  .wx-pick-btn:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .wx-pick-btn {
+    min-height: 52px;
+    padding: 8px 10px;
+  }
+
+  .wx-filters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    margin: -24px calc(-1 * var(--gutter)) 20px;
+    padding: 0 var(--gutter) 4px;
+    scrollbar-width: none;
+  }
+
+  .wx-filter {
+    flex: none;
+  }
+
+  .wx-shelf {
+    grid-auto-columns: 66%;
+  }
+
+  .wx-item .wx-site-shot {
+    aspect-ratio: 1 / 1;
+  }
+
+  .wx-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Instant price (web-design-light/WebDesignLight.tsx): proof line, headline and the price band ---------- */
+
+.wx-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wx-proof span {
+  color: #fbbc05;
+}
+
+.wx-page h1.wx-instant-title {
+  max-width: 14em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+}
+
+.wx-priceband {
+  border-top: 1px solid var(--line);
+}
+
+.wx-priceband-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.wx-priceband-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.wx-priceband-card.is-package {
+  background: var(--cream);
+}
+
+.wx-priceband-tag {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wx-priceband-price {
+  font-size: 1.0625rem;
+  color: var(--body);
+}
+
+.wx-priceband-price strong {
+  font-family: var(--font-head);
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.wx-priceband-small {
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.wx-priceband-card .dd-btn {
+  margin-top: auto;
+}
+
+.wx-priceband-link {
+  align-self: center;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .wx-priceband-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wx-priceband-card {
+    padding: 24px 20px;
+  }
+}

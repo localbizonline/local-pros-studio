@@ -28,7 +28,7 @@ export const PAGES: Record<string, PageSeo> = {
   '/pricing': {
     title: 'Prices: Google Reviews, Social Media & Websites | Local Pros Studio',
     description:
-      'Google reviews, social media posts and a website for R2,500 a month, with free setup. Or one service on its own: reviews R1,200, posts R2,000, website R9,900.',
+      'Google reviews, social media posts and a website for R2,500 a month, with free setup. Or one service on its own: reviews R1,200, posts R2,000, website from R6,500.',
   },
   '/social-media-posting-service': {
     title: 'Social Media Posting Service for SA Businesses | Local Pros Studio',
@@ -41,11 +41,18 @@ export const PAGES: Record<string, PageSeo> = {
     description: 'The previous version of our social media posting page, kept for reference.',
     noindex: true,
   },
-  // One page for everyone since 9 Oct 2026, Google Ads included (was /web-design and /website-design)
+  // One page since 9 Oct 2026 (was /web-design and /website-design); Google Ads use its no-menu copy below
   '/website-design-package': {
     title: 'Website Design South Africa | Local Pros Studio',
     description:
-      'We write, build and look after websites for South African businesses, set up for Google with WhatsApp and call buttons. Live in 7 days, from R450 a month.',
+      'Website design for South African businesses from R6,500. Get your instant price and popular designs for your industry. Written and built for you, live in 7 days.',
+  },
+  // Google Ads land on this copy of /website-design-package without the menu links (13 Oct 2026)
+  '/go/website-design': {
+    title: 'Website Design South Africa | Local Pros Studio',
+    description:
+      'Website design for South African businesses from R6,500. Get your instant price and popular designs for your industry. Written and built for you, live in 7 days.',
+    noindex: true,
   },
   '/about': {
     title: 'About Local Pros Studio | Google Reviews, Social Media & Websites',

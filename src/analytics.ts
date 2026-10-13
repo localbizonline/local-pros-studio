@@ -132,7 +132,9 @@ export const trackSectionViews = (page: string) => {
         }
       });
     },
-    { threshold: [0, 0.25, 0.5, 0.75, 1] },
+    // Checked at every 1% of the section, not every 25%: a section several screens tall (the website page's
+    // recent work is about 7 on a phone) never shows 25% of itself at once, so it was never counted (11 Oct 2026)
+    { threshold: Array.from({ length: 101 }, (_, i) => i / 100) },
   );
 
   // Pages load in pieces (lazy routes, the chat), so pick up sections added later too

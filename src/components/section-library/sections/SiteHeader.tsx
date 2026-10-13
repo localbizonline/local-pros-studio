@@ -21,8 +21,14 @@ const SITE_NAV: NavLink[] = [
   { label: 'About', to: '/about' },
 ];
 
-// Same-page links (#pricing) are plain anchors; pages go through the router
+// Same-page links (#pricing) are plain anchors, WhatsApp opens in a new tab; pages go through the router
 export function NavItem({ link, onClick }: { link: NavLink; onClick?: () => void }) {
+  if (/^https?:/.test(link.to))
+    return (
+      <a href={link.to} target="_blank" rel="noopener noreferrer" onClick={onClick}>
+        {link.label}
+      </a>
+    );
   return link.to.startsWith('#') ? (
     <a href={link.to} onClick={onClick}>
       {link.label}
@@ -36,17 +42,21 @@ export function NavItem({ link, onClick }: { link: NavLink; onClick?: () => void
 
 // minimal: logo and button only, for Google Ads landing pages, so ad visitors stay on the page (8 Oct 2026).
 // whatsAppUrl: the page's own WhatsApp opening (src/whatsapp.ts), so its chats can be counted apart.
+// cta: the page's own main action in the always-visible bar instead of "WhatsApp us" (the website page's
+// "Instant price", like Cosmo Pools' "Get Quote", 12 Oct 2026); WhatsApp then moves into the links.
 export default function SiteHeader({
   minimal = false,
   whatsAppUrl = SITE_WHATSAPP_URL,
+  cta,
 }: {
   // Not used since 9 Oct 2026: "Prices" always opens /pricing. Kept so pages that still pass it build.
   pricingHref?: string;
   minimal?: boolean;
   whatsAppUrl?: string;
+  cta?: { label: string; onClick: () => void };
 }) {
   const [open, setOpen] = useState(false);
-  const nav = minimal ? [] : SITE_NAV;
+  const nav = minimal ? [] : cta ? [...SITE_NAV, { label: 'WhatsApp us', to: whatsAppUrl }] : SITE_NAV;
 
   useEffect(() => {
     if (!open) return;
@@ -74,14 +84,20 @@ export default function SiteHeader({
             ))}
           </nav>
         )}
-        <a
-          href={whatsAppUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`dd-btn dd-btn-nav${minimal ? ' sh-btn-end' : ''}`}
-        >
-          WhatsApp us
-        </a>
+        {cta ? (
+          <button type="button" className={`dd-btn dd-btn-nav sh-cta${minimal ? ' sh-btn-end' : ''}`} onClick={cta.onClick}>
+            {cta.label}
+          </button>
+        ) : (
+          <a
+            href={whatsAppUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`dd-btn dd-btn-nav${minimal ? ' sh-btn-end' : ''}`}
+          >
+            WhatsApp us
+          </a>
+        )}
         {!minimal && (
           <button
             type="button"

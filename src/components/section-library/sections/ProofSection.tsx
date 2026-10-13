@@ -99,8 +99,8 @@ function WebsitesPart({ onOpen }: { onOpen: (s: Shot) => void }) {
           <dt>working days to go live</dt>
         </div>
         <div>
-          <dd>R9,900</dd>
-          <dt>once-off, or R450 a month</dt>
+          <dd>From R6,500</dd>
+          <dt>once-off, exact price in seconds</dt>
         </div>
         <div>
           <dd>Free</dd>

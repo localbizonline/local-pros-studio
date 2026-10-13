@@ -11,6 +11,10 @@ import type { Business } from './googleSearch';
 export type ChatPlan = 'package' | 'reviews' | 'social' | 'website';
 // Which page the chat is on: decides the opening lines, the WhatsApp opening and the Airtable note
 export type ChatPage = 'website-design' | 'web-design' | 'home' | 'join' | 'reviews' | 'social' | 'pricing';
+// A free offer the hero button makes, which changes the chat's words but not how it saves the lead (9 Oct 2026):
+// checkup = homepage "free check-up" of their Google profile, Facebook and website (works without a Google profile)
+// social-demo = social page "free demo", 3 sample posts; review-check = reviews page, their rating shown on the spot
+export type ChatOffer = 'checkup' | 'social-demo' | 'review-check';
 
 export const OPEN_CHAT_EVENT = 'lps:open-site-chat';
 
@@ -21,13 +25,20 @@ export const chatState = { mounted: 0 };
 // once and the cursor in Google's box, so it works like the box they clicked (8 Oct 2026)
 // business: picked in a search box on the page (BusinessSearchBox); the chat opens at "Is this your business?" with it
 // typeDetails: "Not on Google?" under that box; the chat opens at name, Facebook page or website, and WhatsApp number
+// offer: a hero's free offer (ChatOffer above), with the plan it leads to
 // prices: opens with the prices and lets them pick a plan in the chat first (test at /review-versions/prices-chat, 9 Oct 2026)
 export const openSiteChat = (
   plan?: ChatPlan,
-  { focusSearch = false, business, typeDetails = false, prices = false }: { focusSearch?: boolean; business?: Business; typeDetails?: boolean; prices?: boolean } = {},
+  {
+    focusSearch = false,
+    business,
+    typeDetails = false,
+    prices = false,
+    offer,
+  }: { focusSearch?: boolean; business?: Business; typeDetails?: boolean; prices?: boolean; offer?: ChatOffer } = {},
 ) => {
   if (chatState.mounted > 0) {
-    window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { plan, focusSearch, business, typeDetails, prices } }));
+    window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { plan, focusSearch, business, typeDetails, prices, offer } }));
   } else {
     capture('whatsapp_click', { page: window.location.pathname, from: 'chat_button_without_chat', plan });
     window.open(SITE_WHATSAPP_URL, '_blank', 'noopener,noreferrer');

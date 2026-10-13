@@ -619,7 +619,7 @@ const websiteFaqSections: LegalSection[] = [
               <strong>Bought outright (R9,900):</strong> the website is yours from launch.
             </li>
             <li>
-              <strong>Rent to own (R450/month):</strong> the website is yours after your 24th monthly payment.
+              <strong>Rent to own (R450/month):</strong> the website is yours after your 36th monthly payment.
             </li>
             <li>
               <strong>Free with our marketing plan:</strong> the website is yours once you have completed your
@@ -691,10 +691,11 @@ const websiteFaqSections: LegalSection[] = [
         <Question question="When do I pay the R290/month fee?">
           <ul>
             <li>
-              <strong>Bought outright:</strong> from launch.
+              <strong>Bought outright:</strong> from month 13. The first 12 months of hosting and management are
+              included in the R9,900.
             </li>
             <li>
-              <strong>Rent to own:</strong> hosting and management is included in your R450/month. After your 24th
+              <strong>Rent to own:</strong> hosting and management is included in your R450/month. After your 36th
               payment the website is yours and you move to the lower R290/month fee.
             </li>
             <li>
