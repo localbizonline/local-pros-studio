@@ -18,6 +18,8 @@ import teamEnquiries from './img/team-new-enquiries.webp';
 // price (R6,500, R9,900 or from R30,000) and asks the business name. Prices exclude hosting: only "optional
 // hosting and management package available" is said. The R2,500 a month package includes the website.
 // No public price table. "Instant price" sits in the menu bar. Before 12 Oct: examples first with R9,900.
+// ads: the same page for Google Ads at /go/website-design (Jeremy, 13 Oct 2026): no menu links and the short
+// footer, so ad visitors stay on the page. One component, so a change here shows on both addresses.
 
 const trackClick = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: `wd_site_${label}`, value: 1 });
 
@@ -95,13 +97,13 @@ function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id:
   );
 }
 
-export default function WebDesignLight() {
+export default function WebDesignLight({ ads = false }: { ads?: boolean }) {
   const WA_URL = whatsAppLink(WHATSAPP_MESSAGES.webDesign);
 
   return (
     <div className="dd dd-a wdl wx-page">
       {/* "Instant price" always in view, like Cosmo Pools' "Get Quote" (Jeremy, 12 Oct 2026) */}
-      <SiteHeader whatsAppUrl={WA_URL} pricingHref="#pricing" cta={{ label: 'Instant price', onClick: () => openExamplesChat({ from: 'menu' }) }} />
+      <SiteHeader minimal={ads} whatsAppUrl={WA_URL} cta={{ label: 'Instant price', onClick: () => openExamplesChat({ from: 'menu' }) }} />
 
       <main>
         <InstantHero waUrl={WA_URL} track={trackClick} />
@@ -168,7 +170,7 @@ export default function WebDesignLight() {
         />
       </main>
 
-      <SiteFooter whatsAppUrl={WA_URL} pricingHref="#pricing" faqHref="#faq" />
+      <SiteFooter minimal={ads} whatsAppUrl={WA_URL} faqHref="#faq" />
       <ExamplesChat variant="website-price" />
     </div>
   );

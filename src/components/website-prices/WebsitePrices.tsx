@@ -135,7 +135,7 @@ export default function WebsitePrices() {
 
   return (
     <div className="dd dd-a wdl wp">
-      <SiteHeader whatsAppUrl={WA_URL} pricingHref="#included" />
+      <SiteHeader minimal whatsAppUrl={WA_URL} />
 
       <main>
         {/* HERO: the three ways to pay as a price list on the first phone screen (option A, picked by Jeremy on
@@ -234,7 +234,7 @@ export default function WebsitePrices() {
         <PriceClosing waUrl={WA_URL} track={track} />
       </main>
 
-      <SiteFooter whatsAppUrl={WA_URL} pricingHref="#included" faqHref="#faq" />
+      <SiteFooter minimal whatsAppUrl={WA_URL} faqHref="#faq" />
 
       {/* The site chat (free demo); leads go to Airtable tagged "website design prices page" */}
       <SiteChat page="website-prices" trackPrefix="wp_demo_popup" />

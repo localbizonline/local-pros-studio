@@ -255,6 +255,8 @@ export const AppContent = () => {
           {/* Website design page (light rebuild, 8 Oct 2026); /web-design and the Google Ads page /website-design
               became this one address on 9 Oct 2026 */}
           <Route path="/website-design-package" element={<WebDesignLight />} />
+          {/* The same page for Google Ads, without the menu links (13 Oct 2026) */}
+          <Route path="/go/website-design" element={<WebDesignLight ads />} />
           <Route path="/prices/website-design" element={<WebsitePrices />} />
           <Route path="/prices/website-design-cost-guide" element={<CostGuide />} />
           <Route path="/about" element={<AboutLight />} />

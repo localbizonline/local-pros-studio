@@ -41,11 +41,18 @@ export const PAGES: Record<string, PageSeo> = {
     description: 'The previous version of our social media posting page, kept for reference.',
     noindex: true,
   },
-  // One page for everyone since 9 Oct 2026, Google Ads included (was /web-design and /website-design)
+  // One page since 9 Oct 2026 (was /web-design and /website-design); Google Ads use its no-menu copy below
   '/website-design-package': {
     title: 'Website Design South Africa | Local Pros Studio',
     description:
       'Website design for South African businesses from R6,500. Get your instant price and popular designs for your industry. Written and built for you, live in 7 days.',
+  },
+  // Google Ads land on this copy of /website-design-package without the menu links (13 Oct 2026)
+  '/go/website-design': {
+    title: 'Website Design South Africa | Local Pros Studio',
+    description:
+      'Website design for South African businesses from R6,500. Get your instant price and popular designs for your industry. Written and built for you, live in 7 days.',
+    noindex: true,
   },
   // The Google Ads price campaign lands here (11 Oct 2026). The address must start with /pric: the Ads
   // remarketing audience "Studio - Price page visitors (180d)" (id 9487031850) matches studio.localpros.co.za/pric.

@@ -122,7 +122,7 @@ export default function CostGuide() {
 
   return (
     <div className="dd dd-a wdl wp cg">
-      <SiteHeader whatsAppUrl={WA_URL} pricingHref="#ours" />
+      <SiteHeader minimal whatsAppUrl={WA_URL} />
 
       <main>
         {/* HERO: the answer first, as the middle price for each size, with the date and the number of companies */}
@@ -418,7 +418,7 @@ export default function CostGuide() {
         <PriceClosing waUrl={WA_URL} track={track} />
       </main>
 
-      <SiteFooter whatsAppUrl={WA_URL} pricingHref="#ours" faqHref="#faq" />
+      <SiteFooter minimal whatsAppUrl={WA_URL} faqHref="#faq" />
 
       {/* The site chat (free demo); leads go to Airtable tagged "website design cost guide" */}
       <SiteChat page="website-cost-guide" trackPrefix="wcg_demo_popup" />

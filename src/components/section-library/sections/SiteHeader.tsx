@@ -85,7 +85,7 @@ export default function SiteHeader({
           </nav>
         )}
         {cta ? (
-          <button type="button" className="dd-btn dd-btn-nav sh-cta" onClick={cta.onClick}>
+          <button type="button" className={`dd-btn dd-btn-nav sh-cta${minimal ? ' sh-btn-end' : ''}`} onClick={cta.onClick}>
             {cta.label}
           </button>
         ) : (
