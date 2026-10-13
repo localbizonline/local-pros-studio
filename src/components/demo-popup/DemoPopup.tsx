@@ -29,8 +29,8 @@ const PLAN: Record<ChatPlan, { chat: string; whatsApp: string }> = {
 
 // Quick questions after we have their number, one tap each (Jeremy, 8 Oct 2026): a feel for how they would
 // pay and how ready they are. Nothing is binding; the answers go to Airtable, the alert and the WhatsApp message.
-// Prices are the website page's (src/components/web-design-light): from R6,500, hosting extra (12 Oct 2026). The two
-// Google Ads price pages keep R9,900 / R450 until their A/B test ends (OLD_PRICE_PAGES). Never mention a posting frequency.
+// Prices are the website page's (src/components/web-design-light): from R6,500, hosting extra (12 Oct 2026).
+// Never mention a posting frequency.
 type QuestionId = 'pay' | 'site' | 'when';
 const QUESTIONS: Record<QuestionId, { ask: string; options: { value: string; label: string }[] }> = {
   pay: {
@@ -62,23 +62,13 @@ const QUESTIONS: Record<QuestionId, { ask: string; options: { value: string; lab
 const questionsFor = (plan?: ChatPlan): QuestionId[] =>
   !plan || plan === 'website' ? ['pay', 'site', 'when'] : plan === 'package' ? ['site', 'when'] : ['when'];
 type Answers = Partial<Record<QuestionId, string>>;
-// The Google Ads price pages still show R9,900 once-off or R450 a month (rent to own) until their test ends
-const OLD_PRICE_PAGES: ChatPage[] = ['website-prices', 'website-cost-guide'];
-const OLD_PAY_OPTIONS = [
-  { value: 'once', label: 'Once-off: R9,900' },
-  { value: 'rent', label: 'Rent to own: R450 a month' },
-  { value: 'package', label: 'Free with reviews + social posts (R2,500 a month)' },
-  { value: 'unsure', label: 'Not sure yet' },
-];
-const optionsFor = (id: QuestionId, page?: ChatPage) => (id === 'pay' && page && OLD_PRICE_PAGES.includes(page) ? OLD_PAY_OPTIONS : QUESTIONS[id].options);
-const answerLabel = (id: QuestionId, value?: string, page?: ChatPage) => optionsFor(id, page).find((o) => o.value === value)?.label || '';
+const optionsFor = (id: QuestionId) => QUESTIONS[id].options;
+const answerLabel = (id: QuestionId, value?: string) => optionsFor(id).find((o) => o.value === value)?.label || '';
 
 // Each page keeps the WhatsApp opening the bot and the weekly scoreboard already count (src/whatsapp.ts)
 const OPENING: Record<ChatPage, string> = {
   'website-design': WHATSAPP_MESSAGES.googleAds,
   'web-design': WHATSAPP_MESSAGES.webDesign,
-  'website-prices': WHATSAPP_MESSAGES.webDesign,
-  'website-cost-guide': WHATSAPP_MESSAGES.webDesign,
   home: WHATSAPP_MESSAGES.site,
   join: WHATSAPP_MESSAGES.site,
   reviews: WHATSAPP_MESSAGES.site,
@@ -151,7 +141,7 @@ const chatMessage = (page: ChatPage, plan: ChatPlan | undefined, offer: ChatOffe
         ]
       : [name.trim() && `Business name: ${name.trim()}`, link.trim() && `Facebook or website: ${link.trim()}`]),
     whatsApp && `My WhatsApp: ${showMobile(whatsApp)}`,
-    answers.pay && `Paying: ${answerLabel('pay', answers.pay, page)}`,
+    answers.pay && `Paying: ${answerLabel('pay', answers.pay)}`,
     answers.site && `Website now: ${answerLabel('site', answers.site)}`,
     answers.when && `When: ${answerLabel('when', answers.when)}`,
   ]
@@ -1169,7 +1159,7 @@ function ChatWindow({
                   <p>{QUESTIONS[id].ask}</p>
                   {!answers[id] && (
                     <div className="mt-2 flex flex-col gap-1.5">
-                      {optionsFor(id, page).map((o) => (
+                      {optionsFor(id).map((o) => (
                         <button
                           key={o.value}
                           type="button"
@@ -1186,7 +1176,7 @@ function ChatWindow({
                   <Bubble mine>
                     <span className="flex items-center gap-1.5 font-semibold">
                       <Check className="h-4 w-4 flex-none text-[#008069]" aria-hidden="true" />
-                      {answerLabel(id, answers[id], page)}
+                      {answerLabel(id, answers[id])}
                     </span>
                   </Bubble>
                 )}

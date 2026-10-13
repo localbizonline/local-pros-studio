@@ -72,10 +72,8 @@ const sendWhat = (body: Record<string, unknown>) =>
     : 'Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and our prices.';
 
 const PAGE_NOTE: Record<string, string> = {
-  'website-design': 'studio.localpros.co.za/website-design',
+  'website-design': 'the Google Ads website page (/go/website-design)',
   'web-design': 'studio.localpros.co.za/website-design-package',
-  'website-prices': 'the website design prices page',
-  'website-cost-guide': 'the website cost guide',
   home: 'the homepage',
   join: 'the join page',
   reviews: 'the Google reviews page',
@@ -85,13 +83,10 @@ const PAGE_NOTE: Record<string, string> = {
 // A second Source tag per page, beside "Website", so leads can be filtered by where they came from.
 // typecast creates the option the first time a page sends a lead.
 const PAGE_SOURCE: Record<string, string> = {
+  // The Google Ads page: /website-design until 9 Oct 2026, /go/website-design since 13 Oct 2026
   'website-design': 'Website – website design page',
   // The same page with the site menu, reached from the site rather than from Google Ads (8 Oct 2026)
   'web-design': 'Website – website design page (site menu)',
-  // The website design prices page, for the Google Ads price campaign (11 Oct 2026)
-  'website-prices': 'Website – website design prices page',
-  // Its A/B partner in the price campaign (11 Oct 2026)
-  'website-cost-guide': 'Website – website cost guide',
   home: 'Website – homepage',
   join: 'Website – join page',
   reviews: 'Website – Google reviews page',

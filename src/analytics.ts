@@ -157,26 +157,3 @@ export const trackSectionViews = (page: string) => {
     window.removeEventListener('pagehide', flush);
   };
 };
-
-// Price-intent visitors (11 Oct 2026): anyone who opens /prices/website-design, the landing page of the Google Ads
-// price campaign. Marks the device (price_intent on every later event, including other pages and visits), the
-// session (where it came from), and the person, so price shoppers can be filtered and followed in PostHog.
-const AD_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid'];
-
-export const trackPriceIntent = (page: string) => {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const ad: Props = {};
-    AD_PARAMS.forEach((key) => {
-      const value = params.get(key);
-      if (value) ad[key] = value.slice(0, 200);
-    });
-    const ph = window.posthog;
-    ph?.register({ price_intent: true });
-    ph?.register_for_session({ price_intent_session: true, price_page: page, ...ad });
-    ph?.setPersonProperties({ price_intent: true }, { first_price_page: page, first_price_page_at: new Date().toISOString(), ...ad });
-    capture('price_page_viewed', { page, from_ad: Boolean(ad.gclid || ad.gbraid || ad.wbraid || ad.utm_source), referrer: document.referrer || undefined, ...ad });
-  } catch {
-    /* analytics must never break the page */
-  }
-};

@@ -54,20 +54,6 @@ export const PAGES: Record<string, PageSeo> = {
       'Website design for South African businesses from R6,500. Get your instant price and popular designs for your industry. Written and built for you, live in 7 days.',
     noindex: true,
   },
-  // The Google Ads price campaign lands here (11 Oct 2026). The address must start with /pric: the Ads
-  // remarketing audience "Studio - Price page visitors (180d)" (id 9487031850) matches studio.localpros.co.za/pric.
-  '/prices/website-design': {
-    title: 'Website Design Prices South Africa | Local Pros Studio',
-    description:
-      'Website design prices: R9,900 once-off with 12 months of hosting and changes included, or R450 a month with nothing upfront. Live in 7 days.',
-  },
-  // The cost guide, tested against /prices/website-design in the price campaign (11 Oct 2026). The figures here are
-  // typed by hand from src/components/website-cost-guide/costGuideStats.ts: update them when the survey is redone.
-  '/prices/website-design-cost-guide': {
-    title: 'Website Cost in South Africa: 2026 Price Guide | Local Pros Studio',
-    description:
-      'What 20 South African web design companies charge in 2026: about R4,725 for 5 pages, R8,795 for 10, and what you pay after year one.',
-  },
   '/about': {
     title: 'About Local Pros Studio | Google Reviews, Social Media & Websites',
     description:

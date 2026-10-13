@@ -10,7 +10,7 @@ import type { Business } from './googleSearch';
 
 export type ChatPlan = 'package' | 'reviews' | 'social' | 'website';
 // Which page the chat is on: decides the opening lines, the WhatsApp opening and the Airtable note
-export type ChatPage = 'website-design' | 'web-design' | 'website-prices' | 'website-cost-guide' | 'home' | 'join' | 'reviews' | 'social' | 'pricing';
+export type ChatPage = 'website-design' | 'web-design' | 'home' | 'join' | 'reviews' | 'social' | 'pricing';
 // A free offer the hero button makes, which changes the chat's words but not how it saves the lead (9 Oct 2026):
 // checkup = homepage "free check-up" of their Google profile, Facebook and website (works without a Google profile)
 // social-demo = social page "free demo", 3 sample posts; review-check = reviews page, their rating shown on the spot

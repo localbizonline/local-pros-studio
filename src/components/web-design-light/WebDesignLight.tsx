@@ -171,7 +171,7 @@ export default function WebDesignLight({ ads = false }: { ads?: boolean }) {
       </main>
 
       <SiteFooter minimal={ads} whatsAppUrl={WA_URL} faqHref="#faq" />
-      <ExamplesChat variant="website-price" />
+      <ExamplesChat variant="website-price" page={ads ? 'website-design' : undefined} />
     </div>
   );
 }

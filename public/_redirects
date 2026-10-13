@@ -45,8 +45,12 @@
 /autopilot /pricing 301!
 # Retired 9 Oct 2026 (Jeremy): we no longer sell the recurring-booking service
 /recurring-service-booking-system / 301!
-# /prices has no page of its own; the website design prices page lives at /prices/website-design (11 Oct 2026)
+# /prices has no page of its own
 /prices /pricing 301!
-/website-design-prices /prices/website-design 301!
+# The Google Ads price pages, retired 13 Oct 2026 when the ads moved to /go/website-design (Jeremy).
+# They go to the indexed website page, not the ads-only /go copy, since Google had listed them.
+/website-design-prices /website-design-package 301!
+/prices/website-design /website-design-package 301!
+/prices/website-design-cost-guide /website-design-package 301!
 # Keep this catch-all last: Netlify uses the first rule that matches
 /* /spa.html 200

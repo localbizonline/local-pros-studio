@@ -419,8 +419,9 @@ export function IndustryRows({ onPick }: { onPick: (g: Group) => void }) {
   );
 }
 
-export default function ExamplesChat({ variant = 'website' }: { variant?: ChatVariant }) {
-  const cfg: VariantConfig = VARIANTS[variant];
+// page: tags the leads by door when one variant runs on two (the ads copy /go/website-design sends 'website-design')
+export default function ExamplesChat({ variant = 'website', page }: { variant?: ChatVariant; page?: ChatPage }) {
+  const cfg: VariantConfig = page ? { ...VARIANTS[variant], page } : VARIANTS[variant];
   const step = (name: string, p: Record<string, string | undefined> = {}) => capture('examples_chat_step', { step: name, page: cfg.page, ...p });
   const [open, setOpen] = useState(false);
   const [need, setNeed] = useState<Need | null>(null);
