@@ -290,6 +290,9 @@ function NudgeFan({ variant }: { variant: ChatVariant }) {
   );
 }
 
+// What counts as them scrolling, not the page
+const INPUT_EVENTS = ['wheel', 'touchmove', 'keydown', 'pointerdown'] as const;
+
 function Nudge({ variant, blocked, onOpen }: { variant: ChatVariant; blocked: boolean; onOpen: () => void }) {
   const cfg = VARIANTS[variant];
   const key = `lps_examples_nudge_${variant}`;
@@ -317,7 +320,15 @@ function Nudge({ variant, blocked, onOpen }: { variant: ChatVariant; blocked: bo
       capture('examples_nudge', { action: 'shown', page: cfg.page });
       cleanup();
     };
+    // Arrived on a section (a Google Ads sitelink such as #pricing, 13 Oct 2026): no pop-up until they've scrolled
+    // half a screen themselves, so the page's own jump to the section doesn't count and they see what they asked for
+    const fromLink = !!window.location.hash;
+    let ownScrollFrom: number | null = null;
+    const onInput = () => {
+      if (ownScrollFrom === null) ownScrollFrom = window.scrollY;
+    };
     const onScroll = () => {
+      if (fromLink && (ownScrollFrom === null || Math.abs(window.scrollY - ownScrollFrom) < window.innerHeight / 2)) return;
       if (cfg.nudge.wait === 'timer') {
         const max = document.documentElement.scrollHeight - window.innerHeight;
         if (max > 0 && window.scrollY / max > 0.35) trigger();
@@ -334,13 +345,15 @@ function Nudge({ variant, blocked, onOpen }: { variant: ChatVariant; blocked: bo
     const onClick = (e: MouseEvent) => {
       if ((e.target as Element | null)?.closest?.('a[href*="wa.me/"]')) stop();
     };
-    const timer = window.setTimeout(trigger, cfg.nudge.wait === 'timer' ? 8000 : 20000);
+    const timer = fromLink ? 0 : window.setTimeout(trigger, cfg.nudge.wait === 'timer' ? 8000 : 20000);
     window.addEventListener('scroll', onScroll, { passive: true });
+    if (fromLink) for (const type of INPUT_EVENTS) window.addEventListener(type, onInput, { passive: true });
     window.addEventListener(OPEN_CHAT_EVENT, stop);
     document.addEventListener('click', onClick, true);
     const cleanup = () => {
       window.clearTimeout(timer);
       window.removeEventListener('scroll', onScroll);
+      for (const type of INPUT_EVENTS) window.removeEventListener(type, onInput);
     };
     return () => {
       cleanup();
