@@ -50,7 +50,7 @@ const SHORT_VERSION: { label: string; text: ReactNode }[] = [
   },
   {
     label: 'The package',
-    text: 'Local Pros Studio: Google reviews, weekly social media posts, and a website if you need one. Your leads are included at no extra cost.',
+    text: 'Local Pros Studio: reviews on your Google profile, posts on your Facebook and Instagram every week, and a new website if you need one. Your leads are included at no extra cost.',
   },
   { label: 'The price', text: 'R2,500 a month. Setup is free (normally R5,000).' },
   {
@@ -74,7 +74,7 @@ const PACKAGE: { title: string; body: ReactNode }[] = [
     ),
   },
   {
-    title: 'Google reviews, collected for you',
+    title: 'Reviews on your Google profile',
     body: (
       <ul>
         <li>
@@ -92,7 +92,7 @@ const PACKAGE: { title: string; body: ReactNode }[] = [
     ),
   },
   {
-    title: 'Weekly social media posts, done for you',
+    title: 'Posts on your Facebook and Instagram',
     body: (
       <ul>
         <li>We post on your Facebook, Instagram and Google profile every week, so your pages stay active.</li>
@@ -105,7 +105,7 @@ const PACKAGE: { title: string; body: ReactNode }[] = [
     ),
   },
   {
-    title: 'A website, only if you need one',
+    title: 'A new website, if you need one',
     body: (
       <ul>
         <li>Already happy with your website? We leave it alone.</li>
