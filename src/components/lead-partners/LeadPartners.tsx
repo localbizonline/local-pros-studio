@@ -175,7 +175,7 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       { q: 'Can I keep buying leads on their own instead?', a: <D k="leadsOnTheirOwn" /> },
       {
         q: 'Why are leads slower than before?',
-        a: 'Because Google now recommends businesses directly instead of sending people to directory sites like ours. It’s not your work. That’s exactly why we’re adding reviews, posts and your website to what we do for you.',
+        a: 'Because Google now recommends businesses directly instead of sending people to directory sites like ours. That’s exactly why we’re adding reviews, posts and your website to what we do for you.',
       },
     ],
   },
@@ -249,7 +249,7 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       },
       {
         q: 'I’m closed over December. Is that a problem?',
-        a: 'Not at all. It’s actually a good time to start. We collect reviews from this year’s customers, and you start the new year looking busy on Google.',
+        a: 'Not at all. It’s actually a good time to start. We collect reviews from this year’s customers, and you start the new year with fresh reviews and active pages.',
       },
       {
         q: (
@@ -337,8 +337,7 @@ export default function LeadPartners() {
             <p>
               People still Google when they need a plumber or an electrician. But Google now uses AI to recommend a local
               business itself, right at the top of the results. Fewer people click through to sites like ours, and that’s
-              why leads have slowed down. You’ve noticed it, and so have we. It’s not your work. It’s how people find
-              tradespeople now.
+              why leads have slowed down. You’ve noticed it, and so have we.
             </p>
             <p>
               To choose who to recommend, Google checks three things: your <strong>Google reviews</strong>, whether your{' '}
@@ -347,7 +346,7 @@ export default function LeadPartners() {
             </p>
             <p>
               Our job has always been the same: getting you work. Google changed the way, so we’re changing with it. From
-              now on we help you with both: leads from us, and customers who find you directly on Google.
+              now on we help you with both: your leads, and building your business online.
             </p>
             <p>It’s a big change, and a good one. We’ve already made this move with more than 50 businesses this year.</p>
           </div>
