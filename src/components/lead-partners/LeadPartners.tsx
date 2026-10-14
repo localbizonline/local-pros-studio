@@ -83,7 +83,7 @@ const PACKAGE: { title: string; body: ReactNode }[] = [
         </li>
         <li>If they don’t respond, we follow up for you, politely.</li>
         <li>
-          <D k="gatingReviews" />
+          If something went wrong, they can reply and you hear about it straight away.
         </li>
         <li>We write and post the replies to your reviews for you.</li>
         <li>Covers Google, plus Facebook and Hello Peter.</li>
@@ -198,7 +198,7 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
         q: 'Will you spam my customers?',
         a: (
           <>
-            No. We only message customers you choose, on WhatsApp, and we keep it friendly and short. <D k="gatingFaq" />
+            No. We only message customers you choose, on WhatsApp, and we keep it friendly and short. If something went wrong, they can reply and you hear about it straight away.
           </>
         ),
       },
