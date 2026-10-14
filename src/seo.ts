@@ -12,6 +12,8 @@ export type PageSeo = {
   canonicalPath?: string;
   // Keep out of Google and the sitemap
   noindex?: boolean;
+  // Also ask search engines not to follow the page's links (unlisted pages shared only by link)
+  nofollow?: boolean;
 };
 
 export const PAGES: Record<string, PageSeo> = {
@@ -71,6 +73,15 @@ export const PAGES: Record<string, PageSeo> = {
     title: 'Refund and Cancellation Policy | Local Pros Studio',
     description: 'How refunds and cancellations work for Local Pros Studio services.',
   },
+  // Unlisted: for Local Pros lead partners moving onto the package (14 Oct 2026). Shared only by link from the
+  // walkthrough and WhatsApp; no menu, footer or other page links here, and it stays out of the sitemap
+  '/lead-partners': {
+    title: 'Local Pros lead partners: what’s changing',
+    description:
+      'What’s changing for Local Pros lead partners: your leads, the Local Pros Studio package, the terms in plain English and your questions answered.',
+    noindex: true,
+    nofollow: true,
+  },
   '/website-faq': {
     title: 'Website Terms and FAQ | Local Pros Studio',
     description: 'Answers to common questions about Local Pros Studio websites, hosting and changes.',
@@ -84,6 +95,10 @@ export const seoForPath = (pathname: string): PageSeo => {
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
   return PAGES[path] ?? NOT_LISTED;
 };
+
+// The robots tag both the browser (PageMeta in App.tsx) and the pre-built HTML (scripts/prerender.mjs) write
+export const robotsContent = (seo: PageSeo) =>
+  seo.noindex ? (seo.nofollow ? 'noindex, nofollow' : 'noindex') : 'index, follow';
 
 export const canonicalUrl = (pathname: string) => {
   const seo = seoForPath(pathname);

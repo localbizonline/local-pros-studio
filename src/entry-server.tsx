@@ -3,7 +3,7 @@ import { renderToPipeableStream, type PipeableStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { AppContent } from './App';
 
-export { PAGES, SITE_URL, canonicalUrl } from './seo';
+export { PAGES, SITE_URL, canonicalUrl, robotsContent } from './seo';
 
 // Resolves once every lazily loaded page has finished, so the saved HTML holds the full page, not a loading gap
 export const renderPage = (url: string) =>
