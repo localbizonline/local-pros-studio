@@ -8,6 +8,7 @@ export const WHATSAPP_MESSAGES = {
   googleAds: "Hi, I'm interested in a website", // the old Google Ads page /website-design (until 9 Oct 2026)
   webDesign: "Hi, I'd like a quote for a website", // /website-design-package and its Google Ads copy /go/website-design
   site: "Hi, I'd like to know more about Local Pros Studio", // every other page
+  leadPartners: "Hi Tyran, I've read the lead partner page and have a question.", // /lead-partners (unlisted)
 } as const;
 
 export const whatsAppLink = (message: string) =>

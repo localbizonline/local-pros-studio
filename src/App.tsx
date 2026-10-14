@@ -10,6 +10,8 @@ import MobileCTA from './components/MobileCTA';
 const JoinLight = lazy(() => import('./components/join-light/JoinLight'));
 // About page in the light look (9 Oct 2026), replacing the old dark AboutPage
 const AboutLight = lazy(() => import('./components/about-light/AboutLight'));
+// Unlisted page for Local Pros lead partners (14 Oct 2026): linked only from the walkthrough and WhatsApp
+const LeadPartners = lazy(() => import('./components/lead-partners/LeadPartners'));
 const NotFound = lazy(() => import('./components/not-found/NotFound'));
 // The old dark social page, archived 9 Oct 2026 (noindex, /social-media-posting-service-archived)
 const SocialPostingPageArchived = lazy(() => import('./components/archive/SocialPostingPageArchived'));
@@ -31,6 +33,7 @@ import './components/web-examples/web-examples.css';
 import './components/about-light/aboutlight.css';
 import './components/legallight.css';
 import './components/not-found/notfound.css';
+import './components/lead-partners/leadpartners.css';
 import './components/reviews-light/reviewslight.css';
 import './components/social-light/sociallight.css';
 import './components/section-library/sections/whynote.css';
@@ -46,7 +49,7 @@ const DesignDirections = lazy(() => import('./components/design-directions/Desig
 const ReviewVersions = lazy(() => import('./components/review-versions/ReviewVersions'));
 import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
 import { whatsAppUrlForPath } from './whatsapp';
-import { canonicalUrl, seoForPath } from './seo';
+import { canonicalUrl, robotsContent, seoForPath } from './seo';
 import { applyTeamDeviceLink } from './teamDevice';
 import { markTeamDevice, trackSectionViews, trackWhatsAppClicks } from './analytics';
 
@@ -76,7 +79,7 @@ const PageMeta = () => {
     document.title = seo.title;
     setHeadTag('meta[name="description"]', metaTag('name', 'description'), 'content', seo.description);
     setHeadTag('link[rel="canonical"]', () => Object.assign(document.createElement('link'), { rel: 'canonical' }), 'href', url);
-    setHeadTag('meta[name="robots"]', metaTag('name', 'robots'), 'content', seo.noindex ? 'noindex' : 'index, follow');
+    setHeadTag('meta[name="robots"]', metaTag('name', 'robots'), 'content', robotsContent(seo));
     setHeadTag('meta[property="og:title"]', metaTag('property', 'og:title'), 'content', seo.title);
     setHeadTag('meta[property="og:description"]', metaTag('property', 'og:description'), 'content', seo.description);
     setHeadTag('meta[property="og:url"]', metaTag('property', 'og:url'), 'content', url);
@@ -258,6 +261,8 @@ export const AppContent = () => {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds-cancellations" element={<RefundsCancellationsPage />} />
           <Route path="/website-faq" element={<WebsiteFaqPage />} />
+          {/* Unlisted: no links to it anywhere on the site (14 Oct 2026) */}
+          <Route path="/lead-partners" element={<LeadPartners />} />
 
           {/* Special Landing Pages */}
 

@@ -4,3 +4,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
+# Unlisted page, shared only by link (14 Oct 2026): the same noindex, nofollow as its robots meta tag
+/lead-partners
+  X-Robots-Tag: noindex, nofollow
+/lead-partners.html
+  X-Robots-Tag: noindex, nofollow

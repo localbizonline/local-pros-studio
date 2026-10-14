@@ -10,7 +10,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const serverDir = path.join(root, 'dist-server');
 
-const { renderPage, PAGES, SITE_URL, canonicalUrl } = await import(path.join(serverDir, 'entry-server.js'));
+const { renderPage, PAGES, SITE_URL, canonicalUrl, robotsContent } = await import(path.join(serverDir, 'entry-server.js'));
 
 const render = async (route) => {
   const stream = await renderPage(route);
@@ -55,10 +55,11 @@ await rm(path.join(dist, '.vite'), { recursive: true, force: true });
 const escapeHtml = (value) =>
   value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-const withHead = (html, { title, description, url, noindex }) => {
+const withHead = (html, seo) => {
+  const { title, description, url } = seo;
   const tags = [
     `<link rel="canonical" href="${url}" />`,
-    `<meta name="robots" content="${noindex ? 'noindex' : 'index, follow'}" />`,
+    `<meta name="robots" content="${robotsContent(seo)}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="Local Pros Studio" />`,
     `<meta property="og:title" content="${escapeHtml(title)}" />`,
