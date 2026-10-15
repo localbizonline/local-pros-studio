@@ -459,6 +459,57 @@ async function tellSamplesBot(body: Record<string, unknown>, fields: Record<stri
   }
 }
 
+// Every step a visitor takes, for the bot dashboard's Website tab (lp-studio-whatsapp-inbound,
+// POST /webhook/website-event, 15 Oct 2026). Same bot and secret as the samples bot: the URL is
+// BOT_NEW_LEAD_URL with /website-event for /new-lead. Off when those are not set. Never holds up
+// the visitor (waitUntil) and a failure only logs: the dashboard missing a step is not worth an error.
+type StepEvent = { step: string; lead_ref?: string | null; business?: string; phone?: string; page?: string };
+async function reportSteps(events: StepEvent[]) {
+  const leadUrl = Netlify.env.get('BOT_NEW_LEAD_URL');
+  const secret = Netlify.env.get('BOT_NEW_LEAD_SECRET');
+  if (!leadUrl || !secret || events.length === 0) return;
+  const url = leadUrl.replace(/\/new-lead\/?$/, '/website-event');
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const at = new Date().toISOString();
+  await Promise.all(events.map(async (event) => {
+    const payload = JSON.stringify({ ...event, occurred_at: at });
+    try {
+      const sig = [...new Uint8Array(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(payload)))].map((b) => b.toString(16).padStart(2, '0')).join('');
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-webhook-signature': sig },
+        body: payload,
+        signal: AbortSignal.timeout(4000),
+      });
+      if (!res.ok) console.error('Dashboard step failed', event.step, res.status);
+    } catch (err) {
+      console.error('Dashboard step error', event.step, err instanceof Error ? err.message : String(err));
+    }
+  }));
+}
+// The steps this save adds: steps the chat reports that the record's note did not have yet, plus the
+// number when it is new, plus a changed business. The first save of a record has no note, so all of them.
+const newSteps = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string, old: Record<string, unknown> | null): StepEvent[] => {
+  const oldNote = old && typeof old[F.message] === 'string' ? (old[F.message] as string) : '';
+  const oldName = old && typeof old[F.companyName] === 'string' ? (old[F.companyName] as string) : '';
+  const name = String(fields[F.companyName] || '');
+  const steps = stepsFrom(body).filter((step) => !oldNote.includes(STEP_NOTE[step]));
+  if (fields[F.mobile] && (!old || old[F.mobile] !== fields[F.mobile]) && !steps.includes('number') && !steps.includes('requested')) steps.push('number');
+  if (oldName && !oldName.includes(PLACEHOLDER_NAME) && oldName !== name) steps.push('business_changed');
+  return steps.map((step) => ({
+    step,
+    lead_ref: recordId,
+    business: name.includes(PLACEHOLDER_NAME) ? '' : name,
+    phone: String(fields[F.mobile] || ''),
+    page: pageLabel(body),
+  }));
+};
+const reportInBackground = (context: Context | undefined, events: StepEvent[]) => {
+  const report = reportSteps(events).catch(() => undefined);
+  if (context?.waitUntil) context.waitUntil(report);
+  else return report;
+};
+
 // The pass for one record: HMAC-SHA256 of its id, keyed with the server-only Airtable token
 async function passFor(recordId: string, secret: string) {
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(`demo-lead:${secret}`), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
@@ -508,6 +559,7 @@ export default async (request: Request, context?: Context) => {
     const text = startedText(body);
     if (!live) return json({ ok: true, dryRun: true, alert: text }, 200);
     await sendAlert('started', text);
+    await reportInBackground(context, [{ step: 'started', page: pageLabel(body) }]);
     return json({ ok: true }, 200);
   }
 
@@ -548,6 +600,7 @@ export default async (request: Request, context?: Context) => {
       else if (oldName && oldName !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
       const requested = stepsFrom(body).includes('requested') && !oldNote.includes(STEP_NOTE.requested);
       const bot = await tellSamplesBot(body, fields, recordId);
+      await reportInBackground(context, newSteps(body, fields, recordId, old));
       // Asking for the examples says it all in one message, number included
       if (requested) await sendAlert('lead', requestedText(body, fields, recordId, bot));
       else if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
@@ -592,6 +645,7 @@ export default async (request: Request, context?: Context) => {
     const id = created.records?.[0]?.id || null;
     // The examples chat creates the record with their number: it can go straight to the bot
     const bot = id ? await tellSamplesBot(body, fields, id) : null;
+    if (id) await reportInBackground(context, newSteps(body, fields, id, null));
     await sendAlert('lead', [leadText(body, fields, id), botLine(bot)].filter(Boolean).join('\n'));
     return json({ ok: true, record: id ? { id, pass: await passFor(id, token) } : null }, 200);
   } catch (err) {
