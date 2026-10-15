@@ -11,7 +11,8 @@ import { ExamplesClosing } from '../web-examples/ExamplesSections';
 
 // The R9,900 standard website in detail, /7-day-website (Jeremy, 15 Oct 2026): 4 to 8 pages, a modern clean design,
 // a strict 7-day process (day 1 sample designs, days 2-3 we build, days 4-5 the client reviews, day 6 changes,
-// day 7 live), wording written once, basic changes after launch free (Jeremy, 15 Oct 2026), design changes R850 an hour. Sold as focused
+// day 7 live), wording written once, then R290 a month for hosting and updates, which covers basic changes after
+// launch (Jeremy, 15 Oct 2026); design changes R850 an hour. No email hosting: email stays with their own provider. Sold as focused
 // work with a date for every step: we keep our dates, they keep theirs. Buttons open the short "start my website"
 // chat (ExamplesChat, start "website"), so the lead is saved. Styles in sevenday.css, scoped to .sd.
 
@@ -50,13 +51,29 @@ const INCLUDED = [
   'One round of changes on day 6',
 ];
 
+// Hosting and updates, R290 a month (Jeremy, 15 Oct 2026): what goes wrong without it, then what it covers
+const WITHOUT = [
+  'Slow pages, so people leave before they call',
+  'A “Not secure” warning in the browser',
+  'Old software that gets hacked or breaks',
+  'Nobody to call when something stops working',
+];
+const COVERS = [
+  'Fast, secure hosting with the padlock (SSL) in the browser',
+  'Software and security updates',
+  'Regular backups, so nothing is lost',
+  'We fix it if something breaks',
+  'Your basic changes, at no extra cost',
+  'A real person on WhatsApp when you need help',
+];
+
 const AFTER = [
-  { title: 'Basic changes', price: 'Free', body: 'Swap a photo, change a colour, update your phone number or opening hours. WhatsApp us and it’s done.' },
-  { title: 'New wording', price: 'Free, you send the words', body: 'We write your wording once, for launch. After that, send us the new words and we put them in.' },
+  { title: 'Basic changes', price: 'No extra cost', body: 'Swap a photo, change a colour, update your phone number or opening hours. WhatsApp us and it’s done.' },
+  { title: 'New wording', price: 'No extra cost', body: 'We write your wording once, for launch. After that, send us the new words and we put them in.' },
   { title: 'Design changes', price: 'R850 an hour', body: 'A new layout, a new section or a redesigned page. We tell you how many hours before we start.' },
 ];
 
-const FAQ = [
+const FAQ: Faq[] = [
   {
     q: 'What if I’m late on my side?',
     a: 'Your launch moves by the same number of days. If your changes come in a day late, your website goes live a day later.',
@@ -67,11 +84,11 @@ const FAQ = [
   },
   {
     q: 'Can I have more than one round of changes?',
-    a: 'One round is included, on day 6, so put everything in one list on day 4 or 5. After launch, basic changes are free and design changes are R850 an hour.',
+    a: 'One round is included, on day 6, so put everything in one list on day 4 or 5. After launch, basic changes cost nothing extra and design changes are R850 an hour.',
   },
   {
     q: 'What counts as a design change?',
-    a: 'Anything that changes how a page is laid out: a new section, a new layout or a redesigned page. Swapping photos, colours or your contact details is a basic change, and free.',
+    a: 'Anything that changes how a page is laid out: a new section, a new layout or a redesigned page. Swapping photos, colours or your contact details is a basic change, at no extra cost.',
   },
   {
     q: 'Who writes the wording?',
@@ -82,13 +99,27 @@ const FAQ = [
     a: 'We quote it before we start. Online shops are from R30,000.',
   },
   {
-    q: 'Is hosting included?',
-    a: 'An optional hosting and management package is available. Or get your website included in our R2,500 a month package with social media posts and Google review management (12-month plan).',
+    q: 'What does the R290 a month cover?',
+    a: 'Everything that keeps your website fast, safe and up to date after launch:',
+    list: ['Hosting, with the padlock (SSL) in the browser', 'Software and security updates', 'Regular backups', 'Fixes if something breaks', 'Your basic changes: photos, colours, contact details and new wording you send'],
+    after: 'Only design changes cost extra, at R850 an hour.',
+  },
+  {
+    q: 'Do you host my email?',
+    a: 'No. Email works best on its own dedicated service, so we keep it separate from your website. If one ever has a problem, the other keeps working.',
+    list: [
+      'Keep the email you use now, with any provider',
+      'Your website runs on our hosting, your email stays with your provider',
+      'Linking the two is a simple setup, and we walk you through it',
+      'Need a new email address? We’ll give you advice on which provider to choose',
+    ],
   },
   { q: 'Who owns the website?', a: 'You do, once it is paid for.', link: true },
 ];
 
-function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id: string }) {
+type Faq = { q: string; a: string; list?: string[]; after?: string; link?: boolean };
+
+function FaqItem({ q, a, list, after, link, id }: Faq & { id: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className={`dd-faq-item ${open ? 'is-open' : ''}`}>
@@ -112,6 +143,17 @@ function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id:
             </>
           )}
         </p>
+        {list && (
+          <ul className="sd-faq-list">
+            {list.map((t) => (
+              <li key={t}>
+                <Check size={18} aria-hidden="true" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        )}
+        {after && <p>{after}</p>}
       </div>
     </div>
   );
@@ -257,6 +299,12 @@ export default function SevenDayWebsite() {
               <p className="sd-price-line">
                 <strong>R9,900</strong> once-off, live in 7 days
               </p>
+              <p className="sd-price-monthly">
+                Then <strong>R290 a month</strong> for hosting and updates.{' '}
+                <a href="#hosting" className="wdl-inline-link" onClick={() => trackClick('price_hosting')}>
+                  What it covers
+                </a>
+              </p>
               <ul className="sd-included">
                 {INCLUDED.map((t) => (
                   <li key={t}>
@@ -268,7 +316,6 @@ export default function SevenDayWebsite() {
               <button type="button" className="dd-btn dd-btn-primary" onClick={() => startWebsite('price')}>
                 Start my website
               </button>
-              <p className="sd-small">Optional hosting and management package available.</p>
             </div>
             <ul className="sd-aside">
               <li>
@@ -297,12 +344,43 @@ export default function SevenDayWebsite() {
           </div>
         </section>
 
-        <section className="dd-sec sd-after">
+        <section className="dd-sec sd-after" id="hosting">
           <div className="dd-container">
             <div className="dd-head">
-              <p className="dd-eyebrow">After day 7</p>
-              <h2 className="dd-h2">Small changes are free. Design changes are R850 an hour.</h2>
+              <p className="dd-eyebrow">Hosting and updates</p>
+              <h2 className="dd-h2">R290 a month keeps your website fast, safe and up to date</h2>
+              <p className="dd-sub">A website isn’t finished on launch day. It runs on a server, needs a security certificate and has software that needs updating, and we look after all of it.</p>
             </div>
+            <div className="sd-host-grid">
+              <div className="sd-host-card is-without">
+                <h3 className="dd-h3">Left alone, a website gets</h3>
+                <ul>
+                  {WITHOUT.map((t) => (
+                    <li key={t}>
+                      <X size={20} aria-hidden="true" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+                <p className="sd-host-note">Customers who see that call someone else. And Google favours fast, secure websites.</p>
+              </div>
+              <div className="sd-host-card is-covers">
+                <p className="sd-host-price">
+                  <strong>R290</strong> a month
+                </p>
+                <h3 className="dd-h3">What it covers</h3>
+                <ul>
+                  {COVERS.map((t) => (
+                    <li key={t}>
+                      <Check size={20} aria-hidden="true" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <h3 className="dd-h3 sd-after-title">Changes after day 7</h3>
             <div className="sd-after-grid">
               {AFTER.map((a) => (
                 <div key={a.title} className="sd-after-card">
@@ -323,7 +401,7 @@ export default function SevenDayWebsite() {
             </div>
             <div className="dd-faq-list">
               {FAQ.map((f, i) => (
-                <FaqItem key={f.q} q={f.q} a={f.a} link={f.link} id={`sd-faq-${i}`} />
+                <FaqItem key={f.q} {...f} id={`sd-faq-${i}`} />
               ))}
             </div>
           </div>
@@ -333,7 +411,7 @@ export default function SevenDayWebsite() {
           waUrl={WA_URL}
           track={trackClick}
           heading="Your new website, live 7 days from now"
-          recap={['4 to 8 pages, written and built for you', 'A date for every step', 'R9,900 once-off']}
+          recap={['4 to 8 pages, written and built for you', 'A date for every step', 'R9,900 once-off, then R290 a month']}
           button="Start my website"
           start="website"
         />

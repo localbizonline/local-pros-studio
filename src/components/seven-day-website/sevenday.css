@@ -410,3 +410,119 @@
     padding: 24px 22px;
   }
 }
+
+/* ---------- Hosting and updates (added 15 Oct 2026) ---------- */
+
+.sd-price-monthly {
+  margin-top: 6px !important;
+  font-size: 1.0625rem;
+  color: var(--body);
+}
+
+.sd-price-monthly strong {
+  color: var(--ink);
+}
+
+.sd-host-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sd-host-card {
+  padding: 28px;
+  border-radius: var(--r-card, 16px);
+}
+
+.sd-host-card.is-without {
+  border: 1px solid #eadfca;
+}
+
+.sd-host-card.is-covers {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.sd-host-card ul {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.sd-host-card li,
+.sd-faq-list li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: start;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.sd-host-card li svg,
+.sd-faq-list li svg {
+  margin-top: 3px;
+}
+
+.sd-host-card.is-without li {
+  color: var(--body);
+}
+
+.sd-host-card.is-without li svg {
+  color: var(--muted);
+}
+
+.sd-host-note {
+  margin-top: 18px !important;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.sd-host-price {
+  margin-bottom: 6px !important;
+  font-size: 1.0625rem;
+  color: var(--body);
+}
+
+.sd-host-price strong {
+  font-family: var(--font-head);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--price);
+}
+
+.sd .sd-after-title {
+  margin: 56px 0 20px;
+  text-align: center;
+}
+
+.sd-faq-list {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.sd-faq-list li {
+  font-size: 1rem;
+  color: var(--body);
+}
+
+@media (max-width: 859px) {
+  .sd-host-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sd-host-card {
+    padding: 24px 22px;
+  }
+
+  .sd .sd-after-title {
+    margin-top: 44px;
+  }
+}
