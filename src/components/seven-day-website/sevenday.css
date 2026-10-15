@@ -1,0 +1,412 @@
+/* The 7-day website page (SevenDayWebsite.tsx), on the .dd-a tokens. Scoped to .sd. */
+
+/* ---------- Hero: centred words, then the week ---------- */
+
+.sd-hero {
+  text-align: center;
+}
+
+.sd .sd-display {
+  max-width: 13em;
+  margin: 0 auto;
+  font-family: var(--font-head);
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.sd-hero .dd-lede {
+  margin-left: auto;
+  margin-right: auto;
+  text-wrap: pretty;
+}
+
+.sd-hero .dd-actions {
+  justify-content: center;
+}
+
+/* The week: one tile per step, as wide as the days it takes */
+.sd-week {
+  max-width: 1100px;
+  margin: 48px auto 0;
+  text-align: left;
+}
+
+.sd-week-row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sd-day {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 16px 20px;
+  border-radius: var(--r-card, 16px);
+}
+
+.sd-day.is-us {
+  background: var(--dark);
+  color: var(--on-dark-body);
+}
+
+.sd-day.is-you {
+  background: var(--accent-soft);
+  color: var(--body);
+  box-shadow: inset 0 0 0 1px #fcd34d;
+}
+
+.sd-day-when {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sd-day.is-us .sd-day-when {
+  color: var(--accent-on-dark);
+}
+
+.sd-day.is-you .sd-day-when {
+  color: var(--ink);
+}
+
+.sd-day-who {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.sd-day.is-us .sd-day-who {
+  background: rgba(250, 250, 249, 0.12);
+  color: var(--on-dark);
+}
+
+.sd-day.is-you .sd-day-who {
+  background: #fff;
+  color: var(--ink);
+}
+
+.sd .sd-day-title {
+  font-family: var(--font-head);
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.sd-day.is-us .sd-day-title {
+  color: var(--on-dark);
+}
+
+.sd-day.is-you .sd-day-title {
+  color: var(--ink);
+}
+
+.sd-day-body {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.sd-week-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px !important;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.sd-key {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.sd-key.is-us {
+  background: var(--dark);
+}
+
+.sd-key.is-you {
+  margin-left: 12px;
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px #fcd34d;
+}
+
+/* ---------- Our promise, your promise (dark band) ---------- */
+
+.sd-deal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sd-deal-card {
+  padding: 28px;
+  border: 1px solid #44403c;
+  border-radius: var(--r-card, 16px);
+}
+
+.sd-deal-card.is-you {
+  border-top: 3px solid var(--accent);
+}
+
+.sd-deal-card ul,
+.sd-compare-card ul,
+.sd-included {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.sd-deal-card li,
+.sd-compare-card li,
+.sd-included li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: start;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.sd-deal-card li svg,
+.sd-compare-card li svg,
+.sd-included li svg {
+  margin-top: 3px;
+}
+
+.sd-deal-card li {
+  color: var(--on-dark);
+}
+
+.sd-deal-card li svg {
+  color: var(--accent-on-dark);
+}
+
+.sd-deal-note {
+  max-width: 900px;
+  margin: 28px auto 0 !important;
+  text-align: center;
+  font-size: 1.0625rem;
+  color: var(--on-dark-body);
+}
+
+/* ---------- Why 7 days: the usual way beside ours ---------- */
+
+.sd-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sd-compare-card {
+  padding: 28px;
+  border-radius: var(--r-card, 16px);
+}
+
+.sd-compare-card.is-usual {
+  background: var(--tag-bg);
+}
+
+.sd-compare-card.is-usual li {
+  color: var(--body);
+}
+
+.sd-compare-card.is-usual li svg {
+  color: var(--muted);
+}
+
+.sd-compare-card.is-ours {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.sd-compare-card.is-ours li {
+  color: var(--ink);
+}
+
+/* ---------- What's included ---------- */
+
+.sd-price {
+  background: var(--surface-2);
+}
+
+.sd-price-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.sd-price-card {
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card, 16px);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.sd-price-card .dd-eyebrow {
+  margin-bottom: 14px;
+}
+
+.sd-price-line {
+  margin-top: 12px !important;
+  font-size: 1.1875rem;
+  color: var(--body);
+}
+
+.sd-price-line strong {
+  font-family: var(--font-head);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--price);
+}
+
+.sd-included {
+  margin: 24px 0 32px;
+}
+
+.sd-included li {
+  color: var(--ink);
+}
+
+.sd-small {
+  margin-top: 14px !important;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.sd-aside {
+  display: grid;
+}
+
+.sd-aside li {
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+}
+
+.sd-aside li:first-child {
+  border-top: 0;
+}
+
+.sd-aside p {
+  margin-top: 8px !important;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+/* ---------- After day 7 (cream) ---------- */
+
+.dd-sec.sd-after,
+.dd-sec.sd-after + .dd-sec {
+  border-top: 0;
+}
+
+.sd-after {
+  background: var(--cream);
+}
+
+.sd-after-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.sd-after-card {
+  padding: 28px;
+  border-radius: var(--r-card, 16px);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
+}
+
+.sd-after-price {
+  display: inline-block;
+  margin-top: 10px !important;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.sd-after-card p:last-child {
+  margin-top: 14px !important;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+/* ---------- Phones and small tablets ---------- */
+
+@media (max-width: 859px) {
+  /* The week becomes a list: day on the left, what happens on the right */
+  .sd-week {
+    margin-top: 40px;
+  }
+
+  .sd-week-row {
+    grid-template-columns: 1fr;
+  }
+
+  .sd-day {
+    grid-column: auto !important;
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    column-gap: 14px;
+    row-gap: 2px;
+    padding: 14px 16px;
+  }
+
+  .sd-day-when {
+    grid-row: span 2;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .sd .sd-day-title {
+    font-size: 1.0625rem;
+  }
+
+  .sd-deal-grid,
+  .sd-compare,
+  .sd-price-grid,
+  .sd-after-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sd-price-grid {
+    gap: 32px;
+  }
+
+  .sd-price-card {
+    padding: 28px 22px;
+  }
+
+  .sd-price-card .dd-btn {
+    width: 100%;
+  }
+
+  .sd-deal-card,
+  .sd-compare-card,
+  .sd-after-card {
+    padding: 24px 22px;
+  }
+}

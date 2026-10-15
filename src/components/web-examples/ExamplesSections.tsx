@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, MousePointer2 } from 'lucide-react';
 import { GROUPS, SITES, type Site } from './catalogue';
-import { IndustryRows, SiteCard, openExamplesChat } from './ExamplesChat';
+import { IndustryRows, SiteCard, openExamplesChat, type StartPlan } from './ExamplesChat';
 import { GoogleG, GOOGLE_REVIEWS_URL } from '../web-design-light/ClientReviews';
 import heroWide from '../../assets/images/portfolio/web-hero-wide.webp';
 import heroPhone from '../../assets/images/portfolio/web-hero-phone.webp';
@@ -207,12 +207,15 @@ export function ExamplesClosing({
   heading = 'See websites for your kind of business',
   recap = RECAP,
   button = 'Show me popular designs',
+  start,
 }: {
   waUrl: string;
   track: (label: string) => void;
   heading?: string;
   recap?: string[];
   button?: string;
+  // From a page selling one package: the button skips the questions and gets them started
+  start?: StartPlan;
 }) {
   return (
     <section className="cc wdc py-16 md:py-24 px-6 bg-[#FBF6EC]">
@@ -236,8 +239,8 @@ export function ExamplesClosing({
             type="button"
             className="dd-btn dd-btn-primary wx-closing-btn"
             onClick={() => {
-              track('closing_examples');
-              openExamplesChat({ from: 'closing' });
+              track(start ? `closing_start_${start}` : 'closing_examples');
+              openExamplesChat({ from: 'closing', start });
             }}
           >
             {button}

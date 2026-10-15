@@ -433,7 +433,8 @@ export function IndustryRows({ onPick }: { onPick: (g: Group) => void }) {
 }
 
 // page: tags the leads by door when one variant runs on two (the ads copy /go/website-design sends 'website-design')
-export default function ExamplesChat({ variant = 'website', page }: { variant?: ChatVariant; page?: ChatPage }) {
+// nudge: false leaves out the "Not sure where to start?" pop-up, for pages selling one fixed package (/7-day-website)
+export default function ExamplesChat({ variant = 'website', page, nudge = true }: { variant?: ChatVariant; page?: ChatPage; nudge?: boolean }) {
   const cfg: VariantConfig = page ? { ...VARIANTS[variant], page } : VARIANTS[variant];
   const step = (name: string, p: Record<string, string | undefined> = {}) => capture('examples_chat_step', { step: name, page: cfg.page, ...p });
   const [open, setOpen] = useState(false);
@@ -693,7 +694,7 @@ export default function ExamplesChat({ variant = 'website', page }: { variant?: 
   // Its own token scope, so it looks the same on any page (the homepage isn't inside .dd)
   return (
     <div className="dd dd-a wx-page wx-root">
-      <Nudge variant={variant} blocked={everOpened} onOpen={() => openExamplesChat({ from: 'nudge' })} />
+      {nudge && <Nudge variant={variant} blocked={everOpened} onOpen={() => openExamplesChat({ from: 'nudge' })} />}
       {open && <div className="wx-backdrop" onClick={() => setOpen(false)} />}
       {open && (
         <div className="wx-sheet" role="dialog" aria-modal="true" aria-label="Websites for businesses like yours">

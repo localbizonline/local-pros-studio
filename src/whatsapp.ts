@@ -6,7 +6,7 @@ export const WHATSAPP_NUMBER = '27832336716';
 
 export const WHATSAPP_MESSAGES = {
   googleAds: "Hi, I'm interested in a website", // the old Google Ads page /website-design (until 9 Oct 2026)
-  webDesign: "Hi, I'd like a quote for a website", // /website-design-package and its Google Ads copy /go/website-design
+  webDesign: "Hi, I'd like a quote for a website", // /website-design-package, its Google Ads copy /go/website-design and /7-day-website
   site: "Hi, I'd like to know more about Local Pros Studio", // every other page
   leadPartners: "Hi Tyran, I've read the lead partner page and have a question.", // /lead-partners (unlisted)
 } as const;
@@ -18,6 +18,7 @@ export const SITE_WHATSAPP_URL = whatsAppLink(WHATSAPP_MESSAGES.site);
 
 // For shared parts of the site (header, footer, floating button) that appear on several doors
 export const whatsAppUrlForPath = (pathname: string) => {
-  if (pathname === '/website-design-package' || pathname === '/go/website-design') return whatsAppLink(WHATSAPP_MESSAGES.webDesign);
+  if (pathname === '/website-design-package' || pathname === '/go/website-design' || pathname === '/7-day-website')
+    return whatsAppLink(WHATSAPP_MESSAGES.webDesign);
   return SITE_WHATSAPP_URL;
 };

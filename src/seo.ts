@@ -56,6 +56,12 @@ export const PAGES: Record<string, PageSeo> = {
       'Website design for South African businesses from R6,500. Get your instant price and popular designs for your industry. Written and built for you, live in 7 days.',
     noindex: true,
   },
+  // The R9,900 standard website in detail: 4 to 8 pages, a strict 7-day process (15 Oct 2026)
+  '/7-day-website': {
+    title: 'A New Website in 7 Days for R9,900 | Local Pros Studio',
+    description:
+      'A modern 4 to 8 page website for R9,900, written and built for you in 7 days. Sample designs on day 1, your changes on day 6, live on day 7.',
+  },
   '/about': {
     title: 'About Local Pros Studio | Google Reviews, Social Media & Websites',
     description:
