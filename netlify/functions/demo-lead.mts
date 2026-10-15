@@ -460,15 +460,16 @@ async function tellSamplesBot(body: Record<string, unknown>, fields: Record<stri
 }
 
 // Every step a visitor takes, for the bot dashboard's Website tab (lp-studio-whatsapp-inbound,
-// POST /webhook/website-event, 15 Oct 2026). Same bot and secret as the samples bot: the URL is
-// BOT_NEW_LEAD_URL with /website-event for /new-lead. Off when those are not set. Never holds up
-// the visitor (waitUntil) and a failure only logs: the dashboard missing a step is not worth an error.
+// POST /webhook/website-event, 15 Oct 2026). The same bot and secret the site already uses: the samples
+// bot's BOT_NEW_LEAD_URL, else demo-send's DEMO_BOT_URL, with /webhook/website-event as the path.
+// Off when neither is set. Never holds up the visitor (waitUntil) and a failure only logs: the
+// dashboard missing a step is not worth an error.
 type StepEvent = { step: string; lead_ref?: string | null; business?: string; phone?: string; page?: string };
 async function reportSteps(events: StepEvent[]) {
-  const leadUrl = Netlify.env.get('BOT_NEW_LEAD_URL');
-  const secret = Netlify.env.get('BOT_NEW_LEAD_SECRET');
-  if (!leadUrl || !secret || events.length === 0) return;
-  const url = leadUrl.replace(/\/new-lead\/?$/, '/website-event');
+  const botUrl = Netlify.env.get('BOT_NEW_LEAD_URL') || Netlify.env.get('DEMO_BOT_URL');
+  const secret = Netlify.env.get('BOT_NEW_LEAD_SECRET') || Netlify.env.get('DEMO_BOT_SECRET');
+  if (!botUrl || !secret || events.length === 0) return;
+  const url = botUrl.replace(/\/webhook\/[^/]+\/?$/, '/webhook/website-event');
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   const at = new Date().toISOString();
   await Promise.all(events.map(async (event) => {
