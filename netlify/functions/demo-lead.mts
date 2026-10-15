@@ -368,21 +368,96 @@ const namedText = (body: Record<string, unknown>, fields: Record<string, unknown
     .join('\n');
 };
 
-const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string) =>
+const requestedText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string, bot: BotResult | null = null) =>
   [
     isStart(body)
       ? `🚀 ${fields[F.companyName]} wants to get started (${body.plan === 'package' ? 'R2,500 package' : 'website'}): WhatsApp them now.`
+      : bot?.status === 'scheduled'
+      ? `📨 ${fields[F.companyName]} wants ${examplesWhat(body)}.`
       : `📨 ${fields[F.companyName]} wants ${examplesWhat(body)}: WhatsApp them now.`,
+    botLine(bot),
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     needOf(body) && `Wants most: ${needOf(body)}`,
     priceShown(body) && `Price shown: ${priceShown(body)}${servicesOf(body) ? ` (${servicesOf(body)} services)` : ''}`,
     text(body.contactName, 60) && `Name: ${text(body.contactName, 60)}`,
     fields[F.mobile] && `WhatsApp: ${fields[F.mobile]}`,
-    sendWhat(body),
+    bot?.status !== 'scheduled' && sendWhat(body),
     `Airtable: https://airtable.com/apppibpiqC6qVlHK1/tblR0KVFuAsG69AuN/${recordId}`,
   ]
     .filter(Boolean)
     .join('\n');
+
+// --- Ashley's WhatsApp bot (repo lp-studio-whatsapp-inbound, docs/website-samples-flow.md, 15 Oct 2026) ---
+// A website lead from the examples chat who wants a website is handed to the bot on Ashley's number
+// (POST /webhook/new-lead, playbook website-samples). 2 to 5 minutes later, between 08:00 and 18:00, it
+// WhatsApps them a couple of short questions; only once they answer does it make or pick 3 sample designs
+// and send them. Called on every save with a number: the bot sends once per record, and while its first
+// message is still waiting it replaces it when the business name or number changes.
+// Off unless SAMPLES_BOT_ON is "true" (plus BOT_NEW_LEAD_URL, BOT_NEW_LEAD_SECRET and DEMO_BOT_SESSION_ID).
+type BotResult = { status: string; reason?: string; send_at?: string };
+const wantsWebsiteSamples = (body: Record<string, unknown>) =>
+  body.offer === 'examples' &&
+  !isStart(body) &&
+  !['reviews', 'social', 'package'].includes(String(body.plan || '')) &&
+  (body.page !== 'home' || body.need === 'website');
+
+const sast = (iso: string) =>
+  new Intl.DateTimeFormat('en-ZA', { timeZone: 'Africa/Johannesburg', weekday: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+const BOT_SKIPPED: Record<string, string> = {
+  existing_conversation: "they're already in a chat with Ashley's number",
+  opted_out: 'they asked us before to stop WhatsApping them',
+  opener_already_sent: 'the bot already messaged them, before this change',
+};
+const botLine = (bot: BotResult | null) => {
+  if (!bot) return '';
+  if (bot.status === 'scheduled' && bot.send_at) return `🤖 Ashley's bot will WhatsApp them at about ${sast(bot.send_at)}: 2 quick questions, then it makes their samples. No need to message them.`;
+  const why = bot.status === 'skipped' ? BOT_SKIPPED[bot.reason || ''] || bot.reason : 'the bot could not be reached';
+  return `⚠️ The bot will NOT WhatsApp them (${why}).`;
+};
+
+async function tellSamplesBot(body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string): Promise<BotResult | null> {
+  const url = Netlify.env.get('BOT_NEW_LEAD_URL');
+  const secret = Netlify.env.get('BOT_NEW_LEAD_SECRET');
+  const session = Netlify.env.get('DEMO_BOT_SESSION_ID');
+  if (Netlify.env.get('SAMPLES_BOT_ON') !== 'true' || !url || !secret || !session) return null;
+  if (!wantsWebsiteSamples(body) || !fields[F.mobile]) return null;
+  const name = String(fields[F.companyName] || '');
+  const [industry, type] = text(body.businessType, 120).split(' – ');
+  const lead = {
+    session_id: session,
+    playbook: 'website-samples',
+    phone: fields[F.mobile],
+    first_name: text(body.contactName, 60),
+    company_name: name.includes(PLACEHOLDER_NAME) ? '' : name,
+    source: `website: ${pageLabel(body)}`,
+    source_record_id: recordId,
+    website_url: fields[F.website] || '',
+    facebook_url: fields[F.facebook] || '',
+    business_type: { industry: industry || '', type: type || '' },
+    chat_answers: Object.fromEntries([['services', servicesOf(body)], ['need', needOf(body)]].filter(([, v]) => v)),
+    price_shown: priceShown(body),
+  };
+  const payload = JSON.stringify(lead);
+  try {
+    const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+    const sig = [...new Uint8Array(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(payload)))].map((b) => b.toString(16).padStart(2, '0')).join('');
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-webhook-signature': sig },
+      body: payload,
+      signal: AbortSignal.timeout(6000),
+    });
+    const data = (await res.json().catch(() => ({}))) as BotResult;
+    if (!res.ok) {
+      console.error('Samples bot new-lead failed', res.status, JSON.stringify(data).slice(0, 300));
+      return { status: 'error', reason: data.reason || `http_${res.status}` };
+    }
+    return { status: data.status, reason: data.reason, send_at: data.send_at };
+  } catch (err) {
+    console.error('Samples bot new-lead error', err instanceof Error ? err.message : String(err));
+    return { status: 'error' };
+  }
+}
 
 // The pass for one record: HMAC-SHA256 of its id, keyed with the server-only Airtable token
 async function passFor(recordId: string, secret: string) {
@@ -472,8 +547,9 @@ export default async (request: Request, context?: Context) => {
       if (oldName.includes(PLACEHOLDER_NAME) && oldName !== fields[F.companyName]) await sendAlert('lead', namedText(body, fields, recordId));
       else if (oldName && oldName !== fields[F.companyName]) await sendAlert('lead', changedText(body, fields, recordId));
       const requested = stepsFrom(body).includes('requested') && !oldNote.includes(STEP_NOTE.requested);
+      const bot = await tellSamplesBot(body, fields, recordId);
       // Asking for the examples says it all in one message, number included
-      if (requested) await sendAlert('lead', requestedText(body, fields, recordId));
+      if (requested) await sendAlert('lead', requestedText(body, fields, recordId, bot));
       else if (fields[F.mobile] && old[F.mobile] !== fields[F.mobile]) await sendAlert('lead', numberText(fields, recordId));
       if (stepsFrom(body).includes('answered') && !oldNote.includes(STEP_NOTE.answered)) await sendAlert('lead', answersText(body, fields, recordId));
       if (stepsFrom(body).includes('sent') && !oldNote.includes(STEP_NOTE.sent)) {
@@ -514,7 +590,9 @@ export default async (request: Request, context?: Context) => {
     }
     const created = (await res.json()) as { records?: { id?: string }[] };
     const id = created.records?.[0]?.id || null;
-    await sendAlert('lead', leadText(body, fields, id));
+    // The examples chat creates the record with their number: it can go straight to the bot
+    const bot = id ? await tellSamplesBot(body, fields, id) : null;
+    await sendAlert('lead', [leadText(body, fields, id), botLine(bot)].filter(Boolean).join('\n'));
     return json({ ok: true, record: id ? { id, pass: await passFor(id, token) } : null }, 200);
   } catch (err) {
     console.error('Airtable request error', err instanceof Error ? err.message : String(err));
