@@ -4,6 +4,7 @@ import { ArrowRight, Check, Search, Star, X } from 'lucide-react';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import { isTeamDevice } from '../../teamDevice';
 import { capture, countDemoLead } from '../../analytics';
+import { adClick } from '../../adClick';
 import { chatState, OPEN_CHAT_EVENT, type ChatOffer, type ChatPage, type ChatPlan } from './openSiteChat';
 import { useGoogleSearch, type Business } from './googleSearch';
 
@@ -203,7 +204,7 @@ export const useLeadRecord = (page: ChatPage, plan?: ChatPlan, offer?: LeadOffer
     // Picking a business (again) or typing details starts the story over: earlier steps were for another listing
     const restart = newSteps.includes('picked') || (newSteps.includes('typed') && !steps.current.includes('typed'));
     steps.current = restart ? [...newSteps] : [...new Set([...steps.current, ...newSteps])];
-    const body = { kind: 'lead', page, plan, offer, steps: steps.current, ...lead };
+    const body = { kind: 'lead', page, plan, offer, steps: steps.current, adClick: adClick(), ...lead };
     queue.current = queue.current.then(async () => {
       try {
         const res = await fetch('/api/demo-lead', {
@@ -239,7 +240,7 @@ export const notifyStarted = (page: ChatPage, plan?: ChatPlan, offer?: LeadOffer
   }
   startedThisLoad.add(page);
   capture('site_chat_started', { page, plan: plan || 'demo', offer });
-  postLead({ kind: 'started', page, plan, offer });
+  postLead({ kind: 'started', page, plan, offer, adClick: adClick() });
 };
 
 const track = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: label, value: 1 });

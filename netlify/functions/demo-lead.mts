@@ -167,6 +167,9 @@ const F = {
   gbpPhone: 'fldSzUjuiTlqREHdd',
   gbpReviewCount: 'fldy45sJD48ECMWwP',
   gbpReviewScore: 'fldBSKEE2oexmoLgs',
+  // The Google Ads click that brought them (src/adClick.ts, 15 Oct 2026)
+  fromAds: 'fldFAHg1WBycnFOst',
+  adClick: 'fldQf6vuORI49QB71',
 } as const;
 
 const allowedOrigin = (origin: string) =>
@@ -179,6 +182,26 @@ const json = (body: unknown, status: number) =>
 
 // Trim, collapse whitespace and cap length. Anything that isn't a string becomes ''.
 const text = (value: unknown, max: number) => (typeof value === 'string' ? value.replace(/\s+/g, ' ').trim().slice(0, max) : '');
+
+// The ad click the site remembered (src/adClick.ts): Google's click id (gclid, or gbraid/wbraid on iOS) and
+// any utm_ tags. Ids are kept only when they look like ids, so nothing else lands in Airtable or the alert.
+const AD_ID = /^[A-Za-z0-9_-]{8,200}$/;
+type AdClickInfo = { fromAds: boolean; details: string; campaign: string };
+const adClickFrom = (body: Record<string, unknown>): AdClickInfo | null => {
+  const raw = body.adClick && typeof body.adClick === 'object' && !Array.isArray(body.adClick) ? (body.adClick as Record<string, unknown>) : null;
+  if (!raw) return null;
+  const parts: string[] = [];
+  for (const id of ['gclid', 'gbraid', 'wbraid']) {
+    if (typeof raw[id] === 'string' && AD_ID.test(raw[id] as string)) parts.push(`${id}=${raw[id]}`);
+  }
+  const fromAds = parts.length > 0;
+  for (const tag of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']) {
+    const value = text(raw[tag], 100);
+    if (value) parts.push(`${tag}=${value}`);
+  }
+  if (!parts.length) return null;
+  return { fromAds, details: parts.join(' · ').slice(0, 500), campaign: text(raw.utm_campaign, 100) };
+};
 
 // http(s) links only; "facebook.com/x" gets https:// added
 const webUrl = (value: unknown) => {
@@ -249,6 +272,10 @@ function buildFields(body: Record<string, unknown>): Record<string, unknown> | n
   } else {
     return null;
   }
+  // Only ever set, never cleared: a later save without it (storage blocked) must not untick the lead
+  const ad = adClickFrom(body);
+  if (ad?.fromAds) fields[F.fromAds] = true;
+  if (ad) fields[F.adClick] = ad.details;
   // Every call carries the current number; none yet (or a different business picked since) clears it
   const mobile = normaliseMobile(body.whatsApp);
   fields[F.mobile] = mobile || null;
@@ -283,8 +310,9 @@ const planLabel = (body: Record<string, unknown>) =>
     ? PLAN_NOTE[body.plan]
     : 'free demo';
 
+const fromAdsLine = (body: Record<string, unknown>) => (adClickFrom(body)?.fromAds ? '📣 Came from a Google Ads click.' : '');
 const startedText = (body: Record<string, unknown>) =>
-  `👀 Someone started using the chat on ${pageLabel(body)} (${planLabel(body)}).\nNo details yet. You'll get another message if they leave them.`;
+  [`👀 Someone started using the chat on ${pageLabel(body)} (${planLabel(body)}).`, fromAdsLine(body), "No details yet. You'll get another message if they leave them."].filter(Boolean).join('\n');
 
 const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>, recordId: string | null) => {
   const rating = fields[F.gbpReviewScore];
@@ -292,6 +320,7 @@ const leadText = (body: Record<string, unknown>, fields: Record<string, unknown>
   return [
     `🟢 New website lead: ${fields[F.companyName]}`,
     `From ${pageLabel(body)} (${planLabel(body)})`,
+    fromAdsLine(body),
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     needOf(body) && `Wants most: ${needOf(body)}`,
     servicesOf(body) && `Services: ${servicesOf(body)}`,
@@ -464,7 +493,7 @@ async function tellSamplesBot(body: Record<string, unknown>, fields: Record<stri
 // bot's BOT_NEW_LEAD_URL, else demo-send's DEMO_BOT_URL, with /webhook/website-event as the path.
 // Off when neither is set. Never holds up the visitor (waitUntil) and a failure only logs: the
 // dashboard missing a step is not worth an error.
-type StepEvent = { step: string; lead_ref?: string | null; business?: string; phone?: string; page?: string };
+type StepEvent = { step: string; lead_ref?: string | null; business?: string; phone?: string; page?: string; from_ads?: boolean; ad_campaign?: string };
 async function reportSteps(events: StepEvent[]) {
   const botUrl = Netlify.env.get('BOT_NEW_LEAD_URL') || Netlify.env.get('DEMO_BOT_URL');
   const secret = Netlify.env.get('BOT_NEW_LEAD_SECRET') || Netlify.env.get('DEMO_BOT_SECRET');
@@ -497,12 +526,15 @@ const newSteps = (body: Record<string, unknown>, fields: Record<string, unknown>
   const steps = stepsFrom(body).filter((step) => !oldNote.includes(STEP_NOTE[step]));
   if (fields[F.mobile] && (!old || old[F.mobile] !== fields[F.mobile]) && !steps.includes('number') && !steps.includes('requested')) steps.push('number');
   if (oldName && !oldName.includes(PLACEHOLDER_NAME) && oldName !== name) steps.push('business_changed');
+  const ad = adClickFrom(body);
   return steps.map((step) => ({
     step,
     lead_ref: recordId,
     business: name.includes(PLACEHOLDER_NAME) ? '' : name,
     phone: String(fields[F.mobile] || ''),
     page: pageLabel(body),
+    from_ads: !!ad?.fromAds,
+    ad_campaign: ad?.campaign || undefined,
   }));
 };
 const reportInBackground = (context: Context | undefined, events: StepEvent[]) => {
@@ -560,7 +592,7 @@ export default async (request: Request, context?: Context) => {
     const text = startedText(body);
     if (!live) return json({ ok: true, dryRun: true, alert: text }, 200);
     await sendAlert('started', text);
-    await reportInBackground(context, [{ step: 'started', page: pageLabel(body) }]);
+    await reportInBackground(context, [{ step: 'started', page: pageLabel(body), from_ads: !!adClickFrom(body)?.fromAds }]);
     return json({ ok: true }, 200);
   }
 
