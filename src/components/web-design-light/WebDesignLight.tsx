@@ -114,7 +114,7 @@ export default function WebDesignLight({ ads = false }: { ads?: boolean }) {
           steps={[
             { title: 'Tap your industry', body: 'Plumber, salon, accountant or anything else: tap the closest one.' },
             { title: 'Tell us how many services', body: 'And where to WhatsApp you. That’s all.' },
-            { title: 'See your price', body: 'It shows straight away, and Tyran WhatsApps you 3 popular designs for your industry. Most websites are live in 7 days.' },
+            { title: 'See your price', body: 'It shows straight away, and Ashley WhatsApps you 3 popular designs for your industry. Most websites are live in 7 days.' },
           ]}
           button="Get my instant price"
         />

@@ -16,7 +16,7 @@ import socialPost from '../../assets/images/clients/posts-dfy/rj-master-plumbers
 // progress bar, and no examples or prices in the chat itself ("the point is to WhatsApp them"):
 //   1. type of business (7 rows)  2. the closest type  3. name + WhatsApp number ("Send me the designs": the lead is
 //   saved here)  4. "what's your business called?" (Google check behind the scenes; "Is it one of these?" only for
-//   close matches), then "On its way. Tyran from our team will WhatsApp you…".
+//   close matches), then "On its way. Ashley from our team will WhatsApp you…" (Tyran for reviews, social and the package).
 // The team sends the examples by hand (alert to Jeremy and Ashley, netlify/functions/demo-lead.mts, offer "examples").
 // One Airtable record per chat: created at step 3, then updated with the business (the Google box rule).
 // Every step is counted in PostHog (examples_chat_step) to see where people leave.
@@ -55,7 +55,7 @@ const SERVICES = [
 const priceOf = (g: Group, services: string | null) =>
   g.id === 'shop' ? 'from R30,000' : g.id === 'professional' || services === '4+' ? 'R9,900' : 'R6,500';
 
-// The homepage's extra question; plan is what the lead is filed under, done is what Tyran sends
+// The homepage's extra question; plan is what the lead is filed under, done is what the team sends
 type Need = { id: string; label: string; plan: ChatPlan; done: (plural: string) => string };
 const NEEDS: Need[] = [
   { id: 'reviews', label: 'More Google reviews', plan: 'reviews', done: (p) => `how we get ${p} more Google reviews` },
@@ -455,6 +455,8 @@ export default function ExamplesChat({ variant = 'website', page }: { variant?: 
   const [picked, setPicked] = useState<Business | 'none' | null>(null);
   const [from, setFrom] = useState('');
   const [start, setStart] = useState<StartPlan | null>(null);
+  // Who WhatsApps them: Ashley handles every website lead from her number (Jeremy, 15 Oct 2026), Tyran the rest
+  const who = (start ?? need?.plan ?? cfg.plan) === 'website' ? 'Ashley' : 'Tyran';
   const logRef = useRef<HTMLDivElement>(null);
   const saveLead = useLeadRecord(cfg.page, cfg.plan, 'examples');
 
@@ -892,8 +894,8 @@ export default function ExamplesChat({ variant = 'website', page }: { variant?: 
                     <span>
                       <strong>On its way</strong>
                       {start
-                        ? `Tyran from our team will WhatsApp you on ${shownNumber} ${START[start].done}`
-                        : `Tyran from our team will WhatsApp you on ${shownNumber} with ${cfg.done(plural ?? 'businesses like yours', need)} ${cfg.doneTail}.`}
+                        ? `${who} from our team will WhatsApp you on ${shownNumber} ${START[start].done}`
+                        : `${who} from our team will WhatsApp you on ${shownNumber} with ${cfg.done(plural ?? 'businesses like yours', need)} ${cfg.doneTail}.`}
                     </span>
                   </div>
                   <Bot>
@@ -942,7 +944,7 @@ export default function ExamplesChat({ variant = 'website', page }: { variant?: 
               <button type="submit" className="dd-btn dd-btn-primary wx-send">
                 {start ? 'Get started' : cfg.send}
               </button>
-              <p className="wx-small">{start ? 'Tyran from our team WhatsApps you to get started.' : cfg.small}</p>
+              <p className="wx-small">{start ? `${who} from our team WhatsApps you to get started.` : cfg.small}</p>
             </form>
           )}
           {(stage === 'name' || stage === 'other') && !typing && (

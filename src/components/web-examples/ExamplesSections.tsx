@@ -150,7 +150,7 @@ export function ExamplesShop({ track, price = 'R6,500' }: { track: (label: strin
 const STEPS = [
   { title: 'Pick your industry', body: 'Plumber, salon, accountant or anything else: tap the closest one.' },
   { title: 'Tell us where to WhatsApp you', body: 'Your name, your number and your business name. That’s all.' },
-  { title: 'Get designs on WhatsApp', body: 'Tyran from our team sends 3 popular designs for your industry, with our prices. Go ahead, and most websites are live in 7 days.' },
+  { title: 'Get designs on WhatsApp', body: 'Ashley from our team sends 3 popular designs for your industry, with our prices. Go ahead, and most websites are live in 7 days.' },
 ];
 
 type Step = { title: string; body: string };

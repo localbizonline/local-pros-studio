@@ -1,6 +1,6 @@
 // /api/demo-send?t=… : the "Send it" link in the demo-ready WhatsApp alert (demo-ready.mts).
 // GET shows what will be sent and a button (WhatsApp opens links to preview them, so GET never sends);
-// POST sends the demo link to the visitor from the sales number (DEMO_BOT_SESSION_ID) through the WhatsApp
+// POST sends the demo link to the visitor from Ashley's number (DEMO_BOT_SESSION_ID, "ashley" since 15 Oct 2026) through the WhatsApp
 // bot service's signed /webhook/send-template (DEMO_BOT_URL, DEMO_BOT_SECRET = its SEND_TEMPLATE_WEBHOOK_SECRET).
 // Sends once: Airtable "Demo status" becomes "Sent".
 
@@ -59,7 +59,7 @@ export default async (request: Request) => {
 
   if (request.method !== 'POST') {
     return html(
-      `<h1>Send ${esc(name)} their demo?</h1><p><a href="${esc(url)}" target="_blank" rel="noopener">Open the demo website</a> and check it first.</p><p>This goes to <b>0${esc(to.slice(2))}</b> from the sales number (072 703 3269):</p><pre>${esc(message)}</pre><form method="post" onsubmit="this.querySelector('button').disabled=true"><input type="hidden" name="t" value="${esc(token)}"><button type="submit">Send it on WhatsApp</button></form>${back}`,
+      `<h1>Send ${esc(name)} their demo?</h1><p><a href="${esc(url)}" target="_blank" rel="noopener">Open the demo website</a> and check it first.</p><p>This goes to <b>0${esc(to.slice(2))}</b> from Ashley's number (078 362 8921):</p><pre>${esc(message)}</pre><form method="post" onsubmit="this.querySelector('button').disabled=true"><input type="hidden" name="t" value="${esc(token)}"><button type="submit">Send it on WhatsApp</button></form>${back}`,
     );
   }
 
@@ -71,8 +71,8 @@ export default async (request: Request) => {
     await updateRecord(claims.r, { [DF.demoStatus]: 'Ready to send' });
     return html(`<h1>Not sent</h1><p>${esc(problem)}</p><p>Send it by hand:</p><pre>${esc(message)}</pre>${back}`, 502);
   }
-  await sendAlert('lead', `📤 Demo website sent to ${name} (0${to.slice(2)}) from the sales number.\n${url}`);
-  return html(`<h1>Sent ✓</h1><p>${esc(name)} has their demo link on WhatsApp. Their replies go to the sales number.</p>${back}`);
+  await sendAlert('lead', `📤 Demo website sent to ${name} (0${to.slice(2)}) from Ashley's number.\n${url}`);
+  return html(`<h1>Sent ✓</h1><p>${esc(name)} has their demo link on WhatsApp. Their replies go to Ashley's WhatsApp.</p>${back}`);
 };
 
 export const config = { path: '/api/demo-send' };
