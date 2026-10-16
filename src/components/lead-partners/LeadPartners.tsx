@@ -44,7 +44,8 @@ const SHORT_VERSION: { label: string; text: ReactNode }[] = [
     label: 'What changes',
     text: (
       <>
-        You stop paying for leads separately. From <D k="switchDate" />, your leads are part of one monthly package.
+        You stop paying for leads separately. Your leads become part of one monthly service. We’re moving lead partners over
+        one at a time, and everyone will be on it by March 2027.
       </>
     ),
   },
@@ -57,7 +58,8 @@ const SHORT_VERSION: { label: string; text: ReactNode }[] = [
     label: 'What you need to do',
     text: (
       <>
-        Let us know by <D k="replyByDate" />. We’ll set everything up with you in about 30 minutes.
+        Nothing yet. We’ll WhatsApp you to agree a start date that suits you, then set everything up with you in about 30
+        minutes.
       </>
     ),
   },
@@ -138,31 +140,65 @@ const MONEY: { label: string; text: ReactNode }[] = [
     text: 'Reviews and a strong Google profile take a few months to build. We’d rather you give it a proper go than judge it after a month. It’s also why we don’t charge setup.',
   },
   { label: 'Money-back guarantee:', text: <D k="guarantee" /> },
-  { label: 'Billing:', text: <D k="billing" /> },
+  { label: 'Billing:', text: 'starts only once your setup is finished and everything is live.' },
+  {
+    label: 'Paying:',
+    text: 'a monthly subscription through PayFast. EFT is available only by arrangement with us, and is paid in advance each month.',
+  },
 ];
 
-const STEPS: { when: ReactNode; text: string }[] = [
+// No fixed dates: lead partners move over one at a time, on a start date agreed with each on WhatsApp, all by March 2027
+// (Jeremy, 16 Oct 2026)
+const STEPS: { when: string; text: string }[] = [
+  { when: 'Now', text: 'we’re already moving businesses over, one at a time.' },
+  { when: 'Your turn', text: 'we WhatsApp you to agree a start date that suits you. Ask us anything before then.' },
   {
-    when: (
-      <>
-        Now until <D k="replyByDate" />
-      </>
-    ),
-    text: 'have a look, ask us anything, and let us know you’re in. A WhatsApp to Tyran is all it takes.',
+    when: 'Setup',
+    text: 'we set everything up with you. It takes about 30 minutes of your time: we connect your Google profile and social pages.',
   },
-  {
-    when: <D k="setupWeek" />,
-    text: 'we set everything up with you. It takes about 30 minutes of your time: we connect your Google profile and social pages, and choose which customers to ask for reviews.',
-  },
-  {
-    when: <D k="switchDate" />,
-    text: 'your package starts. Your leads keep coming, and reviews and posts begin.',
-  },
+  { when: 'By March 2027', text: 'every lead partner is on the new service.' },
 ];
 
 type Faq = { q: ReactNode; a: ReactNode };
 
 const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
+  {
+    title: 'The move, step by step',
+    items: [
+      {
+        q: 'When will I move over?',
+        a: 'We’re moving businesses over one at a time, and everyone will be on the new service by March 2027. We’ll WhatsApp you to agree a start date that suits you.',
+      },
+      {
+        q: 'Do I need to do anything right now?',
+        a: 'No. Have a look, ask us anything, and wait for our WhatsApp. If you’d like to start sooner, just tell us.',
+      },
+      {
+        q: 'What happens at setup?',
+        a: 'It takes about 30 minutes, on a call or on WhatsApp. We connect your Google profile, Facebook and Instagram, check your website, and agree which customers we’ll ask for reviews.',
+      },
+      {
+        q: 'What do you need from me?',
+        a: 'Access to your Google profile and social pages (we’ll show you how), a few photos of your work, and your logo if you have one.',
+      },
+      {
+        q: 'When does the R2,500 start?',
+        a: 'Only once your setup is finished and everything is live. You don’t pay for the new service before then.',
+      },
+      {
+        q: 'Will my leads stop while we switch over?',
+        a: 'No. Your leads keep coming the whole time: before, during and after the move.',
+      },
+      {
+        q: 'What if I’m not ready yet?',
+        a: 'Tell us. We’ll find a date that works better for you, any time before March 2027.',
+      },
+      {
+        q: 'What if I only want leads?',
+        a: 'We understand. Leads on their own will be available until we’ve moved everyone over, by March 2027. After that, leads only come as part of Local Pros Studio. Until then, businesses on the full service get leads first. If you’re unsure, WhatsApp Tyran and we’ll talk it through.',
+      },
+    ],
+  },
   {
     title: 'Your leads',
     items: [
@@ -172,7 +208,6 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       },
       { q: 'How many leads will I get?', a: <D k="howManyLeads" /> },
       { q: 'What about lead credits I’ve already paid for?', a: <D k="leadCredits" /> },
-      { q: 'Can I keep buying leads on their own instead?', a: <D k="leadsOnTheirOwn" /> },
       {
         q: 'Why are leads slower than before?',
         a: 'Because Google now recommends businesses directly instead of sending people to directory sites like ours. That’s exactly why we’re adding reviews, posts and your website to what we do for you.',
@@ -233,31 +268,22 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       },
       { q: 'What if I want to stop?', a: <D k="cancellation" /> },
       { q: 'Is there a guarantee?', a: <D k="guaranteeFaq" /> },
-      { q: 'How do I pay?', a: <D k="payFaq" /> },
+      {
+        q: 'How do I pay?',
+        a: 'By monthly subscription through PayFast, so it’s automatic. If you’d rather pay by EFT, ask us: it’s possible by arrangement and is paid in advance each month. Billing starts only once your setup is finished and everything is live.',
+      },
     ],
   },
   {
     title: 'Timing',
     items: [
       {
-        q: (
-          <>
-            What happens before <D k="switchDate" />?
-          </>
-        ),
-        a: 'Nothing changes. Your leads keep coming as normal. We use the time to set you up.',
+        q: 'What happens before my start date?',
+        a: 'Nothing changes. Your leads keep coming as normal.',
       },
       {
         q: 'I’m closed over December. Is that a problem?',
         a: 'Not at all. It’s actually a good time to start. We collect reviews from this year’s customers, and you start the new year with fresh reviews and active pages.',
-      },
-      {
-        q: (
-          <>
-            What if I miss the <D k="replyByDate" /> date?
-          </>
-        ),
-        a: <D k="missedReplyBy" />,
       },
     ],
   },
@@ -390,9 +416,7 @@ export default function LeadPartners() {
 
         <section className="dd-sec lp-grey" id="timeline">
           <div className="dd-container lp-narrow">
-            <h2 className="dd-h2">
-              From here to <D k="switchDate" />
-            </h2>
+            <h2 className="dd-h2">How the move works</h2>
             <ol className="lp-steps">
               {STEPS.map((step, i) => (
                 <li key={i}>
@@ -406,7 +430,7 @@ export default function LeadPartners() {
               ))}
             </ol>
             <p className="lp-note">
-              Nothing changes before <D k="switchDate" />. Your leads keep coming as normal until then.
+              Nothing changes for you until your start date. Your leads keep coming as normal the whole way through.
             </p>
           </div>
         </section>

@@ -116,8 +116,7 @@ p { margin: 0; max-width: 34em; }
 }
 .price small { font-size: .28em; font-weight: 700; font-stretch: 100%; color: var(--fg); letter-spacing: 0; }
 
-/* Dates not confirmed yet (1 December, By 21 Nov, Late Nov, 1 Dec): plain text on the live page, still
-   marked .ph so they are quick to find and change */
+/* No fixed dates any more (rolling rollout to March 2027, 16 Oct 2026); .ph kept plain in case one returns */
 .ph { font-style: normal; }
 
 ul.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
@@ -523,6 +522,7 @@ h1.wordmark.stack.result { font-size: clamp(3.4rem, 15vmin + .4rem, 9rem); }
   .slide .inner > p.para-lg { font-size: var(--step-body); line-height: 1.4; }
   .slide .inner > p.para-lg.pull { font-size: clamp(1.2rem, 1.6vmin + .85rem, 1.9rem); }
   h1.wordmark.stack { font-size: clamp(3.6rem, 16vmin + .4rem, 10rem); }
+  ol.steps li { padding-block: .65rem; }
 }
 @media (max-height: 700px) {
   .slide { padding-block: 4.25rem 4.25rem; }
@@ -531,6 +531,9 @@ h1.wordmark.stack.result { font-size: clamp(3.4rem, 15vmin + .4rem, 9rem); }
   .svc .row { padding-block: .3rem; }
   .svc .txt b { font-size: 1.15rem; }
   .slide .inner > p.bigline { font-size: 1.25rem; }
+  ol.steps li { padding-block: .45rem; }
+  ol.steps .when { font-size: 1.2rem; }
+  ol.steps span { line-height: 1.35; }
 }
 </style>
 </head>
@@ -658,7 +661,7 @@ h1.wordmark.stack.result { font-size: clamp(3.4rem, 15vmin + .4rem, 9rem); }
     <div class="inner">
       <h2>We know this is a big change. <span class="hl">It's a good one.</span></h2>
       <p class="bigline">We've already made this move with more than 50 businesses this year.</p>
-      <p>It's normal to have questions, and there's no rush. Nothing changes until <span class="ph">1 December</span>, and we'll set everything up with you.</p>
+      <p>It's normal to have questions, and there's no rush. Nothing changes for you until we've agreed a start date together, and we'll set everything up with you.</p>
     </div>
   </section>
 
@@ -666,9 +669,10 @@ h1.wordmark.stack.result { font-size: clamp(3.4rem, 15vmin + .4rem, 9rem); }
     <div class="inner">
       <h2>Here's what happens next.</h2>
       <ol class="steps">
-        <li><span class="when"><span class="ph">By 21 Nov</span></span><span>Let me know you're in, or ask me anything.</span></li>
-        <li><span class="when"><span class="ph">Late Nov</span></span><span>I set everything up with you. About 30 minutes.</span></li>
-        <li><span class="when"><span class="ph">1 Dec</span></span><span>Your package starts. Your leads keep coming.</span></li>
+        <li><span class="when">Now</span><span>We're already moving businesses over, one at a time.</span></li>
+        <li><span class="when">Your turn</span><span>We WhatsApp you to agree a start date that suits you. Ask us anything before then.</span></li>
+        <li><span class="when">Setup</span><span>We set everything up with you. About 30 minutes of your time.</span></li>
+        <li><span class="when">By March 2027</span><span>Every lead partner is on the new service. Your leads keep coming the whole way through.</span></li>
       </ol>
     </div>
   </section>
