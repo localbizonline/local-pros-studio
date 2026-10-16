@@ -47,7 +47,7 @@ const STEP_OF: Record<Stage, string> = { group: 'group', sub: 'type', other: 'ty
 const progressSteps = (extra: boolean) => (extra ? ['group', 'type', 'extra', 'contact', 'name'] : ['group', 'type', 'contact', 'name']);
 
 // The instant price (website page draft, Jeremy 12 Oct 2026). Shown in the chat only, never as a public table.
-// Website prices exclude hosting: an optional hosting and management package is mentioned, never priced here.
+// Website prices exclude hosting: R290 a month for hosting and updates from launch (Jeremy, 15 Oct 2026).
 const SERVICES = [
   { id: '1-3', label: '1 to 3' },
   { id: '4+', label: '4 or more' },
@@ -114,7 +114,10 @@ const VARIANTS = {
     extra: 'services' as null | 'need' | 'services',
     showPrice: true,
     price: priceOf as null | ((g: Group, services: string | null) => string),
-    priceNote: (g: Group) => `${g.id === 'shop' ? 'Online shop, quoted for what you sell.' : 'Your website, once-off. Live in 7 days.'} Optional hosting and management package available.`,
+    priceNote: (g: Group) =>
+      g.id === 'shop'
+        ? 'Online shop, quoted for what you sell. Hosting is quoted with your shop.'
+        : 'Your website, once-off. Live in 7 days. Then R290 a month for hosting and updates.',
     packageLine: (
       <>
         Or get your website <strong>included</strong> in our <strong>R2,500 a month</strong> package, with social media posts and Google review management (12-month plan).

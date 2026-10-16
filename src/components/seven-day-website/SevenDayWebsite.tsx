@@ -60,6 +60,7 @@ const WITHOUT = [
 ];
 const COVERS = [
   'Fast, secure hosting with the padlock (SSL) in the browser',
+  'Your domain name renewed every year',
   'Software and security updates',
   'Regular backups, so nothing is lost',
   'We fix it if something breaks',
@@ -101,7 +102,7 @@ const FAQ: Faq[] = [
   {
     q: 'What does the R290 a month cover?',
     a: 'Everything that keeps your website fast, safe and up to date after launch:',
-    list: ['Hosting, with the padlock (SSL) in the browser', 'Software and security updates', 'Regular backups', 'Fixes if something breaks', 'Your basic changes: photos, colours, contact details and new wording you send'],
+    list: ['Hosting, with the padlock (SSL) in the browser', 'Your domain name renewed every year', 'Software and security updates', 'Regular backups', 'Fixes if something breaks', 'Your basic changes: photos, colours, contact details and new wording you send'],
     after: 'Only design changes cost extra, at R850 an hour.',
   },
   {
@@ -300,7 +301,7 @@ export default function SevenDayWebsite() {
                 <strong>R9,900</strong> once-off, live in 7 days
               </p>
               <p className="sd-price-monthly">
-                Then <strong>R290 a month</strong> for hosting and updates.{' '}
+                Then <strong>R290 a month</strong> for hosting and updates, from launch.{' '}
                 <a href="#hosting" className="wdl-inline-link" onClick={() => trackClick('price_hosting')}>
                   What it covers
                 </a>

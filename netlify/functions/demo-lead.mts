@@ -66,7 +66,7 @@ const sendWhat = (body: Record<string, unknown>) =>
     : priceShown(body) && body.plan === 'social'
     ? `Send examples of posts for their type of business and confirm the ${priceShown(body)} price they saw.`
     : priceShown(body)
-    ? `Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and confirm the ${priceShown(body)} price they saw, plus the optional hosting and management package.`
+    ? `Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and confirm the ${priceShown(body)} price they saw, plus R290 a month for hosting and updates from launch (online shops: hosting quoted with the shop).`
     : needOf(body)
     ? `Send 2 or 3 examples of our work for their type of business (they want ${needOf(body)}) and our prices.`
     : 'Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and our prices.';
@@ -142,7 +142,7 @@ const noteFor = (body: Record<string, unknown>) => {
     type ? `Type of business (they picked): ${type}.` : '',
     need ? `What would help most: ${need}.` : '',
     servicesOf(body) ? `Services they offer: ${servicesOf(body)}.` : '',
-    priceShown(body) ? `Price shown in the chat: ${priceShown(body)} (hosting package extra).` : '',
+    priceShown(body) ? `Price shown in the chat: ${priceShown(body)} (plus R290 a month hosting and updates).` : '',
     contact ? `Name: ${contact}.` : '',
     steps.length ? `So far: ${steps.join(', ')}.` : '',
   ]

@@ -319,7 +319,7 @@ export function PriceBand({ track }: { track: (label: string) => void }) {
               From <strong>R6,500</strong> once-off
             </p>
             <p>Written, designed and built for you, live in 7 days. Your price depends on your industry and how many services you offer.</p>
-            <p className="wx-priceband-small">Optional hosting and management package available. Online shops from R30,000.</p>
+            <p className="wx-priceband-small">Then R290 a month for hosting and updates, from launch. Online shops from R30,000.</p>
             <button
               type="button"
               className="dd-btn dd-btn-primary"

@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     question: 'I already have a website. Can you refresh it?',
-    answer: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free (worth up to R9,900) on the 12-month plan, or from R6,500 once-off on its own, with an optional hosting and management package.',
+    answer: 'Yes. If yours is outdated or hard to use on a phone, we build you a new one with your services, your areas and a tap-to-call button. It’s free (worth up to R9,900) on the 12-month plan, or from R6,500 once-off on its own, then R290 a month for hosting and updates.',
   },
   {
     question: 'What if a customer is unhappy?',

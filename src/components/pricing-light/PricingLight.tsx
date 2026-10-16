@@ -29,7 +29,7 @@ const FAQ = [
   },
   {
     q: 'Can I take just one service?',
-    a: 'Yes. Google reviews is R1,200 a month and social media posts R2,000 a month, both month to month. A website on its own is from R6,500 once-off, with an optional hosting and management package: see your exact price on our website page.',
+    a: 'Yes. Google reviews is R1,200 a month and social media posts R2,000 a month, both month to month. A website on its own is from R6,500 once-off, then R290 a month for hosting and updates from launch: see your exact price on our website page.',
   },
   {
     q: 'I already have a website. Can you refresh it?',
