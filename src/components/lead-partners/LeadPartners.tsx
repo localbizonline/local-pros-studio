@@ -44,7 +44,8 @@ const SHORT_VERSION: { label: string; text: ReactNode }[] = [
     label: 'What changes',
     text: (
       <>
-        You stop paying for leads separately. From <D k="switchDate" />, your leads are part of one monthly package.
+        You stop paying for leads separately. Your leads become part of one monthly service. We’re moving lead partners over
+        one at a time, and everyone will be on it by March 2027.
       </>
     ),
   },
@@ -57,7 +58,8 @@ const SHORT_VERSION: { label: string; text: ReactNode }[] = [
     label: 'What you need to do',
     text: (
       <>
-        Let us know by <D k="replyByDate" />. We’ll set everything up with you in about 30 minutes.
+        Nothing yet. We’ll WhatsApp you to agree a start date that suits you, then set everything up with you in about 30
+        minutes.
       </>
     ),
   },
@@ -141,23 +143,16 @@ const MONEY: { label: string; text: ReactNode }[] = [
   { label: 'Billing:', text: <D k="billing" /> },
 ];
 
-const STEPS: { when: ReactNode; text: string }[] = [
+// No fixed dates: lead partners move over one at a time, on a start date agreed with each on WhatsApp, all by March 2027
+// (Jeremy, 16 Oct 2026)
+const STEPS: { when: string; text: string }[] = [
+  { when: 'Now', text: 'we’re already moving businesses over, one at a time.' },
+  { when: 'Your turn', text: 'we WhatsApp you to agree a start date that suits you. Ask us anything before then.' },
   {
-    when: (
-      <>
-        Now until <D k="replyByDate" />
-      </>
-    ),
-    text: 'have a look, ask us anything, and let us know you’re in. A WhatsApp to Tyran is all it takes.',
+    when: 'Setup',
+    text: 'we set everything up with you. It takes about 30 minutes of your time: we connect your Google profile and social pages.',
   },
-  {
-    when: <D k="setupWeek" />,
-    text: 'we set everything up with you. It takes about 30 minutes of your time: we connect your Google profile and social pages, and choose which customers to ask for reviews.',
-  },
-  {
-    when: <D k="switchDate" />,
-    text: 'your package starts. Your leads keep coming, and reviews and posts begin.',
-  },
+  { when: 'By March 2027', text: 'every lead partner is on the new service.' },
 ];
 
 type Faq = { q: ReactNode; a: ReactNode };
@@ -240,24 +235,16 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
     title: 'Timing',
     items: [
       {
-        q: (
-          <>
-            What happens before <D k="switchDate" />?
-          </>
-        ),
-        a: 'Nothing changes. Your leads keep coming as normal. We use the time to set you up.',
+        q: 'When will I move over?',
+        a: 'We’re moving businesses over one at a time, and everyone will be on the new service by March 2027. We’ll WhatsApp you to agree a start date that suits you.',
+      },
+      {
+        q: 'What happens before my start date?',
+        a: 'Nothing changes. Your leads keep coming as normal.',
       },
       {
         q: 'I’m closed over December. Is that a problem?',
         a: 'Not at all. It’s actually a good time to start. We collect reviews from this year’s customers, and you start the new year with fresh reviews and active pages.',
-      },
-      {
-        q: (
-          <>
-            What if I miss the <D k="replyByDate" /> date?
-          </>
-        ),
-        a: <D k="missedReplyBy" />,
       },
     ],
   },
@@ -390,9 +377,7 @@ export default function LeadPartners() {
 
         <section className="dd-sec lp-grey" id="timeline">
           <div className="dd-container lp-narrow">
-            <h2 className="dd-h2">
-              From here to <D k="switchDate" />
-            </h2>
+            <h2 className="dd-h2">How the move works</h2>
             <ol className="lp-steps">
               {STEPS.map((step, i) => (
                 <li key={i}>
@@ -406,7 +391,7 @@ export default function LeadPartners() {
               ))}
             </ol>
             <p className="lp-note">
-              Nothing changes before <D k="switchDate" />. Your leads keep coming as normal until then.
+              Nothing changes for you until your start date. Your leads keep coming as normal the whole way through.
             </p>
           </div>
         </section>

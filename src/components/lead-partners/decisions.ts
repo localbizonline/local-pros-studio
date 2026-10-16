@@ -7,10 +7,6 @@
 export type Decision = { note: string; value: string | null; flag?: boolean };
 
 export const DECISIONS = {
-  switchDate: { note: 'switch date, e.g. 1 December 2026', value: null },
-  replyByDate: { note: 'reply-by date, e.g. 21 November', value: null },
-  setupWeek: { note: 'setup week', value: null },
-
   leadVolumeWording: {
     note: 'confirm wording on lead volume. Safer version: “The leads you get through us keep coming to you, as they do now.”',
     value: null,
@@ -29,7 +25,6 @@ export const DECISIONS = {
   cancellation: { note: 'cancellation terms.', value: null },
   guaranteeFaq: { note: 'see the money section.', value: null },
   payFaq: { note: 'see the money section.', value: null },
-  missedReplyBy: { note: 'answer.', value: null },
 } satisfies Record<string, Decision>;
 
 export type DecisionKey = keyof typeof DECISIONS;
