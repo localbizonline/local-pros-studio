@@ -309,10 +309,8 @@ h1.mega span { color: var(--accent); display: block; }
   font-family: var(--font-display); font-stretch: 80%; font-weight: 850;
   font-size: var(--step-big); line-height: 1.05; text-wrap: balance;
 }
-.shift.big div:first-child span:last-child {
-  color: var(--muted); text-decoration: line-through;
-  text-decoration-thickness: 3px; text-decoration-color: var(--accent);
-}
+/* Slide 7: "Before" in grey, not crossed out: we still send leads (Jeremy, 16 Oct 2026) */
+.shift.big div:first-child span:last-child { color: var(--muted); }
 h1.wordmark {
   font-size: clamp(3rem, 11vmin + .5rem, 7rem);
   font-weight: 900; font-stretch: 75%; line-height: .9; letter-spacing: -0.02em;
@@ -602,8 +600,8 @@ h1.wordmark.stack.result { font-size: clamp(3.4rem, 15vmin + .4rem, 9rem); }
   <section class="slide" aria-label="Slide 7">
     <div class="inner">
       <div class="shift big">
-        <div><span class="k">Before</span><span>We sold you leads.</span></div>
-        <div class="now"><span class="k">Now</span><span>We help you grow your own business.</span></div>
+        <div><span class="k">Before</span><span>We sent you leads.</span></div>
+        <div class="now"><span class="k">Now</span><span>We send you leads, and help you grow your own business.</span></div>
       </div>
     </div>
   </section>
