@@ -140,7 +140,7 @@ const MONEY: { label: string; text: ReactNode }[] = [
     text: 'Reviews and a strong Google profile take a few months to build. We’d rather you give it a proper go than judge it after a month. It’s also why we don’t charge setup.',
   },
   { label: 'Money-back guarantee:', text: <D k="guarantee" /> },
-  { label: 'Billing:', text: <D k="billing" /> },
+  { label: 'Billing:', text: 'starts only once your setup is finished and everything is live.' },
 ];
 
 // No fixed dates: lead partners move over one at a time, on a start date agreed with each on WhatsApp, all by March 2027
@@ -159,6 +159,43 @@ type Faq = { q: ReactNode; a: ReactNode };
 
 const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
   {
+    title: 'The move, step by step',
+    items: [
+      {
+        q: 'When will I move over?',
+        a: 'We’re moving businesses over one at a time, and everyone will be on the new service by March 2027. We’ll WhatsApp you to agree a start date that suits you.',
+      },
+      {
+        q: 'Do I need to do anything right now?',
+        a: 'No. Have a look, ask us anything, and wait for our WhatsApp. If you’d like to start sooner, just tell us.',
+      },
+      {
+        q: 'What happens at setup?',
+        a: 'It takes about 30 minutes, on a call or on WhatsApp. We connect your Google profile, Facebook and Instagram, check your website, and agree which customers we’ll ask for reviews.',
+      },
+      {
+        q: 'What do you need from me?',
+        a: 'Access to your Google profile and social pages (we’ll show you how), a few photos of your work, and your logo if you have one.',
+      },
+      {
+        q: 'When does the R2,500 start?',
+        a: 'Only once your setup is finished and everything is live. You don’t pay for the new service before then.',
+      },
+      {
+        q: 'Will my leads stop while we switch over?',
+        a: 'No. Your leads keep coming the whole time: before, during and after the move.',
+      },
+      {
+        q: 'What if I’m not ready yet?',
+        a: 'Tell us. We’ll find a date that works better for you, any time before March 2027.',
+      },
+      {
+        q: 'What if I only want leads?',
+        a: 'We understand. Leads on their own will be available until we’ve moved everyone over, by March 2027. After that, leads only come as part of Local Pros Studio. Until then, businesses on the full service get leads first. If you’re unsure, WhatsApp Tyran and we’ll talk it through.',
+      },
+    ],
+  },
+  {
     title: 'Your leads',
     items: [
       {
@@ -167,7 +204,6 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       },
       { q: 'How many leads will I get?', a: <D k="howManyLeads" /> },
       { q: 'What about lead credits I’ve already paid for?', a: <D k="leadCredits" /> },
-      { q: 'Can I keep buying leads on their own instead?', a: <D k="leadsOnTheirOwn" /> },
       {
         q: 'Why are leads slower than before?',
         a: 'Because Google now recommends businesses directly instead of sending people to directory sites like ours. That’s exactly why we’re adding reviews, posts and your website to what we do for you.',
@@ -228,16 +264,19 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       },
       { q: 'What if I want to stop?', a: <D k="cancellation" /> },
       { q: 'Is there a guarantee?', a: <D k="guaranteeFaq" /> },
-      { q: 'How do I pay?', a: <D k="payFaq" /> },
+      {
+        q: 'How do I pay?',
+        a: (
+          <>
+            <D k="payFaq" /> Billing starts only once your setup is finished and everything is live.
+          </>
+        ),
+      },
     ],
   },
   {
     title: 'Timing',
     items: [
-      {
-        q: 'When will I move over?',
-        a: 'We’re moving businesses over one at a time, and everyone will be on the new service by March 2027. We’ll WhatsApp you to agree a start date that suits you.',
-      },
       {
         q: 'What happens before my start date?',
         a: 'Nothing changes. Your leads keep coming as normal.',
