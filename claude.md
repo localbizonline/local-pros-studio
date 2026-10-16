@@ -52,7 +52,7 @@ The shared footer (`section-library/sections/SiteFooter.tsx`, on every live page
 - **Social media posting**: R2,000/month
 - **R2,500 plan**: reviews + social posting, 6-month commitment; free website on a 12-month commitment
 - **Web design** (since 12 Oct 2026): from R6,500 once-off (1–3 services), R9,900 (4+ services or professional), online shops from R30,000; then R290 a month for hosting and updates from launch (Jeremy, 15 Oct 2026, on every website page, the chats and /website-faq; online shops: hosting quoted with the shop). Design changes R850 an hour. The exact price shows only in the examples chat. Free (worth up to R9,900) with the R2,500 package on 12 months.
-- **Still open on the website terms page (/website-faq)**: rent to own at R450 a month (not offered on marketing pages; kept on the terms page on purpose, Jeremy, 16 Oct 2026) and "1 hour of changes every month" (the 7-day page says basic changes at no extra cost).
+- **Still open on the website terms page (/website-faq)**: rent to own at R450 a month (not offered on marketing pages; kept on the terms page on purpose, Jeremy, 16 Oct 2026); its changes wording matches the 7-day page since 16 Oct 2026 (7-day build section, basic changes at no extra cost, design changes R850 an hour).
 
 Check the live pages before quoting a price; prices are still repeated across several page files.
 

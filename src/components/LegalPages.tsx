@@ -544,28 +544,80 @@ const Question = ({ question, children }: { question: string; children: ReactNod
   </div>
 );
 
+// Matches the 7-day website page (/7-day-website, seven-day-website/SevenDayWebsite.tsx) since 16 Oct 2026:
+// the 7-day build, wording written once, basic changes at no extra cost, design changes R850 an hour.
 const websiteFaqSections: LegalSection[] = [
   {
-    title: '1. Changes after your website is live',
+    title: '1. Building your website in 7 days',
+    content: (
+      <>
+        <Question question="How do the 7 days work?">
+          <ul>
+            <li>
+              <strong>Day 1:</strong> we send you 2 or 3 sample designs and you pick one.
+            </li>
+            <li>
+              <strong>Days 2 and 3:</strong> we write the wording and build every page.
+            </li>
+            <li>
+              <strong>Days 4 and 5:</strong> you check every page and send us all your changes in one list.
+            </li>
+            <li>
+              <strong>Day 6:</strong> we make your changes.
+            </li>
+            <li>
+              <strong>Day 7:</strong> your website goes live.
+            </li>
+          </ul>
+          <p>
+            Before day 1 we need your logo, photos of your work, your services and the areas you work in. No
+            photos or logo yet? Send us your Google listing or Facebook page and we work from that.
+          </p>
+        </Question>
+        <Question question="What if I am late on my side?">
+          <p>
+            Your launch moves by the same number of days. If your changes come in a day late, your website goes
+            live a day later.
+          </p>
+        </Question>
+        <Question question="How many rounds of changes are included?">
+          <p>
+            One round, on day 6, so put everything in one list on day 4 or 5. After launch, basic changes cost
+            nothing extra and design changes are R850 an hour (see below).
+          </p>
+        </Question>
+        <Question question="Who writes the wording?">
+          <p>
+            We do, once, for launch. If you want the wording changed later, send us the new words and we put them
+            in.
+          </p>
+        </Question>
+      </>
+    ),
+  },
+  {
+    title: '2. Changes after your website is live',
     content: (
       <>
         <Question question="Can I still ask for changes after launch?">
           <p>
-            Yes. Your hosting and management includes <strong>1 hour of changes every month</strong>. That covers
-            the everyday updates most businesses need, such as:
+            Yes. <strong>Basic changes are included in your R290/month</strong> hosting and updates, at no extra
+            cost, such as:
           </p>
           <ul>
-            <li>updating wording, prices, services or service areas;</li>
             <li>swapping or adding photos of your work;</li>
-            <li>changing phone numbers, email addresses or business hours; and</li>
+            <li>changing a colour;</li>
+            <li>changing phone numbers, email addresses or business hours;</li>
+            <li>putting in new wording, prices, services or service areas that you send us; and</li>
             <li>adding a new review, project or special offer.</li>
           </ul>
         </Question>
-        <Question question="What counts as a bigger change?">
+        <Question question="What counts as a design change?">
           <p>
-            Work that goes beyond the monthly hour, such as a redesign, several new pages, or new features like
-            online bookings or a shop. Design changes are <strong>R850 an hour</strong>. We always quote bigger
-            changes first and only start once you have said yes, so there are no surprise invoices.
+            Anything that changes how a page is laid out: a new section, a new layout or a redesigned page. Design
+            changes are <strong>R850 an hour</strong>. We tell you how many hours before we start and only start
+            once you have said yes, so there are no surprise invoices. New pages and new features, such as online
+            bookings or a shop, are quoted first too.
           </p>
         </Question>
         <Question question="How do I ask for a change?">
@@ -579,7 +631,7 @@ const websiteFaqSections: LegalSection[] = [
     ),
   },
   {
-    title: '2. Editing your website yourself',
+    title: '3. Editing your website yourself',
     content: (
       <>
         <Question question="Can I make changes to the website myself?">
@@ -596,14 +648,14 @@ const websiteFaqSections: LegalSection[] = [
           <p>
             The editor is set up for content changes such as wording and images, not the design or layout. If
             something does not look right after an edit, WhatsApp us and we will sort it out. If you would rather
-            not edit it yourself, just send us the change and we will do it within your monthly hour.
+            not edit it yourself, just send us the change and we will do it at no extra cost.
           </p>
         </Question>
       </>
     ),
   },
   {
-    title: '3. Ownership, your domain and Google tools',
+    title: '4. Ownership, your domain and Google tools',
     content: (
       <>
         <Question question="Do I own my domain name?">
@@ -640,7 +692,7 @@ const websiteFaqSections: LegalSection[] = [
     ),
   },
   {
-    title: '4. Hosting and management: what keeps your website working',
+    title: '5. Hosting and management: what keeps your website working',
     content: (
       <>
         <Question question="Why is there a monthly hosting and management fee?">
@@ -680,8 +732,8 @@ const websiteFaqSections: LegalSection[] = [
               <strong>Real support:</strong> a person you can WhatsApp, not a ticket system.
             </li>
             <li>
-              <strong>1 hour of changes every month:</strong> keep your prices, photos and services up to date
-              without paying extra.
+              <strong>Your basic changes at no extra cost:</strong> photos, colours, contact details and new
+              wording you send us. Only design changes cost extra, at R850 an hour.
             </li>
           </ul>
           <p>
@@ -709,7 +761,7 @@ const websiteFaqSections: LegalSection[] = [
     ),
   },
   {
-    title: '5. Email',
+    title: '6. Email',
     content: (
       <Question question="Do you host my business email?">
         <p>
@@ -723,7 +775,7 @@ const websiteFaqSections: LegalSection[] = [
     ),
   },
   {
-    title: '6. Moving your website or leaving',
+    title: '7. Moving your website or leaving',
     content: (
       <>
         <Question question="Can I host my website somewhere else?">
@@ -750,7 +802,7 @@ const websiteFaqSections: LegalSection[] = [
     ),
   },
   {
-    title: '7. The fine print',
+    title: '8. The fine print',
     content: (
       <p>
         This page explains our standard website terms in plain language. It forms part of our{' '}
@@ -795,8 +847,8 @@ export const WebsiteFaqPage = () => (
   <LegalPage
     eyebrow="Website clients"
     title="Website Terms and FAQ"
-    introduction="Plain answers to the questions website clients ask us most: changes, editing your site, ownership, your domain, hosting and email."
+    introduction="Plain answers to the questions website clients ask us most: the 7-day build, changes, editing your site, ownership, your domain, hosting and email."
     sections={websiteFaqSections}
-    effectiveDate="15 October 2026"
+    effectiveDate="16 October 2026"
   />
 );
