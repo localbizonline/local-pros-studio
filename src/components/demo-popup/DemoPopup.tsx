@@ -4,6 +4,7 @@ import { ArrowRight, Check, Search, Star, X } from 'lucide-react';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import { isTeamDevice } from '../../teamDevice';
 import { capture, countDemoLead } from '../../analytics';
+import { adClick } from '../../adClick';
 import { chatState, OPEN_CHAT_EVENT, type ChatOffer, type ChatPage, type ChatPlan } from './openSiteChat';
 import { useGoogleSearch, type Business } from './googleSearch';
 
@@ -29,7 +30,7 @@ const PLAN: Record<ChatPlan, { chat: string; whatsApp: string }> = {
 
 // Quick questions after we have their number, one tap each (Jeremy, 8 Oct 2026): a feel for how they would
 // pay and how ready they are. Nothing is binding; the answers go to Airtable, the alert and the WhatsApp message.
-// Prices are the website page's (src/components/web-design-light): from R6,500, hosting extra (12 Oct 2026).
+// Prices are the website page's (src/components/web-design-light): from R6,500, then R290 a month for hosting and updates (15 Oct 2026).
 // Never mention a posting frequency.
 type QuestionId = 'pay' | 'site' | 'when';
 const QUESTIONS: Record<QuestionId, { ask: string; options: { value: string; label: string }[] }> = {
@@ -203,7 +204,7 @@ export const useLeadRecord = (page: ChatPage, plan?: ChatPlan, offer?: LeadOffer
     // Picking a business (again) or typing details starts the story over: earlier steps were for another listing
     const restart = newSteps.includes('picked') || (newSteps.includes('typed') && !steps.current.includes('typed'));
     steps.current = restart ? [...newSteps] : [...new Set([...steps.current, ...newSteps])];
-    const body = { kind: 'lead', page, plan, offer, steps: steps.current, ...lead };
+    const body = { kind: 'lead', page, plan, offer, steps: steps.current, adClick: adClick(), ...lead };
     queue.current = queue.current.then(async () => {
       try {
         const res = await fetch('/api/demo-lead', {
@@ -239,7 +240,7 @@ export const notifyStarted = (page: ChatPage, plan?: ChatPlan, offer?: LeadOffer
   }
   startedThisLoad.add(page);
   capture('site_chat_started', { page, plan: plan || 'demo', offer });
-  postLead({ kind: 'started', page, plan, offer });
+  postLead({ kind: 'started', page, plan, offer, adClick: adClick() });
 };
 
 const track = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: label, value: 1 });
@@ -414,7 +415,7 @@ const ONE_SERVICE: Record<
     price: 'From R6,500',
     unit: 'once-off',
     just: 'Just the website',
-    alone: 'A website on its own is from R6,500 once-off, with an optional hosting and management package.',
+    alone: 'A website on its own is from R6,500 once-off, then R290 a month for hosting and updates.',
     extra: 0,
     adds: [['⭐', 'A Google review request to every customer'], ['📲', 'Facebook and Instagram posts, made and published for you']],
   },

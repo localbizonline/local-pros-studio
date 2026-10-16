@@ -564,8 +564,8 @@ const websiteFaqSections: LegalSection[] = [
         <Question question="What counts as a bigger change?">
           <p>
             Work that goes beyond the monthly hour, such as a redesign, several new pages, or new features like
-            online bookings or a shop. We always quote bigger changes first and only start once you have said
-            yes, so there are no surprise invoices.
+            online bookings or a shop. Design changes are <strong>R850 an hour</strong>. We always quote bigger
+            changes first and only start once you have said yes, so there are no surprise invoices.
           </p>
         </Question>
         <Question question="How do I ask for a change?">
@@ -616,7 +616,7 @@ const websiteFaqSections: LegalSection[] = [
         <Question question="When does the website become mine?">
           <ul>
             <li>
-              <strong>Bought outright (R9,900):</strong> the website is yours from launch.
+              <strong>Bought outright (from R6,500):</strong> the website is yours from launch.
             </li>
             <li>
               <strong>Rent to own (R450/month):</strong> the website is yours after your 36th monthly payment.
@@ -691,8 +691,8 @@ const websiteFaqSections: LegalSection[] = [
         <Question question="When do I pay the R290/month fee?">
           <ul>
             <li>
-              <strong>Bought outright:</strong> from month 13. The first 12 months of hosting and management are
-              included in the R9,900.
+              <strong>Bought outright:</strong> from launch. Your R290/month starts the month your website goes
+              live.
             </li>
             <li>
               <strong>Rent to own:</strong> hosting and management is included in your R450/month. After your 36th
@@ -797,6 +797,6 @@ export const WebsiteFaqPage = () => (
     title="Website Terms and FAQ"
     introduction="Plain answers to the questions website clients ask us most: changes, editing your site, ownership, your domain, hosting and email."
     sections={websiteFaqSections}
-    effectiveDate="2 October 2026"
+    effectiveDate="15 October 2026"
   />
 );

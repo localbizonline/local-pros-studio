@@ -2,6 +2,10 @@ import { StrictMode } from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
+import { rememberAdClick } from './adClick';
+
+// Before anything else: the ad click id is only on the landing URL
+rememberAdClick();
 
 const root = document.getElementById('root')!;
 const app = (

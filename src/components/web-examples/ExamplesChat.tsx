@@ -16,7 +16,7 @@ import socialPost from '../../assets/images/clients/posts-dfy/rj-master-plumbers
 // progress bar, and no examples or prices in the chat itself ("the point is to WhatsApp them"):
 //   1. type of business (7 rows)  2. the closest type  3. name + WhatsApp number ("Send me the designs": the lead is
 //   saved here)  4. "what's your business called?" (Google check behind the scenes; "Is it one of these?" only for
-//   close matches), then "On its way. Tyran from our team will WhatsApp you…".
+//   close matches), then "On its way. Ashley from our team will WhatsApp you…" (Tyran for the package).
 // The team sends the examples by hand (alert to Jeremy and Ashley, netlify/functions/demo-lead.mts, offer "examples").
 // One Airtable record per chat: created at step 3, then updated with the business (the Google box rule).
 // Every step is counted in PostHog (examples_chat_step) to see where people leave.
@@ -47,7 +47,7 @@ const STEP_OF: Record<Stage, string> = { group: 'group', sub: 'type', other: 'ty
 const progressSteps = (extra: boolean) => (extra ? ['group', 'type', 'extra', 'contact', 'name'] : ['group', 'type', 'contact', 'name']);
 
 // The instant price (website page draft, Jeremy 12 Oct 2026). Shown in the chat only, never as a public table.
-// Website prices exclude hosting: an optional hosting and management package is mentioned, never priced here.
+// Website prices exclude hosting: R290 a month for hosting and updates from launch (Jeremy, 15 Oct 2026).
 const SERVICES = [
   { id: '1-3', label: '1 to 3' },
   { id: '4+', label: '4 or more' },
@@ -55,7 +55,7 @@ const SERVICES = [
 const priceOf = (g: Group, services: string | null) =>
   g.id === 'shop' ? 'from R30,000' : g.id === 'professional' || services === '4+' ? 'R9,900' : 'R6,500';
 
-// The homepage's extra question; plan is what the lead is filed under, done is what Tyran sends
+// The homepage's extra question; plan is what the lead is filed under, done is what the team sends
 type Need = { id: string; label: string; plan: ChatPlan; done: (plural: string) => string };
 const NEEDS: Need[] = [
   { id: 'reviews', label: 'More Google reviews', plan: 'reviews', done: (p) => `how we get ${p} more Google reviews` },
@@ -114,7 +114,10 @@ const VARIANTS = {
     extra: 'services' as null | 'need' | 'services',
     showPrice: true,
     price: priceOf as null | ((g: Group, services: string | null) => string),
-    priceNote: (g: Group) => `${g.id === 'shop' ? 'Online shop, quoted for what you sell.' : 'Your website, once-off. Live in 7 days.'} Optional hosting and management package available.`,
+    priceNote: (g: Group) =>
+      g.id === 'shop'
+        ? 'Online shop, quoted for what you sell. Hosting is quoted with your shop.'
+        : 'Your website, once-off. Live in 7 days. Then R290 a month for hosting and updates.',
     packageLine: (
       <>
         Or get your website <strong>included</strong> in our <strong>R2,500 a month</strong> package, with social media posts and Google review management (12-month plan).
@@ -433,7 +436,8 @@ export function IndustryRows({ onPick }: { onPick: (g: Group) => void }) {
 }
 
 // page: tags the leads by door when one variant runs on two (the ads copy /go/website-design sends 'website-design')
-export default function ExamplesChat({ variant = 'website', page }: { variant?: ChatVariant; page?: ChatPage }) {
+// nudge: false leaves out the "Not sure where to start?" pop-up, for pages selling one fixed package (/7-day-website)
+export default function ExamplesChat({ variant = 'website', page, nudge = true }: { variant?: ChatVariant; page?: ChatPage; nudge?: boolean }) {
   const cfg: VariantConfig = page ? { ...VARIANTS[variant], page } : VARIANTS[variant];
   const step = (name: string, p: Record<string, string | undefined> = {}) => capture('examples_chat_step', { step: name, page: cfg.page, ...p });
   const [open, setOpen] = useState(false);
@@ -455,6 +459,8 @@ export default function ExamplesChat({ variant = 'website', page }: { variant?: 
   const [picked, setPicked] = useState<Business | 'none' | null>(null);
   const [from, setFrom] = useState('');
   const [start, setStart] = useState<StartPlan | null>(null);
+  // Who WhatsApps them: Ashley handles website, reviews and social leads from her number (Jeremy, 15 Oct 2026), Tyran the package
+  const who = (start ?? need?.plan ?? cfg.plan) === 'package' ? 'Tyran' : 'Ashley';
   const logRef = useRef<HTMLDivElement>(null);
   const saveLead = useLeadRecord(cfg.page, cfg.plan, 'examples');
 
@@ -691,7 +697,7 @@ export default function ExamplesChat({ variant = 'website', page }: { variant?: 
   // Its own token scope, so it looks the same on any page (the homepage isn't inside .dd)
   return (
     <div className="dd dd-a wx-page wx-root">
-      <Nudge variant={variant} blocked={everOpened} onOpen={() => openExamplesChat({ from: 'nudge' })} />
+      {nudge && <Nudge variant={variant} blocked={everOpened} onOpen={() => openExamplesChat({ from: 'nudge' })} />}
       {open && <div className="wx-backdrop" onClick={() => setOpen(false)} />}
       {open && (
         <div className="wx-sheet" role="dialog" aria-modal="true" aria-label="Websites for businesses like yours">
@@ -892,8 +898,8 @@ export default function ExamplesChat({ variant = 'website', page }: { variant?: 
                     <span>
                       <strong>On its way</strong>
                       {start
-                        ? `Tyran from our team will WhatsApp you on ${shownNumber} ${START[start].done}`
-                        : `Tyran from our team will WhatsApp you on ${shownNumber} with ${cfg.done(plural ?? 'businesses like yours', need)} ${cfg.doneTail}.`}
+                        ? `${who} from our team will WhatsApp you on ${shownNumber} ${START[start].done}`
+                        : `${who} from our team will WhatsApp you on ${shownNumber} with ${cfg.done(plural ?? 'businesses like yours', need)} ${cfg.doneTail}.`}
                     </span>
                   </div>
                   <Bot>
@@ -942,7 +948,7 @@ export default function ExamplesChat({ variant = 'website', page }: { variant?: 
               <button type="submit" className="dd-btn dd-btn-primary wx-send">
                 {start ? 'Get started' : cfg.send}
               </button>
-              <p className="wx-small">{start ? 'Tyran from our team WhatsApps you to get started.' : cfg.small}</p>
+              <p className="wx-small">{start ? `${who} from our team WhatsApps you to get started.` : cfg.small}</p>
             </form>
           )}
           {(stage === 'name' || stage === 'other') && !typing && (

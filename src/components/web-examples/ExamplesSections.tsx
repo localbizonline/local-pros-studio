@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, MousePointer2 } from 'lucide-react';
 import { GROUPS, SITES, type Site } from './catalogue';
-import { IndustryRows, SiteCard, openExamplesChat } from './ExamplesChat';
+import { IndustryRows, SiteCard, openExamplesChat, type StartPlan } from './ExamplesChat';
 import { GoogleG, GOOGLE_REVIEWS_URL } from '../web-design-light/ClientReviews';
 import heroWide from '../../assets/images/portfolio/web-hero-wide.webp';
 import heroPhone from '../../assets/images/portfolio/web-hero-phone.webp';
@@ -150,7 +150,7 @@ export function ExamplesShop({ track, price = 'R6,500' }: { track: (label: strin
 const STEPS = [
   { title: 'Pick your industry', body: 'Plumber, salon, accountant or anything else: tap the closest one.' },
   { title: 'Tell us where to WhatsApp you', body: 'Your name, your number and your business name. That’s all.' },
-  { title: 'Get designs on WhatsApp', body: 'Tyran from our team sends 3 popular designs for your industry, with our prices. Go ahead, and most websites are live in 7 days.' },
+  { title: 'Get designs on WhatsApp', body: 'Ashley from our team sends 3 popular designs for your industry, with our prices. Go ahead, and most websites are live in 7 days.' },
 ];
 
 type Step = { title: string; body: string };
@@ -207,12 +207,15 @@ export function ExamplesClosing({
   heading = 'See websites for your kind of business',
   recap = RECAP,
   button = 'Show me popular designs',
+  start,
 }: {
   waUrl: string;
   track: (label: string) => void;
   heading?: string;
   recap?: string[];
   button?: string;
+  // From a page selling one package: the button skips the questions and gets them started
+  start?: StartPlan;
 }) {
   return (
     <section className="cc wdc py-16 md:py-24 px-6 bg-[#FBF6EC]">
@@ -236,8 +239,8 @@ export function ExamplesClosing({
             type="button"
             className="dd-btn dd-btn-primary wx-closing-btn"
             onClick={() => {
-              track('closing_examples');
-              openExamplesChat({ from: 'closing' });
+              track(start ? `closing_start_${start}` : 'closing_examples');
+              openExamplesChat({ from: 'closing', start });
             }}
           >
             {button}
@@ -316,7 +319,7 @@ export function PriceBand({ track }: { track: (label: string) => void }) {
               From <strong>R6,500</strong> once-off
             </p>
             <p>Written, designed and built for you, live in 7 days. Your price depends on your industry and how many services you offer.</p>
-            <p className="wx-priceband-small">Optional hosting and management package available. Online shops from R30,000.</p>
+            <p className="wx-priceband-small">Then R290 a month for hosting and updates, from launch. Online shops from R30,000.</p>
             <button
               type="button"
               className="dd-btn dd-btn-primary"

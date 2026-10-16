@@ -35,7 +35,7 @@ const PACKAGE_GROUPS: { name: string; items: string[] }[] = [
 const SINGLES: { plan: ChatPlan; name: string; price: string; unit: string; terms: string }[] = [
   { plan: 'reviews', name: 'Google reviews', price: 'R1,200', unit: 'a month', terms: 'Month to month. 30-day money-back guarantee.' },
   { plan: 'social', name: 'Social media posts', price: 'R2,000', unit: 'a month', terms: 'Month to month.' },
-  { plan: 'website', name: 'Website', price: 'From R6,500', unit: 'once-off', terms: 'Optional hosting and management package available.' },
+  { plan: 'website', name: 'Website', price: 'From R6,500', unit: 'once-off', terms: 'Then R290 a month for hosting and updates, from launch.' },
 ];
 
 const TITLE = (

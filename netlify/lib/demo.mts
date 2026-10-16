@@ -5,7 +5,7 @@
 //    on Jeremy's Claude subscription). It follows docs/DEMO-BUILD.md in site-builder-v3 and posts the
 //    site to sites.localpros.co.za/api/demo-publish, which publishes demo-{slug}.emailsync.co.za.
 // 3. The site-builder worker calls demo-ready, which alerts Jeremy and Ashley with a "Send it" link.
-// 4. demo-send WhatsApps the link to the visitor from the sales number, through the WhatsApp bot service.
+// 4. demo-send WhatsApps the link to the visitor from Ashley's number (DEMO_BOT_SESSION_ID), through the WhatsApp bot service.
 // The routine holds no keys: each build gets a signed token (DEMO_SECRET, shared with the site-builder
 // worker) naming one Airtable record and one slug. Airtable "Demo status" keeps one build per lead.
 
@@ -174,9 +174,9 @@ export async function startDemo(lead: DemoLead) {
   }
 }
 
-// --- The WhatsApp to the visitor (demo-send.mts), from the sales number through the bot service ---
+// --- The WhatsApp to the visitor (demo-send.mts), from Ashley's number through the bot service ---
 export const demoMessage = (name: string, url: string) =>
-  `Hi, it's Tyran from Local Pros Studio. Here's the free demo website we made for ${name}, from your Google listing:\n${url}\n\nHave a look on your phone. Tell me what you'd change and we'll take it from there.`;
+  `Hi, it's Ashley from Local Pros Studio. Here's the free demo website we made for ${name}, from your Google listing:\n${url}\n\nHave a look on your phone. Tell me what you'd change and we'll take it from there.`;
 
 export const html = (body: string, status = 200) =>
   new Response(
