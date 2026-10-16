@@ -9,3 +9,8 @@
   X-Robots-Tag: noindex, nofollow
 /lead-partners.html
   X-Robots-Tag: noindex, nofollow
+# Unlisted swipe deck for lead partners (16 Oct 2026), a static file in public/lead-partners/
+/lead-partners/intro
+  X-Robots-Tag: noindex, nofollow
+/lead-partners/intro.html
+  X-Robots-Tag: noindex, nofollow
