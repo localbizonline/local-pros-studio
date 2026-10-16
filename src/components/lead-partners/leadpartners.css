@@ -296,3 +296,49 @@
     width: 100%;
   }
 }
+
+/* Bigger reading text (Jeremy, 16 Oct 2026: paragraph text too small on a phone). Matches the swipe deck at
+   /lead-partners/intro: 19px for paragraphs, lists and FAQ answers on every screen, small labels about 14.5px.
+   Only this page's own sections; the shared logo band and footer keep the site sizes. */
+.lp main {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+
+.lp .dd-faq-a p,
+.lp .lp-faq-q {
+  font-size: 1.1875rem;
+}
+
+.lp .lp-hero .dd-lede {
+  font-size: 1.25rem;
+}
+
+.lp .lp-intro,
+.lp .lp-end-text {
+  font-size: 1.25rem;
+}
+
+.lp .lp-closing-line {
+  font-size: 1.375rem;
+}
+
+.lp .dd-kw,
+.lp .lp-faq-title {
+  font-size: 0.9rem;
+}
+
+.lp .lp-phone {
+  font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+  .lp .dd-faq-a p,
+  .lp .lp-faq-q {
+    font-size: 1.1875rem;
+  }
+}
+
+.lp .lp-card .dd-h3 {
+  font-size: 1.375rem;
+}
