@@ -743,8 +743,8 @@ const websiteFaqSections: LegalSection[] = [
         <Question question="When do I pay the R290/month fee?">
           <ul>
             <li>
-              <strong>Bought outright:</strong> from launch. Your R290/month starts the month your website goes
-              live.
+              <strong>Bought outright:</strong> your first R290 is charged by card one month after you pay your
+              deposit, then every month.
             </li>
             <li>
               <strong>Rent to own:</strong> hosting and management is included in your R450/month. After your 36th

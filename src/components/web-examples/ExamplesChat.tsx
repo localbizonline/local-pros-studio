@@ -47,7 +47,7 @@ const STEP_OF: Record<Stage, string> = { group: 'group', sub: 'type', other: 'ty
 const progressSteps = (extra: boolean) => (extra ? ['group', 'type', 'extra', 'contact', 'name'] : ['group', 'type', 'contact', 'name']);
 
 // The instant price (website page draft, Jeremy 12 Oct 2026). Shown in the chat only, never as a public table.
-// Website prices exclude hosting: R290 a month for hosting and updates from launch (Jeremy, 15 Oct 2026).
+// Website prices exclude hosting: R290 a month for hosting and updates, first charged one month after the deposit (Jeremy, 16 Oct 2026).
 const SERVICES = [
   { id: '1-3', label: '1 to 3' },
   { id: '4+', label: '4 or more' },

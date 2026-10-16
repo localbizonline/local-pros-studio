@@ -301,7 +301,7 @@ export default function SevenDayWebsite() {
                 <strong>R9,900</strong> once-off, live in 7 days
               </p>
               <p className="sd-price-monthly">
-                Then <strong>R290 a month</strong> for hosting and updates, from launch.{' '}
+                Then <strong>R290 a month</strong> for hosting and updates, starting one month after your deposit.{' '}
                 <a href="#hosting" className="wdl-inline-link" onClick={() => trackClick('price_hosting')}>
                   What it covers
                 </a>

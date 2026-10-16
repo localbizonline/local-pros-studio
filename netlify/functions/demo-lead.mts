@@ -66,7 +66,7 @@ const sendWhat = (body: Record<string, unknown>) =>
     : priceShown(body) && body.plan === 'social'
     ? `Send examples of posts for their type of business and confirm the ${priceShown(body)} price they saw.`
     : priceShown(body)
-    ? `Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and confirm the ${priceShown(body)} price they saw, plus R290 a month for hosting and updates from launch (online shops: hosting quoted with the shop).`
+    ? `Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and confirm the ${priceShown(body)} price they saw, plus R290 a month for hosting and updates, first charged a month after the deposit (online shops: hosting quoted with the shop).`
     : needOf(body)
     ? `Send 2 or 3 examples of our work for their type of business (they want ${needOf(body)}) and our prices.`
     : 'Send 3 popular designs for their type of business (layouts we use most: client sites, example designs or a template with their name) and our prices.';

@@ -41,7 +41,7 @@ const NOT_A_FIT = ['You want to design every page yourself', 'You need a website
 const FAQ = [
   {
     q: 'How much does a website cost?',
-    a: 'From R6,500 once-off. Your price depends on your industry and how many services you offer: tap your industry at the top of this page and it shows in seconds. Online shops are from R30,000. Hosting and updates are R290 a month from launch. Or get your website included in our R2,500 a month package with social media posts and Google review management (12-month plan).',
+    a: 'From R6,500 once-off. Your price depends on your industry and how many services you offer: tap your industry at the top of this page and it shows in seconds. Online shops are from R30,000. Hosting and updates are R290 a month. Or get your website included in our R2,500 a month package with social media posts and Google review management (12-month plan).',
   },
   {
     q: 'Can I see website designs for my industry first?',
@@ -65,7 +65,7 @@ const FAQ = [
     a: 'It is built with what Google needs: fast pages, a page for each service and area, and proper titles. No honest provider can promise the top spot, and a new website can take 2 to 3 months to show.',
   },
   { q: 'Who owns the website?', a: 'You do, once it is paid for. On the R2,500 a month package, it is yours after 12 months.', link: true },
-  { q: 'What happens after launch?', a: 'For R290 a month, from launch, we look after your hosting, security, updates and backups, and make your basic changes (photos, colours, contact details) at no extra cost. Design changes are R850 an hour, quoted before we start.' },
+  { q: 'What happens after launch?', a: 'For R290 a month we look after your hosting, security, updates and backups, and make your basic changes (photos, colours, contact details) at no extra cost. Design changes are R850 an hour, quoted before we start.' },
 ];
 
 function FaqItem({ q, a, link, id }: { q: string; a: string; link?: boolean; id: string }) {
