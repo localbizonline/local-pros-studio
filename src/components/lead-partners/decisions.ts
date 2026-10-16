@@ -22,7 +22,6 @@ export const DECISIONS = {
   websiteIfTheyStop: { note: 'what happens to a website we built if they stop before 12 months.', value: null },
   cancellation: { note: 'cancellation terms.', value: null },
   guaranteeFaq: { note: 'see the money section.', value: null },
-  payFaq: { note: 'payment method (debit order, card, EFT).', value: null },
 } satisfies Record<string, Decision>;
 
 export type DecisionKey = keyof typeof DECISIONS;

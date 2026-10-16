@@ -141,6 +141,10 @@ const MONEY: { label: string; text: ReactNode }[] = [
   },
   { label: 'Money-back guarantee:', text: <D k="guarantee" /> },
   { label: 'Billing:', text: 'starts only once your setup is finished and everything is live.' },
+  {
+    label: 'Paying:',
+    text: 'a monthly subscription through PayFast. EFT is available only by arrangement with us, and is paid in advance each month.',
+  },
 ];
 
 // No fixed dates: lead partners move over one at a time, on a start date agreed with each on WhatsApp, all by March 2027
@@ -266,11 +270,7 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       { q: 'Is there a guarantee?', a: <D k="guaranteeFaq" /> },
       {
         q: 'How do I pay?',
-        a: (
-          <>
-            <D k="payFaq" /> Billing starts only once your setup is finished and everything is live.
-          </>
-        ),
+        a: 'By monthly subscription through PayFast, so it’s automatic. If you’d rather pay by EFT, ask us: it’s possible by arrangement and is paid in advance each month. Billing starts only once your setup is finished and everything is live.',
       },
     ],
   },
