@@ -38,8 +38,8 @@
   --step-hero: clamp(2rem, 4.2vmin + 1.2rem, 4.6rem);
   --step-big: clamp(1.7rem, 3.4vmin + 1rem, 3.8rem);
   --step-mid: clamp(1.2rem, 1.4vmin + 0.8rem, 1.9rem);
-  --step-body: clamp(1.05rem, 0.8vmin + 0.75rem, 1.45rem);
-  --step-small: clamp(0.8rem, 0.4vmin + 0.62rem, 1rem);
+  --step-body: clamp(1.2rem, 0.8vmin + 0.9rem, 1.5rem); /* 19px on a phone (was 16.8px, too small to read, 16 Oct 2026) */
+  --step-small: clamp(0.9rem, 0.4vmin + 0.7rem, 1.05rem);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -498,7 +498,7 @@ h1.mega.closing span { display: block; }
 .svc .ico.duo svg:last-child { right: 0; bottom: .1rem; box-shadow: 0 0 0 2px var(--bg); border-radius: 6px; }
 .svc .txt { display: grid; gap: .15rem; min-width: 0; }
 .svc .txt b { font-family: var(--font-display); font-weight: 900; font-stretch: 80%; font-size: clamp(1.35rem, 3.2vmin + .7rem, 2.4rem); line-height: 1.05; }
-.svc .txt > span { color: var(--muted); font-size: calc(var(--step-body) * .9); }
+.svc .txt > span { color: var(--muted); font-size: var(--step-body); }
 .svc .stars { font-style: normal; color: #FBBC04; letter-spacing: .05em; font-size: .7em; white-space: nowrap; }
 .formula { display: grid; gap: .15rem; justify-items: start; }
 .formula .term { display: grid; grid-template-columns: 2.6rem 1fr; gap: .8rem; align-items: center; }
@@ -512,6 +512,28 @@ h1.mega.closing span { display: block; }
 .formula .op { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.4rem, 3vmin + .6rem, 2.2rem); line-height: 1; color: var(--accent); width: 2.6rem; text-align: center; }
 .formula .op.eq { font-size: clamp(2.2rem, 5vmin + .8rem, 3.6rem); color: var(--fg); margin-top: .2rem; }
 h1.wordmark.stack.result { font-size: clamp(3.4rem, 15vmin + .4rem, 9rem); }
+/* Shorter phones: less space around each slide, and tighter rows on the two fullest slides (10 and 11),
+   so every slide still fits one screen with the larger body text (16 Oct 2026) */
+@media (max-height: 900px) {
+  .slide { padding-block: 4.25rem 4.25rem; }
+  .inner { gap: .85rem; }
+  .svc .row { padding-block: .45rem; gap: .75rem; grid-template-columns: 2.6rem 1fr; }
+  .svc .ico { width: 2.6rem; height: 2.6rem; }
+  .svc .ico svg { width: 2.2rem; height: 2.2rem; }
+  .svc .ico.duo svg { width: 1.8rem; height: 1.8rem; }
+  .svc .txt b { font-size: clamp(1.25rem, 2.6vmin + .6rem, 2.2rem); }
+  .slide .inner > p.para-lg { font-size: var(--step-body); line-height: 1.4; }
+  .slide .inner > p.para-lg.pull { font-size: clamp(1.2rem, 1.6vmin + .85rem, 1.9rem); }
+  h1.wordmark.stack { font-size: clamp(3.6rem, 16vmin + .4rem, 10rem); }
+}
+@media (max-height: 700px) {
+  .slide { padding-block: 4.25rem 4.25rem; }
+  .inner { gap: .7rem; }
+  .svc .txt > span { line-height: 1.32; }
+  .svc .row { padding-block: .3rem; }
+  .svc .txt b { font-size: 1.15rem; }
+  .slide .inner > p.bigline { font-size: 1.25rem; }
+}
 </style>
 </head>
 <body>
