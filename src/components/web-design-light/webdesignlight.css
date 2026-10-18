@@ -772,7 +772,8 @@
   }
 
   /* Four reviews on a phone; the link reads the rest on Google */
-  .cr-card:nth-child(n + 5) {
+  .cr-card:nth-child(n + 5),
+  .cr-phone-3 .cr-card:nth-child(n + 4) {
     display: none;
   }
 

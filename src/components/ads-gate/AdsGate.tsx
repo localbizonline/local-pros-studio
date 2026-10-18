@@ -487,7 +487,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
           open={{ group: group.id, sub: category.types ? category.chatSub : sub?.id, start: 'website' }}
         />
 
-        <ClientReviews onGoogle={() => track('reviews_google')} max={2} />
+        <ClientReviews onGoogle={() => track('reviews_google')} max={6} phoneMax={3} />
 
         <section className="dd-sec" id="faq">
           <div className="dd-container">

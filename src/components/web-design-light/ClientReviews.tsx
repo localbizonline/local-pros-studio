@@ -23,13 +23,14 @@ const Stars = () => (
   </span>
 );
 
-// max: how many reviews to show (the ads pages show 2 to keep the page short: Jeremy, 18 Oct 2026)
-export default function ClientReviews({ onGoogle, max = 9 }: { onGoogle?: () => void; max?: number }) {
+// max: how many reviews to show. phoneMax: how many of them a phone shows (4 unless set).
+// The ads pages show 6 (two full rows on a computer) and 3 on a phone (Jeremy, 18 Oct 2026: 2 looked thin).
+export default function ClientReviews({ onGoogle, max = 9, phoneMax }: { onGoogle?: () => void; max?: number; phoneMax?: 3 }) {
   const { reviews, isLoading, summary } = useReputationReviews();
   const shown = reviews.filter((r) => r.starRating === 5).slice(0, max);
 
   return (
-    <section className="dd-sec cr">
+    <section className={`dd-sec cr${phoneMax === 3 ? ' cr-phone-3' : ''}`}>
       <div className="dd-container">
         <div className="cr-head">
           <div>
