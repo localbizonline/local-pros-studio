@@ -184,20 +184,16 @@ export const categoryById = (id: string | undefined) => CATEGORIES.find((c) => c
 export const GATE_PATH = '/go/websites';
 export const categoryPath = (c: Category) => `/go/websites-for/${c.id}`;
 
-// "A typical web designer vs us" (Jeremy, 18 Oct 2026). The typical side comes from the published packages of 20
+// The "why choose us" scorecard (Compare.tsx, Jeremy 18 Oct 2026). The "most web designers" side comes from the published packages of 20
 // South African web design companies, read on 11 Oct 2026 (research-private/website-design-price-survey-2026-10.json,
 // on Jeremy's machine): writing included in 3 packages and extra or excluded in 16; 3 to 7 pages in a typical
 // package; delivery dates mostly counted from when the client sends their content; extra pages, writing and
 // changes priced on top. Keep it to what that survey shows; we are not the cheapest on sticker price.
-// them: the full line; themCost: what they charge (versions 1 and 2); themShort / usShort: one or two words
-// (version 3). The R figures are examples from those companies' own price lists (R450 a page for extra pages,
-// R350 a page for writing, R450 to R500 an hour for changes).
-export type CompareRow = { topic: string; them: string; themCost: string; themShort: string; us: (who: string) => string; usShort: string };
-export const COMPARE: CompareRow[] = [
-  { topic: 'A page for each service and area', them: '3 to 7 pages: services and areas share one', themCost: '+R450 a page', themShort: 'Extra', us: () => 'A page for each service and area you work in', usShort: 'Included' },
-  { topic: 'Designed for your kind of business', them: 'A general template', themCost: 'Template', themShort: 'Template', us: (who) => `Designed for ${who}`, usShort: 'Made for you' },
-  { topic: 'The writing', them: 'Extra, or left to you', themCost: '+R350 a page', themShort: 'Extra', us: () => 'We write it for you', usShort: 'Included' },
-  { topic: 'Photos', them: 'You supply them, or stock photos', themCost: 'You supply them', themShort: 'You do it', us: () => 'We help, and fill the gaps', usShort: 'Included' },
-  { topic: 'How fast', them: 'Starts once you send your content', themCost: 'After your content', themShort: 'After your content', us: () => 'Live in 7 days, writing included', usShort: '7 days' },
-  { topic: 'Changes after launch', them: 'Charged per change', themCost: '+R450 to R500 an hour', themShort: 'Extra', us: () => 'Basic changes included in R290 a month', usShort: 'Included' },
+export const COMPARE: { topic: string; them: string; us: string }[] = [
+  { topic: 'A page for each service and area', them: 'Extra', us: 'Included' },
+  { topic: 'Designed for your kind of business', them: 'Template', us: 'Made for you' },
+  { topic: 'The writing', them: 'Extra', us: 'Included' },
+  { topic: 'Photos', them: 'You do it', us: 'Included' },
+  { topic: 'How fast', them: 'After your content', us: '7 days' },
+  { topic: 'Changes after launch', them: 'Extra', us: 'Included' },
 ];

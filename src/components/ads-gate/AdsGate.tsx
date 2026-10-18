@@ -380,8 +380,8 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
           </div>
         </section>
 
-        {/* Why choose us: three versions to pick from with ?cmp=1|2|3 (Compare.tsx) */}
-        <Compare who={who} />
+        {/* Why choose us: the scorecard (Compare.tsx) */}
+        <Compare />
 
         <ExamplesSteps
           track={track}
