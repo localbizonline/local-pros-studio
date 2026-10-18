@@ -172,16 +172,13 @@ function FaqItem({ q, a, id }: { q: string; a: string; id: string }) {
 }
 
 // Every site for the category, the chosen type's sites first, client sites before example designs
+// Example designs only, no client sites (Jeremy, 18 Oct 2026: simpler, and it scales). The chosen type's first.
 const sitesOf = (c: Category, sub: Sub | null): Site[] => {
+  const examples = (slugs: string[]) => [...new Set(slugs)].map((s) => SITES[s]).filter((s): s is Site => !!s && s.kind === 'example');
   // The general page and "Something else" show every design: those visitors could run any kind of business
-  if (c.id === ALL.id || c.id === 'other')
-    return Object.values(SITES)
-      .filter((s) => c.id === 'other' || s.slug !== 'shop')
-      .sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'client' ? -1 : 1));
+  if (c.id === ALL.id || c.id === 'other') return examples(Object.keys(SITES)).filter((s) => c.id === 'other' || s.slug !== 'shop');
   const g = groupOf(c);
-  const all = [...new Set([...(sub?.sites ?? []), ...g.subs.flatMap((s) => s.sites), ...g.sites])];
-  const sites = all.map((s) => SITES[s]).filter(Boolean) as Site[];
-  return sub ? sites : sites.sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'client' ? -1 : 1));
+  return examples([...(sub?.sites ?? []), ...g.subs.flatMap((s) => s.sites), ...g.sites]);
 };
 
 // gate: /go/websites, the general page under the pop-up; otherwise /go/websites-for/<id>
@@ -343,11 +340,11 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
             <div className="wx-shelf">
               {sites.map((s) => (
                 <div key={s.slug} className="wx-item">
-                  <SiteCard site={s} hidePlace />
+                  <SiteCard site={s} plain />
                   <div className="wx-item-meta">
-                    {(s.href || !s.picture) && (
+                    {!s.picture && (
                     <a
-                      href={s.href ?? `${SAMPLES_URL}/${s.slug}/`}
+                      href={`${SAMPLES_URL}/${s.slug}/`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="wx-item-visit"
@@ -356,13 +353,13 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                         capture('ads_gate_site_opened', { site: s.slug, kind: s.kind, category: category.id });
                       }}
                     >
-                      {s.href ? 'Visit site' : 'See the full website'} <ArrowUpRight size={16} aria-hidden="true" />
+                      See the full website <ArrowUpRight size={16} aria-hidden="true" />
                     </a>
                     )}
                   </div>
                   <div className="wx-item-actions">
                     <a
-                      href={ashleyWhatsAppLink(`Hi Ashley, I’d like a website like ${s.name} (${s.kind === 'client' ? 'a site you built' : 'your example design'}). My business: ${category.label}${sub ? ` (${sub.label.toLowerCase()})` : ''}.`)}
+                      href={ashleyWhatsAppLink(`Hi Ashley, I’d like a website like ${s.name} (one of your designs). My business: ${category.label}${sub ? ` (${sub.label.toLowerCase()})` : ''}.`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="dd-btn dd-btn-primary wx-item-btn"
@@ -409,7 +406,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                   </span>
                   <img src={PHONES[`./img/phone/${showcase.slug}.webp`]} alt={`${showcase.name}, an example design for ${showcase.type.toLowerCase()}, on a phone`} width={585} height={1899} loading="lazy" />
                 </span>
-                <span className="gx-phone-cap">{showcase.name}, example design</span>
+                <span className="gx-phone-cap">{showcase.name}</span>
                 <span className="gx-phone-link">
                   See the full website <ArrowUpRight size={16} aria-hidden="true" />
                 </span>

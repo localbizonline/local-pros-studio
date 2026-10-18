@@ -248,18 +248,18 @@ function Typing({ label }: { label?: string }) {
   );
 }
 
-// hidePlace: leave the town off the caption (the category-first ads pages: Jeremy, 18 Oct 2026, a town they're not
-// from could put them off)
-export function SiteCard({ site, small = false, hidePlace = false }: { site: Site; small?: boolean; hidePlace?: boolean }) {
+// plain: no town in the caption and no "Example design" / "Client site" tag (the category-first ads pages, which show
+// only example designs: Jeremy, 18 Oct 2026, a town they're not from could put them off, and the label isn't needed)
+export function SiteCard({ site, small = false, plain = false }: { site: Site; small?: boolean; plain?: boolean }) {
   return (
     <figure className={`wx-site${small ? ' is-small' : ''}`}>
       <div className="wx-site-shot">
         <img src={site.img} alt={`${site.kind === 'client' ? 'Website we built for' : 'Example website design for'} ${site.name}, ${site.type.toLowerCase()}`} width={585} height={780} loading="lazy" />
-        <span className={`wx-tag ${site.kind === 'client' ? 'is-client' : ''}`}>{site.kind === 'client' ? 'Client site' : 'Example design'}</span>
+        {!plain && <span className={`wx-tag ${site.kind === 'client' ? 'is-client' : ''}`}>{site.kind === 'client' ? 'Client site' : 'Example design'}</span>}
       </div>
       <figcaption>
         <strong>{site.name}</strong>
-        <span>{hidePlace ? site.type : `${site.type} · ${site.place}`}</span>
+        <span>{plain ? site.type : `${site.type} · ${site.place}`}</span>
       </figcaption>
     </figure>
   );
