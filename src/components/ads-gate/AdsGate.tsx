@@ -189,13 +189,13 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
       <main>
         <section className="gx-hero" data-section="Category hero">
           <div className="dd-container">
-            {gate ? (
-              <Rating />
-            ) : (
+            {!gate && (
               <Link to={`${GATE_PATH}${query}`} className="gx-back" data-keep-query onClick={() => track(`change_${category.id}`)}>
                 <ArrowLeft size={16} aria-hidden="true" /> Change type of business
               </Link>
             )}
+            {/* Proof above the headline (Hormozi, Jeremy 18 Oct 2026) */}
+            <Rating />
             <h1 className="gx-title gx-cat-title">
               {gate ? <span data-ad="lead">{leadText(words)}</span> : heading}
               <span data-ad="area">{areaText(words)}</span>

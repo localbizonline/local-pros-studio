@@ -67,8 +67,9 @@ export function AshleyCard({ message, onWhatsApp }: { message: string; onWhatsAp
         </div>
       </div>
       <p className="gx-wa-bubble">Hi, I’m Ashley. Ask me anything about your website. I’ll send you designs for businesses like yours and your price.</p>
+      {/* What they get and how (Hormozi, Jeremy 18 Oct 2026) */}
       <a href={ashleyWhatsAppLink(message)} target="_blank" rel="noopener noreferrer" className="gx-wa-btn" onClick={onWhatsApp}>
-        WhatsApp Ashley
+        WhatsApp Ashley for your price
       </a>
       <p className="gx-wa-review">
         <GoogleG size={16} />

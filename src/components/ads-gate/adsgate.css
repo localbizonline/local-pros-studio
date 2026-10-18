@@ -33,6 +33,18 @@
   font-size: 0.875rem;
 }
 
+/* On a category page it sits between "Change type of business" and the headline: one line, tight */
+.gx-hero .gx-back + .gx-rating {
+  min-height: 0;
+  margin: 0 0 8px;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.gx-hero .gx-back {
+  min-height: 36px;
+}
+
 .gx .gx-title {
   margin: 0;
   font-family: var(--font-head);
