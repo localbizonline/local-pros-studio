@@ -30,11 +30,11 @@ const PHONES = import.meta.glob('./img/phone/*.webp', { eager: true, import: 'de
 const THUMBS = import.meta.glob('./img/thumb/*.webp', { eager: true, import: 'default' }) as Record<string, string>;
 
 // Category-first Google Ads pages (Jeremy, 18 Oct 2026: "somebody needs to see a page that works for THEM").
-// /go/websites is the general page with a pop-up over it, "What type of business do you run?", that can't be
-// closed: they pick one to go on (Jeremy, 18 Oct 2026: "forces user to make a selection to continue", no skip).
+// /go/websites is the general page with a pop-up over it, "What type of business do you run?": they pick one to go
+// on (Jeremy, 18 Oct 2026: "forces user to make a selection to continue"). A small "Skip" link under the choices
+// was added the same evening, after 3 of the first 6 ad visitors left without picking.
 // Each of the seven broad categories has its own page at /go/websites-for/<id>: "Websites for trades and home
 // services in Sandton", the price straight away, designs for that kind of business and one button into the chat.
-// Watch the keywords' landing page rating in Google Ads: if it drops, add a small "Skip" link to the pop-up.
 // Half the ad visitors are sent here from /go/website-design (netlify/edge-functions/ads-split.ts), the
 // other half see that page as before, so the two can be compared (leads tagged "website-gate" in Airtable).
 // The area and "Website design(ers)" come from the ad link (adWords.ts, netlify/edge-functions/ads-area.ts).
@@ -88,7 +88,7 @@ function Rating() {
 
 // ---------- The pop-up on /go/websites: the question first ----------
 
-function Question({ words, query }: { words: AdWords; query: string }) {
+function Question({ words, query, onSkip }: { words: AdWords; query: string; onSkip: () => void }) {
   const area = !!words.area;
   // The page behind stays put while the pop-up is up. No focus on the first answer: its ring looked like a pick.
   useEffect(() => {
@@ -157,6 +157,19 @@ function Question({ words, query }: { words: AdWords; query: string }) {
             <strong>4.7 stars</strong> from 1,400+ Google reviews · 500+ websites since 2015
           </span>
         </p>
+        {/* A way past the question (Jeremy, 18 Oct 2026, after 3 of the first 6 ad visitors left without picking):
+            the general page behind, with every design */}
+        <button
+          type="button"
+          className="gx-skip"
+          onClick={() => {
+            track('gate_skip');
+            capture('ads_gate_skip', { area_known: area });
+            onSkip();
+          }}
+        >
+          Skip, show me all designs
+        </button>
       </div>
     </div>
   );
@@ -231,6 +244,8 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
   const words = readAdWords();
   const query = useCarriedQuery();
   const [sub, setSub] = useState<Sub | null>(null);
+  // The general page: they pressed "Skip" on the question
+  const [skipped, setSkipped] = useState(false);
   const card = useRef<HTMLDivElement>(null);
   // The WhatsApp notification drops onto the phone once it's in view (straight away with reduced motion)
   const phone = useRef<HTMLSpanElement>(null);
@@ -524,7 +539,11 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
       </main>
       <SiteFooter minimal whatsAppUrl={ashleyWhatsAppLink(waMessage)} faqHref="#faq" />
       <ExamplesChat variant="website-price" page="website-gate" nudge={false} />
-      {gate ? <Question words={words} query={query} /> : <AshleyBar message={waMessage} watch={card} onWhatsApp={onWhatsApp('bar')} />}
+      {gate && !skipped ? (
+        <Question words={words} query={query} onSkip={() => setSkipped(true)} />
+      ) : (
+        <AshleyBar message={waMessage} watch={card} onWhatsApp={onWhatsApp('bar')} />
+      )}
     </div>
   );
 }

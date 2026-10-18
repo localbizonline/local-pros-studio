@@ -461,6 +461,32 @@
   color: var(--ink);
 }
 
+/* Small on purpose: picking a type of business stays the main way on */
+.gx-skip {
+  display: block;
+  min-height: 40px;
+  margin: 2px auto -8px;
+  padding: 0 12px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.gx-skip:hover {
+  color: var(--ink);
+}
+
+.gx-skip:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 .gx-wa {
   max-width: 520px;
   padding: 12px;
@@ -983,7 +1009,7 @@
 }
 
 /* Short phones (iPhone SE and similar): tighter rows so the question and all six answers fit */
-@media (max-height: 700px) {
+@media (max-height: 760px) {
   .gx-modal {
     padding-top: 12px;
   }
