@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, Check, ChevronDown, ChevronRight, MessageCircle, X } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ChevronDown, ChevronRight, MessageCircle } from 'lucide-react';
 import { ashleyWhatsAppLink } from '../../whatsapp';
 import { capture } from '../../analytics';
 import SiteHeader from '../section-library/sections/SiteHeader';
@@ -12,7 +12,8 @@ import { SITES, groupById, type Group, type Site, type Sub } from '../web-exampl
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
 import { AD_WORDS_GLOBAL, NO_AD_WORDS, areaText, leadText, type AdWords } from './adWords';
 import { AshleyBar, AshleyCard } from './AshleyWhatsApp';
-import { ALL, CATEGORIES, COMPARE, GATE_PATH, SUB_OUTCOMES, categoryById, categoryPath, type Category } from './categories';
+import Compare from './Compare';
+import { ALL, CATEGORIES, GATE_PATH, SUB_OUTCOMES, categoryById, categoryPath, type Category } from './categories';
 
 const groupOf = (c: Category) => groupById(c.group) as Group;
 
@@ -379,41 +380,8 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
           </div>
         </section>
 
-        {/* Why choose us: a typical web designer vs us (Jeremy, 18 Oct 2026; the typical side is from our survey of
-            20 SA web design companies' published packages, categories.ts COMPARE) */}
-        <section className="dd-sec gx-compare" data-section="Typical web designer vs us">
-          <div className="dd-container">
-            <div className="dd-head">
-              <p className="dd-eyebrow">Why Local Pros Studio</p>
-              <h2 className="dd-h2">A typical web designer vs us</h2>
-            </div>
-            <div className="gx-cmp" role="table" aria-label="A typical web designer compared with Local Pros Studio">
-              <div className="gx-cmp-head" role="row">
-                <span role="columnheader" className="gx-cmp-them">Typical web designer</span>
-                <span role="columnheader" className="gx-cmp-us">Local Pros Studio</span>
-              </div>
-              {COMPARE.map((r) => (
-                <div key={r.topic} className="gx-cmp-row" role="row">
-                  <p className="gx-cmp-topic" role="rowheader">
-                    {r.topic}
-                  </p>
-                  <p className="gx-cmp-them" role="cell">
-                    <X size={16} aria-hidden="true" />
-                    <span>{r.them}</span>
-                  </p>
-                  <p className="gx-cmp-us" role="cell">
-                    <Check size={16} aria-hidden="true" />
-                    <span>{r.us(who)}</span>
-                  </p>
-                </div>
-              ))}
-            </div>
-            <p className="gx-cmp-proof">
-              <strong>500+ websites built since 2015</strong>, and thousands of South African business owners helped through Local Pros.
-            </p>
-            <p className="gx-cmp-source">Typical web designer: from the published packages of 20 South African web design companies, October 2026.</p>
-          </div>
-        </section>
+        {/* Why choose us: three versions to pick from with ?cmp=1|2|3 (Compare.tsx) */}
+        <Compare who={who} />
 
         <ExamplesSteps
           track={track}
