@@ -1,15 +1,13 @@
-// The 50/50 test of the category-first ads pages (Jeremy, 18 Oct 2026). Every Google Ads click lands on
-// /go/website-design. Half the visitors who arrive from an ad (gclid, gbraid or wbraid in the link) get the
-// question-first page (/go/websites, src/components/ads-gate/AdsGate.tsx); the other half see the page as before.
-// The question-first page is served straight away at the ad's own address, with the area filled in, and a first
-// line in the page moves the address bar to /go/websites before anything else runs. A redirect instead cost
-// about 0.85 s on a phone (Lighthouse, 18 Oct 2026). The page code, PostHog and the Google tag all load later,
-// so they all see /go/websites.
-// A cookie keeps each visitor on the same side for 30 days. Visitors without an ad click id are not part of the
-// test and always see the page as before.
+// Every Google Ads click lands on /go/website-design. Since 18 Oct 2026 (Jeremy: "send all to this new page") every
+// visitor there gets the category-first page (/go/websites, src/components/ads-gate/AdsGate.tsx); it ran as a 50/50
+// test against the page as before for its first day. The page is served straight away at the ad's own address, with
+// the area filled in, and a first line in the page moves the address bar to /go/websites before anything else runs.
+// A redirect instead cost about 0.85 s on a phone (Lighthouse, 18 Oct 2026). The page code, PostHog and the Google
+// tag all load later, so they all see /go/websites.
 //
-// ADS_GATE_SHARE (Netlify setting): the percentage sent to the new pages, 50 by default. 0 stops the test,
-// returning visitors included; 100 sends everyone. Changing it needs a redeploy.
+// ADS_GATE_SHARE (Netlify setting): the percentage sent to the new pages, 100 by default. Below 100 it splits ad
+// visitors (gclid, gbraid or wbraid in the link) at random, a cookie keeping each on the same side for 30 days, and
+// 0 sends everyone to the page as before. Changing it needs a redeploy.
 // ?arm=gate or ?arm=page on the link picks a side by hand, for checking either page.
 
 declare const Netlify: { env: { get(name: string): string | undefined } };
@@ -26,11 +24,13 @@ const asArm = (value: string | null | undefined): Arm | undefined => (value === 
 
 export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
-  const share = Math.min(100, Math.max(0, Number(Netlify.env.get('ADS_GATE_SHARE') ?? '50') || 0));
+  const share = Math.min(100, Math.max(0, Number(Netlify.env.get('ADS_GATE_SHARE') ?? '100') || 0));
   const chosen = asArm(url.searchParams.get('arm'));
   const kept = asArm(new RegExp(`(?:^|;\\s*)${COOKIE}=(\\w+)`).exec(request.headers.get('cookie') || '')?.[1]);
 
   let arm = chosen ?? kept;
+  // Everyone to the new pages: returning visitors from the old side and visitors without an ad click id too
+  if (!chosen && share === 100) arm = 'gate';
   if (!arm) {
     if (!AD_CLICK.some((p) => url.searchParams.has(p))) return;
     arm = Math.random() * 100 < share ? 'gate' : 'page';
