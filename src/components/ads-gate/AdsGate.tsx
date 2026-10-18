@@ -258,7 +258,9 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
       <SiteHeader minimal whatsAppUrl={ashleyWhatsAppLink(waMessage)} />
       <main>
         <section className="gx-hero" data-section="Category hero">
-          <div className="dd-container">
+          {/* Phone: one column. Computer: words, types and Ashley on the left, the montage large on the right */}
+          <div className="dd-container gx-hero-grid">
+            <div className="gx-hero-top">
             {!gate && (
               <Link to={`${GATE_PATH}${query}`} className="gx-back" data-keep-query onClick={() => track(`change_${category.id}`)}>
                 <ArrowLeft size={16} aria-hidden="true" /> Change type of business
@@ -294,6 +296,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                 ))}
               </div>
             )}
+            </div>
             {/* Their kind of business on the first screen, as a montage of phones fanned out (Jeremy, 18 Oct 2026: the
                 strip of four repeated the shelf below). The closest design in the middle, swapping when they tap a type. */}
             <a href="#examples" className="gx-montage" aria-label={`See popular designs for ${who}`} onClick={() => track('montage')}>

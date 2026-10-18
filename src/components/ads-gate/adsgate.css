@@ -202,12 +202,14 @@
   white-space: nowrap;
 }
 
-/* Their category's designs as phones fanned out: the closest in the middle, smaller ones behind */
+/* Their category's designs as phones fanned out: the closest in the middle, smaller ones behind.
+   --m scales the whole montage: 1 on a phone, larger on a tablet and a computer. */
 .gx-montage {
+  --m: 1;
   position: relative;
   display: block;
-  height: 132px;
-  max-width: 400px;
+  height: calc(132px * var(--m));
+  max-width: calc(400px * var(--m));
   margin: 10px auto 0;
 }
 
@@ -215,8 +217,8 @@
   position: absolute;
   bottom: 0;
   overflow: hidden;
-  border: 4px solid #0c0a09;
-  border-radius: 16px;
+  border: calc(4px * var(--m)) solid #0c0a09;
+  border-radius: calc(16px * var(--m));
   background: #fff;
   box-shadow: 0 14px 28px -14px rgba(28, 25, 23, 0.55);
 }
@@ -232,44 +234,96 @@
 .gx-mphone-0 {
   left: 50%;
   z-index: 3;
-  width: 94px;
-  height: 132px;
+  width: calc(94px * var(--m));
+  height: calc(132px * var(--m));
   transform: translateX(-50%);
 }
 
 .gx-mphone-1,
 .gx-mphone-2 {
   z-index: 2;
-  width: 80px;
-  height: 112px;
+  width: calc(80px * var(--m));
+  height: calc(112px * var(--m));
 }
 
 .gx-mphone-1 {
-  left: calc(50% - 118px);
+  left: calc(50% - 118px * var(--m));
   transform: rotate(-6deg);
 }
 
 .gx-mphone-2 {
-  left: calc(50% + 38px);
+  left: calc(50% + 38px * var(--m));
   transform: rotate(6deg);
 }
 
 .gx-mphone-3,
 .gx-mphone-4 {
   z-index: 1;
-  width: 70px;
-  height: 96px;
+  width: calc(70px * var(--m));
+  height: calc(96px * var(--m));
   opacity: 0.9;
 }
 
 .gx-mphone-3 {
-  left: calc(50% - 160px);
+  left: calc(50% - 160px * var(--m));
   transform: rotate(-11deg);
 }
 
 .gx-mphone-4 {
-  left: calc(50% + 90px);
+  left: calc(50% + 90px * var(--m));
   transform: rotate(11deg);
+}
+
+/* The rating sits on its own line under "Change type of business", on every screen size */
+.gx-hero .gx-rating {
+  display: flex;
+  width: fit-content;
+}
+
+@media (min-width: 768px) {
+  .gx-montage {
+    --m: 1.4;
+    margin-top: 24px;
+  }
+
+  .gx-actions {
+    max-width: 560px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gx-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    grid-template-areas:
+      'top montage'
+      'actions montage';
+    column-gap: 40px;
+    align-items: start;
+  }
+
+  .gx-hero-top {
+    grid-area: top;
+  }
+
+  .gx-hero-grid > .gx-montage {
+    --m: 1.25;
+    grid-area: montage;
+    align-self: center;
+    width: 100%;
+    margin: 0;
+  }
+
+  .gx-hero-grid > .gx-actions {
+    grid-area: actions;
+  }
+}
+
+/* Wide screens: room for a bigger montage (it is about 320 x --m pixels wide) */
+@media (min-width: 1280px) {
+  .gx-hero-grid > .gx-montage {
+    --m: 1.55;
+  }
 }
 
 .gx-actions {
