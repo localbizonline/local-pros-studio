@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, ChevronDown, ChevronRight, MessageCircle } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Check, ChevronDown, ChevronRight, MessageCircle } from 'lucide-react';
 import { ASHLEY_WHATSAPP_NUMBER, ashleyWhatsAppLink } from '../../whatsapp';
 import { adClick } from '../../adClick';
 import { isTeamDevice } from '../../teamDevice';
@@ -87,7 +87,8 @@ function Rating() {
 
 // ---------- The pop-up on /go/websites: the question first ----------
 
-function Question({ area, query }: { area: boolean; query: string }) {
+function Question({ words, query }: { words: AdWords; query: string }) {
+  const area = !!words.area;
   // The page behind stays put while the pop-up is up. No focus on the first answer: its ring looked like a pick.
   useEffect(() => {
     const root = document.documentElement;
@@ -101,16 +102,22 @@ function Question({ area, query }: { area: boolean; query: string }) {
   return (
     <div className="gx-modal" role="dialog" aria-modal="true" aria-labelledby="gx-q">
       <div className="gx-sheet">
-        <p className="gx-sheet-rating">
-          <GoogleG size={16} />
+        {/* Their search, confirmed first, then why to tap (Jeremy, 18 Oct 2026: "no indication why they're selecting a
+            button"). The lead and area spans are filled in by the edge function, like the headline behind. */}
+        <p className="gx-sheet-match">
+          <Check size={16} aria-hidden="true" />
           <span>
-            <strong>4.7 stars</strong> from 1,400+ Google reviews
+            <strong>
+              <span data-ad="lead">{leadText(words)}</span>
+              <span data-ad="area">{areaText(words)}</span>
+            </strong>{' '}
+            · from R6,500 · live in 7 days
           </span>
         </p>
         <p className="gx-q" id="gx-q">
           What type of business do you run?
         </p>
-        <p className="gx-q-sub">We’ll show you designs and prices for businesses like yours.</p>
+        <p className="gx-q-sub">Pick one to see websites made for businesses like yours, and your price.</p>
         <nav className="gx-rows" aria-labelledby="gx-q">
           {CATEGORIES.map((c) => (
             <Link
@@ -131,6 +138,12 @@ function Question({ area, query }: { area: boolean; query: string }) {
             </Link>
           ))}
         </nav>
+        <p className="gx-sheet-proof">
+          <GoogleG size={14} />
+          <span>
+            <strong>4.7 stars</strong> from 1,400+ Google reviews · 500+ websites since 2015
+          </span>
+        </p>
       </div>
     </div>
   );
@@ -496,7 +509,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
       </main>
       <SiteFooter minimal whatsAppUrl={ashleyWhatsAppLink(waMessage)} faqHref="#faq" />
       <ExamplesChat variant="website-price" page="website-gate" nudge={false} />
-      {gate ? <Question area={!!words.area} query={query} /> : <AshleyBar message={waMessage} watch={card} onWhatsApp={onWhatsApp('bar')} />}
+      {gate ? <Question words={words} query={query} /> : <AshleyBar message={waMessage} watch={card} onWhatsApp={onWhatsApp('bar')} />}
     </div>
   );
 }

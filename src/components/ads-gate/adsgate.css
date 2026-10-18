@@ -11,17 +11,19 @@
   inset: 0;
   z-index: 60;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding-top: 48px;
   overflow-y: auto;
   overscroll-behavior: contain;
   background: rgba(28, 25, 23, 0.6);
 }
 
+/* margin-top: auto sits it at the bottom, but a sheet taller than the screen starts at the top and scrolls */
 .gx-sheet {
   width: 100%;
   max-width: 640px;
+  margin-top: auto;
   padding: 22px var(--gutter) calc(20px + env(safe-area-inset-bottom));
   border-radius: 20px 20px 0 0;
   background: #fff;
@@ -128,8 +130,12 @@
 
 @media (min-width: 768px) {
   .gx-modal {
-    align-items: center;
     padding: 32px 24px;
+  }
+
+  /* In the middle of a computer screen */
+  .gx-modal .gx-sheet {
+    margin: auto;
   }
 
   .gx-sheet {
@@ -366,16 +372,41 @@
 /* ---------- WhatsApp with Ashley (AshleyWhatsApp.tsx) ----------
    WhatsApp's own green, as inside a WhatsApp mock-up (DESIGN-SYSTEM.md: mock-ups keep their real-app colours). */
 
-.gx-sheet-rating {
+/* "✓ Website design in Sandton · from R6,500 · live in 7 days": their search, confirmed */
+.gx-sheet-match {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 10px;
-  font-size: 0.875rem;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #eaf6ee;
+  font-size: 0.9375rem;
+  line-height: 1.4;
   color: var(--body);
 }
 
-.gx-sheet-rating strong {
+.gx-sheet-match svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #1b7a43;
+}
+
+.gx-sheet-match strong {
+  color: var(--ink);
+}
+
+.gx-sheet-proof {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.gx-sheet-proof strong {
   color: var(--ink);
 }
 
@@ -897,5 +928,40 @@
 @media (min-width: 768px) {
   .gx-closing-media .gx-montage {
     --m: 1.25;
+  }
+}
+
+/* Short phones (iPhone SE and similar): tighter rows so the question and all six answers fit */
+@media (max-height: 700px) {
+  .gx-modal {
+    padding-top: 12px;
+  }
+
+  .gx-sheet {
+    padding-top: 16px;
+  }
+
+  .gx-sheet-match {
+    margin-bottom: 8px;
+    padding: 7px 10px;
+    font-size: 0.875rem;
+  }
+
+  .gx-q-sub {
+    margin-bottom: 10px;
+  }
+
+  .gx-rows {
+    gap: 6px;
+  }
+
+  .gx-row {
+    min-height: 50px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .gx-sheet-proof {
+    margin-top: 8px;
   }
 }
