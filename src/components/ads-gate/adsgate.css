@@ -424,14 +424,49 @@
   min-width: 0;
 }
 
-.gx-bar .gx-status {
+.gx-bar-face {
+  position: relative;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.gx-bar-dot {
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #25d366;
+}
+
+.gx-bar-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
   font-size: 0.8125rem;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.gx-bar-stars b {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.gx-stars {
+  letter-spacing: 0.04em;
+  color: #f59e0b;
 }
 
 .gx .gx-bar-btn {
-  min-height: 44px;
-  padding: 10px 18px;
+  gap: 6px;
+  min-height: 46px;
+  padding: 10px 16px;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 /* Room under the footer so the bar never covers its last lines */
@@ -729,3 +764,15 @@
   color: var(--muted);
 }
 
+
+/* Narrow phones (360 px and below): a slimmer button so the rating never runs under it */
+@media (max-width: 374px) {
+  .gx .gx-bar-btn {
+    padding: 10px 12px;
+    font-size: 0.9375rem;
+  }
+
+  .gx-bar {
+    gap: 8px;
+  }
+}
