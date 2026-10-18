@@ -135,6 +135,14 @@ function Question({ words, query }: { words: AdWords; query: string }) {
                 capture('ads_gate_pick', { category: c.id, area_known: area });
               }}
             >
+              {/* Two of the category's designs, as on the website page's picker (Jeremy, 18 Oct 2026) */}
+              <span className="wx-thumbs" aria-hidden="true">
+                {sitesOf(c, null)
+                  .slice(c.id === 'other' ? 6 : 0, c.id === 'other' ? 8 : 2)
+                  .map((site) => (
+                    <img key={site.slug} src={THUMBS[`./img/thumb/${site.slug}.webp`] ?? site.img} alt="" width={200} height={267} />
+                  ))}
+              </span>
               <span className="gx-row-text">
                 <strong>{c.label}</strong>
                 <span>{c.examples}</span>

@@ -1008,3 +1008,25 @@
     margin-top: 8px;
   }
 }
+
+/* Pop-up rows with two design pictures: the label and examples stay on one line each */
+.gx-sheet .gx-row {
+  gap: 10px;
+  padding-left: 10px;
+}
+
+.gx-sheet .gx-row-text strong {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.gx-sheet .gx-row-text span {
+  overflow: hidden;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.gx-sheet .wx-thumbs {
+  width: 48px;
+}

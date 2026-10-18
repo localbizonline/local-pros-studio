@@ -12,7 +12,7 @@ export type Category = {
   // The examples chat's type of business
   group: string;
   label: string;
-  // Under the label on the question screen
+  // Under the label in the pop-up: short, so it stays on one line beside the two design pictures
   examples: string;
   // "Websites for …" on the category page
   heading: string;
@@ -63,7 +63,7 @@ export const CATEGORIES: Category[] = [
     id: 'trades',
     group: 'trades',
     label: 'Trades and home services',
-    examples: 'Plumber, builder, electrician, cleaning',
+    examples: 'Plumber, builder, electrician',
     heading: 'Websites for trades and home services',
     price: PRICE,
     includes: [
@@ -81,7 +81,7 @@ export const CATEGORIES: Category[] = [
     id: 'local',
     group: 'local',
     label: 'Local services',
-    examples: 'Mechanic, vet, tutor, driving school',
+    examples: 'Mechanic, vet, tutor',
     heading: 'Websites for local service businesses',
     price: PRICE,
     includes: [
@@ -135,7 +135,7 @@ export const CATEGORIES: Category[] = [
     id: 'hospitality',
     group: 'hospitality',
     label: 'Hospitality',
-    examples: 'Guest house, B&B, restaurant, venue',
+    examples: 'Guest house, restaurant, venue',
     heading: 'Websites for guest houses, restaurants and venues',
     price: PRICE,
     includes: [
@@ -153,7 +153,7 @@ export const CATEGORIES: Category[] = [
     id: 'other',
     group: 'other',
     label: 'Something else',
-    examples: 'Any other business, including online shops',
+    examples: 'Any other business',
     heading: 'Websites for your business',
     price: `${PRICE} Online shops are quoted separately.`,
     includes: [
