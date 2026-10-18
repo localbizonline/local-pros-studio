@@ -166,7 +166,7 @@ export function ExamplesSteps({
   steps?: Step[];
   button?: string;
   // Opens the chat at their type of business (the category-first ads pages, ads-gate/AdsGate.tsx)
-  open?: { group?: string; sub?: string };
+  open?: { group?: string; sub?: string; start?: StartPlan };
 }) {
   return (
     <section className="dd-sec wx-steps-sec" data-section="How it works">
@@ -221,7 +221,7 @@ export function ExamplesClosing({
   // From a page selling one package: the button skips the questions and gets them started
   start?: StartPlan;
   // Opens the chat at their type of business (the category-first ads pages, ads-gate/AdsGate.tsx)
-  open?: { group?: string; sub?: string };
+  open?: { group?: string; sub?: string; start?: StartPlan };
 }) {
   return (
     <section className="cc wdc py-16 md:py-24 px-6 bg-[#FBF6EC]">
@@ -246,7 +246,7 @@ export function ExamplesClosing({
             className="dd-btn dd-btn-primary wx-closing-btn"
             onClick={() => {
               track(start ? `closing_start_${start}` : 'closing_examples');
-              openExamplesChat({ ...open, from: 'closing', start });
+              openExamplesChat({ ...open, from: 'closing', start: start ?? open?.start });
             }}
           >
             {button}

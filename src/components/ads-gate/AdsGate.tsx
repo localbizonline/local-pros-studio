@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, ChevronDown, ChevronRight } from 'lucide-react';
-import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
+import { ashleyWhatsAppLink } from '../../whatsapp';
 import { capture } from '../../analytics';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
@@ -11,6 +11,7 @@ import { ExamplesClosing, ExamplesSteps } from '../web-examples/ExamplesSections
 import { SITES, groupById, type Group, type Site, type Sub } from '../web-examples/catalogue';
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
 import { AD_WORDS_GLOBAL, NO_AD_WORDS, areaText, leadText, type AdWords } from './adWords';
+import { AshleyBar, AshleyCard } from './AshleyWhatsApp';
 import { ALL, CATEGORIES, GATE_PATH, categoryById, categoryPath, type Category } from './categories';
 
 const groupOf = (c: Category) => groupById(c.group) as Group;
@@ -25,7 +26,6 @@ const groupOf = (c: Category) => groupById(c.group) as Group;
 // other half see that page as before, so the two can be compared (leads tagged "website-gate" in Airtable).
 // The area and "Website design(ers)" come from the ad link (adWords.ts, netlify/edge-functions/ads-area.ts).
 
-const WA_URL = whatsAppLink(WHATSAPP_MESSAGES.webDesign);
 const track = (label: string) => window.gtag?.('event', 'cta_click', { event_category: 'engagement', event_label: `gate_${label}`, value: 1 });
 
 // Filled in by the edge function before the page's code runs, so the first render matches the HTML it sent
@@ -67,6 +67,12 @@ function Question({ area, query }: { area: boolean; query: string }) {
   return (
     <div className="gx-modal" role="dialog" aria-modal="true" aria-labelledby="gx-q">
       <div className="gx-sheet">
+        <p className="gx-sheet-rating">
+          <GoogleG size={16} />
+          <span>
+            <strong>4.7 stars</strong> from 1,400+ Google reviews
+          </span>
+        </p>
         <p className="gx-q" id="gx-q">
           What type of business do you run?
         </p>
@@ -146,6 +152,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
   const words = readAdWords();
   const query = useCarriedQuery();
   const [sub, setSub] = useState<Sub | null>(null);
+  const card = useRef<HTMLDivElement>(null);
   if (!category) return <Navigate to={GATE_PATH} replace />;
 
   const group = groupOf(category);
@@ -154,11 +161,20 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
   const heading = sub ? `Websites for ${sub.plural}` : category.heading;
   // "trades and home services", "plumbers": who the designs are for
   const who = sub ? sub.plural : category.heading.replace(/^Websites for /, '');
-  const open = (from: string) => openExamplesChat({ group: group.id, sub: sub?.id, from });
+  // "Start my website": the short chat (name, number, business), keeping the type of business they picked
+  const start = (from: string) => openExamplesChat({ group: group.id, sub: sub?.id, from, start: 'website' });
+  // Their first WhatsApp line to Ashley names what they picked, so she knows who she's talking to
+  const waMessage = gate
+    ? 'Hi Ashley, I’d like a quote for a website.'
+    : `Hi Ashley, I’d like a quote for a website. My business: ${category.label}${sub ? ` (${sub.label.toLowerCase()})` : ''}.`;
+  const onWhatsApp = (from: string) => () => {
+    track(`ashley_${from}`);
+    capture('ads_gate_whatsapp', { from, category: category.id, sub: sub?.id });
+  };
 
   return (
-    <div className="dd dd-a wdl wx-page gx">
-      <SiteHeader minimal whatsAppUrl={WA_URL} />
+    <div className={`dd dd-a wdl wx-page gx${gate ? '' : ' gx-has-bar'}`}>
+      <SiteHeader minimal whatsAppUrl={ashleyWhatsAppLink(waMessage)} />
       <main>
         <section className="gx-hero" data-section="Category hero">
           <div className="dd-container">
@@ -201,23 +217,22 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                 <img key={s.slug} src={s.img} alt="" width={585} height={780} />
               ))}
             </a>
-            <div className="gx-actions">
-              <button
-                type="button"
-                className="dd-btn dd-btn-primary gx-cta"
-                onClick={() => {
-                  track(`hero_${category.id}`);
-                  open('gate-hero');
-                }}
-              >
-                Get 3 designs on WhatsApp
-              </button>
+            {/* WhatsApp with Ashley is the next step (Jeremy, 18 Oct 2026); the chat stays for anyone who'd rather not */}
+            <div className="gx-actions" ref={card}>
+              <AshleyCard message={waMessage} onWhatsApp={onWhatsApp('card')} />
               <p className="gx-small">
-                Ashley from our team WhatsApps you 3 popular designs for {who}. Or{' '}
-                <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="wdl-inline-link" onClick={() => track('hero_whatsapp')}>
-                  WhatsApp us
-                </a>
-                .
+                Ready to go?{' '}
+                <button
+                  type="button"
+                  className="gx-link"
+                  onClick={() => {
+                    track(`hero_start_${category.id}`);
+                    start('gate-hero');
+                  }}
+                >
+                  Start your website here
+                </button>{' '}
+                with your name and number.
               </p>
             </div>
           </div>
@@ -244,16 +259,16 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                     )}
                   </div>
                   <div className="wx-item-actions">
-                    <button
-                      type="button"
+                    <a
+                      href={ashleyWhatsAppLink(`Hi Ashley, I’d like a website like ${s.name} (${s.kind === 'client' ? 'a site you built' : 'your example design'}). My business: ${category.label}${sub ? ` (${sub.label.toLowerCase()})` : ''}.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="dd-btn dd-btn-primary wx-item-btn"
-                      onClick={() => {
-                        track(`card_${s.slug}`);
-                        openExamplesChat({ group: group.id, sub: sub?.id, site: s.slug, from: 'gate-card' });
-                      }}
+                      data-wa-from="ashley-design"
+                      onClick={onWhatsApp(`design_${s.slug}`)}
                     >
                       Get one like this
-                    </button>
+                    </a>
                   </div>
                 </div>
               ))}
@@ -288,12 +303,12 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
           track={track}
           title="From here to a new website"
           steps={[
-            { title: 'Leave your WhatsApp number', body: 'A short chat: your type of business, how many services and your number.' },
-            { title: 'Get 3 designs', body: 'Ashley WhatsApps you 3 popular designs for businesses like yours.' },
-            { title: 'Live in 7 days', body: 'Pick one. We write the wording, build it and put it live.' },
+            { title: 'Talk to Ashley', body: 'WhatsApp her your questions, or start here with your name and number.' },
+            { title: 'Pick your design', body: 'Ashley confirms your price and sends you sample designs for your business.' },
+            { title: 'Live in 7 days', body: 'We write the wording, build it and put it live.' },
           ]}
-          button="Get 3 designs on WhatsApp"
-          open={{ group: group.id, sub: sub?.id }}
+          button="Start my website"
+          open={{ group: group.id, sub: sub?.id, start: 'website' }}
         />
 
         <ClientReviews onGoogle={() => track('reviews_google')} />
@@ -313,17 +328,17 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
         </section>
 
         <ExamplesClosing
-          waUrl={WA_URL}
+          waUrl={ashleyWhatsAppLink(waMessage)}
           track={track}
-          heading="See designs for your business"
+          heading="Ready for your new website?"
           recap={['Written, designed and built for you', 'Live in 7 days', category.id === 'professional' ? 'R9,900 once-off' : 'From R6,500']}
-          button="Get 3 designs on WhatsApp"
-          open={{ group: group.id, sub: sub?.id }}
+          button="Start my website"
+          open={{ group: group.id, sub: sub?.id, start: 'website' }}
         />
       </main>
-      <SiteFooter minimal whatsAppUrl={WA_URL} faqHref="#faq" />
+      <SiteFooter minimal whatsAppUrl={ashleyWhatsAppLink(waMessage)} faqHref="#faq" />
       <ExamplesChat variant="website-price" page="website-gate" nudge={false} />
-      {gate && <Question area={!!words.area} query={query} />}
+      {gate ? <Question area={!!words.area} query={query} /> : <AshleyBar message={waMessage} watch={card} onWhatsApp={onWhatsApp('bar')} />}
     </div>
   );
 }

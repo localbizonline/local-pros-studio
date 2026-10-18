@@ -516,8 +516,11 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
       // A price button: straight to their number, unless they're already part-way through
       if (o.start && (stage === 'group' || stage === 'done')) {
         setStart(o.start);
-        setGroup(null);
-        setSub(null);
+        // From a category page (ads-gate/AdsGate.tsx) the type of business is known, so the lead keeps it. The
+        // questions and the price stay hidden in this short chat (!start below): the team confirms the price.
+        const known = o.group ? groupById(o.group) : undefined;
+        setGroup(known ?? null);
+        setSub((o.sub && known?.subs.find((x) => x.id === o.sub)) || null);
         notifyStarted(cfg.page, o.start, 'examples');
         return advance('contact');
       }
@@ -628,7 +631,7 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
       whatsApp: m,
       whatsAppFrom: 'typed',
       ...(need ? { need: need.id, plan: need.plan } : {}),
-      ...(cfg.price && group ? { services: services ?? undefined, price: cfg.price(group, services) } : {}),
+      ...(!start && cfg.price && group ? { services: services ?? undefined, price: cfg.price(group, services) } : {}),
       ...(start ? { start: true, plan: start } : {}),
     });
     step('requested', props());
@@ -641,7 +644,7 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
     whatsApp: mobile,
     whatsAppFrom: 'typed',
     ...(need ? { need: need.id, plan: need.plan } : {}),
-    ...(cfg.price && group ? { services: services ?? undefined, price: cfg.price(group, services) } : {}),
+    ...(!start && cfg.price && group ? { services: services ?? undefined, price: cfg.price(group, services) } : {}),
     ...(start ? { start: true, plan: start } : {}),
   });
   const finishTyped = (name: string) => {
@@ -742,7 +745,7 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
               </>
             )}
 
-            {group && group.subs.length > 0 && reached(stage, 'sub') && (
+            {!start && group && group.subs.length > 0 && reached(stage, 'sub') && (
               <>
                 {latest('sub') ? (
                   <Typing />
@@ -765,11 +768,11 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
               </>
             )}
 
-            {group?.id === 'other' && reached(stage, 'other') && (
+            {!start && group?.id === 'other' && reached(stage, 'other') && (
               <>{latest('other') ? <Typing /> : <>{<Bot strong>What does your business do?</Bot>}{stage !== 'other' && <Me>{otherText}</Me>}</>}</>
             )}
 
-            {cfg.extra === 'services' && group && group.id !== 'shop' && reached(stage, 'services') && (
+            {!start && cfg.extra === 'services' && group && group.id !== 'shop' && reached(stage, 'services') && (
               <>
                 {latest('services') ? (
                   <Typing />
@@ -792,7 +795,7 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
               </>
             )}
 
-            {cfg.extra === 'need' && group && reached(stage, 'need') && (
+            {!start && cfg.extra === 'need' && group && reached(stage, 'need') && (
               <>
                 {latest('need') ? (
                   <Typing />
@@ -836,7 +839,7 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
                 ) : (
                   <>
                     <Bot>Thanks{firstName ? ` ${firstName}` : ''}, got it. 👍</Bot>
-                    {cfg.showPrice && cfg.price && group && (
+                    {!start && cfg.showPrice && cfg.price && group && (
                       <>
                         <div className="wx-bot wx-price">
                           <span className="wx-price-label">Your price</span>

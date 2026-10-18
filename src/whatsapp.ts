@@ -16,6 +16,12 @@ export const whatsAppLink = (message: string) =>
 
 export const SITE_WHATSAPP_URL = whatsAppLink(WHATSAPP_MESSAGES.site);
 
+// Ashley's own number (078 362 8921), for the category-first ads pages (src/components/ads-gate/AshleyWhatsApp.tsx,
+// 18 Oct 2026). Chats there are hers to answer by hand; the bot on that number only answers leads handed to it.
+export const ASHLEY_WHATSAPP_NUMBER = '27783628921';
+export const ashleyWhatsAppLink = (message: string) =>
+  `https://wa.me/${ASHLEY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
 // For shared parts of the site (header, footer, floating button) that appear on several doors
 export const whatsAppUrlForPath = (pathname: string) => {
   if (
