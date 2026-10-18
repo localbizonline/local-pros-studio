@@ -291,38 +291,39 @@
   }
 }
 
+/* Computer (Jeremy's pick B, 18 Oct 2026): words and types on the left, Ashley's WhatsApp card on the right as the
+   main picture, and the phones as a wide band underneath where they can be big */
 @media (min-width: 1024px) {
   .gx-hero-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     grid-template-areas:
-      'top montage'
-      'actions montage';
-    column-gap: 40px;
-    align-items: start;
+      'top actions'
+      'montage montage';
+    column-gap: 56px;
+    align-items: center;
   }
 
   .gx-hero-top {
     grid-area: top;
   }
 
-  .gx-hero-grid > .gx-montage {
-    --m: 1.25;
-    grid-area: montage;
-    align-self: center;
-    width: 100%;
-    margin: 0;
-  }
-
   .gx-hero-grid > .gx-actions {
     grid-area: actions;
+    margin-top: 0;
+  }
+
+  .gx-hero-grid > .gx-montage {
+    --m: 1.9;
+    grid-area: montage;
+    width: 100%;
+    margin: 48px auto 0;
   }
 }
 
-/* Wide screens: room for a bigger montage (it is about 320 x --m pixels wide) */
 @media (min-width: 1280px) {
   .gx-hero-grid > .gx-montage {
-    --m: 1.55;
+    --m: 2.2;
   }
 }
 

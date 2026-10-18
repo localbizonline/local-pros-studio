@@ -248,7 +248,9 @@ function Typing({ label }: { label?: string }) {
   );
 }
 
-export function SiteCard({ site, small = false }: { site: Site; small?: boolean }) {
+// hidePlace: leave the town off the caption (the category-first ads pages: Jeremy, 18 Oct 2026, a town they're not
+// from could put them off)
+export function SiteCard({ site, small = false, hidePlace = false }: { site: Site; small?: boolean; hidePlace?: boolean }) {
   return (
     <figure className={`wx-site${small ? ' is-small' : ''}`}>
       <div className="wx-site-shot">
@@ -257,9 +259,7 @@ export function SiteCard({ site, small = false }: { site: Site; small?: boolean 
       </div>
       <figcaption>
         <strong>{site.name}</strong>
-        <span>
-          {site.type} · {site.place}
-        </span>
+        <span>{hidePlace ? site.type : `${site.type} · ${site.place}`}</span>
       </figcaption>
     </figure>
   );

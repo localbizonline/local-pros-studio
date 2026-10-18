@@ -19,7 +19,10 @@ export const designersFromKeyword = (kw: string | null | undefined) => /designer
 // What the marked spans hold: <span data-ad="lead"> and <span data-ad="area">
 export const leadText = (w: AdWords) => (w.designers ? 'Website designers' : 'Website design');
 export const areaText = (w: AdWords) => (w.area ? ` in ${w.area}` : '');
+// <span data-ad="place">: their area on its own, or "your area" (the line above the example designs)
+export const placeText = (w: AdWords) => w.area || 'your area';
 
 // What the page was built with (no area, "Website design"), which the edge function looks for and replaces
 export const DEFAULT_LEAD_SPAN = `<span data-ad="lead">${leadText(NO_AD_WORDS)}</span>`;
 export const DEFAULT_AREA_SPAN = '<span data-ad="area"></span>';
+export const DEFAULT_PLACE_SPAN = `<span data-ad="place">${placeText(NO_AD_WORDS)}</span>`;

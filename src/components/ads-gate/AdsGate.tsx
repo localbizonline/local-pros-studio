@@ -12,7 +12,7 @@ import ExamplesChat, { OPEN_EXAMPLES_EVENT, SiteCard, openExamplesChat } from '.
 import { ExamplesClosing, ExamplesSteps } from '../web-examples/ExamplesSections';
 import { SITES, groupById, type Group, type Site, type Sub } from '../web-examples/catalogue';
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
-import { AD_WORDS_GLOBAL, NO_AD_WORDS, areaText, leadText, type AdWords } from './adWords';
+import { AD_WORDS_GLOBAL, NO_AD_WORDS, areaText, leadText, placeText, type AdWords } from './adWords';
 import { AshleyBar, AshleyCard } from './AshleyWhatsApp';
 import Compare from './Compare';
 import { ALL, CATEGORIES, GATE_PATH, SUB_OUTCOMES, categoryById, categoryPath, type Category } from './categories';
@@ -336,13 +336,14 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
               <p className="dd-eyebrow">Popular designs</p>
               <h2 className="dd-h2">Popular designs for {who}</h2>
               <p className="dd-sub">
-                <strong>500+ websites since 2015.</strong> Real client sites and example designs, each written for the business it’s for.
+                {/* The towns in the designs are their area pages: say so, with their own area (Jeremy, 18 Oct 2026) */}
+                <strong>500+ websites since 2015.</strong> Each design is written for its own area. Yours would say “in <span data-ad="place">{placeText(words)}</span>”.
               </p>
             </div>
             <div className="wx-shelf">
               {sites.map((s) => (
                 <div key={s.slug} className="wx-item">
-                  <SiteCard site={s} />
+                  <SiteCard site={s} hidePlace />
                   <div className="wx-item-meta">
                     {(s.href || !s.picture) && (
                     <a

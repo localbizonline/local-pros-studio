@@ -10,7 +10,9 @@ import {
   AD_WORDS_GLOBAL,
   DEFAULT_AREA_SPAN,
   DEFAULT_LEAD_SPAN,
+  DEFAULT_PLACE_SPAN,
   areaText,
+  placeText,
   designersFromKeyword,
   leadText,
   type AdWords,
@@ -37,4 +39,6 @@ export const fillAdWords = (html: string, words: AdWords) =>
         .join(`<span data-ad="lead">${escapeHtml(leadText(words))}</span>`)
         .split(DEFAULT_AREA_SPAN)
         .join(`<span data-ad="area">${escapeHtml(areaText(words))}</span>`)
+        .split(DEFAULT_PLACE_SPAN)
+        .join(`<span data-ad="place">${escapeHtml(placeText(words))}</span>`)
         .replace('</head>', `<script>window.${AD_WORDS_GLOBAL}=${JSON.stringify(words).replace(/</g, '\\u003c')}</script></head>`);
