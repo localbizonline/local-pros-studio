@@ -341,6 +341,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   min-height: 52px;
   padding: 12px 20px;
   border-radius: var(--r-btn);

@@ -6,14 +6,14 @@ import ashley from './img/ashley.webp';
 // WhatsApp with Ashley as the next step on the category pages (Jeremy, 18 Oct 2026: "make it seem like we are
 // live on WA to answer any questions from 7 to 6pm", with her face). Her WhatsApp profile photo, her own number
 // (078 362 8921): chats there are hers to answer by hand; the bot only answers leads handed to it.
-// Online means Monday to Friday, 07:00 to 18:00 South African time. Outside those hours it says when she'll
-// reply, so the page never says she's online when she isn't.
+// Online means Monday to Friday, 07:00 to 18:00 South African time. Outside those hours it says only "Replies on
+// WhatsApp", so the page never says she's online when she isn't.
 
-// line: in the card; short: in the bar at the bottom of a phone screen
-type Status = { online: boolean; line: string; short: string };
+// Online, or a neutral line: never "Replies on Monday from 7am" (Jeremy, 18 Oct 2026: on the card and the bar)
+type Status = { online: boolean; line: string };
 
-// What the pre-built page shows until the code knows the time
-const HOURS: Status = { online: false, line: 'Replies on WhatsApp, 7am to 6pm', short: 'On WhatsApp 7am to 6pm' };
+// What the pre-built page shows until the code knows the time, and outside her hours
+const OFFLINE: Status = { online: false, line: 'Replies on WhatsApp' };
 
 const statusAt = (now: Date): Status => {
   const parts = Object.fromEntries(
@@ -21,17 +21,13 @@ const statusAt = (now: Date): Status => {
       .formatToParts(now)
       .map((p) => [p.type, p.value]),
   );
-  const day = parts.weekday as string;
   const hour = Number(parts.hour);
-  const weekday = !['Sat', 'Sun'].includes(day);
-  if (weekday && hour >= 7 && hour < 18) return { online: true, line: 'Online now · replies on WhatsApp', short: 'Online now' };
-  if (weekday && hour < 7) return { online: false, line: 'Replies from 7am today', short: 'Back at 7am' };
-  if (day === 'Fri' || !weekday) return { online: false, line: 'Replies on Monday from 7am', short: 'Back Monday 7am' };
-  return { online: false, line: 'Replies tomorrow from 7am', short: 'Back tomorrow 7am' };
+  const weekday = !['Sat', 'Sun'].includes(parts.weekday as string);
+  return weekday && hour >= 7 && hour < 18 ? { online: true, line: 'Online now' } : OFFLINE;
 };
 
 const useAshleyStatus = () => {
-  const [status, setStatus] = useState<Status>(HOURS);
+  const [status, setStatus] = useState<Status>(OFFLINE);
   useEffect(() => {
     const update = () => setStatus(statusAt(new Date()));
     update();
@@ -54,11 +50,11 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-function StatusLine({ status, short = false }: { status: Status; short?: boolean }) {
+function StatusLine({ status }: { status: Status }) {
   return (
     <span className={`gx-status${status.online ? ' is-online' : ''}`}>
       {status.online && <span className="gx-dot" aria-hidden="true" />}
-      {short ? status.short : status.line}
+      {status.line}
     </span>
   );
 }
@@ -76,9 +72,10 @@ export function AshleyCard({ message, onWhatsApp }: { message: string; onWhatsAp
         </div>
       </div>
       <p className="gx-wa-bubble">Hi, I’m Ashley. Ask me anything about your website. I’ll send you designs for businesses like yours and your price.</p>
-      {/* What they get and how (Hormozi, Jeremy 18 Oct 2026) */}
+      {/* The same words as the bar at the bottom (Jeremy, 18 Oct 2026) */}
       <a href={ashleyWhatsAppLink(message)} target="_blank" rel="noopener noreferrer" className="gx-wa-btn" onClick={onWhatsApp}>
-        WhatsApp Ashley for your price
+        <WhatsAppIcon />
+        Chat to Ashley
       </a>
       <p className="gx-wa-review">
         <GoogleG size={16} />
