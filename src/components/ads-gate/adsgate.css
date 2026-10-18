@@ -882,3 +882,20 @@
     gap: 8px;
   }
 }
+
+/* The closing section's picture: our designs as phones (in place of the montage of client sites) */
+.gx-closing-media {
+  width: 100%;
+  padding: 36px 12px 28px;
+}
+
+.gx-closing-media .gx-montage {
+  --m: 1;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .gx-closing-media .gx-montage {
+    --m: 1.25;
+  }
+}

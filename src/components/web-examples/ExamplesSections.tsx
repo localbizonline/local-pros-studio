@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowUpRight, MousePointer2 } from 'lucide-react';
 import { GROUPS, SITES, type Site } from './catalogue';
 import { IndustryRows, SiteCard, openExamplesChat, type StartPlan } from './ExamplesChat';
@@ -212,6 +212,7 @@ export function ExamplesClosing({
   button = 'Show me popular designs',
   start,
   open,
+  media,
 }: {
   waUrl: string;
   track: (label: string) => void;
@@ -222,12 +223,14 @@ export function ExamplesClosing({
   start?: StartPlan;
   // Opens the chat at their type of business (the category-first ads pages, ads-gate/AdsGate.tsx)
   open?: { group?: string; sub?: string; start?: StartPlan };
+  // In place of the montage picture (the ads pages show only our own designs: Jeremy, 18 Oct 2026)
+  media?: ReactNode;
 }) {
   return (
     <section className="cc wdc py-16 md:py-24 px-6 bg-[#FBF6EC]">
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 rounded-3xl bg-[#1C1917]">
         <div className="flex items-center bg-[#FCF6ED] rounded-t-3xl md:rounded-tr-none md:rounded-l-3xl overflow-hidden">
-          <img src={montage} alt="Websites we built for South African businesses, shown on phones" loading="lazy" width={1080} height={1000} className="w-full h-auto" />
+          {media ?? <img src={montage} alt="Websites we built for South African businesses, shown on phones" loading="lazy" width={1080} height={1000} className="w-full h-auto" />}
         </div>
         <div className="p-8 md:p-12 flex flex-col justify-center">
           <h2 className="cc-head text-[clamp(2rem,3.6vw,2.9rem)] font-extrabold tracking-[-0.025em] leading-[1.1] text-[#FBF6EC] mb-6">

@@ -23,9 +23,10 @@ const Stars = () => (
   </span>
 );
 
-export default function ClientReviews({ onGoogle }: { onGoogle?: () => void }) {
+// max: how many reviews to show (the ads pages show 2 to keep the page short: Jeremy, 18 Oct 2026)
+export default function ClientReviews({ onGoogle, max = 9 }: { onGoogle?: () => void; max?: number }) {
   const { reviews, isLoading, summary } = useReputationReviews();
-  const shown = reviews.filter((r) => r.starRating === 5).slice(0, 9);
+  const shown = reviews.filter((r) => r.starRating === 5).slice(0, max);
 
   return (
     <section className="dd-sec cr">
@@ -51,7 +52,7 @@ export default function ClientReviews({ onGoogle }: { onGoogle?: () => void }) {
         )}
         <div className="cr-grid">
           {isLoading
-            ? [0, 1, 2].map((i) => <div key={i} className="cr-card is-loading" />)
+            ? [0, 1, 2].slice(0, max).map((i) => <div key={i} className="cr-card is-loading" />)
             : shown.map((r) => (
                 <figure key={r.id} className="cr-card">
                   <div className="cr-card-top">

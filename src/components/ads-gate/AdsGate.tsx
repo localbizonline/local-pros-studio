@@ -181,6 +181,22 @@ const sitesOf = (c: Category, sub: Sub | null): Site[] => {
   return examples([...(sub?.sites ?? []), ...g.subs.flatMap((s) => s.sites), ...g.sites]);
 };
 
+// Five phones fanned out, the first site in the middle (the hero, and the closing section from the 6th site on)
+function Montage({ sites, label, onClick, className = '' }: { sites: Site[]; label: string; onClick: () => void; className?: string }) {
+  return (
+    <a href="#examples" className={`gx-montage ${className}`} aria-label={label} onClick={onClick}>
+      {[3, 1, 0, 2, 4]
+        .map((i) => ({ i, site: sites[i] }))
+        .filter((x) => x.site)
+        .map(({ i, site }) => (
+          <span key={site.slug} className={`gx-mphone gx-mphone-${i}`}>
+            <img src={i === 0 ? site.img : (THUMBS[`./img/thumb/${site.slug}.webp`] ?? site.img)} alt="" width={i === 0 ? 585 : 200} height={i === 0 ? 780 : 267} loading={className ? 'lazy' : undefined} />
+          </span>
+        ))}
+    </a>
+  );
+}
+
 // gate: /go/websites, the general page under the pop-up; otherwise /go/websites-for/<id>
 function AdsPage({ gate = false }: { gate?: boolean }) {
   const { id } = useParams();
@@ -296,16 +312,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
             </div>
             {/* Their kind of business on the first screen, as a montage of phones fanned out (Jeremy, 18 Oct 2026: the
                 strip of four repeated the shelf below). The closest design in the middle, swapping when they tap a type. */}
-            <a href="#examples" className="gx-montage" aria-label={`See popular designs for ${who}`} onClick={() => track('montage')}>
-              {[3, 1, 0, 2, 4]
-                .map((i) => ({ i, site: sites[i] }))
-                .filter((x) => x.site)
-                .map(({ i, site }) => (
-                  <span key={site.slug} className={`gx-mphone gx-mphone-${i}`}>
-                    <img src={i === 0 ? site.img : (THUMBS[`./img/thumb/${site.slug}.webp`] ?? site.img)} alt="" width={i === 0 ? 585 : 200} height={i === 0 ? 780 : 267} />
-                  </span>
-                ))}
-            </a>
+            <Montage sites={sites} label={`See popular designs for ${who}`} onClick={() => track('montage')} />
             {/* WhatsApp with Ashley is the next step (Jeremy, 18 Oct 2026); the chat stays for anyone who'd rather not */}
             <div className="gx-actions" ref={card}>
               <AshleyCard message={waMessage} onWhatsApp={onWhatsApp('card')} />
@@ -452,7 +459,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
           open={{ group: group.id, sub: sub?.id, start: 'website' }}
         />
 
-        <ClientReviews onGoogle={() => track('reviews_google')} />
+        <ClientReviews onGoogle={() => track('reviews_google')} max={2} />
 
         <section className="dd-sec" id="faq">
           <div className="dd-container">
@@ -475,6 +482,16 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
           recap={['Written, designed and built for you', 'Live in 7 days', category.id === 'professional' ? 'R9,900 once-off' : 'From R6,500']}
           button="Start my website"
           open={{ group: group.id, sub: sub?.id, start: 'website' }}
+          media={
+            <div className="gx-closing-media">
+              <Montage
+                sites={sites.length >= 10 ? sites.slice(5) : sites}
+                label={`See popular designs for ${who}`}
+                onClick={() => track('closing_montage')}
+                className="gx-montage-closing"
+              />
+            </div>
+          }
         />
       </main>
       <SiteFooter minimal whatsAppUrl={ashleyWhatsAppLink(waMessage)} faqHref="#faq" />
