@@ -73,6 +73,7 @@ const sendWhat = (body: Record<string, unknown>) =>
 
 const PAGE_NOTE: Record<string, string> = {
   'website-design': 'the Google Ads website page (/go/website-design)',
+  'website-gate': 'the category-first Google Ads pages (/go/websites)',
   'web-design': 'studio.localpros.co.za/website-design-package',
   home: 'the homepage',
   join: 'the join page',
@@ -85,6 +86,8 @@ const PAGE_NOTE: Record<string, string> = {
 const PAGE_SOURCE: Record<string, string> = {
   // The Google Ads page: /website-design until 9 Oct 2026, /go/website-design since 13 Oct 2026
   'website-design': 'Website – website design page',
+  // The category-first Google Ads pages, /go/websites and /go/websites-for/<id>: half the ad visitors, 18 Oct 2026
+  'website-gate': 'Website – website design page (category first)',
   // The same page with the site menu, reached from the site rather than from Google Ads (8 Oct 2026)
   'web-design': 'Website – website design page (site menu)',
   home: 'Website – homepage',
@@ -290,6 +293,7 @@ function buildFields(body: Record<string, unknown>): Record<string, unknown> | n
 
 const ALERT_PAGE: Record<string, string> = {
   'website-design': 'the website design page',
+  'website-gate': 'the category-first ads page',
   'web-design': 'the website design page (site menu)',
   home: 'the homepage',
   join: 'the join page',

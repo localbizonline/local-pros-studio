@@ -16,6 +16,9 @@ const NotFound = lazy(() => import('./components/not-found/NotFound'));
 // The old dark social page, archived 9 Oct 2026 (noindex, /social-media-posting-service-archived)
 const SocialPostingPageArchived = lazy(() => import('./components/archive/SocialPostingPageArchived'));
 const WebDesignLight = lazy(() => import('./components/web-design-light/WebDesignLight'));
+// The category-first Google Ads pages (18 Oct 2026): both from one file, so the second loads with the first
+const AdsGate = lazy(() => import('./components/ads-gate/AdsGate'));
+const AdsCategory = lazy(() => import('./components/ads-gate/AdsGate').then((m) => ({ default: m.AdsCategory })));
 // The R9,900 standard website in detail: 4 to 8 pages, a strict 7-day process (15 Oct 2026)
 const SevenDayWebsite = lazy(() => import('./components/seven-day-website/SevenDayWebsite'));
 // Google reviews page in the light look, live on /reviews since 9 Oct 2026 (replaced the old dark ReviewsLetterPage)
@@ -32,6 +35,7 @@ const PricingLight = lazy(() => import('./components/pricing-light/PricingLight'
 import './components/design-directions/directions.css';
 import './components/web-design-light/webdesignlight.css';
 import './components/web-examples/web-examples.css';
+import './components/ads-gate/adsgate.css';
 import './components/seven-day-website/sevenday.css';
 import './components/about-light/aboutlight.css';
 import './components/legallight.css';
@@ -259,6 +263,9 @@ export const AppContent = () => {
           <Route path="/website-design-package" element={<WebDesignLight />} />
           {/* The same page for Google Ads, without the menu links (13 Oct 2026) */}
           <Route path="/go/website-design" element={<WebDesignLight ads />} />
+          {/* Half the ad visitors, from /go/website-design (netlify/edge-functions/ads-split.ts): the question first */}
+          <Route path="/go/websites" element={<AdsGate />} />
+          <Route path="/go/websites-for/:id" element={<AdsCategory />} />
           <Route path="/7-day-website" element={<SevenDayWebsite />} />
           <Route path="/about" element={<AboutLight />} />
           <Route path="/terms" element={<TermsPage />} />

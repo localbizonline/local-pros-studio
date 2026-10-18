@@ -159,11 +159,14 @@ export function ExamplesSteps({
   title = 'Get popular designs for your business in 3 steps',
   steps = STEPS,
   button = 'Show me popular designs',
+  open,
 }: {
   track: (label: string) => void;
   title?: string;
   steps?: Step[];
   button?: string;
+  // Opens the chat at their type of business (the category-first ads pages, ads-gate/AdsGate.tsx)
+  open?: { group?: string; sub?: string };
 }) {
   return (
     <section className="dd-sec wx-steps-sec" data-section="How it works">
@@ -187,7 +190,7 @@ export function ExamplesSteps({
             className="dd-btn dd-btn-primary"
             onClick={() => {
               track('steps_start');
-              openExamplesChat({ from: 'steps' });
+              openExamplesChat({ ...open, from: 'steps' });
             }}
           >
             {button}
@@ -208,6 +211,7 @@ export function ExamplesClosing({
   recap = RECAP,
   button = 'Show me popular designs',
   start,
+  open,
 }: {
   waUrl: string;
   track: (label: string) => void;
@@ -216,6 +220,8 @@ export function ExamplesClosing({
   button?: string;
   // From a page selling one package: the button skips the questions and gets them started
   start?: StartPlan;
+  // Opens the chat at their type of business (the category-first ads pages, ads-gate/AdsGate.tsx)
+  open?: { group?: string; sub?: string };
 }) {
   return (
     <section className="cc wdc py-16 md:py-24 px-6 bg-[#FBF6EC]">
@@ -240,7 +246,7 @@ export function ExamplesClosing({
             className="dd-btn dd-btn-primary wx-closing-btn"
             onClick={() => {
               track(start ? `closing_start_${start}` : 'closing_examples');
-              openExamplesChat({ from: 'closing', start });
+              openExamplesChat({ ...open, from: 'closing', start });
             }}
           >
             {button}

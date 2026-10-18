@@ -26,6 +26,10 @@
       document.addEventListener('click', function (e) {
         var row = !window.__lpsChatReady && e.target && e.target.closest && e.target.closest('[data-pick-group]');
         if (row) window.__lpsEarlyPick = row.getAttribute('data-pick-group');
+        // The category-first ads pages (src/components/ads-gate/AdsGate.tsx, 18 Oct 2026): a tap before the code has
+        // loaded follows the plain link, so carry the ad link's tags (area, keyword, click id) onto the next page
+        var keep = e.target && e.target.closest && e.target.closest('a[data-keep-query]');
+        if (keep && location.search && keep.getAttribute('href').indexOf('?') < 0) keep.setAttribute('href', keep.getAttribute('href') + location.search);
       }, true);
     </script>
     <meta charset="UTF-8" />

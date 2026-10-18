@@ -69,6 +69,7 @@ const answerLabel = (id: QuestionId, value?: string) => optionsFor(id).find((o) 
 // Each page keeps the WhatsApp opening the bot and the weekly scoreboard already count (src/whatsapp.ts)
 const OPENING: Record<ChatPage, string> = {
   'website-design': WHATSAPP_MESSAGES.googleAds,
+  'website-gate': WHATSAPP_MESSAGES.webDesign,
   'web-design': WHATSAPP_MESSAGES.webDesign,
   home: WHATSAPP_MESSAGES.site,
   join: WHATSAPP_MESSAGES.site,

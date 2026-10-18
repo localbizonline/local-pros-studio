@@ -3,6 +3,8 @@
 // the pre-built HTML each page is served with (scripts/prerender.mjs), and sitemap.xml.
 // Add a new page here when you add its <Route>, or it ships with the homepage's title.
 
+import { CATEGORIES, categoryPath } from './components/ads-gate/categories';
+
 export const SITE_URL = 'https://studio.localpros.co.za';
 
 export type PageSeo = {
@@ -56,6 +58,23 @@ export const PAGES: Record<string, PageSeo> = {
       'Website design for South African businesses from R6,500. Get your instant price and popular designs for your industry. Written and built for you, live in 7 days.',
     noindex: true,
   },
+  // The category-first Google Ads pages (18 Oct 2026): half the ad visitors are sent here from /go/website-design.
+  // The question screen, then one page per broad category (ads-gate/categories.ts). Ads only, kept out of Google.
+  '/go/websites': {
+    title: 'Website Design South Africa | Local Pros Studio',
+    description: 'Website design for South African businesses from R6,500, live in 7 days. Tap your type of business to see designs and your price.',
+    noindex: true,
+  },
+  ...Object.fromEntries(
+    CATEGORIES.map((c): [string, PageSeo] => [
+      categoryPath(c),
+      {
+        title: `${c.heading} | Local Pros Studio`,
+        description: `${c.heading}: ${c.price} Live in 7 days. Popular designs for businesses like yours, sent on WhatsApp.`,
+        noindex: true,
+      },
+    ]),
+  ),
   // The R9,900 standard website in detail: 4 to 8 pages, a strict 7-day process (15 Oct 2026)
   '/7-day-website': {
     title: 'A New Website in 7 Days for R9,900 | Local Pros Studio',
