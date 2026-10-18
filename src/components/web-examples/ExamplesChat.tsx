@@ -183,6 +183,12 @@ const VARIANTS = {
 };
 type VariantConfig = (typeof VARIANTS)[ChatVariant];
 
+// The category-first ads pages (ads-gate/AdsGate.tsx) leave the R290 a month out of the price screen: Ashley
+// covers hosting when she quotes (Jeremy, 18 Oct 2026). Every other page keeps it.
+const GATE_PRICE_NOTE = {
+  priceNote: (g: Group) => (g.id === 'shop' ? 'Online shop, quoted for what you sell.' : 'Your website, once-off. Live in 7 days.'),
+};
+
 // Until they give their business name, the Airtable record is named after them (the server knows this wording)
 const PLACEHOLDER = 'business name to follow';
 
@@ -438,7 +444,7 @@ export function IndustryRows({ onPick }: { onPick: (g: Group) => void }) {
 // page: tags the leads by door when one variant runs on two (the ads copy /go/website-design sends 'website-design')
 // nudge: false leaves out the "Not sure where to start?" pop-up, for pages selling one fixed package (/7-day-website)
 export default function ExamplesChat({ variant = 'website', page, nudge = true }: { variant?: ChatVariant; page?: ChatPage; nudge?: boolean }) {
-  const cfg: VariantConfig = page ? { ...VARIANTS[variant], page } : VARIANTS[variant];
+  const cfg: VariantConfig = page ? { ...VARIANTS[variant], page, ...(page === 'website-gate' ? GATE_PRICE_NOTE : {}) } : VARIANTS[variant];
   const step = (name: string, p: Record<string, string | undefined> = {}) => capture('examples_chat_step', { step: name, page: cfg.page, ...p });
   const [open, setOpen] = useState(false);
   const [need, setNeed] = useState<Need | null>(null);

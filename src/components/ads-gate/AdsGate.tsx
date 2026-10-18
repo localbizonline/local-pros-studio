@@ -123,7 +123,8 @@ export function AdsCategory() {
 // ---------- /go/websites-for/<id>: their category's page ----------
 
 const FAQ = [
-  { q: 'What does the price include?', a: 'We write the wording, choose the photos, design and build the website, and set up a page for each of your services. Hosting and updates are R290 a month after that, and basic changes (photos, colours, contact details) are included.' },
+  // No R290 a month here: Ashley covers hosting when she quotes (Jeremy, 18 Oct 2026)
+  { q: 'What does the price include?', a: 'We write the wording, choose the photos, design and build the website, and set up a page for each of your services and the areas you work in.' },
   { q: 'How long does it take?', a: 'Most websites go live within 7 days once we have your details. Slow feedback or missing information can move that date.' },
   { q: 'How much of my time does it take?', a: 'Very little. Send us your Google listing or Facebook page, check the first version and tell us what to change. Send your logo and real photos of your work if you have them.' },
   { q: 'Who owns the website?', a: 'You do, once it is paid for.' },
