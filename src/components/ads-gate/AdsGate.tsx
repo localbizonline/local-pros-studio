@@ -103,21 +103,21 @@ function Question({ words, query }: { words: AdWords; query: string }) {
   return (
     <div className="gx-modal" role="dialog" aria-modal="true" aria-labelledby="gx-q">
       <div className="gx-sheet">
-        <span className="gx-sheet-logo">
-          <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
-        </span>
-        {/* Their search, confirmed first, then why to tap (Jeremy, 18 Oct 2026: "no indication why they're selecting a
-            button"). The lead and area spans are filled in by the edge function, like the headline behind. */}
-        <p className="gx-sheet-match">
-          <Check size={16} aria-hidden="true" />
-          <span>
+        {/* Our logo, with their search confirmed beside it (Jeremy, 18 Oct 2026: inline with the logo, not a box).
+            The lead and area spans are filled in by the edge function, like the headline behind. */}
+        <div className="gx-sheet-top">
+          <span className="gx-sheet-logo">
+            <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
+          </span>
+          <p className="gx-sheet-match">
             <strong>
+              <Check size={15} aria-hidden="true" />
               <span data-ad="lead">{leadText(words)}</span>
               <span data-ad="area">{areaText(words)}</span>
-            </strong>{' '}
-            · from R6,500 · live in 7 days
-          </span>
-        </p>
+            </strong>
+            <span>from R6,500 · live in 7 days</span>
+          </p>
+        </div>
         <p className="gx-q" id="gx-q">
           What type of business do you run?
         </p>

@@ -406,28 +406,38 @@
 /* ---------- WhatsApp with Ashley (AshleyWhatsApp.tsx) ----------
    WhatsApp's own green, as inside a WhatsApp mock-up (DESIGN-SYSTEM.md: mock-ups keep their real-app colours). */
 
-/* "✓ Website design in Sandton · from R6,500 · live in 7 days": their search, confirmed */
+/* Logo on the left, their search confirmed on the right: "✓ Website designers in Sandton / from R6,500 · live in 7 days" */
+.gx-sheet-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.gx-sheet-top .gx-sheet-logo {
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
 .gx-sheet-match {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 12px;
-  padding: 9px 12px;
-  border-radius: 10px;
-  background: #eaf6ee;
-  font-size: 0.9375rem;
-  line-height: 1.4;
-  color: var(--body);
+  flex-direction: column;
+  min-width: 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.gx-sheet-match strong {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  color: #1b7a43;
 }
 
 .gx-sheet-match svg {
   flex-shrink: 0;
-  margin-top: 2px;
-  color: #1b7a43;
-}
-
-.gx-sheet-match strong {
-  color: var(--ink);
 }
 
 .gx-sheet-proof {
@@ -975,14 +985,11 @@
     padding-top: 16px;
   }
 
-  .gx-sheet-match {
-    margin-bottom: 8px;
-    padding: 7px 10px;
-    font-size: 0.875rem;
+  .gx-sheet-top {
+    margin-bottom: 10px;
   }
 
   .gx-sheet-logo {
-    margin-bottom: 8px;
     padding: 5px 8px;
   }
 
