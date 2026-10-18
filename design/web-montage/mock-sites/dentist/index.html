@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palmiet Family Dental, Westville, Durban</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --white:#FFFFFF; --bg:#F7F7FC; --lilac:#ECEEFF; --peri:#4D57D1; --peri-dk:#3A43AE; --ink:#1A1D3A; --soft:#5D6182; --coral:#FF7657; --mint:#D9F3EA; --line:#E2E4F2; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--white);color:var(--ink);font-family:"Urbanist",system-ui,sans-serif;font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 40px}
+
+  .alert{background:var(--coral);color:#fff;font-weight:600;font-size:15px}
+  .alert .wrap{display:flex;justify-content:center;align-items:center;gap:10px;height:40px}
+  .alert svg{width:16px;height:16px}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:84px;gap:20px}
+  .mark{display:flex;align-items:center;gap:11px}
+  .mark .ic{width:42px;height:42px;border-radius:14px;background:var(--peri);display:grid;place-items:center;flex:none}
+  .mark .ic svg{width:24px;height:24px}
+  .mark b{display:block;font-weight:800;font-size:21px;line-height:1;letter-spacing:-.01em}
+  .mark span{display:block;font-size:13px;font-weight:600;color:var(--soft);margin-top:3px}
+  nav{display:flex;gap:30px;font-weight:600;font-size:16px;color:var(--soft)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--peri);color:#fff;border-radius:14px;padding:16px 24px;font-size:17px;font-weight:700;white-space:nowrap}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:11px 16px;font-size:15.5px;border-radius:12px}
+  .btn-soft{background:var(--lilac);color:var(--peri-dk)}
+
+  .hero-panel{background:var(--lilac);border-radius:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:56px;margin-top:6px}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:7px 14px;font-size:14.5px;font-weight:700;color:var(--peri-dk)}
+  .chip i{width:8px;height:8px;border-radius:50%;background:#2DBE8B}
+  h1{font-weight:800;font-size:clamp(42px,4.8vw,66px);line-height:1.02;letter-spacing:-.03em;margin-top:20px}
+  h1 span{color:var(--peri)}
+  .sub{font-size:19.5px;color:var(--soft);margin-top:18px;max-width:28em}
+  .actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+  .rating{display:flex;align-items:center;gap:10px;margin-top:24px;font-size:15.5px;color:var(--soft)}
+  .stars{display:flex;gap:2px;color:#F5A623}
+  .stars svg{width:17px;height:17px}
+  .rating strong{color:var(--ink)}
+  .hero-img{position:relative}
+  .hero-img img{width:100%;aspect-ratio:4/3.6;object-fit:cover;object-position:40% 50%;border-radius:24px}
+  .float{position:absolute;background:#fff;border-radius:16px;padding:12px 16px;box-shadow:0 14px 30px rgba(26,29,58,.14);font-size:14.5px;line-height:1.35;display:flex;gap:10px;align-items:center}
+  .float b{display:block;font-size:15.5px}
+  .float .dot{width:34px;height:34px;border-radius:10px;background:var(--mint);display:grid;place-items:center;flex:none;color:#1E8E68}
+  .float .dot svg{width:18px;height:18px}
+  .f1{left:-26px;bottom:30px}
+  .f2{right:-18px;top:24px}
+
+  section{padding:96px 0}
+  .kicker{font-size:14px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--peri)}
+  h2{font-weight:800;font-size:clamp(34px,3.6vw,50px);line-height:1.05;letter-spacing:-.025em;margin-top:10px}
+  .center{text-align:center;max-width:640px;margin:0 auto 48px}
+  .center p{color:var(--soft);margin-top:14px}
+
+  .treat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .t{background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:26px}
+  .t .ic{width:48px;height:48px;border-radius:14px;background:#fff;display:grid;place-items:center;color:var(--peri);border:1px solid var(--line)}
+  .t .ic svg{width:24px;height:24px}
+  .t h3{font-size:21px;font-weight:800;margin-top:16px;letter-spacing:-.01em}
+  .t p{color:var(--soft);font-size:16px;margin-top:4px}
+  .t .from{display:inline-block;margin-top:14px;font-weight:700;font-size:15px;color:var(--peri-dk);background:var(--lilac);border-radius:8px;padding:4px 10px}
+  .t.urgent{background:#FFF1ED;border-color:#FFD6CB}
+  .t.urgent .ic{color:var(--coral)}
+  .t.urgent .from{background:#FFE0D7;color:#C8462A}
+
+  .aid{background:var(--ink);color:#C9CCE6;border-radius:28px;padding:44px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+  .aid h2{color:#fff;margin-top:0;font-size:clamp(28px,2.8vw,38px)}
+  .aid p{margin-top:10px}
+  .aid ul{list-style:none;display:grid;gap:10px}
+  .aid li{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.06);border-radius:12px;padding:12px 16px;font-weight:600;color:#fff;font-size:16px}
+  .aid li svg{width:18px;height:18px;color:#7CE0BB;flex:none}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .split img{width:100%;aspect-ratio:4/3.3;object-fit:cover;border-radius:24px}
+  .split p.lead{color:var(--soft);margin-top:14px}
+  .first{list-style:none;margin-top:26px;counter-reset:f}
+  .first li{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+  .first li::before{counter-increment:f;content:counter(f);width:32px;height:32px;border-radius:50%;background:var(--lilac);color:var(--peri-dk);font-weight:800;display:grid;place-items:center;font-size:15px}
+  .first b{display:block}
+  .first span{color:var(--soft);font-size:16px}
+
+  .reviews{background:var(--bg)}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .quote{background:#fff;border-radius:22px;padding:26px;border:1px solid var(--line)}
+  .quote p{font-size:18px;font-weight:500;margin:12px 0 16px}
+  .who{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--soft)}
+  .who i{width:36px;height:36px;border-radius:50%;background:var(--lilac);color:var(--peri-dk);font-style:normal;font-weight:800;display:grid;place-items:center}
+  .who b{color:var(--ink)}
+
+  footer{padding:90px 0 34px}
+  .foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:48px}
+  footer h2{margin-top:0}
+  footer .actions{margin-top:24px}
+  footer h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--peri);margin-bottom:10px}
+  footer p{line-height:1.8;color:var(--soft)}
+  .hours div{display:flex;justify-content:space-between;gap:16px;color:var(--soft);padding:3px 0}
+  .hours b{color:var(--ink);font-weight:600}
+  .fine{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-size:14px;color:var(--soft)}
+
+  @media (max-width:980px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16.5px}
+    .wrap{padding:0 16px}
+    .alert{font-size:13px}
+    .alert .wrap{height:34px}
+    .bar{height:68px;padding:0 4px}
+    .mark .ic{width:36px;height:36px;border-radius:12px}
+    .mark b{font-size:18.5px} .mark span{font-size:12px}
+    .btn-sm{padding:10px 14px;font-size:14.5px}
+    .hero-panel{grid-template-columns:1fr;gap:22px;padding:14px 14px 26px;border-radius:26px;margin-top:0}
+    .hero-img{order:-1}
+    .hero-img img{aspect-ratio:4/2.9;border-radius:18px}
+    .f2{display:none}
+    .f1{left:10px;bottom:10px;padding:9px 12px;font-size:13px}
+    .f1 b{font-size:14px}
+    .f1 .dot{width:28px;height:28px}
+    .hero-text{padding:0 8px}
+    .chip{font-size:13px;padding:6px 12px}
+    h1{font-size:37px;margin-top:12px}
+    .sub{font-size:16.5px;margin-top:10px}
+    .actions{margin-top:20px}
+    .hero-text .actions .btn{width:100%}
+    .hero-text .btn-soft{display:none}
+    .rating{margin-top:14px;font-size:14px}
+    section{padding:60px 0}
+    .center{margin-bottom:28px;text-align:left}
+    .treat{grid-template-columns:1fr 1fr;gap:10px}
+    .t{padding:16px;border-radius:18px}
+    .t .ic{width:40px;height:40px;border-radius:12px}
+    .t .ic svg{width:20px;height:20px}
+    .t h3{font-size:17px;margin-top:10px}
+    .t p{display:none}
+    .t .from{font-size:13px;margin-top:8px;padding:3px 8px}
+    .aid{grid-template-columns:1fr;padding:28px 22px;gap:22px;border-radius:22px}
+    .split{grid-template-columns:1fr;gap:26px}
+    .split img{border-radius:18px}
+    .quotes{grid-template-columns:1fr;gap:14px}
+    .quote{padding:20px}
+    .quote p{font-size:16.5px}
+    footer{padding:60px 0 28px}
+    .foot{grid-template-columns:1fr;gap:28px}
+    footer .actions .btn{width:100%}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="tooth" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M7.5 3C4.8 3 3.5 5.2 3.7 7.8c.2 2.4 1.3 3.6 1.8 5.7.6 2.6.9 7.5 2.7 7.5 1.9 0 1.6-5 3.8-5s1.9 5 3.8 5c1.8 0 2.1-4.9 2.7-7.5.5-2.1 1.6-3.3 1.8-5.7C20.5 5.2 19.2 3 16.5 3c-2 0-2.8 1.2-4.5 1.2S9.5 3 7.5 3Z"/></symbol>
+  <symbol id="tick" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="spark" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></symbol>
+  <symbol id="kid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1.8 2 5.2 2 7 0M9 9.5h.01M15 9.5h.01"/></g></symbol>
+  <symbol id="fill" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 14 10"/><path d="m13 5 6 6-3 3-6-6z"/></g></symbol>
+  <symbol id="crown" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5Z"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M13 2 4 14h7l-1 8 9-12h-7Z"/></symbol>
+</svg>
+
+<div class="alert"><div class="wrap"><svg><use href="#bolt"/></svg>Toothache? We keep same-day slots every weekday</div></div>
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="ic"><svg style="color:#fff"><use href="#tooth"/></svg></span><div><b>Palmiet Family Dental</b><span>Westville, Durban</span></div></a>
+    <nav><a href="#treatments">Treatments</a><a href="#medical-aid">Medical aid</a><a href="#first-visit">First visit</a><a href="#reviews">Reviews</a></nav>
+    <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>Book</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="hero-panel">
+      <div class="hero-text">
+        <span class="chip"><i></i>New patients welcome, ages 2 to 92</span>
+        <h1>Gentle dentistry for the <span>whole family</span></h1>
+        <p class="sub">Check-ups, fillings and whitening in Westville, explained before we start. Children get extra time and no rush.</p>
+        <div class="actions">
+          <a class="btn" href="#"><svg><use href="#wa"/></svg>Book on WhatsApp</a>
+          <a class="btn btn-soft" href="#"><svg><use href="#phone"/></svg>031 000 0000</a>
+        </div>
+        <div class="rating">
+          <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+          <span><strong>4.9 on Google</strong> · Westville and Pinetown families</span>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="images/hero.jpg" alt="Dentist showing a smiling boy his teeth in a hand mirror">
+        <div class="float f1"><span class="dot"><svg><use href="#tick"/></svg></span><div><b>Dr Meera, family dentist</b>Kids' check-ups from R550</div></div>
+        <div class="float f2"><span class="dot"><svg><use href="#tick"/></svg></span><div><b>Open Saturdays</b>08:00 to 12:00</div></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="treatments">
+    <div class="wrap">
+      <div class="center"><p class="kicker">Treatments</p><h2>Everything for healthy teeth, under one roof</h2><p>Prices are a guide for cash patients. We confirm the cost before any treatment.</p></div>
+      <div class="treat">
+        <div class="t"><span class="ic"><svg><use href="#tooth"/></svg></span><h3>Check-up and clean</h3><p>Exam, x-rays if needed, scale and polish with our hygienist.</p><span class="from">from R850</span></div>
+        <div class="t"><span class="ic"><svg><use href="#kid"/></svg></span><h3>Children's dentistry</h3><p>First visits, fissure sealants and fluoride, at their pace.</p><span class="from">from R550</span></div>
+        <div class="t"><span class="ic"><svg><use href="#fill"/></svg></span><h3>Fillings</h3><p>Tooth-coloured fillings, done in one visit.</p><span class="from">from R950</span></div>
+        <div class="t"><span class="ic"><svg><use href="#spark"/></svg></span><h3>Whitening</h3><p>In-chair or take-home trays, after a check-up.</p><span class="from">from R3,800</span></div>
+        <div class="t"><span class="ic"><svg><use href="#crown"/></svg></span><h3>Crowns and implants</h3><p>Planned with you, with a written quote for medical aid.</p><span class="from">quoted</span></div>
+        <div class="t urgent"><span class="ic"><svg><use href="#bolt"/></svg></span><h3>Emergencies</h3><p>Toothache, broken teeth and swelling, seen the same day.</p><span class="from">same day</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" id="medical-aid">
+    <div class="aid">
+      <div>
+        <h2>On medical aid? We claim for you.</h2>
+        <p>Bring your card to your first visit. We tell you upfront if anything isn't covered, so there are no surprises later.</p>
+      </div>
+      <ul>
+        <li><svg><use href="#tick"/></svg>Direct claims with most medical aids</li>
+        <li><svg><use href="#tick"/></svg>Fair cash prices if you're not on one</li>
+        <li><svg><use href="#tick"/></svg>Card, EFT and QR code payments</li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="first-visit">
+    <div class="wrap split">
+      <img src="images/cleaning.jpg" alt="Hygienist chatting to an older patient before his check-up">
+      <div>
+        <p class="kicker">Your first visit</p>
+        <h2>Nervous? Tell us. We'll go slowly.</h2>
+        <p class="lead">Many of our patients hadn't seen a dentist in years. Nobody will lecture you.</p>
+        <ol class="first">
+          <li><div><b>WhatsApp us a time that suits you</b><span>We'll confirm within the hour in working hours.</span></div></li>
+          <li><div><b>A chat before the chair</b><span>Tell us what worries you and what you'd like fixed.</span></div></li>
+          <li><div><b>A plan with prices</b><span>Nothing happens without your go-ahead.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="center"><p class="kicker">Reviews</p><h2>Our patients say it best</h2></div>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>My son used to cry at the dentist. Now he asks when he can go back to Dr Meera.</p><div class="who"><i>N</i><span><b>Nokuthula M.</b> · Westville</span></div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Cracked a tooth on a Monday morning and was fixed by lunchtime. Very kind team.</p><div class="who"><i>D</i><span><b>Dylan R.</b> · Pinetown</span></div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>They sorted my medical aid claim and told me the cost before starting. No surprises.</p><div class="who"><i>S</i><span><b>Sharmila P.</b> · Reservoir Hills</span></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <p class="kicker">Book an appointment</p>
+        <h2 style="margin-top:10px">Send us a WhatsApp. We'll find you a time.</h2>
+        <div class="actions"><a class="btn" href="#"><svg><use href="#wa"/></svg>Book on WhatsApp</a></div>
+      </div>
+      <div><h4>Find us</h4><p>Buckingham Terrace, Westville<br>Durban, 3629<br>Ground floor, parking at the door<br>info@palmietdental.co.za</p></div>
+      <div class="hours"><h4>Hours</h4><div><b>Mon to Fri</b>07:30 to 17:00</div><div><b>Saturday</b>08:00 to 12:00</div><div><b>Sunday</b>Closed</div><div><b>Tel</b>031 000 0000</div></div>
+    </div>
+    <div class="fine"><span>© 2026 Palmiet Family Dental</span><span>Registered with the HPCSA</span></div>
+  </div>
+</footer>
+</body>
+</html>

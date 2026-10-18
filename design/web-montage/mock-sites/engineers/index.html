@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vaalkrans Consulting Engineers, Bloemfontein</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D1B2A; --blue:#123A70; --blue-2:#0E2E5A; --sky:#9CC3F0; --paper:#FFFFFF; --off:#F2F4F7; --soft:#556273;
+    --hv:#FF6B2C; --line:#D9DEE5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  header{border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:80px;gap:24px}
+  .mark{display:flex;align-items:center;gap:12px}
+  .mark svg{width:42px;height:42px;flex:none}
+  .mark b{display:block;font-size:21px;font-weight:700;letter-spacing:-.01em;line-height:1}
+  .mark span{display:block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-top:5px;white-space:nowrap}
+  nav{display:flex;gap:30px;font-size:15.5px;font-weight:500;color:var(--soft)}
+  .head-right{display:flex;align-items:center;gap:20px}
+  .phone{display:flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:15px}
+  .phone svg{width:17px;height:17px;color:var(--blue)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--hv);color:#1B0C03;padding:16px 24px;font-size:16px;font-weight:600;white-space:nowrap}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-sm{padding:11px 16px;font-size:15px}
+  .btn-line{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45)}
+
+  .hero{background-color:var(--blue);color:#DCE7F5;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:32px 32px}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding-top:76px;padding-bottom:84px}
+  .label{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--sky)}
+  .label::before{content:"// ";color:var(--hv)}
+  h1{font-size:clamp(40px,4.6vw,62px);line-height:1.06;letter-spacing:-.025em;font-weight:700;color:#fff;margin-top:20px}
+  .sub{margin-top:22px;font-size:19px;max-width:30em}
+  .actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .hero-photo{position:relative;border:1px solid rgba(255,255,255,.3);padding:10px}
+  .hero-photo img{width:100%;aspect-ratio:4/3.3;object-fit:cover}
+  .cap{position:absolute;left:10px;bottom:10px;background:var(--ink);color:#fff;font-family:"IBM Plex Mono",monospace;font-size:12.5px;padding:8px 12px;letter-spacing:.03em}
+  .cap b{color:var(--hv);font-weight:500}
+  .spec{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.18)}
+  .spec div{padding:22px 24px 26px 0;font-size:15px}
+  .spec div+div{padding-left:24px;border-left:1px solid rgba(255,255,255,.18)}
+  .spec b{display:block;font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--sky);margin-bottom:4px}
+
+  section{padding:96px 0}
+  h2{font-size:clamp(30px,3.2vw,44px);line-height:1.1;letter-spacing:-.02em;font-weight:700;margin-top:14px}
+  .label.dark{color:var(--blue)}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:48px}
+  .sec-head p{color:var(--soft);max-width:30em}
+
+  .svc{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--line)}
+  .svc div{padding:28px 28px 32px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .svc i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--hv);font-weight:600}
+  .svc h3{font-size:21px;font-weight:600;margin:10px 0 6px;letter-spacing:-.01em}
+  .svc p{color:var(--soft);font-size:15.5px}
+
+  .projects{background:var(--off)}
+  .proj{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .p-card{background:#fff;border:1px solid var(--line)}
+  .p-card img{width:100%;aspect-ratio:3/2;object-fit:cover}
+  .p-card .body{padding:22px 24px 24px}
+  .p-card h3{font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .p-card dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin-top:14px;font-size:14.5px}
+  .p-card dt{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);padding-top:2px}
+
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+  .step{padding:0 26px 0 0;position:relative}
+  .step::before{counter-increment:s;content:"0" counter(s);display:block;font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--blue);font-size:14px;padding-bottom:16px;margin-bottom:18px;border-bottom:2px solid var(--blue)}
+  .step h3{font-size:18.5px;font-weight:600}
+  .step p{color:var(--soft);font-size:15.5px;margin-top:6px}
+  .areas{margin-top:48px;padding:22px 24px;border:1px dashed #9FB0C4;font-size:15.5px;color:var(--soft)}
+  .areas b{color:var(--ink);font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-right:10px}
+
+  .reviews{border-top:1px solid var(--line)}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .stars{display:flex;gap:2px;color:var(--hv)}
+  .stars svg{width:16px;height:16px}
+  .quote p{font-size:18.5px;line-height:1.5;margin:14px 0 16px;font-weight:500}
+  .who{font-size:14.5px;color:var(--soft)} .who b{color:var(--ink)}
+  .g-line{display:flex;align-items:center;gap:10px;font-weight:500;color:var(--soft);font-size:15px}
+
+  footer{background:var(--ink);color:#B9C4D2;padding:86px 0 34px}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:56px}
+  footer h2{color:#fff;margin-top:12px;max-width:14em}
+  footer .actions{margin-top:28px}
+  footer h4{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sky);margin-bottom:12px}
+  footer p{line-height:1.8}
+  .fine{margin-top:60px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;gap:20px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:#7D8A9B}
+
+  @media (max-width:1020px){ nav{display:none} }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    .bar{height:66px;gap:10px}
+    .mark{gap:10px} .mark svg{width:34px;height:34px}
+    .mark b{font-size:18px} .mark span{font-size:9.5px;letter-spacing:.04em;margin-top:4px}
+    .phone{display:none}
+    .btn-sm{padding:10px 13px;font-size:14px;gap:7px}
+    .btn-sm svg{width:18px;height:18px}
+    .hero-grid{grid-template-columns:1fr;gap:30px;padding-top:30px;padding-bottom:40px}
+    .label{font-size:11.5px}
+    h1{font-size:37px;margin-top:14px;line-height:1.08}
+    .sub{font-size:16.5px;margin-top:14px}
+    .actions{margin-top:22px}
+    .hero .actions .btn{width:100%}
+    .hero .btn-line{display:none}
+    .hero-photo{padding:6px}
+    .hero-photo img{aspect-ratio:4/3}
+    .cap{left:6px;bottom:6px;font-size:11px}
+    .spec{grid-template-columns:1fr}
+    .spec div,.spec div+div{padding:14px 0;border-left:0}
+    .spec div+div{border-top:1px solid rgba(255,255,255,.18)}
+    section{padding:60px 0}
+    .sec-head{flex-direction:column;align-items:start;gap:12px;margin-bottom:28px}
+    .svc{grid-template-columns:1fr}
+    .svc div{padding:18px 18px 20px}
+    .svc h3{font-size:18.5px;margin:4px 0 4px}
+    .svc p{font-size:15px}
+    .proj{grid-template-columns:1fr;gap:16px}
+    .p-card{display:grid;grid-template-columns:110px 1fr}
+    .p-card img{height:100%;aspect-ratio:auto}
+    .p-card .body{padding:14px 16px}
+    .p-card h3{font-size:16.5px}
+    .p-card dl{font-size:13.5px;margin-top:8px}
+    .steps{grid-template-columns:1fr;gap:22px}
+    .step{padding:0}
+    .step::before{padding-bottom:8px;margin-bottom:10px}
+    .areas{margin-top:30px;font-size:14.5px}
+    .quotes{grid-template-columns:1fr;gap:28px}
+    .quote p{font-size:17px}
+    footer{padding:60px 0 28px}
+    .foot{grid-template-columns:1fr;gap:28px}
+    footer .actions .btn{width:100%}
+    .fine{flex-direction:column;gap:6px;margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="star" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8L10 1.5Z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#">
+      <svg viewBox="0 0 42 42" aria-hidden="true"><rect width="42" height="42" fill="#123A70"/><path d="M7 30h28M7 30l7-14 7 14 7-14 7 14M14 16h14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/><circle cx="21" cy="30" r="2.4" fill="#FF6B2C"/></svg>
+      <div><b>Vaalkrans</b><span>Consulting Engineers</span></div>
+    </a>
+    <nav><a href="#services">Services</a><a href="#projects">Projects</a><a href="#process">How we work</a><a href="#reviews">Clients</a><a href="#contact">Contact</a></nav>
+    <div class="head-right">
+      <a class="phone" href="#"><svg><use href="#phone"/></svg>051 000 0000</a>
+      <a class="btn btn-sm" href="#"><svg><use href="#wa"/></svg>Get a proposal</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="label">Bloemfontein · Free State</p>
+          <h1>Civil and structural engineers for the Free State</h1>
+          <p class="sub">Designs, drawings and site supervision for developers, schools, farms and municipalities. A registered professional engineer signs off every drawing.</p>
+          <div class="actions">
+            <a class="btn" href="#"><svg><use href="#wa"/></svg>Send us your project</a>
+            <a class="btn btn-line" href="#">See our projects</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <img src="images/hero.jpg" alt="Two engineers inspecting a concrete culvert on site outside Bloemfontein">
+          <span class="cap">SITE INSPECTION <b>/</b> STORMWATER CULVERT</span>
+        </div>
+      </div>
+      <div class="spec">
+        <div><b>Sign-off</b>Pr Eng sign-off and completion certificates</div>
+        <div><b>Office</b>Westdene, Bloemfontein. Site visits across the province</div>
+        <div><b>Proposal</b>Written scope and fee within 3 working days</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label dark">Services</p><h2>What we design and check</h2></div>
+        <p>One team from first sketch to final inspection, so nothing is lost between the design office and site.</p>
+      </div>
+      <div class="svc">
+        <div><i>01</i><h3>Structural design</h3><p>Slabs, beams, steel roofs and retaining walls for new builds and additions.</p></div>
+        <div><i>02</i><h3>Civil and township services</h3><p>Roads, water, sewer and stormwater layouts for new developments.</p></div>
+        <div><i>03</i><h3>Water and sanitation</h3><p>Reservoirs, pump stations and pipelines for towns, farms and mines.</p></div>
+        <div><i>04</i><h3>Rational designs</h3><p>Engineer's designs and certificates for council plan approval.</p></div>
+        <div><i>05</i><h3>Site supervision</h3><p>Inspections before every pour and a written report after each visit.</p></div>
+        <div><i>06</i><h3>Condition assessments</h3><p>Cracks, damp and settlement checked, with a plain repair plan.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label dark">Recent projects</p><h2>Work on the ground</h2></div>
+        <p>A few jobs from the last two years. Ask us for references in your sector.</p>
+      </div>
+      <div class="proj">
+        <article class="p-card">
+          <img src="images/structural.jpg" alt="Reinforcing steel checked before a slab pour">
+          <div class="body"><h3>Three-storey student housing</h3><dl><dt>Town</dt><dd>Bloemfontein</dd><dt>Client</dt><dd>Private developer</dd><dt>Scope</dt><dd>Structural design, supervision</dd></dl></div>
+        </article>
+        <article class="p-card">
+          <img src="images/roads.jpg" alt="Newly surfaced road with kerbs and stormwater inlets">
+          <div class="body"><h3>Road and stormwater upgrade</h3><dl><dt>Town</dt><dd>Bethlehem</dd><dt>Client</dt><dd>Local municipality</dd><dt>Scope</dt><dd>Design, tender, site supervision</dd></dl></div>
+        </article>
+        <article class="p-card">
+          <img src="images/water.jpg" alt="Concrete reservoir and pump station on a koppie">
+          <div class="body"><h3>Reservoir and pump station</h3><dl><dt>Town</dt><dd>Near Ladybrand</dd><dt>Client</dt><dd>Farming business</dd><dt>Scope</dt><dd>Civil and mechanical design</dd></dl></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label dark">How we work</p><h2>From brief to completion certificate</h2></div>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Brief and site visit</h3><p>Send the address and what you're planning. We visit the site, usually within a week.</p></div>
+        <div class="step"><h3>Proposal and fee</h3><p>A written scope, programme and fixed or time-based fee. No work starts before you sign.</p></div>
+        <div class="step"><h3>Design and drawings</h3><p>Calculations and drawings for council, your architect and your builder.</p></div>
+        <div class="step"><h3>Site and sign-off</h3><p>We inspect at each stage and issue the completion certificate at the end.</p></div>
+      </div>
+      <div class="areas"><b>Areas</b>Bloemfontein, Botshabelo, Thaba Nchu, Bethlehem, Kroonstad, Welkom, Ladybrand and the Northern Cape border towns</div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label dark">Clients</p><h2>What our clients say</h2></div>
+        <div class="g-line"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>4.8 on Google</div>
+      </div>
+      <div class="quotes">
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Drawings were ready for council on the date they promised, and the engineer was on site before every pour.</p><div class="who"><b>Thabo K.</b> · developer, Bloemfontein</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>They checked the cracks in our school hall and gave us a repair plan we could actually afford.</p><div class="who"><b>Martie S.</b> · school governing body, Kroonstad</div></div>
+        <div class="quote"><span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span><p>Clear fee up front and quick answers on WhatsApp when the contractor had questions.</p><div class="who"><b>Pieter D.</b> · farmer, Ladybrand</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <p class="label">Start a project</p>
+        <h2>Send the site address and what you're planning. We'll reply with next steps.</h2>
+        <div class="actions"><a class="btn" href="#"><svg><use href="#wa"/></svg>WhatsApp the office</a></div>
+      </div>
+      <div><h4>Office</h4><p>Kellner Street, Westdene<br>Bloemfontein, 9301<br>Visitors' parking inside the gate</p></div>
+      <div><h4>Contact</h4><p>Tel 051 000 0000<br>info@vaalkransengineers.co.za<br>Mon to Fri · 07:30 to 16:30</p></div>
+    </div>
+    <div class="fine"><span>© 2026 Vaalkrans Consulting Engineers (Pty) Ltd</span><span>Civil · Structural · Water</span></div>
+  </div>
+</footer>
+</body>
+</html>
