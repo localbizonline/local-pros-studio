@@ -1,6 +1,10 @@
 // The 50/50 test of the category-first ads pages (Jeremy, 18 Oct 2026). Every Google Ads click lands on
-// /go/website-design. Half the visitors who arrive from an ad (gclid, gbraid or wbraid in the link) are sent on to
-// /go/websites, the question first (src/components/ads-gate/AdsGate.tsx); the other half see the page as before.
+// /go/website-design. Half the visitors who arrive from an ad (gclid, gbraid or wbraid in the link) get the
+// question-first page (/go/websites, src/components/ads-gate/AdsGate.tsx); the other half see the page as before.
+// The question-first page is served straight away at the ad's own address, with the area filled in, and a first
+// line in the page moves the address bar to /go/websites before anything else runs. A redirect instead cost
+// about 0.85 s on a phone (Lighthouse, 18 Oct 2026). The page code, PostHog and the Google tag all load later,
+// so they all see /go/websites.
 // A cookie keeps each visitor on the same side for 30 days. Visitors without an ad click id are not part of the
 // test and always see the page as before.
 //
@@ -10,6 +14,8 @@
 
 declare const Netlify: { env: { get(name: string): string | undefined } };
 type Context = { next(): Promise<Response> };
+
+import { adWordsFrom, fillAdWords } from '../lib/ad-html.ts';
 
 const COOKIE = 'lps_arm';
 const DAYS = 30;
@@ -34,9 +40,19 @@ export default async (request: Request, context: Context) => {
 
   const cookie = `${COOKIE}=${arm}; Path=/; Max-Age=${DAYS * 86_400}; SameSite=Lax; Secure`;
   if (arm === 'gate') {
-    return new Response(null, {
-      status: 302,
-      headers: { location: `/go/websites${url.search}`, 'set-cookie': cookie, 'cache-control': 'private, no-store' },
+    // The plain page (no area words, so ads-area.ts leaves it as it is); the words are filled in below
+    const gate = await fetch(new URL('/go/websites', url));
+    if (!gate.ok) {
+      // Never leave an ad visitor on an error: fall back to the move by redirect
+      return new Response(null, { status: 302, headers: { location: `/go/websites${url.search}`, 'set-cookie': cookie, 'cache-control': 'private, no-store' } });
+    }
+    const html = fillAdWords(await gate.text(), adWordsFrom(url)).replace(
+      '<head>',
+      `<head><script>history.replaceState(history.state, '', '/go/websites' + location.search + location.hash)</script>`,
+    );
+    return new Response(html, {
+      status: 200,
+      headers: { 'content-type': 'text/html; charset=UTF-8', 'set-cookie': cookie, 'cache-control': 'private, no-store' },
     });
   }
   if (arm === kept && !chosen) return;

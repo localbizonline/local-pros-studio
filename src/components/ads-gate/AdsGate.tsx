@@ -22,6 +22,8 @@ const SAMPLES_URL = 'https://lps-samples.netlify.app';
 
 // Full phone screenshots of the example designs (from design/web-montage/mock-sites/<slug>-mobile.png, WebP q76)
 const PHONES = import.meta.glob('./img/phone/*.webp', { eager: true, import: 'default' }) as Record<string, string>;
+// Small copies of the card pictures (200 x 267) for the strip of four at the top: the full ones cost ~120 KB more
+const THUMBS = import.meta.glob('./img/thumb/*.webp', { eager: true, import: 'default' }) as Record<string, string>;
 
 // Category-first Google Ads pages (Jeremy, 18 Oct 2026: "somebody needs to see a page that works for THEM").
 // /go/websites is the general page with a pop-up over it, "What type of business do you run?", that can't be
@@ -223,7 +225,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
             {/* Their kind of business on the first screen, before the button (Jeremy: "a page that works for THEM") */}
             <a href="#examples" className="gx-strip" aria-label={`See popular designs for ${who}`} onClick={() => track('strip')}>
               {sites.slice(0, 4).map((s) => (
-                <img key={s.slug} src={s.img} alt="" width={585} height={780} />
+                <img key={s.slug} src={THUMBS[`./img/thumb/${s.slug}.webp`] ?? s.img} alt="" width={200} height={267} />
               ))}
             </a>
             {/* WhatsApp with Ashley is the next step (Jeremy, 18 Oct 2026); the chat stays for anyone who'd rather not */}
