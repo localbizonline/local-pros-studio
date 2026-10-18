@@ -223,7 +223,8 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
             </h1>
             <p className="gx-outcome">{category.outcome.line}</p>
             <p className="gx-price">
-              <strong>{category.price}</strong> Live in 7 days. Then R290 a month for hosting and updates.
+              {/* No "Then R290 a month" here: Ashley covers hosting when she quotes (Jeremy, 18 Oct 2026) */}
+              <strong>{category.price}</strong> Live in 7 days.
             </p>
             {subs.length > 0 && (
               <div className="gx-types" role="group" aria-label="Your type of business">
