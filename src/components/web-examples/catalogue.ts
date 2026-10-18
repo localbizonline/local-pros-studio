@@ -103,6 +103,13 @@ const SITE_LIST: Omit<Site, 'img'>[] = [
   { slug: 'insurance', name: 'Hex Valley Insurance Brokers', place: 'Worcester', type: 'Short-term insurance broker', kind: 'example', picture: true },
   { slug: 'itsupport', name: 'Tidewater IT Support', place: 'Richards Bay', type: 'IT support for small businesses', kind: 'example', picture: true },
   { slug: 'catering', name: 'Mopane & Clay Catering', place: 'Thohoyandou', type: 'Catering for functions and events', kind: 'example', picture: true },
+  // Corporate example designs for the ads pages' Corporate category (18 Oct 2026), picture only
+  { slug: 'construction', name: 'Jukskei Construction', place: 'Midrand', type: 'Commercial construction', kind: 'example', picture: true },
+  { slug: 'manufacturer', name: 'Klip River Steel & Engineering', place: 'Vereeniging', type: 'Steel fabrication and engineering', kind: 'example', picture: true },
+  { slug: 'logistics', name: 'Northbound Freight', place: 'Pinetown', type: 'Logistics and freight', kind: 'example', picture: true },
+  { slug: 'software', name: 'Sandgrain Software', place: 'Century City', type: 'Software development', kind: 'example', picture: true },
+  { slug: 'consulting', name: 'Mahlangu Carter Advisory', place: 'Rosebank', type: 'Business and management consulting', kind: 'example', picture: true },
+  { slug: 'recruitment', name: 'Open Hand Recruitment', place: 'Hatfield, Pretoria', type: 'Staffing and recruitment agency', kind: 'example', picture: true },
 ];
 
 export const SITES: Record<string, Site> = Object.fromEntries(
@@ -168,12 +175,12 @@ export const GROUPS: Group[] = [
     id: 'professional',
     label: 'Professional and corporate',
     hint: 'Accountants, attorneys…',
-    sites: ['ridgeway', 'attorneys', 'estate', 'advisor', 'engineers', 'architect', 'accountant2', 'estate2', 'insurance', 'itsupport'],
+    sites: ['ridgeway', 'attorneys', 'estate', 'advisor', 'engineers', 'architect', 'accountant2', 'estate2', 'insurance', 'itsupport', 'construction', 'manufacturer', 'logistics', 'software', 'consulting', 'recruitment'],
     subs: [
       { id: 'accountants', label: 'Accountants', plural: 'accountants', sites: ['ridgeway', 'accountant2'] },
       { id: 'lawyers', label: 'Attorneys', plural: 'attorneys', sites: ['attorneys'] },
       { id: 'estate', label: 'Estate agents', plural: 'estate agents', sites: ['estate', 'estate2'] },
-      { id: 'corporate', label: 'Company website', plural: 'companies', sites: ['engineers', 'ridgeway', 'architect'] },
+      { id: 'corporate', label: 'Company website', plural: 'companies', sites: ['engineers', 'construction', 'logistics', 'software', 'manufacturer', 'consulting', 'recruitment', 'architect'] },
       { id: 'other-pro', label: 'Other', plural: 'professional businesses', sites: ['advisor', 'architect', 'engineers', 'insurance', 'itsupport'] },
     ],
   },

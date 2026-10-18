@@ -1,6 +1,7 @@
 // No imports: src/seo.ts reads this list, and the main bundle must not pull in the example pictures.
-// The six broad categories on the category-first ads pages (Jeremy, 18 Oct 2026: broad categories, not one page
-// per trade, because SA searches are general). Each is the examples chat's type of business (catalogue.ts), so
+// The seven broad categories on the category-first ads pages (Jeremy, 18 Oct 2026: broad categories, not one page
+// per trade, because SA searches are general; Corporate added the same day as its own choice, Jeremy: company
+// websites didn't fit under Professional). Each is the examples chat's type of business (catalogue.ts), so
 // the examples, the second question and the lead's "type of business" stay the same as on the other pages.
 // Online shop is not a main choice here: nobody searched for one, and the R30,000 price confused people who
 // tapped it (ad visitors 13–18 Oct). It sits under "Something else", quoted separately.
@@ -22,7 +23,18 @@ export type Category = {
   // The result they pay for, in their words (Jeremy, 18 Oct 2026: "sell the outcome", a trade wants booked jobs,
   // a professional wants consultations). No numbers: only what the website does and the message they'll get.
   outcome: Outcome;
+  // Which of the group's types show as buttons on the page (default: all but "Other")
+  subIds?: string[];
+  // Corporate: buttons of its own (engineering, logistics…), not types in the examples chat. The chat then opens
+  // at chatSub ("Company website") whichever one they tap.
+  types?: CategoryType[];
+  chatSub?: string;
+  // The designs it shows, closest first (default: every design in the group)
+  sites?: string[];
 };
+
+// The same shape as a type of business in the examples chat (catalogue.ts Sub)
+export type CategoryType = { id: string; label: string; plural: string; sites: string[] };
 
 // line: under the headline at the top. headline: the outcome section. message: the WhatsApp a customer sends.
 export type Outcome = { line: string; headline: string; message: string };
@@ -52,6 +64,14 @@ export const SUB_OUTCOMES: Record<string, Pick<Outcome, 'headline' | 'message'>>
   lawyers: { headline: 'More consultations booked', message: 'Hi, I need advice on a divorce. Can I book a consultation?' },
   estate: { headline: 'More valuations and buyer enquiries', message: 'Hi, we’re thinking of selling. Can you value our house?' },
   corporate: { headline: 'More enquiries from the right clients', message: 'Hi, we’d like a proposal for a project. Who should I speak to?' },
+  // The Corporate category's own buttons
+  engineering: { headline: 'More project enquiries', message: 'Hi, we need an engineer for a new warehouse. Can we set up a meeting?' },
+  construction: { headline: 'More quote and tender requests', message: 'Hi, can you quote on a fit-out for our new offices?' },
+  manufacturing: { headline: 'More orders and supplier enquiries', message: 'Hi, can you send prices and lead times for 500 units?' },
+  logistics: { headline: 'More quote requests for transport and freight', message: 'Hi, can you quote for a weekly load from Joburg to Durban?' },
+  it: { headline: 'More businesses asking for a quote', message: 'Hi, we have 15 staff and need IT support. Can you send a quote?' },
+  consulting: { headline: 'More meetings with the right clients', message: 'Hi, we need help with a project. Can we set up a call?' },
+  recruitment: { headline: 'More companies asking you to fill roles', message: 'Hi, we need two admin staff by next month. Can you help?' },
   restaurant: { headline: 'More table bookings and orders', message: 'Hi, can I book a table for 6 on Friday at 7?' },
   venue: { headline: 'More wedding and event enquiries', message: 'Hi, is your venue free on 14 March? It’s a wedding for 120.' },
 };
@@ -120,6 +140,9 @@ export const CATEGORIES: Category[] = [
     examples: 'Attorney, accountant, estate agent',
     heading: 'Websites for professional firms',
     price: 'R9,900 once-off.',
+    // Company websites have their own category (Corporate below)
+    subIds: ['accountants', 'lawyers', 'estate'],
+    sites: ['attorneys', 'ridgeway', 'estate', 'advisor', 'accountant2', 'estate2', 'insurance', 'architect'],
     includes: [
       { title: 'A page for each service', body: 'Conveyancing, tax returns, rentals: each service gets its own page, so Google can match it to what people search.' },
       { title: 'Your team and experience', body: 'Who you are and what you specialise in, so clients feel they know you before they call.' },
@@ -129,6 +152,36 @@ export const CATEGORIES: Category[] = [
       line: 'Built to bring you consultations with the right clients.',
       headline: 'More consultations from the right clients',
       message: 'Hi, can I book a consultation this week?',
+    },
+  },
+  {
+    id: 'corporate',
+    // In the examples chat a company website is a type of professional business, R9,900
+    group: 'professional',
+    chatSub: 'corporate',
+    label: 'Corporate',
+    examples: 'Engineering, IT, logistics',
+    heading: 'Websites for companies',
+    price: 'R9,900 once-off.',
+    types: [
+      { id: 'engineering', label: 'Engineering', plural: 'engineering firms', sites: ['engineers'] },
+      { id: 'construction', label: 'Construction', plural: 'construction companies', sites: ['construction', 'architect'] },
+      { id: 'manufacturing', label: 'Manufacturing', plural: 'manufacturers', sites: ['manufacturer'] },
+      { id: 'logistics', label: 'Logistics', plural: 'logistics companies', sites: ['logistics'] },
+      { id: 'it', label: 'IT and software', plural: 'IT and software companies', sites: ['software', 'itsupport'] },
+      { id: 'consulting', label: 'Consulting', plural: 'consulting firms', sites: ['consulting'] },
+      { id: 'recruitment', label: 'Recruitment', plural: 'recruitment agencies', sites: ['recruitment'] },
+    ],
+    sites: ['engineers', 'construction', 'logistics', 'software', 'manufacturer', 'itsupport', 'consulting', 'architect', 'recruitment'],
+    includes: [
+      { title: 'A page for each service', body: 'Projects, services, divisions: each gets its own page, so Google can match it to what people search.' },
+      { title: 'Your projects and credentials', body: 'Work you’ve done, who you’ve done it for and your B-BBEE level, so buyers can check you before they call.' },
+      { title: 'Easy to get in touch', body: 'Call, WhatsApp and email on every page, easy on a phone or a work computer.' },
+    ],
+    outcome: {
+      line: 'Built to bring you enquiries from new clients.',
+      headline: 'More enquiries and quote requests',
+      message: 'Hi, we’d like a quote for a project. Who should I speak to?',
     },
   },
   {

@@ -186,6 +186,11 @@
   .gx-rows {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
+
+  /* Seven choices: "Something else" takes the full last line */
+  .gx-rows > .gx-row:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 }
 
 /* ---------- A category's page ---------- */

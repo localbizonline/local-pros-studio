@@ -32,7 +32,7 @@ const THUMBS = import.meta.glob('./img/thumb/*.webp', { eager: true, import: 'de
 // Category-first Google Ads pages (Jeremy, 18 Oct 2026: "somebody needs to see a page that works for THEM").
 // /go/websites is the general page with a pop-up over it, "What type of business do you run?", that can't be
 // closed: they pick one to go on (Jeremy, 18 Oct 2026: "forces user to make a selection to continue", no skip).
-// Each of the six broad categories has its own page at /go/websites-for/<id>: "Websites for trades and home
+// Each of the seven broad categories has its own page at /go/websites-for/<id>: "Websites for trades and home
 // services in Sandton", the price straight away, designs for that kind of business and one button into the chat.
 // Watch the keywords' landing page rating in Google Ads: if it drops, add a small "Skip" link to the pop-up.
 // Half the ad visitors are sent here from /go/website-design (netlify/edge-functions/ads-split.ts), the
@@ -203,6 +203,7 @@ const sitesOf = (c: Category, sub: Sub | null): Site[] => {
   const examples = (slugs: string[]) => [...new Set(slugs)].map((s) => SITES[s]).filter((s): s is Site => !!s && s.kind === 'example');
   // The general page and "Something else" show every design: those visitors could run any kind of business
   if (c.id === ALL.id || c.id === 'other') return examples(Object.keys(SITES)).filter((s) => c.id === 'other' || s.slug !== 'shop');
+  if (c.sites) return examples([...(sub?.sites ?? []), ...c.sites]);
   const g = groupOf(c);
   return examples([...(sub?.sites ?? []), ...g.subs.flatMap((s) => s.sites), ...g.sites]);
 };
@@ -271,7 +272,8 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
   if (!category) return <Navigate to={GATE_PATH} replace />;
 
   const group = groupOf(category);
-  const subs = group.subs.filter((s) => !s.id.startsWith('other'));
+  // The type buttons: Corporate has its own; the others use the examples chat's types (categories.ts)
+  const subs: Sub[] = category.types ?? group.subs.filter((s) => (category.subIds ? category.subIds.includes(s.id) : !s.id.startsWith('other')));
   const sites = sitesOf(category, sub);
   // The first example design for their kind of business that has a full phone screenshot
   const showcase = sites.find((x) => x.kind === 'example' && PHONES[`./img/phone/${x.slug}.webp`]);
@@ -281,7 +283,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
   // "trades and home services", "plumbers": who the designs are for
   const who = sub ? sub.plural : category.heading.replace(/^Websites for /, '');
   // "Start my website": the short chat (name, number, business), keeping the type of business they picked
-  const start = (from: string) => openExamplesChat({ group: group.id, sub: sub?.id, from, start: 'website' });
+  const start = (from: string) => openExamplesChat({ group: group.id, sub: category.types ? category.chatSub : sub?.id, from, start: 'website' });
   // Their first WhatsApp line to Ashley names what they picked, so she knows who she's talking to
   const waMessage = gate
     ? 'Hi Ashley, I’d like a quote for a website.'
@@ -482,7 +484,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
             { title: 'Live in 7 days', body: 'We write the wording, build it and put it live.' },
           ]}
           button="Start my website"
-          open={{ group: group.id, sub: sub?.id, start: 'website' }}
+          open={{ group: group.id, sub: category.types ? category.chatSub : sub?.id, start: 'website' }}
         />
 
         <ClientReviews onGoogle={() => track('reviews_google')} max={2} />
@@ -505,9 +507,9 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
           waUrl={ashleyWhatsAppLink(waMessage)}
           track={track}
           heading="Ready for your new website?"
-          recap={['Written, designed and built for you', 'Live in 7 days', category.id === 'professional' ? 'R9,900 once-off' : 'From R6,500']}
+          recap={['Written, designed and built for you', 'Live in 7 days', category.group === 'professional' ? 'R9,900 once-off' : 'From R6,500']}
           button="Start my website"
-          open={{ group: group.id, sub: sub?.id, start: 'website' }}
+          open={{ group: group.id, sub: category.types ? category.chatSub : sub?.id, start: 'website' }}
           media={
             <div className="gx-closing-media">
               <Montage
