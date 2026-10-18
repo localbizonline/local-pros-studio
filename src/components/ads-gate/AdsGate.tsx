@@ -12,6 +12,7 @@ import ExamplesChat, { OPEN_EXAMPLES_EVENT, SiteCard, openExamplesChat } from '.
 import { ExamplesClosing, ExamplesSteps } from '../web-examples/ExamplesSections';
 import { SITES, groupById, type Group, type Site, type Sub } from '../web-examples/catalogue';
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
+import logoLight from '../../assets/images/Compressed/Local Pros Studio logo transparent.png';
 import { AD_WORDS_GLOBAL, NO_AD_WORDS, areaText, leadText, placeText, type AdWords } from './adWords';
 import { AshleyBar, AshleyCard } from './AshleyWhatsApp';
 import Compare from './Compare';
@@ -102,6 +103,9 @@ function Question({ words, query }: { words: AdWords; query: string }) {
   return (
     <div className="gx-modal" role="dialog" aria-modal="true" aria-labelledby="gx-q">
       <div className="gx-sheet">
+        <span className="gx-sheet-logo">
+          <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
+        </span>
         {/* Their search, confirmed first, then why to tap (Jeremy, 18 Oct 2026: "no indication why they're selecting a
             button"). The lead and area spans are filled in by the edge function, like the headline behind. */}
         <p className="gx-sheet-match">

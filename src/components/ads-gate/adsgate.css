@@ -74,6 +74,32 @@
   color: var(--muted);
 }
 
+/* In the pop-up the question and the line under it each fit on one line on a phone (Jeremy, 18 Oct 2026): the
+   size follows the screen width, between a floor and the normal size */
+.gx-sheet .gx-q {
+  font-size: clamp(1rem, calc((100vw - 48px) / 18.4), 1.25rem);
+  white-space: nowrap;
+}
+
+.gx-sheet .gx-q-sub {
+  font-size: clamp(0.8125rem, calc((100vw - 48px) / 24.8), 0.9375rem);
+}
+
+/* Our logo at the top of the pop-up, on the same dark tile as the menu bar */
+.gx-sheet-logo {
+  display: inline-flex;
+  margin-bottom: 12px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #1c1917;
+  line-height: 0;
+}
+
+.gx-sheet-logo img {
+  width: 104px;
+  height: auto;
+}
+
 .gx-rows {
   display: grid;
   gap: 8px;
@@ -136,6 +162,14 @@
   /* In the middle of a computer screen */
   .gx-modal .gx-sheet {
     margin: auto;
+  }
+
+  .gx-sheet .gx-q {
+    font-size: 1.5rem;
+  }
+
+  .gx-sheet .gx-q-sub {
+    font-size: 1rem;
   }
 
   .gx-sheet {
@@ -945,6 +979,15 @@
     margin-bottom: 8px;
     padding: 7px 10px;
     font-size: 0.875rem;
+  }
+
+  .gx-sheet-logo {
+    margin-bottom: 8px;
+    padding: 5px 8px;
+  }
+
+  .gx-sheet-logo img {
+    width: 88px;
   }
 
   .gx-q-sub {
