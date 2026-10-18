@@ -99,7 +99,8 @@ export function AshleyBar({ message, watch, onWhatsApp }: { message: string; wat
       <Face size={40} />
       <div className="gx-bar-text">
         <strong>Ashley</strong>
-        <StatusLine status={status} short />
+        {/* Only "Online now", never "Back Monday 7am" here (Jeremy, 18 Oct 2026) */}
+        {status.online ? <StatusLine status={status} short /> : <span className="gx-status">Local Pros Studio</span>}
       </div>
       <a href={ashleyWhatsAppLink(message)} target="_blank" rel="noopener noreferrer" className="gx-wa-btn gx-bar-btn" tabIndex={show ? 0 : -1} onClick={onWhatsApp}>
         WhatsApp

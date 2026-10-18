@@ -183,3 +183,17 @@ export const categoryById = (id: string | undefined) => CATEGORIES.find((c) => c
 // The addresses (each pre-built as its own page, see src/seo.ts)
 export const GATE_PATH = '/go/websites';
 export const categoryPath = (c: Category) => `/go/websites-for/${c.id}`;
+
+// "A typical web designer vs us" (Jeremy, 18 Oct 2026). The typical side comes from the published packages of 20
+// South African web design companies, read on 11 Oct 2026 (research-private/website-design-price-survey-2026-10.json,
+// on Jeremy's machine): writing included in 3 packages and extra or excluded in 16; 3 to 7 pages in a typical
+// package; delivery dates mostly counted from when the client sends their content; extra pages, writing and
+// changes priced on top. Keep it to what that survey shows; we are not the cheapest on sticker price.
+export const COMPARE: { topic: string; them: string; us: (who: string) => string }[] = [
+  { topic: 'Pages that bring in local work', them: '3 to 7 pages: services and areas share one', us: () => 'A page for each service and area you work in' },
+  { topic: 'Made for your kind of business', them: 'A general template', us: (who) => `Designed for ${who}` },
+  { topic: 'The writing', them: 'Extra, or left to you', us: () => 'We write it for you' },
+  { topic: 'Photos', them: 'You supply them, or stock photos', us: () => 'We help with photos and fill the gaps' },
+  { topic: 'How fast', them: 'Starts once you send your content', us: () => 'Live in 7 days, writing included' },
+  { topic: 'What you pay', them: 'Pages, writing and changes charged on top', us: () => 'From R6,500, then R290 a month with basic changes' },
+];

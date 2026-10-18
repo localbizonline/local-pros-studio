@@ -616,3 +616,129 @@
     margin-bottom: 0;
   }
 }
+
+/* ---------- A typical web designer vs us (Jeremy, 18 Oct 2026) ----------
+   Phone first: each row is the topic, then the two answers side by side; ours is the highlighted column. */
+
+.gx-compare {
+  background: var(--surface-2);
+}
+
+.gx-cmp {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.gx-cmp-head,
+.gx-cmp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+}
+
+.gx-cmp-head {
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+  padding: 10px 0;
+  background: var(--surface-2);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.gx-cmp-head .gx-cmp-us {
+  color: var(--ink);
+}
+
+.gx-cmp-row {
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.gx-cmp-topic {
+  grid-column: 1 / -1;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.gx-cmp-row .gx-cmp-them,
+.gx-cmp-row .gx-cmp-us {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.gx-cmp-row .gx-cmp-them {
+  color: var(--muted);
+}
+
+.gx-cmp-row .gx-cmp-them svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #a8a29e;
+}
+
+.gx-cmp-row .gx-cmp-us {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+  color: var(--ink);
+}
+
+.gx-cmp-row .gx-cmp-us svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #b45309;
+}
+
+.gx-cmp-row .gx-cmp-them {
+  padding: 8px 0;
+}
+
+.gx-cmp-proof {
+  max-width: 820px;
+  margin: 24px auto 0;
+  font-size: 1.0625rem;
+  text-align: center;
+  color: var(--body);
+}
+
+.gx-cmp-proof strong {
+  color: var(--ink);
+}
+
+.gx-cmp-source {
+  max-width: 820px;
+  margin: 8px auto 0;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .gx-cmp-head,
+  .gx-cmp-row {
+    grid-template-columns: 0.8fr 1fr 1fr;
+    column-gap: 16px;
+    align-items: center;
+  }
+
+  .gx-cmp-head::before {
+    content: '';
+  }
+
+  .gx-cmp-topic {
+    grid-column: auto;
+    margin: 0;
+  }
+
+  .gx-cmp-head {
+    top: 72px;
+  }
+}
