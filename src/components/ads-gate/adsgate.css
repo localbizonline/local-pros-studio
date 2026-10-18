@@ -89,14 +89,14 @@
 .gx-sheet-logo {
   display: inline-flex;
   margin-bottom: 12px;
-  padding: 7px 10px;
+  padding: 9px 12px;
   border-radius: 8px;
   background: #1c1917;
   line-height: 0;
 }
 
 .gx-sheet-logo img {
-  width: 104px;
+  width: 132px;
   height: auto;
 }
 
@@ -173,6 +173,7 @@
   }
 
   .gx-sheet {
+    max-width: 760px;
     padding: 32px;
     border-radius: var(--r-frame);
   }
@@ -181,8 +182,9 @@
     font-size: 1.5rem;
   }
 
+  /* minmax(0, …) so a long examples line shortens with "…" instead of pushing past the pop-up */
   .gx-rows {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 
@@ -406,7 +408,7 @@
 /* ---------- WhatsApp with Ashley (AshleyWhatsApp.tsx) ----------
    WhatsApp's own green, as inside a WhatsApp mock-up (DESIGN-SYSTEM.md: mock-ups keep their real-app colours). */
 
-/* Logo on the left, their search confirmed on the right: "✓ Website designers in Sandton / from R6,500 · live in 7 days" */
+/* Logo on the left, their search confirmed on the right: "✓ Website designers in Sandton" (wraps to two lines on phones) */
 .gx-sheet-top {
   display: flex;
   align-items: center;
@@ -420,24 +422,24 @@
 }
 
 .gx-sheet-match {
-  display: flex;
-  flex-direction: column;
   min-width: 0;
-  font-size: 0.8125rem;
-  line-height: 1.35;
-  color: var(--muted);
+  font-size: clamp(1rem, calc((100vw - 48px) / 20), 1.1875rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .gx-sheet-match strong {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  display: block;
+  padding-left: 23px;
+  text-indent: -23px;
   font-weight: 700;
   color: #1b7a43;
 }
 
 .gx-sheet-match svg {
-  flex-shrink: 0;
+  display: inline;
+  margin-right: 5px;
+  vertical-align: -3px;
 }
 
 .gx-sheet-proof {
@@ -990,11 +992,11 @@
   }
 
   .gx-sheet-logo {
-    padding: 5px 8px;
+    padding: 7px 10px;
   }
 
   .gx-sheet-logo img {
-    width: 88px;
+    width: 116px;
   }
 
   .gx-q-sub {
@@ -1036,4 +1038,11 @@
 
 .gx-sheet .wx-thumbs {
   width: 48px;
+}
+
+/* The narrowest phones: a slightly smaller logo, so "✓ Website designers in Sandton" takes two lines, not three */
+@media (max-width: 370px) {
+  .gx-sheet-logo img {
+    width: 112px;
+  }
 }

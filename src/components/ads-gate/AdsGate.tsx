@@ -103,7 +103,8 @@ function Question({ words, query }: { words: AdWords; query: string }) {
   return (
     <div className="gx-modal" role="dialog" aria-modal="true" aria-labelledby="gx-q">
       <div className="gx-sheet">
-        {/* Our logo, with their search confirmed beside it (Jeremy, 18 Oct 2026: inline with the logo, not a box).
+        {/* Our logo, with their search confirmed beside it (Jeremy, 18 Oct 2026: inline with the logo, not a box;
+            no price or "7 days" here, bigger words and logo instead).
             The lead and area spans are filled in by the edge function, like the headline behind. */}
         <div className="gx-sheet-top">
           <span className="gx-sheet-logo">
@@ -111,11 +112,10 @@ function Question({ words, query }: { words: AdWords; query: string }) {
           </span>
           <p className="gx-sheet-match">
             <strong>
-              <Check size={15} aria-hidden="true" />
+              <Check size={18} strokeWidth={3} aria-hidden="true" />
               <span data-ad="lead">{leadText(words)}</span>
               <span data-ad="area">{areaText(words)}</span>
             </strong>
-            <span>from R6,500 · live in 7 days</span>
           </p>
         </div>
         <p className="gx-q" id="gx-q">
