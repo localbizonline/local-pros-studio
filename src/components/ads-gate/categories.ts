@@ -19,6 +19,41 @@ export type Category = {
   price: string;
   // What every website in this category has: three items, literal
   includes: { title: string; body: string }[];
+  // The result they pay for, in their words (Jeremy, 18 Oct 2026: "sell the outcome", a trade wants booked jobs,
+  // a professional wants consultations). No numbers: only what the website does and the message they'll get.
+  outcome: Outcome;
+};
+
+// line: under the headline at the top. headline: the outcome section. message: the WhatsApp a customer sends.
+export type Outcome = { line: string; headline: string; message: string };
+
+// Sharper versions when they tap their type of business (catalogue.ts sub ids)
+export const SUB_OUTCOMES: Record<string, Pick<Outcome, 'headline' | 'message'>> = {
+  plumbing: { headline: 'More call-outs for leaks, geysers and drains', message: 'Hi, my geyser burst this morning. Can you come today?' },
+  electrical: { headline: 'More call-outs and COC jobs', message: 'Hi, half my plugs keep tripping. Can you come out tomorrow?' },
+  building: { headline: 'More quote requests for building work', message: 'Hi, we want to add a room at the back. Can you come and quote?' },
+  painting: { headline: 'More painting quotes', message: 'Hi, can you quote to paint the outside of a 3-bedroom house?' },
+  roofing: { headline: 'More roof repair quotes', message: 'Hi, our roof leaks when it rains. Can you take a look this week?' },
+  solar: { headline: 'More solar quote requests', message: 'Hi, what would a backup system for a 3-bedroom house cost?' },
+  paving: { headline: 'More paving, fencing and landscaping quotes', message: 'Hi, can you quote for paving our driveway?' },
+  pools: { headline: 'More pool and hot tub jobs', message: 'Hi, our pool has gone green. Can you come and sort it out?' },
+  cleaning: { headline: 'More cleaning bookings', message: 'Hi, can I book a deep clean for Saturday?' },
+  garden: { headline: 'More garden service clients', message: 'Hi, can you do our garden every second week?' },
+  pest: { headline: 'More pest control call-outs', message: 'Hi, we’ve got cockroaches in the kitchen. When can you come?' },
+  security: { headline: 'More gate motor and alarm call-outs', message: 'Hi, our gate motor stopped working. Can you come today?' },
+  car: { headline: 'More cars booked in', message: 'Hi, my car’s making a grinding noise. Can I bring it in tomorrow?' },
+  pet: { headline: 'More appointments and bookings', message: 'Hi, can I book Max in for a wash and cut on Saturday?' },
+  tutor: { headline: 'More lessons booked', message: 'Hi, my son needs help with matric maths. Do you have space?' },
+  salon: { headline: 'More bookings for hair, nails and lashes', message: 'Hi, can I book a cut and colour for Saturday?' },
+  spa: { headline: 'More treatments booked', message: 'Hi, can I book two massages for Friday afternoon?' },
+  fitness: { headline: 'More sign-ups and sessions booked', message: 'Hi, I’d like to start training. Can I book a trial session?' },
+  medical: { headline: 'More appointments booked', message: 'Hi, can I book a check-up for my daughter this week?' },
+  accountants: { headline: 'More tax and bookkeeping clients', message: 'Hi, I need help with my tax return. Can we set up a meeting?' },
+  lawyers: { headline: 'More consultations booked', message: 'Hi, I need advice on a divorce. Can I book a consultation?' },
+  estate: { headline: 'More valuations and buyer enquiries', message: 'Hi, we’re thinking of selling. Can you value our house?' },
+  corporate: { headline: 'More enquiries from the right clients', message: 'Hi, we’d like a proposal for a project. Who should I speak to?' },
+  restaurant: { headline: 'More table bookings and orders', message: 'Hi, can I book a table for 6 on Friday at 7?' },
+  venue: { headline: 'More wedding and event enquiries', message: 'Hi, is your venue free on 14 March? It’s a wedding for 120.' },
 };
 
 const PRICE = 'R6,500 for 1 to 3 services, or R9,900 for 4 or more.';
@@ -36,6 +71,11 @@ export const CATEGORIES: Category[] = [
       { title: 'The areas you work in', body: 'Your call-out areas on the site, so people nearby can see you cover them.' },
       { title: 'Your work and your reviews', body: 'Photos of your jobs and your Google reviews up front, so you look like the safe choice.' },
     ],
+    outcome: {
+      line: 'Built to bring you quote requests on WhatsApp.',
+      headline: 'More quote requests on WhatsApp',
+      message: 'Hi, can you quote me for a job this week?',
+    },
   },
   {
     id: 'local',
@@ -49,6 +89,11 @@ export const CATEGORIES: Category[] = [
       { title: 'Your hours and where to find you', body: 'Opening hours, a map and directions, easy to find on a phone.' },
       { title: 'Your reviews up front', body: 'Your Google reviews on the page, so new customers trust you before they call.' },
     ],
+    outcome: {
+      line: 'Built to bring you bookings on WhatsApp.',
+      headline: 'More bookings, fewer missed calls',
+      message: 'Hi, can I book for tomorrow morning?',
+    },
   },
   {
     id: 'health',
@@ -62,6 +107,11 @@ export const CATEGORIES: Category[] = [
       { title: 'Photos of your work and space', body: 'Your real photos, so people can see what to expect.' },
       { title: 'Booking by WhatsApp or phone', body: 'WhatsApp and call buttons on every page, easy to tap on a phone.' },
     ],
+    outcome: {
+      line: 'Built to fill your appointment book.',
+      headline: 'Fill your appointment book',
+      message: 'Hi, do you have a gap on Saturday morning?',
+    },
   },
   {
     id: 'professional',
@@ -75,6 +125,11 @@ export const CATEGORIES: Category[] = [
       { title: 'Your team and experience', body: 'Who you are and what you specialise in, so clients feel they know you before they call.' },
       { title: 'Easy to get in touch', body: 'Call, WhatsApp and email on every page, easy to tap on a phone.' },
     ],
+    outcome: {
+      line: 'Built to bring you consultations with the right clients.',
+      headline: 'More consultations from the right clients',
+      message: 'Hi, can I book a consultation this week?',
+    },
   },
   {
     id: 'hospitality',
@@ -88,6 +143,11 @@ export const CATEGORIES: Category[] = [
       { title: 'Directions and what’s nearby', body: 'A map and how to get there, easy to find on a phone.' },
       { title: 'Enquiries by WhatsApp or phone', body: 'WhatsApp and call buttons on every page, so guests ask you directly.' },
     ],
+    outcome: {
+      line: 'Built to bring you direct bookings.',
+      headline: 'More direct bookings, less commission',
+      message: 'Hi, do you have a room for 2 adults from 12 to 14 December?',
+    },
   },
   {
     id: 'other',
@@ -101,6 +161,11 @@ export const CATEGORIES: Category[] = [
       { title: 'Your work and your reviews', body: 'Your real photos and Google reviews up front, so you look like the safe choice.' },
       { title: 'Easy to get in touch', body: 'WhatsApp, call and quote buttons on every page, easy to tap on a phone.' },
     ],
+    outcome: {
+      line: 'Built to bring you enquiries on WhatsApp.',
+      headline: 'More enquiries on WhatsApp',
+      message: 'Hi, I found you on Google. Can you help me?',
+    },
   },
 ];
 

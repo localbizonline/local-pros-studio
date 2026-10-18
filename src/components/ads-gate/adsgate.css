@@ -187,7 +187,7 @@
 .gx-types {
   display: flex;
   gap: 8px;
-  margin: 18px calc(-1 * var(--gutter)) 0;
+  margin: 14px calc(-1 * var(--gutter)) 0;
   padding: 0 var(--gutter) 4px;
   overflow-x: auto;
   scrollbar-width: none;
@@ -207,14 +207,14 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 12px;
   max-width: 520px;
 }
 
 .gx-strip img {
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: top;
   border: 1px solid var(--line);
@@ -223,7 +223,7 @@
 }
 
 .gx-actions {
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .gx .gx-cta {
@@ -507,4 +507,112 @@
 
 .gx-phone-wrap:hover .gx-phone {
   outline-color: var(--accent);
+}
+
+/* ---------- The outcome (Jeremy, 18 Oct 2026: "sell the outcome", worded per category in categories.ts) ---------- */
+
+.gx-outcome {
+  margin-top: 6px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.gx-outcome + .gx-price {
+  margin-top: 4px;
+}
+
+.gx-outcome-sub {
+  margin: 12px 0 24px;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--on-dark-body);
+}
+
+.gx-phone {
+  position: relative;
+}
+
+/* A WhatsApp notification on the phone, like the ones their customers will send */
+.gx-notif {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  right: 8px;
+  z-index: 1;
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(250, 250, 249, 0.97);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  text-align: left;
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.gx-notif.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.gx-notif-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #25d366;
+  color: #fff;
+}
+
+.gx-notif-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: #1c1917;
+}
+
+.gx-notif-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: #78716c;
+}
+
+.gx-notif-top strong {
+  font-weight: 600;
+  color: #44403c;
+}
+
+.gx-notif-from {
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gx-notif {
+    transition: none;
+  }
+}
+
+/* On a phone the outcome headline comes first, then the phone with the message, then the three steps */
+@media (max-width: 767px) {
+  .gx-outcome-text {
+    display: contents;
+  }
+
+  .gx-outcome-head {
+    order: -1;
+  }
+
+  .gx-outcome-head .gx-outcome-sub {
+    margin-bottom: 0;
+  }
 }

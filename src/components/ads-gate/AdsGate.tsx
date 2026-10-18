@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, ChevronDown, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ChevronDown, ChevronRight, MessageCircle } from 'lucide-react';
 import { ashleyWhatsAppLink } from '../../whatsapp';
 import { capture } from '../../analytics';
 import SiteHeader from '../section-library/sections/SiteHeader';
@@ -12,7 +12,7 @@ import { SITES, groupById, type Group, type Site, type Sub } from '../web-exampl
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
 import { AD_WORDS_GLOBAL, NO_AD_WORDS, areaText, leadText, type AdWords } from './adWords';
 import { AshleyBar, AshleyCard } from './AshleyWhatsApp';
-import { ALL, CATEGORIES, GATE_PATH, categoryById, categoryPath, type Category } from './categories';
+import { ALL, CATEGORIES, GATE_PATH, SUB_OUTCOMES, categoryById, categoryPath, type Category } from './categories';
 
 const groupOf = (c: Category) => groupById(c.group) as Group;
 
@@ -166,6 +166,20 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
   const query = useCarriedQuery();
   const [sub, setSub] = useState<Sub | null>(null);
   const card = useRef<HTMLDivElement>(null);
+  // The WhatsApp notification drops onto the phone once it's in view (straight away with reduced motion)
+  const phone = useRef<HTMLSpanElement>(null);
+  const [notified, setNotified] = useState(false);
+  useEffect(() => {
+    const el = phone.current;
+    if (!el || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return setNotified(true);
+    const seen = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      window.setTimeout(() => setNotified(true), 400);
+      seen.disconnect();
+    }, { threshold: 0.5 });
+    seen.observe(el);
+    return () => seen.disconnect();
+  }, [id]);
   if (!category) return <Navigate to={GATE_PATH} replace />;
 
   const group = groupOf(category);
@@ -174,6 +188,8 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
   // The first example design for their kind of business that has a full phone screenshot
   const showcase = sites.find((x) => x.kind === 'example' && PHONES[`./img/phone/${x.slug}.webp`]);
   const heading = sub ? `Websites for ${sub.plural}` : category.heading;
+  // The result they pay for, sharper once they tap their type of business (categories.ts)
+  const outcome = { ...category.outcome, ...(sub ? SUB_OUTCOMES[sub.id] : undefined) };
   // "trades and home services", "plumbers": who the designs are for
   const who = sub ? sub.plural : category.heading.replace(/^Websites for /, '');
   // "Start my website": the short chat (name, number, business), keeping the type of business they picked
@@ -204,6 +220,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
               {gate ? <span data-ad="lead">{leadText(words)}</span> : heading}
               <span data-ad="area">{areaText(words)}</span>
             </h1>
+            <p className="gx-outcome">{category.outcome.line}</p>
             <p className="gx-price">
               <strong>{category.price}</strong> Live in 7 days. Then R290 a month for hosting and updates.
             </p>
@@ -314,7 +331,21 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                   capture('ads_gate_site_opened', { site: showcase.slug, kind: 'example', category: category.id, from: 'phone' });
                 }}
               >
-                <span className="gx-phone">
+                <span className="gx-phone" ref={phone}>
+                  {/* The enquiry arriving: what the website is for (Jeremy, 18 Oct 2026: "sell the outcome") */}
+                  <span className={`gx-notif${notified ? ' is-in' : ''}`}>
+                    <span className="gx-notif-icon" aria-hidden="true">
+                      <MessageCircle size={18} />
+                    </span>
+                    <span className="gx-notif-body">
+                      <span className="gx-notif-top">
+                        <strong>WhatsApp</strong>
+                        <span>now</span>
+                      </span>
+                      <strong className="gx-notif-from">New customer</strong>
+                      <span className="gx-notif-msg">{outcome.message}</span>
+                    </span>
+                  </span>
                   <img src={PHONES[`./img/phone/${showcase.slug}.webp`]} alt={`${showcase.name}, an example design for ${showcase.type.toLowerCase()}, on a phone`} width={585} height={1899} loading="lazy" />
                 </span>
                 <span className="gx-phone-cap">{showcase.name}, example design</span>
@@ -327,9 +358,12 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                 <img src={teamEnquiries} alt="A business owner and his receptionist smiling at new enquiries on the front-desk computer" width={1200} height={800} loading="lazy" />
               </div>
             )}
-            <div>
-              <p className="dd-eyebrow">What every website has</p>
-              <h2 className="dd-h2 wdl-split-title">Built to turn a search into an enquiry</h2>
+            <div className="gx-outcome-text">
+              <div className="gx-outcome-head">
+                <p className="dd-eyebrow">What your website does</p>
+                <h2 className="dd-h2 wdl-split-title">{outcome.headline}</h2>
+                <p className="gx-outcome-sub">Customers find you on Google, see your work and reviews, and WhatsApp you.</p>
+              </div>
               <ol className="wdl-steps">
                 {category.includes.map((o, i) => (
                   <li key={o.title}>
