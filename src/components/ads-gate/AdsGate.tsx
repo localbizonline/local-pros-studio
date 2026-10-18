@@ -244,11 +244,17 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                 ))}
               </div>
             )}
-            {/* Their kind of business on the first screen, before the button (Jeremy: "a page that works for THEM") */}
-            <a href="#examples" className="gx-strip" aria-label={`See popular designs for ${who}`} onClick={() => track('strip')}>
-              {sites.slice(0, 4).map((s) => (
-                <img key={s.slug} src={THUMBS[`./img/thumb/${s.slug}.webp`] ?? s.img} alt="" width={200} height={267} />
-              ))}
+            {/* Their kind of business on the first screen, as a montage of phones fanned out (Jeremy, 18 Oct 2026: the
+                strip of four repeated the shelf below). The closest design in the middle, swapping when they tap a type. */}
+            <a href="#examples" className="gx-montage" aria-label={`See popular designs for ${who}`} onClick={() => track('montage')}>
+              {[3, 1, 0, 2, 4]
+                .map((i) => ({ i, site: sites[i] }))
+                .filter((x) => x.site)
+                .map(({ i, site }) => (
+                  <span key={site.slug} className={`gx-mphone gx-mphone-${i}`}>
+                    <img src={i === 0 ? site.img : (THUMBS[`./img/thumb/${site.slug}.webp`] ?? site.img)} alt="" width={i === 0 ? 585 : 200} height={i === 0 ? 780 : 267} />
+                  </span>
+                ))}
             </a>
             {/* WhatsApp with Ashley is the next step (Jeremy, 18 Oct 2026); the chat stays for anyone who'd rather not */}
             <div className="gx-actions" ref={card}>

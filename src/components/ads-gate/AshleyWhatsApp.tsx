@@ -71,7 +71,7 @@ export function AshleyCard({ message, onWhatsApp }: { message: string; onWhatsAp
           <StatusLine status={status} />
         </div>
       </div>
-      <p className="gx-wa-bubble">Hi, I’m Ashley. Ask me anything about your website. I’ll send you designs for businesses like yours and your price.</p>
+      <p className="gx-wa-bubble">Hi, I’m Ashley. I’ll send you designs for your business and your price.</p>
       {/* The same words as the bar at the bottom (Jeremy, 18 Oct 2026) */}
       <a href={ashleyWhatsAppLink(message)} target="_blank" rel="noopener noreferrer" className="gx-wa-btn" onClick={onWhatsApp}>
         <WhatsAppIcon />

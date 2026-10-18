@@ -174,8 +174,8 @@
 .gx-price {
   max-width: 34em;
   margin-top: 12px;
-  font-size: 1.125rem;
-  line-height: 1.55;
+  font-size: 1rem;
+  line-height: 1.5;
   color: var(--body);
 }
 
@@ -187,7 +187,7 @@
 .gx-types {
   display: flex;
   gap: 8px;
-  margin: 14px calc(-1 * var(--gutter)) 0;
+  margin: 10px calc(-1 * var(--gutter)) 0;
   padding: 0 var(--gutter) 4px;
   overflow-x: auto;
   scrollbar-width: none;
@@ -202,24 +202,74 @@
   white-space: nowrap;
 }
 
-/* Four of their category's designs, small, so the first screen shows websites like theirs */
-.gx-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-top: 12px;
-  max-width: 520px;
+/* Their category's designs as phones fanned out: the closest in the middle, smaller ones behind */
+.gx-montage {
+  position: relative;
+  display: block;
+  height: 132px;
+  max-width: 400px;
+  margin: 10px auto 0;
 }
 
-.gx-strip img {
+.gx-mphone {
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  border: 4px solid #0c0a09;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 14px 28px -14px rgba(28, 25, 23, 0.55);
+}
+
+.gx-mphone img {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
   object-fit: cover;
   object-position: top;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface-2);
+}
+
+.gx-mphone-0 {
+  left: 50%;
+  z-index: 3;
+  width: 94px;
+  height: 132px;
+  transform: translateX(-50%);
+}
+
+.gx-mphone-1,
+.gx-mphone-2 {
+  z-index: 2;
+  width: 80px;
+  height: 112px;
+}
+
+.gx-mphone-1 {
+  left: calc(50% - 118px);
+  transform: rotate(-6deg);
+}
+
+.gx-mphone-2 {
+  left: calc(50% + 38px);
+  transform: rotate(6deg);
+}
+
+.gx-mphone-3,
+.gx-mphone-4 {
+  z-index: 1;
+  width: 70px;
+  height: 96px;
+  opacity: 0.9;
+}
+
+.gx-mphone-3 {
+  left: calc(50% - 160px);
+  transform: rotate(-11deg);
+}
+
+.gx-mphone-4 {
+  left: calc(50% + 90px);
+  transform: rotate(11deg);
 }
 
 .gx-actions {
@@ -276,7 +326,7 @@
 
 .gx-wa {
   max-width: 520px;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid var(--line);
   border-radius: var(--r-frame);
   background: #efeae2;
@@ -327,8 +377,8 @@
 
 .gx-wa-bubble {
   position: relative;
-  margin: 12px 0;
-  padding: 10px 12px;
+  margin: 10px 0;
+  padding: 9px 12px;
   border-radius: 0 12px 12px 12px;
   background: #fff;
   font-size: 1rem;
