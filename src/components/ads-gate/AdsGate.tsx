@@ -16,6 +16,13 @@ import { ALL, CATEGORIES, GATE_PATH, categoryById, categoryPath, type Category }
 
 const groupOf = (c: Category) => groupById(c.group) as Group;
 
+// Every example design is a working website on the samples site (scripts/publish-sample-sites.py, 18 Oct 2026),
+// labelled "Example design by Local Pros Studio. Not a real business." with a WhatsApp button to Ashley
+const SAMPLES_URL = 'https://lps-samples.netlify.app';
+
+// Full phone screenshots of the example designs (from design/web-montage/mock-sites/<slug>-mobile.png, WebP q76)
+const PHONES = import.meta.glob('./img/phone/*.webp', { eager: true, import: 'default' }) as Record<string, string>;
+
 // Category-first Google Ads pages (Jeremy, 18 Oct 2026: "somebody needs to see a page that works for THEM").
 // /go/websites is the general page with a pop-up over it, "What type of business do you run?", that can't be
 // closed: they pick one to go on (Jeremy, 18 Oct 2026: "forces user to make a selection to continue", no skip).
@@ -158,6 +165,8 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
   const group = groupOf(category);
   const subs = group.subs.filter((s) => !s.id.startsWith('other'));
   const sites = sitesOf(category, sub);
+  // The first example design for their kind of business that has a full phone screenshot
+  const showcase = sites.find((x) => x.kind === 'example' && PHONES[`./img/phone/${x.slug}.webp`]);
   const heading = sub ? `Websites for ${sub.plural}` : category.heading;
   // "trades and home services", "plumbers": who the designs are for
   const who = sub ? sub.plural : category.heading.replace(/^Websites for /, '');
@@ -252,11 +261,18 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                 <div key={s.slug} className="wx-item">
                   <SiteCard site={s} />
                   <div className="wx-item-meta">
-                    {s.href && (
-                      <a href={s.href} target="_blank" rel="noopener noreferrer" className="wx-item-visit" onClick={() => track(`visit_${s.slug}`)}>
-                        Visit site <ArrowUpRight size={16} aria-hidden="true" />
-                      </a>
-                    )}
+                    <a
+                      href={s.href ?? `${SAMPLES_URL}/${s.slug}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="wx-item-visit"
+                      onClick={() => {
+                        track(`visit_${s.slug}`);
+                        capture('ads_gate_site_opened', { site: s.slug, kind: s.kind, category: category.id });
+                      }}
+                    >
+                      {s.href ? 'Visit site' : 'See the full website'} <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
                   </div>
                   <div className="wx-item-actions">
                     <a
@@ -278,9 +294,31 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
 
         <section className="dd-sec dd-demo wdl-get" data-section="What every website has">
           <div className="dd-container wdl-split">
-            <div className="wdl-split-media">
-              <img src={teamEnquiries} alt="A business owner and his receptionist smiling at new enquiries on the front-desk computer" width={1200} height={800} loading="lazy" />
-            </div>
+            {/* A design for their kind of business on a phone, instead of a stock photo (Jeremy, 18 Oct 2026) */}
+            {showcase ? (
+              <a
+                href={`${SAMPLES_URL}/${showcase.slug}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="wdl-split-media gx-phone-wrap"
+                onClick={() => {
+                  track(`phone_${showcase.slug}`);
+                  capture('ads_gate_site_opened', { site: showcase.slug, kind: 'example', category: category.id, from: 'phone' });
+                }}
+              >
+                <span className="gx-phone">
+                  <img src={PHONES[`./img/phone/${showcase.slug}.webp`]} alt={`${showcase.name}, an example design for ${showcase.type.toLowerCase()}, on a phone`} width={585} height={1899} loading="lazy" />
+                </span>
+                <span className="gx-phone-cap">{showcase.name}, example design</span>
+                <span className="gx-phone-link">
+                  See the full website <ArrowUpRight size={16} aria-hidden="true" />
+                </span>
+              </a>
+            ) : (
+              <div className="wdl-split-media">
+                <img src={teamEnquiries} alt="A business owner and his receptionist smiling at new enquiries on the front-desk computer" width={1200} height={800} loading="lazy" />
+              </div>
+            )}
             <div>
               <p className="dd-eyebrow">What every website has</p>
               <h2 className="dd-h2 wdl-split-title">Built to turn a search into an enquiry</h2>
