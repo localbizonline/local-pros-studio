@@ -104,6 +104,15 @@ export const CATEGORIES: Category[] = [
   },
 ];
 
+// What the page behind the question shows before they pick (/go/websites): every design, the general wording
+export const ALL: Category = {
+  ...(CATEGORIES.find((c) => c.id === 'other') as Category),
+  id: 'all',
+  label: 'All',
+  examples: '',
+  price: PRICE,
+};
+
 export const categoryById = (id: string | undefined) => CATEGORIES.find((c) => c.id === id);
 
 // The addresses (each pre-built as its own page, see src/seo.ts)

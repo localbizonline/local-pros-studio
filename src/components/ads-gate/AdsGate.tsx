@@ -11,14 +11,16 @@ import { ExamplesClosing, ExamplesSteps } from '../web-examples/ExamplesSections
 import { SITES, groupById, type Group, type Site, type Sub } from '../web-examples/catalogue';
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
 import { AD_WORDS_GLOBAL, NO_AD_WORDS, areaText, leadText, type AdWords } from './adWords';
-import { CATEGORIES, GATE_PATH, categoryById, categoryPath, type Category } from './categories';
+import { ALL, CATEGORIES, GATE_PATH, categoryById, categoryPath, type Category } from './categories';
 
 const groupOf = (c: Category) => groupById(c.group) as Group;
 
 // Category-first Google Ads pages (Jeremy, 18 Oct 2026: "somebody needs to see a page that works for THEM").
-// /go/websites asks "What type of business do you run?" before anything else, then each of the six broad
-// categories has its own page at /go/websites-for/<id>: "Websites for trades and home services in Sandton",
-// the price straight away, examples for that kind of business and one button into the examples chat.
+// /go/websites is the general page with a pop-up over it, "What type of business do you run?", that can't be
+// closed: they pick one to go on (Jeremy, 18 Oct 2026: "forces user to make a selection to continue", no skip).
+// Each of the six broad categories has its own page at /go/websites-for/<id>: "Websites for trades and home
+// services in Sandton", the price straight away, designs for that kind of business and one button into the chat.
+// Watch the keywords' landing page rating in Google Ads: if it drops, add a small "Skip" link to the pop-up.
 // Half the ad visitors are sent here from /go/website-design (netlify/edge-functions/ads-split.ts), the
 // other half see that page as before, so the two can be compared (leads tagged "website-gate" in Airtable).
 // The area and "Website design(ers)" come from the ad link (adWords.ts, netlify/edge-functions/ads-area.ts).
@@ -49,53 +51,57 @@ function Rating() {
   );
 }
 
-// ---------- /go/websites: the question first ----------
+// ---------- The pop-up on /go/websites: the question first ----------
 
-export default function AdsGate() {
-  const words = readAdWords();
-  const query = useCarriedQuery();
+function Question({ area, query }: { area: boolean; query: string }) {
+  // The page behind stays put while the pop-up is up. No focus on the first answer: its ring looked like a pick.
+  useEffect(() => {
+    const root = document.documentElement;
+    const before = root.style.overflow;
+    root.style.overflow = 'hidden';
+    return () => {
+      root.style.overflow = before;
+    };
+  }, []);
 
   return (
-    <div className="dd dd-a wdl wx-page gx">
-      <SiteHeader minimal whatsAppUrl={WA_URL} />
-      <main>
-        <section className="gx-gate" data-section="What type of business">
-          <div className="dd-container gx-gate-inner">
-            <Rating />
-            <h1 className="gx-title">
-              <span data-ad="lead">{leadText(words)}</span>
-              <span data-ad="area">{areaText(words)}</span>
-            </h1>
-            <p className="gx-sub">From R6,500. Live in 7 days.</p>
-            <p className="gx-q" id="gx-q">
-              What type of business do you run?
-            </p>
-            <nav className="gx-rows" aria-labelledby="gx-q">
-              {CATEGORIES.map((c) => (
-                <Link
-                  key={c.id}
-                  to={`${categoryPath(c)}${query}`}
-                  className="gx-row"
-                  data-keep-query
-                  onClick={() => {
-                    track(`pick_${c.id}`);
-                    capture('ads_gate_pick', { category: c.id, area_known: !!words.area });
-                  }}
-                >
-                  <span className="gx-row-text">
-                    <strong>{c.label}</strong>
-                    <span>{c.examples}</span>
-                  </span>
-                  <ChevronRight size={20} aria-hidden="true" className="gx-chev" />
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </section>
-      </main>
-      <SiteFooter minimal whatsAppUrl={WA_URL} />
+    <div className="gx-modal" role="dialog" aria-modal="true" aria-labelledby="gx-q">
+      <div className="gx-sheet">
+        <p className="gx-q" id="gx-q">
+          What type of business do you run?
+        </p>
+        <p className="gx-q-sub">We’ll show you designs and prices for businesses like yours.</p>
+        <nav className="gx-rows" aria-labelledby="gx-q">
+          {CATEGORIES.map((c) => (
+            <Link
+              key={c.id}
+              to={`${categoryPath(c)}${query}`}
+              className="gx-row"
+              data-keep-query
+              onClick={() => {
+                track(`pick_${c.id}`);
+                capture('ads_gate_pick', { category: c.id, area_known: area });
+              }}
+            >
+              <span className="gx-row-text">
+                <strong>{c.label}</strong>
+                <span>{c.examples}</span>
+              </span>
+              <ChevronRight size={20} aria-hidden="true" className="gx-chev" />
+            </Link>
+          ))}
+        </nav>
+      </div>
     </div>
   );
+}
+
+export default function AdsGate() {
+  return <AdsPage gate />;
+}
+
+export function AdsCategory() {
+  return <AdsPage />;
 }
 
 // ---------- /go/websites-for/<id>: their category's page ----------
@@ -126,15 +132,17 @@ function FaqItem({ q, a, id }: { q: string; a: string; id: string }) {
 
 // Every site for the category, the chosen type's sites first, client sites before example designs
 const sitesOf = (c: Category, sub: Sub | null): Site[] => {
+  if (c.id === ALL.id) return Object.values(SITES).filter((s) => s.slug !== 'shop').sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'client' ? -1 : 1));
   const g = groupOf(c);
   const all = [...new Set([...(sub?.sites ?? []), ...g.subs.flatMap((s) => s.sites), ...g.sites])];
   const sites = all.map((s) => SITES[s]).filter(Boolean) as Site[];
   return sub ? sites : sites.sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'client' ? -1 : 1));
 };
 
-export function AdsCategory() {
+// gate: /go/websites, the general page under the pop-up; otherwise /go/websites-for/<id>
+function AdsPage({ gate = false }: { gate?: boolean }) {
   const { id } = useParams();
-  const category = categoryById(id);
+  const category = gate ? ALL : categoryById(id);
   const words = readAdWords();
   const query = useCarriedQuery();
   const [sub, setSub] = useState<Sub | null>(null);
@@ -154,11 +162,15 @@ export function AdsCategory() {
       <main>
         <section className="gx-hero" data-section="Category hero">
           <div className="dd-container">
-            <Link to={`${GATE_PATH}${query}`} className="gx-back" data-keep-query onClick={() => track(`change_${category.id}`)}>
-              <ArrowLeft size={16} aria-hidden="true" /> Change type of business
-            </Link>
+            {gate ? (
+              <Rating />
+            ) : (
+              <Link to={`${GATE_PATH}${query}`} className="gx-back" data-keep-query onClick={() => track(`change_${category.id}`)}>
+                <ArrowLeft size={16} aria-hidden="true" /> Change type of business
+              </Link>
+            )}
             <h1 className="gx-title gx-cat-title">
-              {heading}
+              {gate ? <span data-ad="lead">{leadText(words)}</span> : heading}
               <span data-ad="area">{areaText(words)}</span>
             </h1>
             <p className="gx-price">
@@ -311,6 +323,7 @@ export function AdsCategory() {
       </main>
       <SiteFooter minimal whatsAppUrl={WA_URL} faqHref="#faq" />
       <ExamplesChat variant="website-price" page="website-gate" nudge={false} />
+      {gate && <Question area={!!words.area} query={query} />}
     </div>
   );
 }

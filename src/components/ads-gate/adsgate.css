@@ -1,15 +1,31 @@
-/* The category-first Google Ads pages (ads-gate/AdsGate.tsx, 18 Oct 2026): /go/websites asks the type of
-   business first, /go/websites-for/<id> is that category's page. On the .dd-a tokens, with the website page's
-   shared parts (.wdl, .wx-page). Phone first: the question and all six answers fit the first phone screen. */
+/* The category-first Google Ads pages (ads-gate/AdsGate.tsx, 18 Oct 2026): /go/websites is the general page
+   under a pop-up asking the type of business, /go/websites-for/<id> is that category's page. On the .dd-a tokens, with the website page's
+   shared parts (.wdl, .wx-page). Phone first: the question and all six answers fit one phone screen. */
 
-/* ---------- The question screen ---------- */
+/* ---------- The pop-up on /go/websites: "What type of business do you run?" ----------
+   It can't be closed (Jeremy, 18 Oct 2026): they pick one to go on. On a phone it rises from the bottom over the
+   dimmed page; on a computer it sits in the middle. In the pre-built HTML, so it is there from the first paint. */
 
-.gx-gate {
-  padding: 16px 0 56px;
+.gx-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-top: 48px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgba(28, 25, 23, 0.6);
 }
 
-.gx-gate-inner {
-  max-width: 680px;
+.gx-sheet {
+  width: 100%;
+  max-width: 640px;
+  padding: 22px var(--gutter) calc(20px + env(safe-area-inset-bottom));
+  border-radius: 20px 20px 0 0;
+  background: #fff;
+  box-shadow: 0 -12px 40px rgba(28, 25, 23, 0.25);
 }
 
 .gx .gx-rating {
@@ -28,20 +44,20 @@
   text-wrap: balance;
 }
 
-.gx-sub {
-  margin-top: 8px;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--body);
-}
-
 .gx-q {
-  margin: 22px 0 10px;
+  margin: 0;
   font-family: var(--font-head);
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--ink);
+}
+
+.gx-q-sub {
+  margin: 4px 0 14px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--muted);
 }
 
 .gx-rows {
@@ -99,8 +115,18 @@
 }
 
 @media (min-width: 768px) {
-  .gx-gate {
-    padding: 40px 0 96px;
+  .gx-modal {
+    align-items: center;
+    padding: 32px 24px;
+  }
+
+  .gx-sheet {
+    padding: 32px;
+    border-radius: var(--r-frame);
+  }
+
+  .gx-q {
+    font-size: 1.5rem;
   }
 
   .gx-rows {
