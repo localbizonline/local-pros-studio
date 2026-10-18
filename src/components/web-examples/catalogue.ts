@@ -14,6 +14,8 @@ export type Site = {
   type: string;
   kind: 'client' | 'example';
   href?: string;
+  // Picture only: the top of a design, with no working website behind it (no "See the full website" link)
+  picture?: boolean;
   img: string;
 };
 
@@ -64,6 +66,19 @@ const SITE_LIST: Omit<Site, 'img'>[] = [
   { slug: 'pizzeria', name: 'Woodpecker Pizza', place: 'Melville', type: 'Pizza restaurant', kind: 'example' },
   { slug: 'tours', name: 'Otterkloof Adventures', place: 'Storms River', type: 'Adventure tours', kind: 'example' },
   { slug: 'dentist', name: 'Palmiet Family Dental', place: 'Westville', type: 'Family dentist', kind: 'example' },
+  // Picture-only example designs (18 Oct 2026): the top screen of a design, made to show more types of business
+  { slug: 'plumber2', name: 'Kaaimans Plumbing', place: 'George', type: 'Plumber', kind: 'example', picture: true },
+  { slug: 'electrician2', name: 'Rietspruit Electrical', place: 'Vanderbijlpark', type: 'Electrician', kind: 'example', picture: true },
+  { slug: 'builder2', name: 'Rooiberg Building & Renovations', place: 'Bethlehem', type: 'Builders and renovations', kind: 'example', picture: true },
+  { slug: 'painter2', name: 'Two Coats Painting', place: 'Kimberley', type: 'Painting contractors', kind: 'example', picture: true },
+  { slug: 'roofer2', name: 'Letaba Roof & Waterproofing', place: 'Tzaneen', type: 'Roofing and waterproofing', kind: 'example', picture: true },
+  { slug: 'cleaning2', name: 'Lemon & Linen', place: 'Sunninghill', type: 'Cleaning services', kind: 'example', picture: true },
+  { slug: 'pest2', name: 'Kokerboom Pest Control', place: 'Upington', type: 'Pest control', kind: 'example', picture: true },
+  { slug: 'security2', name: 'Keyline Gates & Alarms', place: 'Morningside, Durban', type: 'Gates, alarms and CCTV', kind: 'example', picture: true },
+  { slug: 'fitness2', name: 'Oakline Gym', place: 'Potchefstroom', type: 'Gym and personal training', kind: 'example', picture: true },
+  { slug: 'accountant2', name: 'Gwala & Botha Accountants', place: 'Makhanda', type: 'Accountants', kind: 'example', picture: true },
+  { slug: 'estate2', name: 'Shorebreak Properties', place: 'Ballito', type: 'Estate agents', kind: 'example', picture: true },
+  { slug: 'mechanic2', name: 'Legogote Auto', place: 'Mbombela', type: 'Mechanic', kind: 'example', picture: true },
 ];
 
 export const SITES: Record<string, Site> = Object.fromEntries(
@@ -83,20 +98,20 @@ export const GROUPS: Group[] = [
     id: 'trades',
     label: 'Trades and home services',
     hint: 'Plumbing, building, cleaning…',
-    sites: ['plumber', 'pavingpros', 'builder', 'electrician', 'winelandsgas', 'maramba', 'cleaning', 'pest'],
+    sites: ['plumber', 'pavingpros', 'builder', 'electrician', 'winelandsgas', 'maramba', 'cleaning', 'pest', 'plumber2', 'electrician2', 'builder2', 'painter2', 'roofer2', 'cleaning2', 'pest2', 'security2'],
     subs: [
-      { id: 'plumbing', label: 'Plumbing', plural: 'plumbers', sites: ['plumber'] },
-      { id: 'electrical', label: 'Electrical', plural: 'electricians', sites: ['electrician', 'solar'] },
-      { id: 'building', label: 'Building and renovations', plural: 'builders', sites: ['builder'] },
-      { id: 'painting', label: 'Painting', plural: 'painting contractors', sites: ['painter'] },
-      { id: 'roofing', label: 'Roofing', plural: 'roofers', sites: ['roofer'] },
+      { id: 'plumbing', label: 'Plumbing', plural: 'plumbers', sites: ['plumber', 'plumber2'] },
+      { id: 'electrical', label: 'Electrical', plural: 'electricians', sites: ['electrician', 'solar', 'electrician2'] },
+      { id: 'building', label: 'Building and renovations', plural: 'builders', sites: ['builder', 'builder2'] },
+      { id: 'painting', label: 'Painting', plural: 'painting contractors', sites: ['painter', 'painter2'] },
+      { id: 'roofing', label: 'Roofing', plural: 'roofers', sites: ['roofer', 'roofer2'] },
       { id: 'solar', label: 'Solar', plural: 'solar installers', sites: ['solar', 'electrician'] },
       { id: 'paving', label: 'Paving, fencing and landscaping', plural: 'paving and outdoor businesses', sites: ['pavingpros', 'maramba', 'garden'] },
       { id: 'pools', label: 'Pools and hot tubs', plural: 'pool businesses', sites: ['pools', 'jacuzzipros'] },
-      { id: 'cleaning', label: 'Cleaning', plural: 'cleaning businesses', sites: ['cleaning'] },
+      { id: 'cleaning', label: 'Cleaning', plural: 'cleaning businesses', sites: ['cleaning', 'cleaning2'] },
       { id: 'garden', label: 'Garden services', plural: 'garden services', sites: ['garden', 'pavingpros'] },
-      { id: 'pest', label: 'Pest control', plural: 'pest control businesses', sites: ['pest'] },
-      { id: 'security', label: 'Security', plural: 'security companies', sites: ['security'] },
+      { id: 'pest', label: 'Pest control', plural: 'pest control businesses', sites: ['pest', 'pest2'] },
+      { id: 'security', label: 'Security', plural: 'security companies', sites: ['security', 'security2'] },
       { id: 'other-trade', label: 'Other', plural: 'trades and home services', sites: ['winelandsgas', 'maramba', 'plumber'] },
     ],
   },
@@ -104,9 +119,9 @@ export const GROUPS: Group[] = [
     id: 'local',
     label: 'Local services',
     hint: 'Car, pet, tutoring…',
-    sites: ['mechanic', 'petport', 'vet', 'panel', 'bkcpet', 'groomer', 'driving', 'tutor'],
+    sites: ['mechanic', 'petport', 'vet', 'panel', 'bkcpet', 'groomer', 'driving', 'tutor', 'mechanic2'],
     subs: [
-      { id: 'car', label: 'Mechanic or panel beater', plural: 'car businesses', sites: ['mechanic', 'panel'] },
+      { id: 'car', label: 'Mechanic or panel beater', plural: 'car businesses', sites: ['mechanic', 'panel', 'mechanic2'] },
       { id: 'pet', label: 'Vet, grooming or pet care', plural: 'pet businesses', sites: ['vet', 'groomer', 'petport', 'bkcpet'] },
       { id: 'tutor', label: 'Tutoring or driving school', plural: 'tutors and driving schools', sites: ['tutor', 'driving'] },
       { id: 'other-local', label: 'Other', plural: 'local services', sites: ['mechanic', 'petport', 'driving'] },
@@ -116,11 +131,11 @@ export const GROUPS: Group[] = [
     id: 'health',
     label: 'Health and beauty',
     hint: 'Salon, spa, physio…',
-    sites: ['willa', 'salon', 'fitness', 'spa', 'physio', 'dentist'],
+    sites: ['willa', 'salon', 'fitness', 'spa', 'physio', 'dentist', 'fitness2'],
     subs: [
       { id: 'salon', label: 'Hair, nails or lashes', plural: 'salons', sites: ['salon', 'willa'] },
       { id: 'spa', label: 'Spa or beauty', plural: 'spas and beauty businesses', sites: ['spa', 'willa'] },
-      { id: 'fitness', label: 'Fitness', plural: 'fitness businesses', sites: ['fitness'] },
+      { id: 'fitness', label: 'Fitness', plural: 'fitness businesses', sites: ['fitness', 'fitness2'] },
       { id: 'medical', label: 'Doctor, dentist or physio', plural: 'practices', sites: ['dentist', 'physio'] },
       { id: 'other-health', label: 'Other', plural: 'health and beauty businesses', sites: ['willa', 'fitness', 'spa'] },
     ],
@@ -129,11 +144,11 @@ export const GROUPS: Group[] = [
     id: 'professional',
     label: 'Professional and corporate',
     hint: 'Accountants, attorneys…',
-    sites: ['ridgeway', 'attorneys', 'estate', 'advisor', 'engineers', 'architect'],
+    sites: ['ridgeway', 'attorneys', 'estate', 'advisor', 'engineers', 'architect', 'accountant2', 'estate2'],
     subs: [
-      { id: 'accountants', label: 'Accountants', plural: 'accountants', sites: ['ridgeway'] },
+      { id: 'accountants', label: 'Accountants', plural: 'accountants', sites: ['ridgeway', 'accountant2'] },
       { id: 'lawyers', label: 'Attorneys', plural: 'attorneys', sites: ['attorneys'] },
-      { id: 'estate', label: 'Estate agents', plural: 'estate agents', sites: ['estate'] },
+      { id: 'estate', label: 'Estate agents', plural: 'estate agents', sites: ['estate', 'estate2'] },
       { id: 'corporate', label: 'Company website', plural: 'companies', sites: ['engineers', 'ridgeway', 'architect'] },
       { id: 'other-pro', label: 'Other', plural: 'professional businesses', sites: ['advisor', 'architect', 'engineers'] },
     ],

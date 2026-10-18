@@ -147,7 +147,11 @@ function FaqItem({ q, a, id }: { q: string; a: string; id: string }) {
 
 // Every site for the category, the chosen type's sites first, client sites before example designs
 const sitesOf = (c: Category, sub: Sub | null): Site[] => {
-  if (c.id === ALL.id) return Object.values(SITES).filter((s) => s.slug !== 'shop').sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'client' ? -1 : 1));
+  // The general page and "Something else" show every design: those visitors could run any kind of business
+  if (c.id === ALL.id || c.id === 'other')
+    return Object.values(SITES)
+      .filter((s) => c.id === 'other' || s.slug !== 'shop')
+      .sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'client' ? -1 : 1));
   const g = groupOf(c);
   const all = [...new Set([...(sub?.sites ?? []), ...g.subs.flatMap((s) => s.sites), ...g.sites])];
   const sites = all.map((s) => SITES[s]).filter(Boolean) as Site[];
@@ -263,6 +267,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                 <div key={s.slug} className="wx-item">
                   <SiteCard site={s} />
                   <div className="wx-item-meta">
+                    {(s.href || !s.picture) && (
                     <a
                       href={s.href ?? `${SAMPLES_URL}/${s.slug}/`}
                       target="_blank"
@@ -275,6 +280,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
                     >
                       {s.href ? 'Visit site' : 'See the full website'} <ArrowUpRight size={16} aria-hidden="true" />
                     </a>
+                    )}
                   </div>
                   <div className="wx-item-actions">
                     <a
