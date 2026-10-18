@@ -123,7 +123,7 @@ export function AshleyBar({ message, watch, onWhatsApp }: { message: string; wat
       </div>
       <a href={ashleyWhatsAppLink(message)} target="_blank" rel="noopener noreferrer" className="gx-wa-btn gx-bar-btn" tabIndex={show ? 0 : -1} onClick={onWhatsApp}>
         <WhatsAppIcon />
-        Get your price
+        Chat to Ashley
       </a>
     </div>
   );
