@@ -117,7 +117,8 @@ function Question({ words, query }: { words: AdWords; query: string }) {
         <p className="gx-q" id="gx-q">
           What type of business do you run?
         </p>
-        <p className="gx-q-sub">Pick one to see websites made for businesses like yours, and your price.</p>
+        {/* Jeremy's wording, 18 Oct 2026 */}
+        <p className="gx-q-sub">Select so we can direct you to the relevant page.</p>
         <nav className="gx-rows" aria-labelledby="gx-q">
           {CATEGORIES.map((c) => (
             <Link
