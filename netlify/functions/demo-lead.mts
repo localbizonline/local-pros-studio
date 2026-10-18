@@ -315,6 +315,40 @@ const planLabel = (body: Record<string, unknown>) =>
     : 'free demo';
 
 const fromAdsLine = (body: Record<string, unknown>) => (adClickFrom(body)?.fromAds ? '📣 Came from a Google Ads click.' : '');
+// What the visitor did on the category-first ads pages, with what they picked there
+const GATE_WHERE: Record<string, string> = {
+  card: 'Ashley’s card at the top',
+  bar: 'the WhatsApp bar at the bottom',
+  header: 'the WhatsApp button at the top',
+  design: 'a design’s “Get one like this”',
+  closing: 'the closing section',
+};
+const gateText = (body: Record<string, unknown>) => {
+  const picked = [text(body.category, 60), text(body.sub, 60)].filter(Boolean).join(' – ');
+  const area = text(body.area, 60);
+  const where = typeof body.from === 'string' && Object.hasOwn(GATE_WHERE, body.from) ? GATE_WHERE[body.from] : '';
+  const design = text(body.design, 80);
+  const head =
+    body.action === 'whatsapp'
+      ? `💬 An ad visitor tapped “Chat to Ashley” on the category-first page${where ? ` (${where})` : ''}.`
+      : body.action === 'start'
+      ? '📝 An ad visitor opened “Start my website” on the category-first page.'
+      : '';
+  if (!head) return '';
+  return [
+    head,
+    picked && `They picked: ${picked}`,
+    design && `Design: ${design}`,
+    area && `Area: ${area}`,
+    fromAdsLine(body),
+    body.action === 'whatsapp'
+      ? 'Their WhatsApp should arrive on Ashley’s number now. If nothing comes, they changed their mind.'
+      : "No details yet. You'll get another message if they leave their name and number.",
+  ]
+    .filter(Boolean)
+    .join('\n');
+};
+
 const startedText = (body: Record<string, unknown>) =>
   [`👀 Someone started using the chat on ${pageLabel(body)} (${planLabel(body)}).`, fromAdsLine(body), "No details yet. You'll get another message if they leave them."].filter(Boolean).join('\n');
 
@@ -409,6 +443,7 @@ const requestedText = (body: Record<string, unknown>, fields: Record<string, unk
       ? `📨 ${fields[F.companyName]} wants ${examplesWhat(body)}.`
       : `📨 ${fields[F.companyName]} wants ${examplesWhat(body)}: WhatsApp them now.`,
     botLine(bot),
+    `From ${pageLabel(body)}`,
     text(body.businessType, 120) && `They picked: ${text(body.businessType, 120)}`,
     needOf(body) && `Wants most: ${needOf(body)}`,
     priceShown(body) && `Price shown: ${priceShown(body)}${servicesOf(body) ? ` (${servicesOf(body)} services)` : ''}`,
@@ -590,6 +625,16 @@ export default async (request: Request, context?: Context) => {
   }
 
   const live = Netlify.env.get('DEMO_LEAD_LIVE_WRITES') === 'true';
+
+  // The category-first ads pages (src/components/ads-gate/AdsGate.tsx): someone tapped "Chat to Ashley" (or another
+  // WhatsApp button there) or opened "Start my website". Alert only, nothing saved; any hour (Jeremy, 18 Oct 2026).
+  if (body.kind === 'gate') {
+    const text = gateText(body);
+    if (!text) return json({ ok: false, error: 'bad_action' }, 400);
+    if (!live) return json({ ok: true, dryRun: true, alert: text }, 200);
+    await sendAlert('started', text);
+    return json({ ok: true }, 200);
+  }
 
   // Someone started using the chat: alert only, nothing saved
   if (body.kind === 'started') {

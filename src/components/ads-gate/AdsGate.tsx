@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, ChevronDown, ChevronRight, MessageCircle } from 'lucide-react';
-import { ashleyWhatsAppLink } from '../../whatsapp';
+import { ASHLEY_WHATSAPP_NUMBER, ashleyWhatsAppLink } from '../../whatsapp';
+import { adClick } from '../../adClick';
+import { isTeamDevice } from '../../teamDevice';
 import { capture } from '../../analytics';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import ClientReviews, { GoogleG, GOOGLE_REVIEWS_URL } from '../web-design-light/ClientReviews';
-import ExamplesChat, { SiteCard, openExamplesChat } from '../web-examples/ExamplesChat';
+import ExamplesChat, { OPEN_EXAMPLES_EVENT, SiteCard, openExamplesChat } from '../web-examples/ExamplesChat';
 import { ExamplesClosing, ExamplesSteps } from '../web-examples/ExamplesSections';
 import { SITES, groupById, type Group, type Site, type Sub } from '../web-examples/catalogue';
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
@@ -41,6 +43,28 @@ const track = (label: string) => window.gtag?.('event', 'cta_click', { event_cat
 // Filled in by the edge function before the page's code runs, so the first render matches the HTML it sent
 const readAdWords = (): AdWords =>
   typeof window === 'undefined' ? NO_AD_WORDS : ((window as unknown as Record<string, AdWords | undefined>)[AD_WORDS_GLOBAL] ?? NO_AD_WORDS);
+
+// A WhatsApp alert to the team (Jeremy, 18 Oct 2026): someone tapped "Chat to Ashley" (any WhatsApp button to her on
+// these pages) or opened "Start my website", with what they picked. Once per visitor per action; any hour.
+// netlify/functions/demo-lead.mts (kind "gate") sends it; team devices (?team=on) send nothing.
+const alertTeam = (body: Record<string, string | undefined>) => {
+  if (isTeamDevice()) return;
+  const key = `lps_gate_alert_${body.action}`;
+  try {
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, '1');
+  } catch {
+    /* storage blocked: alert anyway */
+  }
+  fetch('/api/demo-lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ kind: 'gate', ...body, adClick: adClick() }),
+    keepalive: true,
+  }).catch(() => {
+    /* the WhatsApp chat itself still reaches Ashley */
+  });
+};
 
 // The ad link's tags (loc, kw, gclid) carried from page to page, so a reload keeps the area. Empty while the
 // pre-built page takes over, then filled, so the first render matches the HTML.
@@ -182,6 +206,29 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
     seen.observe(el);
     return () => seen.disconnect();
   }, [id]);
+  // The team alerts (alertTeam above): every WhatsApp link to Ashley on the page, and every "Start my website"
+  const picked = { category: gate ? undefined : category?.label, sub: sub?.label, area: words.area || undefined };
+  const pickedRef = useRef(picked);
+  pickedRef.current = picked;
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as Element | null)?.closest?.(`a[href*="wa.me/${ASHLEY_WHATSAPP_NUMBER}"]`);
+      if (!link) return;
+      const at = link.closest('[data-wa-from]')?.getAttribute('data-wa-from') || '';
+      const from = at === 'ashley-card' ? 'card' : at === 'ashley-bar' ? 'bar' : at === 'ashley-design' ? 'design' : link.closest('header') ? 'header' : 'closing';
+      const design = from === 'design' ? link.closest('.wx-item')?.querySelector('figcaption strong')?.textContent || undefined : undefined;
+      alertTeam({ action: 'whatsapp', from, design, ...pickedRef.current });
+    };
+    const onOpen = (e: Event) => {
+      if ((e as CustomEvent<{ start?: string }>).detail?.start) alertTeam({ action: 'start', ...pickedRef.current });
+    };
+    document.addEventListener('click', onClick, true);
+    window.addEventListener(OPEN_EXAMPLES_EVENT, onOpen);
+    return () => {
+      document.removeEventListener('click', onClick, true);
+      window.removeEventListener(OPEN_EXAMPLES_EVENT, onOpen);
+    };
+  }, []);
   if (!category) return <Navigate to={GATE_PATH} replace />;
 
   const group = groupOf(category);
@@ -204,6 +251,7 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
     track(`ashley_${from}`);
     capture('ads_gate_whatsapp', { from, category: category.id, sub: sub?.id });
   };
+
 
   return (
     <div className={`dd dd-a wdl wx-page gx${gate ? '' : ' gx-has-bar'}`}>

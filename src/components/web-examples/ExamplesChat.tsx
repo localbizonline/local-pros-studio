@@ -527,7 +527,8 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
         const known = o.group ? groupById(o.group) : undefined;
         setGroup(known ?? null);
         setSub((o.sub && known?.subs.find((x) => x.id === o.sub)) || null);
-        notifyStarted(cfg.page, o.start, 'examples');
+        // The category-first ads pages send their own "opened Start my website" alert, with the category (AdsGate.tsx)
+        if (cfg.page !== 'website-gate') notifyStarted(cfg.page, o.start, 'examples');
         return advance('contact');
       }
       const g = o.group ? groupById(o.group) : undefined;
