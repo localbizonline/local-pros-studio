@@ -37,6 +37,32 @@
   color: var(--muted);
 }
 
+/* Only for lead partners: the one dark band on the page, so the offer stands out */
+.lp-offer {
+  padding: var(--sec) 0;
+  background: var(--dark);
+  color: var(--on-dark-body);
+}
+
+.lp .lp-offer .dd-h2 {
+  color: var(--on-dark);
+}
+
+.lp-offer-kicker {
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+}
+
+.lp .lp-offer-text {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--on-dark-body);
+}
+
 /* Section backgrounds: white, grey and cream take turns, so each section reads as new */
 .lp-grey {
   background: var(--surface-2);

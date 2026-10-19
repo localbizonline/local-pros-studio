@@ -27,7 +27,7 @@ function WhatsAppButton({ className = '' }: { className?: string }) {
 const SHORT_VERSION = [
   { label: 'Stays the same', text: 'Your leads, your contact at Local Pros, your WhatsApp number.' },
   { label: 'Changes', text: 'Leads are no longer charged separately. They’re included in one monthly service.' },
-  { label: 'Price', text: 'R2,500 a month. Setup is free (normally R5,000).' },
+  { label: 'Price', text: 'R2,500 a month, with your leads included. Setup is free (normally R5,000).' },
   { label: 'When', text: 'We’ll WhatsApp you to agree a start date. Everyone moves over by March 2027.' },
 ];
 
@@ -82,6 +82,10 @@ const FAQ = [
     q: 'What if I want to stop?',
     a: 'Give us 30 days’ notice on WhatsApp. If we built your website, the 6 months need to be done first. Your reviews and pages stay yours.',
   },
+  {
+    q: 'Can other businesses get this deal?',
+    a: 'No. Local Pros Studio with leads included is only for current Local Pros lead partners. Everyone else pays R2,500 a month for Local Pros Studio without leads.',
+  },
   { q: 'Is Local Pros closing?', a: 'No. Local Pros Studio is our new service, run by the same people.' },
 ];
 
@@ -115,6 +119,19 @@ export default function LeadPartners() {
               <WhatsAppButton />
               <p className="lp-phone">{PHONE}</p>
             </div>
+          </div>
+        </section>
+
+        {/* Only for lead partners (Jeremy, 19 Oct 2026): the 50+ businesses who signed up at R2,500 a month this year,
+            and the leads-included deal nobody else is offered */}
+        <section className="lp-offer" id="offer">
+          <div className="dd-container lp-narrow">
+            <p className="lp-offer-kicker">Only for Local Pros lead partners</p>
+            <h2 className="dd-h2">Local Pros Studio, with your leads included.</h2>
+            <p className="lp-offer-text">
+              More than 50 businesses have signed up for Local Pros Studio this year, at R2,500 a month. You get the same
+              service, at the same price, with your leads included. We’re not offering this to anyone else.
+            </p>
           </div>
         </section>
 
