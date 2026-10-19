@@ -35,11 +35,11 @@ const PACKAGE = [
   { title: 'Your leads.', text: 'They keep coming, as they do now.' },
   {
     title: 'Google reviews.',
-    text: 'We WhatsApp your customer after each job for a review, follow up, and reply to reviews for you.',
+    text: 'After a job, send us your customer’s name and number. We WhatsApp them for a review, follow up, and reply to reviews for you.',
   },
   {
     title: 'Facebook and Instagram posts.',
-    text: 'We post every week. Want to show off a job? One quick form on your phone.',
+    text: 'We create and publish your posts every week. Send us a photo of a recent job and we turn it into a post.',
   },
   {
     title: 'A website, only if you need one.',
@@ -62,7 +62,6 @@ const STEPS = [
   'We agree a start date with you.',
   'A 30-minute setup with you: we connect your Google profile and social pages.',
   'We help you get started: we show you how it all works, and you can join our group calls to learn alongside other businesses.',
-  'You’re live. Billing starts.',
 ];
 
 const FAQ = [
@@ -74,12 +73,15 @@ const FAQ = [
     q: 'What if I only want leads?',
     a: 'Leads on their own are available until March 2027. Until then, businesses on the full service get leads first.',
   },
-  { q: 'Do I have to post anything myself?', a: 'No. We post for you every week.' },
+  {
+    q: 'Do I have to post anything myself?',
+    a: 'You don’t post anything yourself: we create and publish the posts. But the best posts show your own work, and we can’t invent that. So send us a photo of a recent job, ideally once a week, on WhatsApp or with a quick form on your phone, and we turn it into a post.',
+  },
   { q: 'Will you spam my customers?', a: 'No. One friendly WhatsApp after a job, and a polite follow-up.' },
   { q: 'What if I get a bad review?', a: 'We tell you straight away and help you reply.' },
   {
     q: 'What do you need from me?',
-    a: 'Access to your Google profile and social pages (we’ll show you how), a few photos of your work, and your logo.',
+    a: 'To start: access to your Google profile and social pages (we’ll show you how), a few photos of your work, and your logo. After that: a photo of a recent job each week, and your customer’s name and number when you finish a job.',
   },
   {
     q: 'What if I want to stop?',
