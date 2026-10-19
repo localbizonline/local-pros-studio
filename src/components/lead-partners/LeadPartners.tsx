@@ -122,8 +122,9 @@ export default function LeadPartners() {
         <section className="lp-hero">
           <div className="dd-container lp-narrow">
             <p className="dd-kw">For Local Pros lead partners</p>
-            {/* Opening (Jeremy, 19 Oct 2026, option 1): "changing" said up front, with the gain in the same line */}
-            <h1 className="dd-display lp-title">Local Pros is changing. You keep your leads and get more.</h1>
+            {/* Opening (Jeremy, 19 Oct 2026): the name change in the headline, the gain right under it */}
+            <h1 className="dd-display lp-title">Local Pros is becoming Local Pros Studio.</h1>
+            <p className="lp-subhead">You keep your leads and get more.</p>
             <p className="dd-lede">
               On top of your leads, we now collect reviews on your Google profile, post on your Facebook and Instagram
               every week, and refresh your website or build a new one. It’s one service, Local Pros Studio, for R2,500 a
