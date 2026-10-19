@@ -28,7 +28,7 @@ const SHORT_VERSION = [
   { label: 'Stays the same', text: 'Your leads, your contact at Local Pros, your WhatsApp number.' },
   { label: 'Changes', text: 'Leads are no longer charged separately. They’re included in one monthly service.' },
   { label: 'Price', text: 'R2,500 a month, with your leads included. Setup is free (normally R5,000).' },
-  { label: 'When', text: 'We’ll WhatsApp you to agree a start date. Everyone moves over by March 2027.' },
+  { label: 'When', text: 'Tell us when you’re ready, and we’ll agree a start date together. Everyone moves over by March 2027.' },
 ];
 
 const PACKAGE = [
@@ -56,9 +56,12 @@ const MONEY = [
   'Billing starts once you’re set up and live. Paid by PayFast monthly; EFT by arrangement, in advance.',
 ];
 
+// You confirm first, then we agree a date; we help you get going, with group calls (Jeremy, 19 Oct 2026)
 const STEPS = [
-  'We WhatsApp you to agree a start date.',
+  'You tell us you want to move over. A WhatsApp to Tyran is all it takes.',
+  'We agree a start date with you.',
   'A 30-minute setup with you: we connect your Google profile and social pages.',
+  'We help you get started: we show you how it all works, and you can join our group calls to learn alongside other businesses.',
   'You’re live. Billing starts.',
 ];
 
