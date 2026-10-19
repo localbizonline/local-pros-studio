@@ -1,9 +1,11 @@
-import { ChevronDown } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { Check, ChevronDown, X } from 'lucide-react';
 import '../design-directions/directions.css';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import tyranPhoto from './tyran.jpg';
+import { GoogleIcon, LeadsIcon, SocialIcon, WebsiteIcon } from './icons';
 
 // Unlisted reference page for Local Pros lead partners (trades businesses who buy leads per lead) moving onto the
 // R2,500 Local Pros Studio package (14 Oct 2026, Jeremy). The swipe-through walkthrough (/lead-partners/intro) and
@@ -27,28 +29,43 @@ function WhatsAppButton({ className = '' }: { className?: string }) {
 const SHORT_VERSION = [
   { label: 'Stays the same', text: 'Your leads, your contact at Local Pros, your WhatsApp number.' },
   { label: 'Changes', text: 'Leads are no longer charged separately. They’re included in one monthly service.' },
-  { label: 'Price', text: 'R2,500 a month, with your leads included. Setup is free (normally R5,000).' },
+  {
+    label: 'Price',
+    text: 'R2,500 a month, the same as other businesses pay for the service alone, with your leads included. Setup is free (normally R5,000).',
+  },
   { label: 'When', text: 'Tell us when you’re ready, and we’ll agree a start date together. Everyone moves over by March 2027.' },
 ];
 
-const PACKAGE = [
-  { title: 'Your leads.', text: 'They keep coming, as they do now.' },
+const PACKAGE: { icon: ReactNode; title: string; text: string }[] = [
+  { icon: <LeadsIcon />, title: 'Your leads.', text: 'They keep coming, as they do now.' },
   {
+    icon: <GoogleIcon />,
     title: 'Google reviews.',
     text: 'After a job, send us your customer’s name and number. We WhatsApp them for a review, follow up, and reply to reviews for you.',
   },
   {
+    icon: <SocialIcon />,
     title: 'Facebook and Instagram posts.',
     text: 'We create and publish your posts every week. Send us a photo of a recent job and we turn it into a post.',
   },
   {
+    icon: <WebsiteIcon />,
     title: 'A new website, or yours refreshed.',
     text: 'Most business websites we see are out of date or hard to use on a phone. We refresh yours, or build you a new one.',
   },
 ];
 
+// Exclusive to lead partners (Jeremy, 19 Oct 2026): other businesses pay the same R2,500 for the service alone.
+// Free setup is for everyone on the package (see /pricing), so it shows in both columns: only the leads differ.
+const COMPARE = [
+  { label: 'Reviews on your Google profile', others: true },
+  { label: 'Weekly Facebook and Instagram posts', others: true },
+  { label: 'A new website, or yours refreshed', others: true },
+  { label: 'Free setup (normally R5,000)', others: true },
+  { label: 'Your Local Pros leads', others: false },
+];
+
 const MONEY = [
-  'R2,500 a month, leads included.',
   'Free setup (normally R5,000).',
   'Month to month. 30 days’ notice to stop.',
   'With a website: a 6-month commitment. The site is yours after 12 months, or buy it for R6,500 any time.',
@@ -150,27 +167,56 @@ export default function LeadPartners() {
           </div>
         </section>
 
-        <section className="dd-sec lp-cream" id="what-is-studio">
-          <div className="dd-container lp-narrow">
-            <h2 className="dd-h2">What is Local Pros Studio?</h2>
-            <p className="lp-define">
-              Local Pros Studio is our monthly service that helps local businesses win more work online. We collect reviews
-              on your Google profile, post on your Facebook and Instagram every week, and refresh your website or build you a
-              new one. It’s run by the same team as Local Pros.
-            </p>
-          </div>
-        </section>
-
-        {/* Only for lead partners (Jeremy, 19 Oct 2026): the 50+ businesses who signed up at R2,500 a month this year,
-            and the leads-included deal nobody else is offered */}
+        {/* Only for lead partners (Jeremy, 19 Oct 2026): the same R2,500 other businesses pay for the service alone,
+            with the leads on top. Shown as a side-by-side so the extra is obvious at a glance. */}
         <section className="lp-offer" id="offer">
           <div className="dd-container lp-narrow">
             <p className="lp-offer-kicker">Only for Local Pros lead partners</p>
-            <h2 className="dd-h2">Local Pros Studio, with your leads included.</h2>
+            <h2 className="dd-h2">Same price as everyone else. Your leads included.</h2>
             <p className="lp-offer-text">
-              More than 50 businesses have signed up for Local Pros Studio this year, at R2,500 a month. You get the same
-              service, at the same price, with your leads included. We’re not offering this to anyone else.
+              More than 50 businesses signed up for Local Pros Studio this year. They pay R2,500 a month for the service
+              alone. You pay the same R2,500, and your Local Pros leads come with it. We’re not offering this to anyone
+              else.
             </p>
+            <table className="lp-compare">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span className="lp-sr">What’s included</span>
+                  </th>
+                  <th scope="col">Other businesses</th>
+                  <th scope="col" className="is-you">
+                    You
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARE.map((row) => (
+                  <tr key={row.label} className={row.others ? undefined : 'is-extra'}>
+                    <th scope="row">{row.label}</th>
+                    <td>
+                      {row.others ? (
+                        <Check size={22} aria-label="Included" />
+                      ) : (
+                        <X size={22} aria-label="Not included" className="lp-no" />
+                      )}
+                    </td>
+                    <td className="is-you">
+                      <Check size={22} aria-label="Included" />
+                    </td>
+                  </tr>
+                ))}
+                <tr className="lp-compare-price">
+                  <th scope="row">Price</th>
+                  <td>
+                    R2,500<span className="lp-pm">a month</span>
+                  </td>
+                  <td className="is-you">
+                    R2,500<span className="lp-pm">a month</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
@@ -202,12 +248,10 @@ export default function LeadPartners() {
         <section className="dd-sec lp-cream" id="package">
           <div className="dd-container lp-narrow">
             <h2 className="dd-h2">What you get</h2>
-            <ol className="lp-steps">
-              {PACKAGE.map((item, i) => (
+            <ol className="lp-steps lp-get">
+              {PACKAGE.map((item) => (
                 <li key={item.title}>
-                  <span className="lp-num" aria-hidden="true">
-                    {i + 1}
-                  </span>
+                  <span className="lp-ico">{item.icon}</span>
                   <p>
                     <strong>{item.title}</strong> {item.text}
                   </p>
@@ -223,11 +267,21 @@ export default function LeadPartners() {
         <section className="dd-sec" id="money">
           <div className="dd-container lp-narrow">
             <h2 className="dd-h2">The money</h2>
-            <ul className="lp-money">
-              {MONEY.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
+            <div className="lp-price-card">
+              <p className="lp-price-badge">Lead partner price</p>
+              <p className="lp-price">
+                R2,500 <span>a month</span>
+              </p>
+              <p className="lp-price-sub">Your Local Pros leads included. Only for Local Pros lead partners.</p>
+              <ul className="lp-ticks">
+                {MONEY.map((line) => (
+                  <li key={line}>
+                    <Check size={20} aria-hidden="true" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
