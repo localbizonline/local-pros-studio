@@ -42,8 +42,8 @@ const PACKAGE = [
     text: 'We create and publish your posts every week. Send us a photo of a recent job and we turn it into a post.',
   },
   {
-    title: 'A website, only if you need one.',
-    text: 'We refresh yours or build a new one. Happy with yours? We leave it alone.',
+    title: 'A new website, or yours refreshed.',
+    text: 'Most business websites we see are out of date or hard to use on a phone. We refresh yours, or build you a new one.',
   },
 ];
 
@@ -60,7 +60,7 @@ const MONEY = [
 const STEPS = [
   'You tell us you want to move over. A WhatsApp to Tyran is all it takes.',
   'We agree a start date with you.',
-  'A 30-minute setup with you: we connect your Google profile and social pages.',
+  'A 30-minute setup with you: we connect your Google profile and social pages, and check your website on a phone, the way your customers see it.',
   'We help you get started: we show you how it all works, and you can join our group calls to learn alongside other businesses.',
 ];
 
@@ -76,6 +76,10 @@ const FAQ = [
   {
     q: 'Do I have to post anything myself?',
     a: 'You don’t post anything yourself: we create and publish the posts. But the best posts show your own work, and we can’t invent that. So send us a photo of a recent job, ideally once a week, on WhatsApp or with a quick form on your phone, and we turn it into a post.',
+  },
+  {
+    q: 'I already have a website. Do I need a new one?',
+    a: 'Maybe not. We’ll look at it with you at setup. If it’s slow, dated or hard to use on a phone, we refresh it as part of the service.',
   },
   { q: 'Will you spam my customers?', a: 'No. One friendly WhatsApp after a job, and a polite follow-up.' },
   { q: 'What if I get a bad review?', a: 'We tell you straight away and help you reply.' },
@@ -136,8 +140,8 @@ export default function LeadPartners() {
             <h2 className="dd-h2">What is Local Pros Studio?</h2>
             <p className="lp-define">
               Local Pros Studio is our monthly service that helps local businesses win more work online. We collect reviews
-              on your Google profile, post on your Facebook and Instagram every week, and build or refresh your website if
-              you need one. It’s run by the same team as Local Pros.
+              on your Google profile, post on your Facebook and Instagram every week, and refresh your website or build you a
+              new one. It’s run by the same team as Local Pros.
             </p>
           </div>
         </section>
