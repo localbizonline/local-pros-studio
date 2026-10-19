@@ -333,6 +333,28 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
               {/* No "Then R290 a month" here: Ashley covers hosting when she quotes (Jeremy, 18 Oct 2026) */}
               <strong>{category.price}</strong> Live in 7 days.
             </p>
+            {/* The general page (after "Skip"): the seven categories, each to its own page (Jeremy, 19 Oct 2026) */}
+            {gate && (
+              <>
+                <p className="gx-types-label">Pick your type of business:</p>
+                <nav className="gx-types gx-types-wrap" aria-label="Your type of business">
+                  {CATEGORIES.map((c) => (
+                    <Link
+                      key={c.id}
+                      to={`${categoryPath(c)}${query}`}
+                      className="wx-filter gx-type-link"
+                      data-keep-query
+                      onClick={() => {
+                        track(`page_pick_${c.id}`);
+                        capture('ads_gate_pick', { category: c.id, area_known: !!words.area, from: 'page' });
+                      }}
+                    >
+                      {c.label}
+                    </Link>
+                  ))}
+                </nav>
+              </>
+            )}
             {subs.length > 0 && (
               <div className="gx-types" role="group" aria-label="Your type of business">
                 {subs.map((s) => (

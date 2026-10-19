@@ -249,6 +249,42 @@
   white-space: nowrap;
 }
 
+/* The general page's category buttons are links */
+.gx-types-label {
+  margin: 14px 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.gx-types-label + .gx-types {
+  margin-top: 6px;
+}
+
+.gx-type-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* All seven on show (no sideways scroll), small on a phone */
+.gx-types-wrap {
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-right: 0;
+  margin-left: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+@media (max-width: 767px) {
+  .gx-types-wrap .wx-filter {
+    min-height: 36px;
+    padding: 5px 12px;
+    font-size: 0.875rem;
+  }
+}
+
 /* Their category's designs as phones fanned out: the closest in the middle, smaller ones behind.
    --m scales the whole montage: 1 on a phone, larger on a tablet and a computer. */
 .gx-montage {
