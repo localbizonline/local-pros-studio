@@ -4,28 +4,16 @@ import '../design-directions/directions.css';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
-import { DECISIONS, type Decision, type DecisionKey } from './decisions';
 
 // Unlisted reference page for Local Pros lead partners (trades businesses who buy leads per lead) moving onto the
 // R2,500 Local Pros Studio package (14 Oct 2026, Jeremy). The swipe-through walkthrough and every follow-up WhatsApp
 // link here; nothing else on the site does. Kept out of Google (noindex, nofollow) and the sitemap by seo.ts.
 // Logo-only header and short footer, like the ad pages, so readers stay on the page. Copy is Jeremy's, as written.
-// Undecided wording lives in decisions.ts and shows as a yellow "To confirm:" highlight. Styles in leadpartners.css.
+// Every open question was answered on 19 Oct 2026; the copy matches the marketing repo's 02-reference-page.md.
+// Styles in leadpartners.css.
 
 const WHATSAPP_URL = whatsAppLink(WHATSAPP_MESSAGES.leadPartners);
 const PHONE = '083 233 6716';
-
-// An undecided piece of copy: the final wording once it's filled in, a visible highlight until then
-function D({ k }: { k: DecisionKey }) {
-  const d: Decision = DECISIONS[k];
-  if (d.value && !d.flag) return <>{d.value}</>;
-  return (
-    <mark className="lp-confirm">
-      {d.value && <>{d.value} </>}
-      <strong className="lp-confirm-label">To confirm:</strong> {d.note}
-    </mark>
-  );
-}
 
 function WhatsAppButton({ className = '' }: { className?: string }) {
   return (
@@ -70,8 +58,8 @@ const PACKAGE: { title: string; body: ReactNode }[] = [
     title: 'Your leads',
     body: (
       <p>
-        The leads coming through Local Pros keep coming to you, as they do now. You just don’t pay for them separately
-        any more. <D k="leadVolumeWording" />
+        The leads you get through us keep coming to you, as they do now. You just don’t pay for them separately any
+        more.
       </p>
     ),
   },
@@ -80,8 +68,8 @@ const PACKAGE: { title: string; body: ReactNode }[] = [
     body: (
       <ul>
         <li>
-          After a job, we send your happy customers a friendly WhatsApp asking for a review. Only customers you choose.
-          WhatsApp works far better than email here.
+          After each job, we send your customer a friendly WhatsApp asking for a review. WhatsApp works far better than
+          email here.
         </li>
         <li>If they don’t respond, we follow up for you, politely.</li>
         <li>
@@ -113,7 +101,10 @@ const PACKAGE: { title: string; body: ReactNode }[] = [
         <li>Already happy with your website? We leave it alone.</li>
         <li>If it needs work, we refresh it.</li>
         <li>If you don’t have one, we build it. Worth up to R9,900.</li>
-        <li>The website comes with a 12-month commitment. Hosting is included, and after 12 months the website is yours.</li>
+        <li>
+          The website comes with a 6-month commitment. Hosting is included, and after 12 months the website is yours. You
+          can also buy it outright for R6,500 at any time.
+        </li>
       </ul>
     ),
   },
@@ -126,20 +117,15 @@ const MONEY: { label: string; text: ReactNode }[] = [
     text: 'The Local Pros Studio package costs R2,500 a month on its own, and your leads come with it at no extra charge.',
   },
   { label: 'Setup is free.', text: 'It’s normally R5,000.' },
+  { label: 'No lock-in.', text: 'It’s month to month, with 30 days’ notice to stop.' },
   {
-    label: 'Commitment:',
-    text: (
-      <>
-        6 months. If we build you a new website or refresh your existing one, it’s 12 months, and the website is yours
-        after that. <D k="commitment" />
-      </>
-    ),
+    label: 'With a website:',
+    text: 'if we build you a new website or refresh your existing one, it’s a 6-month commitment. After 12 months the website is yours, or you can buy it for R6,500 at any time.',
   },
   {
-    label: 'Why a commitment?',
-    text: 'Reviews and a strong Google profile take a few months to build. We’d rather you give it a proper go than judge it after a month. It’s also why we don’t charge setup.',
+    label: 'Money-back guarantee:',
+    text: 'if we don’t generate any 5-star reviews in 30 days, you get your money back.',
   },
-  { label: 'Money-back guarantee:', text: <D k="guarantee" /> },
   { label: 'Billing:', text: 'starts only once your setup is finished and everything is live.' },
   {
     label: 'Paying:',
@@ -175,7 +161,7 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       },
       {
         q: 'What happens at setup?',
-        a: 'It takes about 30 minutes, on a call or on WhatsApp. We connect your Google profile, Facebook and Instagram, check your website, and agree which customers we’ll ask for reviews.',
+        a: 'It takes about 30 minutes, on a call or on WhatsApp. We connect your Google profile, Facebook and Instagram, check your website, and set up your review requests.',
       },
       {
         q: 'What do you need from me?',
@@ -206,8 +192,10 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
         q: 'Will I still get leads?',
         a: 'Yes. The leads coming through to you now will keep coming. The only difference is that you don’t pay for them separately.',
       },
-      { q: 'How many leads will I get?', a: <D k="howManyLeads" /> },
-      { q: 'What about lead credits I’ve already paid for?', a: <D k="leadCredits" /> },
+      {
+        q: 'How many leads will I get?',
+        a: 'The leads you get through us keep coming to you, as they do now. We can’t promise a set number, because it depends on how many customers come through Local Pros in your area, but nothing about how leads reach you is changing.',
+      },
       {
         q: 'Why are leads slower than before?',
         a: 'Because Google now recommends businesses directly instead of sending people to directory sites like ours. That’s exactly why we’re adding reviews, posts and your website to what we do for you.',
@@ -233,7 +221,8 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
         q: 'Will you spam my customers?',
         a: (
           <>
-            No. We only message customers you choose, on WhatsApp, and we keep it friendly and short. If something went wrong, they can reply and you hear about it straight away.
+            No. We send one friendly WhatsApp after a job, with a polite follow-up if they don’t respond, and we keep it
+            short. If something went wrong, they can reply and you hear about it straight away.
           </>
         ),
       },
@@ -249,7 +238,8 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
         q: 'Do I keep my reviews and pages if I stop?',
         a: (
           <>
-            Yes. Your reviews, your Google profile and your social pages are yours. <D k="websiteIfTheyStop" />
+            Yes. Your reviews, your Google profile and your social pages are yours. A website we built is yours after 12
+            months. If you stop before then, you can buy it for R6,500.
           </>
         ),
       },
@@ -263,11 +253,17 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
         a: 'Because you’re getting a lot more. Your leads keep coming, and at the same time we build the things Google looks for: reviews, active pages and a good website. Those keep working for you month after month, and they belong to you. Doing this yourself takes hours every week; paying someone part-time would cost far more.',
       },
       {
-        q: 'Why is there a commitment?',
-        a: 'Reviews and a strong Google profile take a few months to build. Six months gives it a proper chance to work. It’s also why setup is free.',
+        q: 'Is there a commitment?',
+        a: 'No. It’s month to month. The only exception is if we build or refresh your website: then it’s 6 months, because that’s a big piece of work we do upfront.',
       },
-      { q: 'What if I want to stop?', a: <D k="cancellation" /> },
-      { q: 'Is there a guarantee?', a: <D k="guaranteeFaq" /> },
+      {
+        q: 'What if I want to stop?',
+        a: 'WhatsApp us and give 30 days’ notice. If we built or refreshed your website, the 6 months need to be done first. Your reviews, Google profile and social pages stay yours.',
+      },
+      {
+        q: 'Is there a guarantee?',
+        a: 'Yes. If we don’t generate any 5-star reviews in 30 days, you get your money back.',
+      },
       {
         q: 'How do I pay?',
         a: 'By monthly subscription through PayFast, so it’s automatic. If you’d rather pay by EFT, ask us: it’s possible by arrangement and is paid in advance each month. Billing starts only once your setup is finished and everything is live.',
