@@ -122,11 +122,12 @@ export default function LeadPartners() {
         <section className="lp-hero">
           <div className="dd-container lp-narrow">
             <p className="dd-kw">For Local Pros lead partners</p>
-            {/* Literal opening (Jeremy, 19 Oct 2026: the old "Local Pros is changing" hero didn't say what the page is for) */}
-            <h1 className="dd-display lp-title">Your Local Pros leads are moving into Local Pros Studio.</h1>
+            {/* Opening (Jeremy, 19 Oct 2026, option 1): "changing" said up front, with the gain in the same line */}
+            <h1 className="dd-display lp-title">Local Pros is changing. You keep your leads and get more.</h1>
             <p className="dd-lede">
-              You’ll stop paying for leads one by one. Your leads keep coming, now as part of one monthly service for
-              R2,500. This page explains what that means for you, what it costs and how the move works.
+              On top of your leads, we now collect reviews on your Google profile, post on your Facebook and Instagram
+              every week, and refresh your website or build a new one. It’s one service, Local Pros Studio, for R2,500 a
+              month with your leads included.
             </p>
             <div className="lp-cta">
               <WhatsAppButton />
