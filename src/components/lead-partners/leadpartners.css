@@ -79,49 +79,6 @@
   margin: 0;
 }
 
-/* Why it's changing */
-.lp-prose p + p {
-  margin-top: 18px;
-}
-
-.lp-prose strong,
-.lp-money strong,
-.lp-steps strong {
-  color: var(--ink);
-}
-
-/* What you get */
-.lp-package {
-  display: grid;
-  gap: 16px;
-  list-style: none;
-  padding: 0;
-}
-
-.lp-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--r-frame);
-  box-shadow: 0 3px 12px rgba(28, 25, 23, 0.04);
-  padding: 24px;
-}
-
-.lp-card .dd-h3 {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.lp-card ul {
-  list-style: disc;
-  padding-left: 1.2em;
-}
-
-.lp-card li + li {
-  margin-top: 10px;
-}
-
 .lp-num {
   flex-shrink: 0;
   display: inline-flex;
@@ -159,7 +116,15 @@
   border-bottom: 1px solid var(--line);
 }
 
-/* Timeline */
+/* Why: one short paragraph under its label */
+.lp .lp-why {
+  margin-top: 20px;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+/* What you get and How the move works: numbered rows */
 .lp-steps {
   list-style: none;
   padding: 0;
@@ -180,19 +145,6 @@
 }
 
 /* FAQ: closed accordions in five groups, details/summary so they open without any script */
-.lp-faq-group + .lp-faq-group {
-  margin-top: 40px;
-}
-
-.lp .lp-faq-title {
-  margin-bottom: 8px;
-  font-size: var(--fs-eyebrow);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 .lp .dd-faq-list {
   margin: 0;
 }
@@ -271,9 +223,6 @@
     grid-template-columns: 1fr;
     padding: 16px 0;
   }
-  .lp-card {
-    padding: 20px;
-  }
   .lp-faq-q {
     font-size: 1.0625rem;
   }
@@ -308,8 +257,7 @@
   font-size: 1.375rem;
 }
 
-.lp .dd-kw,
-.lp .lp-faq-title {
+.lp .dd-kw {
   font-size: 0.9rem;
 }
 
@@ -322,8 +270,4 @@
   .lp .lp-faq-q {
     font-size: 1.1875rem;
   }
-}
-
-.lp .lp-card .dd-h3 {
-  font-size: 1.375rem;
 }

@@ -1,15 +1,16 @@
-import type { ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import '../design-directions/directions.css';
 import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
+import tyranPhoto from './tyran.jpg';
 
 // Unlisted reference page for Local Pros lead partners (trades businesses who buy leads per lead) moving onto the
-// R2,500 Local Pros Studio package (14 Oct 2026, Jeremy). The swipe-through walkthrough and every follow-up WhatsApp
-// link here; nothing else on the site does. Kept out of Google (noindex, nofollow) and the sitemap by seo.ts.
-// Logo-only header and short footer, like the ad pages, so readers stay on the page. Copy is Jeremy's, as written.
-// Every open question was answered on 19 Oct 2026; the copy matches the marketing repo's 02-reference-page.md.
+// R2,500 Local Pros Studio package (14 Oct 2026, Jeremy). The swipe-through walkthrough (/lead-partners/intro) and
+// every follow-up WhatsApp link here; nothing else on the site does. Kept out of Google (noindex, nofollow) and the
+// sitemap by seo.ts. Logo-only header and short footer, like the ad pages, so readers stay on the page.
+// Cut to about a third on 19 Oct 2026 (Jeremy: "too long, too many words, simplify it"). The copy is word for word
+// from the marketing repo's campaigns/2026-10-lead-buyer-transition/02-reference-page.md: change it there first.
 // Styles in leadpartners.css.
 
 const WHATSAPP_URL = whatsAppLink(WHATSAPP_MESSAGES.leadPartners);
@@ -23,284 +24,69 @@ function WhatsAppButton({ className = '' }: { className?: string }) {
   );
 }
 
-const SHORT_VERSION: { label: string; text: ReactNode }[] = [
+const SHORT_VERSION = [
+  { label: 'Stays the same', text: 'Your leads, your contact at Local Pros, your WhatsApp number.' },
+  { label: 'Changes', text: 'Leads are no longer charged separately. They’re included in one monthly service.' },
+  { label: 'Price', text: 'R2,500 a month. Setup is free (normally R5,000).' },
+  { label: 'When', text: 'We’ll WhatsApp you to agree a start date. Everyone moves over by March 2027.' },
+];
+
+const PACKAGE = [
+  { title: 'Your leads.', text: 'They keep coming, as they do now.' },
   {
-    label: 'What stays the same',
-    text: 'Your leads keep coming through to you, the way they do now. Same people looking after you. Same WhatsApp number.',
+    title: 'Google reviews.',
+    text: 'We WhatsApp your customer after each job for a review, follow up, and reply to reviews for you.',
   },
   {
-    label: 'What changes',
-    text: (
-      <>
-        You stop paying for leads separately. Your leads become part of one monthly service. We’re moving lead partners over
-        one at a time, and everyone will be on it by March 2027.
-      </>
-    ),
+    title: 'Facebook and Instagram posts.',
+    text: 'We post every week. Want to show off a job? One quick form on your phone.',
   },
   {
-    label: 'The package',
-    text: 'Local Pros Studio: reviews on your Google profile, posts on your Facebook and Instagram every week, and a new website if you need one. Your leads are included at no extra cost.',
-  },
-  { label: 'The price', text: 'R2,500 a month. Setup is free (normally R5,000).' },
-  {
-    label: 'What you need to do',
-    text: (
-      <>
-        Nothing yet. We’ll WhatsApp you to agree a start date that suits you, then set everything up with you in about 30
-        minutes.
-      </>
-    ),
+    title: 'A website, only if you need one.',
+    text: 'We refresh yours or build a new one. Happy with yours? We leave it alone.',
   },
 ];
 
-const PACKAGE: { title: string; body: ReactNode }[] = [
-  {
-    title: 'Your leads',
-    body: (
-      <p>
-        The leads you get through us keep coming to you, as they do now. You just don’t pay for them separately any
-        more.
-      </p>
-    ),
-  },
-  {
-    title: 'Reviews on your Google profile',
-    body: (
-      <ul>
-        <li>
-          After each job, we send your customer a friendly WhatsApp asking for a review. WhatsApp works far better than
-          email here.
-        </li>
-        <li>If they don’t respond, we follow up for you, politely.</li>
-        <li>
-          If something went wrong, they can reply and you hear about it straight away.
-        </li>
-        <li>We write and post the replies to your reviews for you.</li>
-        <li>Covers Google, plus Facebook and Hello Peter.</li>
-        <li>A review widget on your website shows your latest reviews and updates itself.</li>
-      </ul>
-    ),
-  },
-  {
-    title: 'Posts on your Facebook and Instagram',
-    body: (
-      <ul>
-        <li>We post on your Facebook, Instagram and Google profile every week, so your pages stay active.</li>
-        <li>Four posts a month promoting your services, plus custom graphics, holiday posts and highlights from your reviews.</li>
-        <li>
-          Finished a job you’re proud of? Take a photo, fill in one short form on your phone, and we post it everywhere.
-          It takes about a minute.
-        </li>
-      </ul>
-    ),
-  },
-  {
-    title: 'A new website, if you need one',
-    body: (
-      <ul>
-        <li>Already happy with your website? We leave it alone.</li>
-        <li>If it needs work, we refresh it.</li>
-        <li>If you don’t have one, we build it. Worth up to R9,900.</li>
-        <li>
-          The website comes with a 6-month commitment. Hosting is included, and after 12 months the website is yours. You
-          can also buy it outright for R6,500 at any time.
-        </li>
-      </ul>
-    ),
-  },
+const MONEY = [
+  'R2,500 a month, leads included.',
+  'Free setup (normally R5,000).',
+  'Month to month. 30 days’ notice to stop.',
+  'With a website: a 6-month commitment. The site is yours after 12 months, or buy it for R6,500 any time.',
+  'No 5-star reviews in 30 days? You get your money back.',
+  'Billing starts once you’re set up and live. Paid by PayFast monthly; EFT by arrangement, in advance.',
 ];
 
-const MONEY: { label: string; text: ReactNode }[] = [
-  { label: 'R2,500 a month.', text: 'That covers the Local Pros Studio package and your leads.' },
-  {
-    label: 'No more paying for leads separately.',
-    text: 'The Local Pros Studio package costs R2,500 a month on its own, and your leads come with it at no extra charge.',
-  },
-  { label: 'Setup is free.', text: 'It’s normally R5,000.' },
-  { label: 'No lock-in.', text: 'It’s month to month, with 30 days’ notice to stop.' },
-  {
-    label: 'With a website:',
-    text: 'if we build you a new website or refresh your existing one, it’s a 6-month commitment. After 12 months the website is yours, or you can buy it for R6,500 at any time.',
-  },
-  {
-    label: 'Money-back guarantee:',
-    text: 'if we don’t generate any 5-star reviews in 30 days, you get your money back.',
-  },
-  { label: 'Billing:', text: 'starts only once your setup is finished and everything is live.' },
-  {
-    label: 'Paying:',
-    text: 'a monthly subscription through PayFast. EFT is available only by arrangement with us, and is paid in advance each month.',
-  },
+const STEPS = [
+  'We WhatsApp you to agree a start date.',
+  'A 30-minute setup with you: we connect your Google profile and social pages.',
+  'You’re live. Billing starts.',
 ];
 
-// No fixed dates: lead partners move over one at a time, on a start date agreed with each on WhatsApp, all by March 2027
-// (Jeremy, 16 Oct 2026)
-const STEPS: { when: string; text: string }[] = [
-  { when: 'Now', text: 'we’re already moving businesses over, one at a time.' },
-  { when: 'Your turn', text: 'we WhatsApp you to agree a start date that suits you. Ask us anything before then.' },
+const FAQ = [
   {
-    when: 'Setup',
-    text: 'we set everything up with you. It takes about 30 minutes of your time: we connect your Google profile and social pages.',
-  },
-  { when: 'By March 2027', text: 'every lead partner is on the new service.' },
-];
-
-type Faq = { q: ReactNode; a: ReactNode };
-
-const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
-  {
-    title: 'The move, step by step',
-    items: [
-      {
-        q: 'When will I move over?',
-        a: 'We’re moving businesses over one at a time, and everyone will be on the new service by March 2027. We’ll WhatsApp you to agree a start date that suits you.',
-      },
-      {
-        q: 'Do I need to do anything right now?',
-        a: 'No. Have a look, ask us anything, and wait for our WhatsApp. If you’d like to start sooner, just tell us.',
-      },
-      {
-        q: 'What happens at setup?',
-        a: 'It takes about 30 minutes, on a call or on WhatsApp. We connect your Google profile, Facebook and Instagram, check your website, and set up your review requests.',
-      },
-      {
-        q: 'What do you need from me?',
-        a: 'Access to your Google profile and social pages (we’ll show you how), a few photos of your work, and your logo if you have one.',
-      },
-      {
-        q: 'When does the R2,500 start?',
-        a: 'Only once your setup is finished and everything is live. You don’t pay for the new service before then.',
-      },
-      {
-        q: 'Will my leads stop while we switch over?',
-        a: 'No. Your leads keep coming the whole time: before, during and after the move.',
-      },
-      {
-        q: 'What if I’m not ready yet?',
-        a: 'Tell us. We’ll find a date that works better for you, any time before March 2027.',
-      },
-      {
-        q: 'What if I only want leads?',
-        a: 'We understand. Leads on their own will be available until we’ve moved everyone over, by March 2027. After that, leads only come as part of Local Pros Studio. Until then, businesses on the full service get leads first. If you’re unsure, WhatsApp Tyran and we’ll talk it through.',
-      },
-    ],
+    q: 'How many leads will I get?',
+    a: 'The same way you get them now. We can’t promise a set number; it depends on how many customers come through Local Pros in your area.',
   },
   {
-    title: 'Your leads',
-    items: [
-      {
-        q: 'Will I still get leads?',
-        a: 'Yes. The leads coming through to you now will keep coming. The only difference is that you don’t pay for them separately.',
-      },
-      {
-        q: 'How many leads will I get?',
-        a: 'The leads you get through us keep coming to you, as they do now. We can’t promise a set number, because it depends on how many customers come through Local Pros in your area, but nothing about how leads reach you is changing.',
-      },
-      {
-        q: 'Why are leads slower than before?',
-        a: 'Because Google now recommends businesses directly instead of sending people to directory sites like ours. That’s exactly why we’re adding reviews, posts and your website to what we do for you.',
-      },
-    ],
+    q: 'What if I only want leads?',
+    a: 'Leads on their own are available until March 2027. Until then, businesses on the full service get leads first.',
+  },
+  { q: 'Do I have to post anything myself?', a: 'No. We post for you every week.' },
+  { q: 'Will you spam my customers?', a: 'No. One friendly WhatsApp after a job, and a polite follow-up.' },
+  { q: 'What if I get a bad review?', a: 'We tell you straight away and help you reply.' },
+  {
+    q: 'What do you need from me?',
+    a: 'Access to your Google profile and social pages (we’ll show you how), a few photos of your work, and your logo.',
   },
   {
-    title: 'The package',
-    items: [
-      {
-        q: 'I already have a website. Do I need a new one?',
-        a: 'No. If you’re happy with it, we leave it alone. The website is only for people who need one.',
-      },
-      {
-        q: 'Do I have to post anything myself?',
-        a: 'No. We post for you every week. If you want to show off a job, it’s one form on your phone and takes about a minute.',
-      },
-      {
-        q: 'Who writes the replies to my reviews?',
-        a: 'We do, in a friendly, professional tone. You can always ask us to change one.',
-      },
-      {
-        q: 'Will you spam my customers?',
-        a: (
-          <>
-            No. We send one friendly WhatsApp after a job, with a polite follow-up if they don’t respond, and we keep it
-            short. If something went wrong, they can reply and you hear about it straight away.
-          </>
-        ),
-      },
-      {
-        q: 'What if I get a bad review?',
-        a: 'We let you know and help you reply calmly and professionally. A good reply to a bad review often does more for you than the review does harm.',
-      },
-      {
-        q: 'Do I need to give you my passwords?',
-        a: 'We’ll walk you through giving us access safely during setup. You stay the owner of your Google profile, your pages and your reviews.',
-      },
-      {
-        q: 'Do I keep my reviews and pages if I stop?',
-        a: (
-          <>
-            Yes. Your reviews, your Google profile and your social pages are yours. A website we built is yours after 12
-            months. If you stop before then, you can buy it for R6,500.
-          </>
-        ),
-      },
-    ],
+    q: 'What if I want to stop?',
+    a: 'Give us 30 days’ notice on WhatsApp. If we built your website, the 6 months need to be done first. Your reviews and pages stay yours.',
   },
-  {
-    title: 'Money and terms',
-    items: [
-      {
-        q: 'Why is it more than I pay for leads now?',
-        a: 'Because you’re getting a lot more. Your leads keep coming, and at the same time we build the things Google looks for: reviews, active pages and a good website. Those keep working for you month after month, and they belong to you. Doing this yourself takes hours every week; paying someone part-time would cost far more.',
-      },
-      {
-        q: 'Is there a commitment?',
-        a: 'No. It’s month to month. The only exception is if we build or refresh your website: then it’s 6 months, because that’s a big piece of work we do upfront.',
-      },
-      {
-        q: 'What if I want to stop?',
-        a: 'WhatsApp us and give 30 days’ notice. If we built or refreshed your website, the 6 months need to be done first. Your reviews, Google profile and social pages stay yours.',
-      },
-      {
-        q: 'Is there a guarantee?',
-        a: 'Yes. If we don’t generate any 5-star reviews in 30 days, you get your money back.',
-      },
-      {
-        q: 'How do I pay?',
-        a: 'By monthly subscription through PayFast, so it’s automatic. If you’d rather pay by EFT, ask us: it’s possible by arrangement and is paid in advance each month. Billing starts only once your setup is finished and everything is live.',
-      },
-    ],
-  },
-  {
-    title: 'Timing',
-    items: [
-      {
-        q: 'What happens before my start date?',
-        a: 'Nothing changes. Your leads keep coming as normal.',
-      },
-      {
-        q: 'I’m closed over December. Is that a problem?',
-        a: 'Not at all. It’s actually a good time to start. We collect reviews from this year’s customers, and you start the new year with fresh reviews and active pages.',
-      },
-    ],
-  },
-  {
-    title: 'General',
-    items: [
-      {
-        q: 'Have other businesses already done this?',
-        a: 'Yes. We’ve already made this move with more than 50 businesses this year.',
-      },
-      {
-        q: 'Is Local Pros closing?',
-        a: 'No. Local Pros isn’t going anywhere. Local Pros Studio is the name of our new package, and it’s run by the same people you already deal with.',
-      },
-      { q: 'Who do I talk to?', a: `Tyran. Same WhatsApp number as always: ${PHONE}.` },
-    ],
-  },
+  { q: 'Is Local Pros closing?', a: 'No. Local Pros Studio is our new service, run by the same people.' },
 ];
 
 // Closed by default and opens on tap without any script (details/summary), so it works in the pre-built HTML too
-function FaqItem({ q, a }: Faq) {
+function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <details className="dd-faq-item lp-faq-item">
       <summary className="lp-faq-q">
@@ -323,11 +109,8 @@ export default function LeadPartners() {
         <section className="lp-hero">
           <div className="dd-container lp-narrow">
             <p className="dd-kw">For Local Pros lead partners</p>
-            <h1 className="dd-display lp-title">Local Pros is changing. Here’s everything you need to know.</h1>
-            <p className="dd-lede">
-              If you’ve just watched our short walkthrough, this page fills in the detail. If you haven’t, start here.
-              Either way, the most important thing first: your leads aren’t going anywhere.
-            </p>
+            <h1 className="dd-display lp-title">Local Pros is changing. Here’s what it means for you.</h1>
+            <p className="dd-lede">Your leads aren’t going anywhere. Here’s the rest.</p>
             <div className="lp-cta">
               <WhatsAppButton />
               <p className="lp-phone">{PHONE}</p>
@@ -350,44 +133,28 @@ export default function LeadPartners() {
         </section>
 
         <section className="dd-sec" id="why">
-          <div className="dd-container lp-narrow lp-prose">
-            <h2 className="dd-h2">Google has changed how customers find tradespeople</h2>
-            <p>
-              For years, Local Pros has sent work your way. Customers searched on Google, found LocalPros.co.za, and we
-              passed the job on to you.
+          <div className="dd-container lp-narrow">
+            <p className="dd-eyebrow">Why</p>
+            <p className="lp-why">
+              Google now recommends local businesses itself, so fewer people click through to sites like ours. To choose
+              who to recommend, it looks at your reviews, your Facebook and Instagram, and your website. So that’s what
+              we now do for you, alongside your leads.
             </p>
-            <p>
-              People still Google when they need a plumber or an electrician. But Google now uses AI to recommend a local
-              business itself, right at the top of the results. Fewer people click through to sites like ours, and that’s
-              why leads have slowed down. You’ve noticed it, and so have we.
-            </p>
-            <p>
-              To choose who to recommend, Google checks three things: your <strong>Google reviews</strong>, whether your{' '}
-              <strong>Facebook and Instagram</strong> are active, and your <strong>website</strong>. Basically, it looks
-              for the business people trust.
-            </p>
-            <p>
-              Our job has always been the same: getting you work. Google changed the way, so we’re changing with it. From
-              now on we help you with both: your leads, and building your business online.
-            </p>
-            <p>It’s a big change, and a good one. We’ve already made this move with more than 50 businesses this year.</p>
           </div>
         </section>
 
         <section className="dd-sec lp-cream" id="package">
           <div className="dd-container lp-narrow">
-            <h2 className="dd-h2">What you get with Local Pros Studio</h2>
-            <p className="lp-intro">Four things, all looked after for you, for one monthly price.</p>
-            <ol className="lp-package">
+            <h2 className="dd-h2">What you get</h2>
+            <ol className="lp-steps">
               {PACKAGE.map((item, i) => (
-                <li key={item.title} className="lp-card">
-                  <h3 className="dd-h3">
-                    <span className="lp-num" aria-hidden="true">
-                      {i + 1}
-                    </span>
-                    {item.title}
-                  </h3>
-                  {item.body}
+                <li key={item.title}>
+                  <span className="lp-num" aria-hidden="true">
+                    {i + 1}
+                  </span>
+                  <p>
+                    <strong>{item.title}</strong> {item.text}
+                  </p>
                 </li>
               ))}
             </ol>
@@ -399,12 +166,10 @@ export default function LeadPartners() {
 
         <section className="dd-sec" id="money">
           <div className="dd-container lp-narrow">
-            <h2 className="dd-h2">The money side</h2>
+            <h2 className="dd-h2">The money</h2>
             <ul className="lp-money">
-              {MONEY.map((row) => (
-                <li key={row.label}>
-                  <strong>{row.label}</strong> {row.text}
-                </li>
+              {MONEY.map((line) => (
+                <li key={line}>{line}</li>
               ))}
             </ul>
           </div>
@@ -415,49 +180,37 @@ export default function LeadPartners() {
             <h2 className="dd-h2">How the move works</h2>
             <ol className="lp-steps">
               {STEPS.map((step, i) => (
-                <li key={i}>
+                <li key={step}>
                   <span className="lp-num" aria-hidden="true">
                     {i + 1}
                   </span>
-                  <p>
-                    <strong>{step.when}:</strong> {step.text}
-                  </p>
+                  <p>{step}</p>
                 </li>
               ))}
             </ol>
-            <p className="lp-note">
-              Nothing changes for you until your start date. Your leads keep coming as normal the whole way through.
-            </p>
+            <p className="lp-note">Your leads keep coming the whole way through.</p>
           </div>
         </section>
 
         <section className="dd-sec" id="faq">
           <div className="dd-container lp-narrow">
-            <h2 className="dd-h2">Your questions, answered</h2>
-            <p className="lp-intro">If yours isn’t here, WhatsApp Tyran. No question is too small.</p>
-            {FAQ_GROUPS.map((group) => (
-              <div key={group.title} className="lp-faq-group">
-                <h3 className="lp-faq-title">{group.title}</h3>
-                <div className="dd-faq-list">
-                  {group.items.map((item, i) => (
-                    <FaqItem key={i} {...item} />
-                  ))}
-                </div>
-              </div>
-            ))}
+            <h2 className="dd-h2">Questions</h2>
+            <div className="dd-faq-list">
+              {FAQ.map((item) => (
+                <FaqItem key={item.q} {...item} />
+              ))}
+            </div>
           </div>
         </section>
 
         <section className="lp-end" id="contact">
           <div className="dd-container lp-end-in">
-            {/* No photo of Tyran in the repo yet (14 Oct 2026): a plain circle with his initial until Jeremy sends one */}
-            <div className="lp-avatar" role="img" aria-label="Tyran">
-              T
+            {/* The same photo as the swipe deck (marketing repo, swipe-page/tyran.jpg) */}
+            <div className="lp-avatar">
+              <img src={tyranPhoto} alt="Tyran" width={96} height={96} />
             </div>
             <h2 className="dd-h2">Any question, big or small.</h2>
-            <p className="lp-end-text">
-              I’m one message away. If you’d rather talk it through on a call, just say so and we’ll find a time.
-            </p>
+            <p className="lp-end-text">WhatsApp me, or ask for a call.</p>
             <WhatsAppButton className="lp-end-btn" />
             <p className="lp-phone">{PHONE}</p>
           </div>
