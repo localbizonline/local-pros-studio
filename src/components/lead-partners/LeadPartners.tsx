@@ -79,9 +79,8 @@ const FAQ = [
   },
   {
     q: 'I already have a website. Do I need a new one?',
-    a: 'Maybe not. We’ll look at it with you at setup. If it’s slow, dated or hard to use on a phone, we refresh it as part of the service.',
+    a: 'Maybe not a new one, but most websites we see could be bringing in far more work. Many are out of date, slow on a phone, and missing what turns a visitor into an enquiry: a page for each service you offer and each area you work in, your latest Google reviews, and a WhatsApp button so customers can message you in one tap. We check yours with you at setup, then refresh it with all of that, or build you a new one if that’s better.',
   },
-  { q: 'Will you spam my customers?', a: 'No. One friendly WhatsApp after a job, and a polite follow-up.' },
   { q: 'What if I get a bad review?', a: 'We tell you straight away and help you reply.' },
   {
     q: 'What do you need from me?',
