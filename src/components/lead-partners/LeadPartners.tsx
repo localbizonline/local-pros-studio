@@ -122,16 +122,30 @@ export default function LeadPartners() {
           <div className="dd-container lp-narrow">
             <p className="dd-kw">For Local Pros lead partners</p>
             {/* Opening (Jeremy, 19 Oct 2026): the name change in the headline, the gain right under it */}
-            <h1 className="dd-display lp-title">Local Pros is becoming Local Pros Studio.</h1>
+            <h1 className="dd-display lp-title">
+              Local Pros is becoming <span className="dd-hl lp-name">Local Pros Studio.</span>
+            </h1>
             <p className="lp-subhead">You keep your leads and get more.</p>
             <p className="dd-lede">
               On top of your leads, we now collect reviews on your Google profile, post on your Facebook and Instagram
               every week, and refresh your website or build a new one. It’s one service, Local Pros Studio, for R2,500 a
               month with your leads included.
             </p>
+            <p className="lp-deal">
+              <span>R2,500 a month</span>
+              <span>Leads included</span>
+              <span>Free setup</span>
+            </p>
             <div className="lp-cta">
               <WhatsAppButton />
-              <p className="lp-phone">{PHONE}</p>
+              <p className="lp-who">
+                <img src={tyranPhoto} alt="" width={40} height={40} />
+                <span>
+                  <strong>Tyran</strong> replies on WhatsApp
+                  <br />
+                  {PHONE}
+                </span>
+              </p>
             </div>
           </div>
         </section>
