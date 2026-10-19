@@ -113,12 +113,27 @@ export default function LeadPartners() {
         <section className="lp-hero">
           <div className="dd-container lp-narrow">
             <p className="dd-kw">For Local Pros lead partners</p>
-            <h1 className="dd-display lp-title">Local Pros is changing. Here’s what it means for you.</h1>
-            <p className="dd-lede">Your leads aren’t going anywhere. Here’s the rest.</p>
+            {/* Literal opening (Jeremy, 19 Oct 2026: the old "Local Pros is changing" hero didn't say what the page is for) */}
+            <h1 className="dd-display lp-title">Your Local Pros leads are moving into Local Pros Studio.</h1>
+            <p className="dd-lede">
+              You’ll stop paying for leads one by one. Your leads keep coming, now as part of one monthly service for
+              R2,500. This page explains what that means for you, what it costs and how the move works.
+            </p>
             <div className="lp-cta">
               <WhatsAppButton />
               <p className="lp-phone">{PHONE}</p>
             </div>
+          </div>
+        </section>
+
+        <section className="dd-sec lp-cream" id="what-is-studio">
+          <div className="dd-container lp-narrow">
+            <h2 className="dd-h2">What is Local Pros Studio?</h2>
+            <p className="lp-define">
+              Local Pros Studio is our monthly service that helps local businesses win more work online. We collect reviews
+              on your Google profile, post on your Facebook and Instagram every week, and build or refresh your website if
+              you need one. It’s run by the same team as Local Pros.
+            </p>
           </div>
         </section>
 

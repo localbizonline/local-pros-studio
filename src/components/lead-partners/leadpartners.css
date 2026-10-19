@@ -37,6 +37,13 @@
   color: var(--muted);
 }
 
+/* What is Local Pros Studio: one plain definition straight after the opening */
+.lp .lp-define {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--body);
+}
+
 /* Only for lead partners: the one dark band on the page, so the offer stands out */
 .lp-offer {
   padding: var(--sec) 0;
