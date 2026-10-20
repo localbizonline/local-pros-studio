@@ -3,9 +3,11 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { rememberAdClick } from './adClick';
+import { tagAdWhatsAppTaps } from './adWhatsApp';
 
 // Before anything else: the ad click id is only on the landing URL
 rememberAdClick();
+tagAdWhatsAppTaps();
 
 const root = document.getElementById('root')!;
 const app = (
