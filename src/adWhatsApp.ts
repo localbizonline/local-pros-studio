@@ -43,8 +43,8 @@ const onClick = (e: MouseEvent) => {
     // Changed before the browser follows the link, so WhatsApp opens with the ref in the message
     const url = new URL(link.href);
     const text = (url.searchParams.get('text') || '').replace(REF_IN_TEXT, '');
-    url.searchParams.set('text', `${text} (ref ${ref})`.trim());
-    link.href = url.toString();
+    // encodeURIComponent, not searchParams.set: WhatsApp should get %20 for spaces, as whatsAppLink() writes them
+    link.href = `${url.origin}${url.pathname}?text=${encodeURIComponent(`${text} (ref ${ref})`.trim())}`;
   } catch {
     return;
   }
