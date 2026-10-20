@@ -4,7 +4,7 @@ import { GROUPS, SITES, groupById, type Group, type Site, type Sub } from './cat
 import { MAPS_KEY, searchGoogle, type Business } from '../demo-popup/googleSearch';
 import { notifyStarted, useLeadRecord } from '../demo-popup/DemoPopup';
 import { capture } from '../../analytics';
-import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
+import { WHATSAPP_MESSAGES, ashleyWhatsAppLink, whatsAppLink } from '../../whatsapp';
 import { OPEN_CHAT_EVENT, type ChatPage, type ChatPlan } from '../demo-popup/openSiteChat';
 import '../design-directions/directions.css';
 import './web-examples.css';
@@ -444,6 +444,9 @@ export function IndustryRows({ onPick }: { onPick: (g: Group) => void }) {
 // page: tags the leads by door when one variant runs on two (the ads copy /go/website-design sends 'website-design')
 // nudge: false leaves out the "Not sure where to start?" pop-up, for pages selling one fixed package (/7-day-website)
 export default function ExamplesChat({ variant = 'website', page, nudge = true }: { variant?: ChatVariant; page?: ChatPage; nudge?: boolean }) {
+  // The Google Ads pages talk to Ashley on her own number, like the rest of those pages (Jeremy, 20 Oct 2026),
+  // so an ad visitor's chat can be followed from the tap to the conversation (src/adWhatsApp.ts)
+  const talkNowUrl = page === 'website-gate' ? ashleyWhatsAppLink('Hi Ashley, I’d like a quote for a website.') : whatsAppLink(WHATSAPP_MESSAGES.webDesign);
   const cfg: VariantConfig = page ? { ...VARIANTS[variant], page, ...(page === 'website-gate' ? GATE_PRICE_NOTE : {}) } : VARIANTS[variant];
   const step = (name: string, p: Record<string, string | undefined> = {}) => capture('examples_chat_step', { step: name, page: cfg.page, ...p });
   const [open, setOpen] = useState(false);
@@ -914,7 +917,7 @@ export default function ExamplesChat({ variant = 'website', page, nudge = true }
                   </div>
                   <Bot>
                     Rather talk now?{' '}
-                    <a href={whatsAppLink(WHATSAPP_MESSAGES.webDesign)} target="_blank" rel="noopener noreferrer" className="wdl-inline-link" onClick={() => step('whatsapp_now', props())}>
+                    <a href={talkNowUrl} target="_blank" rel="noopener noreferrer" className="wdl-inline-link" onClick={() => step('whatsapp_now', props())}>
                       WhatsApp us
                     </a>
                   </Bot>
