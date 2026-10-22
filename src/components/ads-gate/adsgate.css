@@ -1113,3 +1113,12 @@
     width: 112px;
   }
 }
+
+/* "Get my price and designs" under the price (AdsGate.tsx, 22 Oct 2026): the first step, on the first screen of a phone */
+.gx-first {
+  margin-top: 16px;
+}
+
+.gx-first .gx-small {
+  margin-top: 8px;
+}
