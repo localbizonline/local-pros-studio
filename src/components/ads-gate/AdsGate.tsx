@@ -12,7 +12,7 @@ import ExamplesChat, { OPEN_EXAMPLES_EVENT, SiteCard, openExamplesChat } from '.
 import { ExamplesClosing, ExamplesSteps } from '../web-examples/ExamplesSections';
 import { SITES, groupById, type Group, type Site, type Sub } from '../web-examples/catalogue';
 import teamEnquiries from '../web-design-light/img/team-new-enquiries.webp';
-import logoLight from '../../assets/images/Compressed/Local Pros Studio logo transparent.png';
+import logo from '../../assets/images/logo/local-pros-studio-logo.svg';
 import { AD_WORDS_GLOBAL, NO_AD_WORDS, areaText, leadText, placeText, type AdWords } from './adWords';
 import { AshleyBar, AshleyCard } from './AshleyWhatsApp';
 import Compare from './Compare';
@@ -108,7 +108,7 @@ function Question({ words, query, onSkip }: { words: AdWords; query: string; onS
             The lead and area spans are filled in by the edge function, like the headline behind. */}
         <div className="gx-sheet-top">
           <span className="gx-sheet-logo">
-            <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
+            <img src={logo} alt="Local Pros Studio" width={237} height={22} />
           </span>
           <p className="gx-sheet-match">
             <strong>
