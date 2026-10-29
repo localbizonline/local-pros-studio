@@ -1,10 +1,10 @@
-"""Copies the example designs (design/web-montage/mock-sites/<slug>/) into the lps-samples deploy folder with a
+"""Copies the example designs (design/web-montage/mock-sites/<slug>/) into the samples app's public/ folder with a
 noindex tag and a small "Example design" label, so the ads pages can link to each one as a working website
-(18 Oct 2026). Then deploy that folder (see the memory note / README): the whole site is replaced on deploy, so
-the folder keeps every live sample (guesthouse, venue, jcf-motors, gospel-artist-*).
+(18 Oct 2026). Deploy the samples app (../lps-samples-app), never public/ on its own: a deploy replaces the whole
+site, and on 18 Oct a --dir deploy of a static folder dropped the app's samples API, so leads' samples failed until 20 Oct.
 
     python3 scripts/publish-sample-sites.py [slug ...]      # default: every design that has a card picture
-    netlify deploy --dir ../lps-samples --site f4de21ec-31d1-4ac2-afc8-1d863f1f8138 --prod
+    cd ../lps-samples-app && npm run deps:linux && netlify deploy --prod   # functions + public, together
 """
 import re
 import shutil
@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'design/web-montage/mock-sites'
 CARDS = ROOT / 'src/components/web-examples/img'
-DEPLOY = ROOT.parent / 'lps-samples' if (ROOT.parent / 'lps-samples').exists() else Path('/Users/jeremymartin/Code/Cursor/Websites/lps-samples')
+DEPLOY = (ROOT.parent / 'lps-samples-app' if (ROOT.parent / 'lps-samples-app').exists() else Path('/Users/jeremymartin/Code/Cursor/Websites/lps-samples-app')) / 'public'
 ASHLEY = '27783628921'
 
 # Business names from the catalogue, for the WhatsApp line
