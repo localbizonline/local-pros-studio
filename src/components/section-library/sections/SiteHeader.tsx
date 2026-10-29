@@ -4,7 +4,8 @@ import { Menu, X } from 'lucide-react';
 import '../../design-directions/directions.css';
 import './sitechrome.css';
 import { SITE_WHATSAPP_URL } from '../../../whatsapp';
-import logoLight from '../../../assets/images/Compressed/Local Pros Studio logo transparent.png';
+// Text-only wordmark from the Oct 2026 flyers: LOCAL PROS with a red STUDIO tag (29 Oct 2026)
+import logo from '../../../assets/images/logo/local-pros-studio-logo.svg';
 
 // Site header in the light look (8 Oct 2026), built for the join page as it becomes the homepage:
 // logo, links to every service page, prices and about, and the amber "WhatsApp us" button.
@@ -70,11 +71,11 @@ export default function SiteHeader({
       <div className="dd-container dd-header-in">
         {minimal ? (
           <span className="sh-logo">
-            <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
+            <img src={logo} alt="Local Pros Studio" width={237} height={22} />
           </span>
         ) : (
           <Link to="/" className="sh-logo" aria-label="Local Pros Studio home">
-            <img src={logoLight} alt="Local Pros Studio" width={124} height={28} />
+            <img src={logo} alt="Local Pros Studio" width={237} height={22} />
           </Link>
         )}
         {!minimal && (

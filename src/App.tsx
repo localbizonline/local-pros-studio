@@ -54,7 +54,7 @@ const WebsiteFaqPage = lazy(() => import('./components/LegalPages').then((m) => 
 // Temporary noindex review pages for choosing the site-wide design direction
 const DesignDirections = lazy(() => import('./components/design-directions/DesignDirections'));
 const ReviewVersions = lazy(() => import('./components/review-versions/ReviewVersions'));
-import logo from './assets/images/Compressed/Local Pros Studio logo transparent.png';
+import logo from './assets/images/logo/local-pros-studio-logo-white.svg';
 import { whatsAppUrlForPath } from './whatsapp';
 import { canonicalUrl, robotsContent, seoForPath } from './seo';
 import { applyTeamDeviceLink } from './teamDevice';
@@ -121,9 +121,9 @@ const Navigation = () => {
             <img
               src={logo}
               alt="Local Pros Studio"
-              className="h-8 w-auto"
-              width="120"
-              height="32"
+              className="h-5 w-auto"
+              width="215"
+              height="20"
             />
           </Link>
 

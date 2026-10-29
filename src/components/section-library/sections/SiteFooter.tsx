@@ -4,7 +4,7 @@ import './sitechrome.css';
 import { SITE_WHATSAPP_URL } from '../../../whatsapp';
 import { NavItem } from './SiteHeader';
 import TrustedLogos from './TrustedLogos';
-import logoLight from '../../../assets/images/Compressed/Local Pros Studio logo transparent.png';
+import logoWhite from '../../../assets/images/logo/local-pros-studio-logo-white.svg';
 
 // Site footer in the light look (8 Oct 2026): dark band with links to every page, so visitors and
 // Google can reach the whole site from the homepage. Pages move onto it as they are rebuilt;
@@ -56,10 +56,10 @@ export default function SiteFooter({
         <div className={`sf-grid${minimal ? ' is-minimal' : ''}`}>
           <div className="sf-brand">
             {minimal ? (
-              <img src={logoLight} alt="Local Pros Studio" width={124} height={28} className="sf-logo" />
+              <img src={logoWhite} alt="Local Pros Studio" width={237} height={22} className="sf-logo" />
             ) : (
               <Link to="/" aria-label="Local Pros Studio home">
-                <img src={logoLight} alt="Local Pros Studio" width={124} height={28} className="sf-logo" />
+                <img src={logoWhite} alt="Local Pros Studio" width={237} height={22} className="sf-logo" />
               </Link>
             )}
             <p>Google reviews, social media posts and websites for South African businesses.</p>

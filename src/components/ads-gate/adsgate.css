@@ -85,18 +85,15 @@
   font-size: clamp(0.8125rem, calc((100vw - 48px) / 24.8), 0.9375rem);
 }
 
-/* Our logo at the top of the pop-up, on the same dark tile as the menu bar */
+/* Our logo at the top of the pop-up, the text-only wordmark as in the menu bar */
 .gx-sheet-logo {
   display: inline-flex;
-  margin-bottom: 12px;
-  padding: 9px 12px;
-  border-radius: 8px;
-  background: #1c1917;
+  margin-bottom: 14px;
   line-height: 0;
 }
 
 .gx-sheet-logo img {
-  width: 132px;
+  width: 194px;
   height: auto;
 }
 
@@ -1058,12 +1055,8 @@
     margin-bottom: 10px;
   }
 
-  .gx-sheet-logo {
-    padding: 7px 10px;
-  }
-
   .gx-sheet-logo img {
-    width: 116px;
+    width: 150px;
   }
 
   .gx-q-sub {
@@ -1110,6 +1103,6 @@
 /* The narrowest phones: a slightly smaller logo, so "✓ Website designers in Sandton" takes two lines, not three */
 @media (max-width: 370px) {
   .gx-sheet-logo img {
-    width: 112px;
+    width: 140px;
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import logo from '../assets/images/Compressed/Local Pros Studio logo transparent.png';
+import logo from '../assets/images/logo/local-pros-studio-logo-white.svg';
 import { whatsAppUrlForPath } from '../whatsapp';
 
 const Footer = () => {
@@ -32,9 +32,9 @@ const Footer = () => {
               <img
                 src={logo}
                 alt="Local Pros Studio"
-                className="h-8 w-auto"
-                width="120"
-                height="32"
+                className="h-5 w-auto"
+                width="215"
+                height="20"
               />
             </Link>
             <p className="text-neutral-400 text-sm leading-relaxed mb-6">
