@@ -1,0 +1,140 @@
+.csr-problems,
+.csr-setup {
+  background: var(--surface-2);
+}
+
+.csr-pain-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  list-style: none;
+}
+
+.csr-pain-list img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--r-frame);
+}
+
+.csr-pain-list h3 {
+  margin-top: 18px;
+}
+
+.csr-pain-list p,
+.csr-narrow p {
+  margin-top: 10px;
+}
+
+.csr-demo-grid {
+  grid-template-columns: minmax(0, 380px) minmax(0, 450px);
+  gap: clamp(32px, 5vw, 72px);
+}
+
+.csr-chat {
+  overflow: hidden;
+  border-radius: var(--r-frame);
+  background: #efeae2;
+  color: #182525;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.csr-chat figcaption {
+  padding: 16px 20px;
+  background: #075e54;
+  color: white;
+}
+
+.csr-chat figcaption span {
+  display: block;
+  font-size: 0.875rem;
+}
+
+.csr-chat ol {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  list-style: none;
+}
+
+.csr-chat li {
+  justify-self: start;
+  max-width: 88%;
+  padding: 10px 12px;
+  border-radius: 0 12px 12px 12px;
+  background: white;
+}
+
+.csr-chat .csr-reply {
+  justify-self: end;
+  border-radius: 12px 0 12px 12px;
+  background: #d9fdd3;
+}
+
+.csr-chat li strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.875rem;
+}
+
+.csr-book-option {
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  color: #075e54;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.csr-narrow {
+  max-width: 680px;
+  margin-inline: auto;
+}
+
+.csr-narrow .dd-h2 + p {
+  margin-top: 20px;
+}
+
+.csr-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  padding-block: 14px;
+  color: var(--ink);
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+}
+
+.csr-question::-webkit-details-marker {
+  display: none;
+}
+
+.csr-question svg {
+  flex: none;
+}
+
+details[open] > .csr-question svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 820px) {
+  .csr-pain-list,
+  .csr-demo-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .csr-demo-grid {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  .csr .dd-steps li {
+    padding: 16px 14px;
+  }
+}

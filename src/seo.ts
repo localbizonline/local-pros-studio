@@ -29,6 +29,11 @@ export const PAGES: Record<string, PageSeo> = {
     description:
       'Send us your customer’s name and number and we WhatsApp them your Google review link, with a reminder if they forget. R1,200 a month, month to month.',
   },
+  '/car-service-reminders': {
+    title: 'WhatsApp Car Service Reminders | Local Pros Studio',
+    description:
+      'Help customers book their next service. We set up automatic WhatsApp service reminders and bookings for independent workshops and service centres in South Africa.',
+  },
   '/pricing': {
     title: 'Prices: Google Reviews, Social Media & Websites | Local Pros Studio',
     description:
