@@ -34,6 +34,13 @@ export const PAGES: Record<string, PageSeo> = {
     description:
       'Help customers book their next service. We set up automatic WhatsApp service reminders and bookings for independent workshops and service centres in South Africa.',
   },
+  // Unlisted while the Local Pros bot's "Tell me more" flow is tested (20 Nov 2026)
+  '/whatsapp-chatbot': {
+    title: 'WhatsApp Chatbot for Your Business | Local Pros Studio',
+    description:
+      'We set up a WhatsApp chatbot on your own number that answers customers, sends reminders and follows up, and hands over to your team when needed.',
+    noindex: true,
+  },
   '/pricing': {
     title: 'Prices: Google Reviews, Social Media & Websites | Local Pros Studio',
     description:

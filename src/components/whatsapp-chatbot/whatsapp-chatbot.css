@@ -1,0 +1,158 @@
+.wac-problem {
+  margin-top: 14px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.wac-ideas,
+.wac-fit {
+  background: var(--surface-2);
+}
+
+.wac-chat {
+  overflow: hidden;
+  max-width: 420px;
+  width: 100%;
+  justify-self: center;
+  border-radius: var(--r-frame);
+  background: #efeae2;
+  color: #182525;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.wac-chat figcaption {
+  padding: 16px 20px;
+  background: #075e54;
+  color: white;
+}
+
+.wac-chat figcaption span {
+  display: block;
+  font-size: 0.875rem;
+}
+
+.wac-chat ol {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  list-style: none;
+}
+
+.wac-chat li {
+  justify-self: start;
+  max-width: 88%;
+  padding: 10px 12px;
+  border-radius: 0 12px 12px 12px;
+  background: white;
+}
+
+.wac-chat .wac-reply {
+  justify-self: end;
+  border-radius: 12px 0 12px 12px;
+  background: #d9fdd3;
+}
+
+.wac-chat-button {
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  color: #075e54;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.wac-idea-list,
+.wac-studio-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  list-style: none;
+}
+
+.wac-idea-list li,
+.wac-studio-list a {
+  display: block;
+  height: 100%;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background: white;
+  color: inherit;
+  text-decoration: none;
+}
+
+.wac-studio-list a:hover {
+  border-color: var(--ink);
+}
+
+.wac-idea-list p,
+.wac-studio-list p {
+  margin-top: 8px;
+}
+
+.wac-steps {
+  max-width: 720px;
+}
+
+.wac-fit-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+}
+
+.wac-fit-list a {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.wac-fit-list a[aria-current='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+}
+
+.wac-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  padding-block: 14px;
+  color: var(--ink);
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+}
+
+.wac-question::-webkit-details-marker {
+  display: none;
+}
+
+.wac-question svg {
+  flex: none;
+}
+
+details[open] > .wac-question svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 820px) {
+  .wac-idea-list,
+  .wac-studio-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wac .dd-steps li {
+    padding: 16px 14px;
+  }
+}

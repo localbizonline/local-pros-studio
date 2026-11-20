@@ -9,6 +9,7 @@ import MobileCTA from './components/MobileCTA';
 // Since 8 Oct 2026 the homepage is the light "join" page (src/components/join-light/), with its own header and footer.
 const JoinLight = lazy(() => import('./components/join-light/JoinLight'));
 const CarServiceReminders = lazy(() => import('./components/car-service-reminders/CarServiceReminders'));
+const WhatsAppChatbot = lazy(() => import('./components/whatsapp-chatbot/WhatsAppChatbot'));
 // About page in the light look (9 Oct 2026), replacing the old dark AboutPage
 const AboutLight = lazy(() => import('./components/about-light/AboutLight'));
 // Unlisted page for Local Pros lead partners (14 Oct 2026): linked only from the walkthrough and WhatsApp
@@ -49,6 +50,7 @@ import './components/reviews-light/resultscards.css';
 import './components/section-library/sections/howitworksphone.css';
 import './components/join-light/styles';
 import './components/car-service-reminders/car-service-reminders.css';
+import './components/whatsapp-chatbot/whatsapp-chatbot.css';
 const TermsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.TermsPage })));
 const PrivacyPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.PrivacyPage })));
 const RefundsCancellationsPage = lazy(() => import('./components/LegalPages').then((m) => ({ default: m.RefundsCancellationsPage })));
@@ -258,6 +260,7 @@ export const AppContent = () => {
           <Route path="/" element={<JoinLight />} />
           <Route path="/reviews" element={<ReviewsLight />} />
           <Route path="/car-service-reminders" element={<CarServiceReminders />} />
+          <Route path="/whatsapp-chatbot" element={<WhatsAppChatbot />} />
           <Route path="/pricing" element={<PricingLight />} />
           <Route path="/social-media-posting-service" element={<SocialLight />} />
           <Route path="/social-media-posting-service-archived" element={<SocialPostingPageArchived />} />

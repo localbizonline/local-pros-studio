@@ -10,6 +10,7 @@ export const WHATSAPP_MESSAGES = {
   site: "Hi, I'd like to know more about Local Pros Studio", // every other page
   leadPartners: "Hi Tyran, I've read the lead partner page and have a question.", // /lead-partners (unlisted)
   carServiceReminders: "Hi, I'd like to see how WhatsApp service reminders and bookings would work for my workshop.",
+  whatsAppChatbot: "Hi, I'd like to see what a WhatsApp chatbot would look like for {org}.", // /whatsapp-chatbot, {org} from ?type=
 } as const;
 
 export const whatsAppLink = (message: string) =>
@@ -27,6 +28,8 @@ export const ashleyWhatsAppLink = (message: string) =>
 export const whatsAppUrlForPath = (pathname: string) => {
   if (pathname.replace(/\/+$/, '') === '/car-service-reminders')
     return whatsAppLink(WHATSAPP_MESSAGES.carServiceReminders);
+  if (pathname.replace(/\/+$/, '') === '/whatsapp-chatbot')
+    return whatsAppLink(WHATSAPP_MESSAGES.whatsAppChatbot.replace('{org}', 'my business'));
 
   if (
     pathname === '/website-design-package' ||
