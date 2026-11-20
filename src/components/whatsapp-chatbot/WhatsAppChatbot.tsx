@@ -10,9 +10,9 @@ import { WHATSAPP_MESSAGES, whatsAppLink } from '../../whatsapp';
 import SiteHeader from '../section-library/sections/SiteHeader';
 import SiteFooter from '../section-library/sections/SiteFooter';
 import { CHATBOT_TYPES, DEFAULT_TYPE, chatbotType } from './chatbotTypes';
-import reviewsPhoto from '../reviews-light/img/hero-wide.webp';
 import socialPhoto from '../social-light/img/hero-wide.webp';
 import websitePhoto from '../web-design-light/img/team-new-enquiries.webp';
+import reviewsGraphic from '../../assets/images/Reviews/review from WhatsApp to google review side by side.webp';
 // Generated scenes (GPT Image 2.6, 20 Nov 2026), not photos of clients. One per group of types.
 import church640 from './img/church-640.webp';
 import church1024 from './img/church-1024.webp';
@@ -41,6 +41,14 @@ const PHOTO_FOR_TYPE: Record<string, string> = {
   bodycorp: 'property', property: 'property', trade: 'trade', security: 'trade', workshop: 'trade',
   supplier: 'trade', business: 'office', professional: 'office', shop: 'office', hospitality: 'office',
 };
+
+// Who gets the review ask, per type. Medical is left out: HPCSA rules restrict health
+// practitioners from canvassing testimonials, so that page does not offer review requests.
+const REVIEW_PEOPLE: Record<string, string> = {
+  church: 'member', school: 'parent', club: 'member', bodycorp: 'resident', property: 'client',
+  professional: 'client', salon: 'client', hospitality: 'guest',
+};
+const NO_REVIEWS = new Set(['medical']);
 
 const TYPE_ICONS: Record<string, LucideIcon> = {
   trade: Hammer, security: ShieldCheck, bodycorp: Building2, property: Home, church: Church,
@@ -109,7 +117,6 @@ const questions = [
 
 const studioServices = [
   { to: '/website-design-package', image: websitePhoto, alt: 'Two people at a computer looking at new enquiries', title: 'A website', body: 'Written and built for you, so customers who find you can WhatsApp you.' },
-  { to: '/reviews', image: reviewsPhoto, alt: 'A builder on site next to a phone showing his Google reviews', title: 'Google reviews', body: 'We WhatsApp your customers your Google review link, with a reminder.' },
   { to: '/social-media-posting-service', image: socialPhoto, alt: 'A builder on site next to a phone showing his Instagram posts', title: 'Social media posts', body: 'We make and publish your Facebook, Instagram and Google posts.' },
 ];
 
@@ -205,6 +212,30 @@ export default function WhatsAppChatbot() {
             </ul>
           </div>
         </section>
+
+        {!NO_REVIEWS.has(typeKey) && (
+          <section className="dd-sec wac-reviews" aria-labelledby="wac-reviews-title">
+            <div className="dd-container wac-reviews-grid">
+              <div>
+                <h2 className="dd-h2" id="wac-reviews-title">More Google reviews, automatically</h2>
+                <p>
+                  The same WhatsApp chat asks every happy {REVIEW_PEOPLE[typeKey] ?? 'customer'} for a Google review.
+                  One tap opens your Google profile, ready to rate, with a friendly reminder if they forget.
+                </p>
+                <p>We set it up with your chatbot. More reviews help new {REVIEW_PEOPLE[typeKey] ?? 'customer'}s find and trust {type.org} on Google.</p>
+                <p><Link className="wac-link" to="/reviews">How our Google review service works</Link></p>
+              </div>
+              <img
+                src={reviewsGraphic}
+                alt="A WhatsApp message asking for a review beside the five-star Google review it led to"
+                width={1024}
+                height={1024}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </section>
+        )}
 
         <section className="dd-sec" aria-labelledby="wac-how-title">
           <div className="dd-container">

@@ -43,7 +43,7 @@ export const CHATBOT_TYPES: Record<string, ChatbotType> = {
     ideas: [
       { title: 'Follow up every quote', body: 'A WhatsApp a few days after you quote, so fewer go cold while you’re busy on site.' },
       { title: 'Yearly service reminders', body: 'Remind past customers when their service is due and let them book in the chat.' },
-      { title: 'Ask for Google reviews', body: 'When a job is done, ask happy clients for a Google review with one tap.' },
+      { title: 'Reply to new enquiries fast', body: 'New enquiries get an answer straight away, even while you’re on a job.' },
     ],
     chatName: 'Your business',
     chat: [
