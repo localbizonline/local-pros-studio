@@ -9,16 +9,31 @@
   background: var(--surface-2);
 }
 
-.wac-chat {
-  overflow: hidden;
-  max-width: 420px;
+.wac-hero-media {
+  display: flex;
+  flex-direction: column;
+}
+
+.wac-hero-photo {
+  display: block;
   width: 100%;
-  justify-self: center;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-frame);
+}
+
+.wac-chat {
+  position: relative;
+  align-self: flex-end;
+  margin: -80px 16px 0 0;
+  overflow: hidden;
+  width: min(340px, 82%);
+  box-shadow: 0 18px 40px rgba(28, 25, 23, 0.18);
+  font-size: 0.9375rem;
   border-radius: var(--r-frame);
   background: #efeae2;
   color: #182525;
-  font-size: 1rem;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .wac-chat figcaption {
@@ -88,6 +103,36 @@
   border-color: var(--ink);
 }
 
+.wac-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.wac-studio-list a {
+  padding: 0 0 24px;
+  overflow: hidden;
+}
+
+.wac-studio-list img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 30% 50%;
+  margin-bottom: 18px;
+}
+
+.wac-studio-list h3,
+.wac-studio-list p {
+  padding-inline: 24px;
+}
+
 .wac-idea-list p,
 .wac-studio-list p {
   margin-top: 8px;
@@ -105,7 +150,9 @@
 }
 
 .wac-fit-list a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 10px 16px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -150,6 +197,11 @@ details[open] > .wac-question svg {
   .wac-idea-list,
   .wac-studio-list {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wac-chat {
+    margin: -64px 12px 0 0;
+    width: 88%;
   }
 
   .wac .dd-steps li {
