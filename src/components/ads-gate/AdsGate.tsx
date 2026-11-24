@@ -333,6 +333,28 @@ function AdsPage({ gate = false }: { gate?: boolean }) {
               {/* No "Then R290 a month" here: Ashley covers hosting when she quotes (Jeremy, 18 Oct 2026) */}
               <strong>{category.price}</strong> Live in 7 days.
             </p>
+            {/* The instant-price chat as the first step, straight under the price (Jeremy, 22 Oct 2026: 26 ad visitors
+                saw the price and Ashley's WhatsApp, 2 tapped it, none found the small "Start your website here"; on the
+                old page about 1 in 5 started this chat). Their price shows on screen once they leave their number. */}
+            <div className="gx-first">
+              <button
+                type="button"
+                className="dd-btn dd-btn-primary gx-cta"
+                onClick={() => {
+                  track(`hero_price_${category.id}`);
+                  openExamplesChat({ group: gate ? undefined : group.id, sub: gate ? undefined : category.types ? category.chatSub : sub?.id, from: 'gate-price' });
+                }}
+              >
+                Get my price and designs
+              </button>
+              <p className="gx-small">
+                Takes 30 seconds. Or{' '}
+                <a className="gx-link" href={ashleyWhatsAppLink(waMessage)} target="_blank" rel="noopener noreferrer" onClick={onWhatsApp('hero')}>
+                  chat to Ashley on WhatsApp
+                </a>
+                .
+              </p>
+            </div>
             {/* The general page (after "Skip"): the seven categories, each to its own page (Jeremy, 19 Oct 2026) */}
             {gate && (
               <>
