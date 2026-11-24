@@ -591,6 +591,17 @@ const websiteFaqSections: LegalSection[] = [
           </p>
           <BuildTimeline />
         </Question>
+        <Question question="Why is the timeline so tight?">
+          <p>
+            Because it works for both of us. You do not wait weeks or months for your website. We do not sit
+            waiting on content, or watch the job slowly grow beyond what was agreed. <strong>That is how we keep
+            our price reasonable.</strong>
+          </p>
+          <p>
+            If you think you will need more time, or you expect delays on your side, contact us before we start.
+            We will give you a quote that includes a longer timeline.
+          </p>
+        </Question>
         <Question question="What do you need from me during the 7 days?">
           <p>
             Quick replies. The 7 days work because we keep the feedback loop tight on both sides. You will need
