@@ -537,54 +537,134 @@ const refundSections: LegalSection[] = [
 // (web-design-light/WebDesignLight.tsx): change both together.
 const CLIENT_WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
+// Closed by default so clients can scan the questions and open the ones they need (24 Nov 2026, Jeremy).
+// <details> works without JavaScript, so the pre-built page opens and closes too.
 const Question = ({ question, children }: { question: string; children: ReactNode }) => (
-  <div className="lgl-question">
-    <h3>{question}</h3>
-    {children}
-  </div>
+  <details className="lgl-question">
+    <summary>
+      <h3>{question}</h3>
+      <span className="lgl-question-icon" aria-hidden="true" />
+    </summary>
+    <div className="lgl-answer">{children}</div>
+  </details>
 );
 
-// Matches the 7-day website page (/7-day-website, seven-day-website/SevenDayWebsite.tsx) since 16 Oct 2026:
-// the 7-day build, wording written once, basic changes at no extra cost, design changes R850 an hour.
+// The 7-day build (23 Nov 2026, Jeremy): the clock starts the day we send the client their design, and the page
+// leans on the client keeping the feedback loop tight (approve in 24 hours, one change list by day 5), not on launch
+// dates. Also spells out one round of changes, what isn't included and the locked design, to stop scope creep.
+// /7-day-website (seven-day-website/SevenDayWebsite.tsx) and the proposals (../localpros-clients) still describe the
+// older 16 Oct process: bring them in line when they are next changed.
+const BUILD_TIMELINE: { when: string; who: 'you' | 'us'; what: string }[] = [
+  { when: 'Day 1', who: 'us', what: 'We send you your website design.' },
+  { when: 'Within 24 hours', who: 'you', what: 'You approve your design.' },
+  { when: 'Days 2 to 4', who: 'us', what: 'We write the wording and build every page.' },
+  { when: 'By day 5', who: 'you', what: 'You send all your changes in one list.' },
+  { when: 'Day 6', who: 'us', what: 'We make your changes.' },
+  { when: 'Day 7', who: 'us', what: 'Your website goes live.' },
+];
+
+const BuildTimeline = () => (
+  <figure className="lgl-timeline">
+    <figcaption className="lgl-timeline-key">
+      <span className="lgl-timeline-tag lgl-timeline-tag--you">Your part</span>
+      <span className="lgl-timeline-tag lgl-timeline-tag--us">Our part</span>
+    </figcaption>
+    <ol>
+      {BUILD_TIMELINE.map((step) => (
+        <li key={step.when} className={`lgl-timeline-step lgl-timeline-step--${step.who}`}>
+          <span className="lgl-timeline-dot" aria-hidden="true" />
+          <span className="lgl-timeline-when">{step.when}</span>
+          <span className="lgl-timeline-what">
+            <span className="lgl-sr">{step.who === 'you' ? 'Your part: ' : 'Our part: '}</span>
+            {step.what}
+          </span>
+        </li>
+      ))}
+    </ol>
+  </figure>
+);
+
 const websiteFaqSections: LegalSection[] = [
   {
     title: '1. Building your website in 7 days',
     content: (
       <>
-        <Question question="How do the 7 days work?">
+        <BuildTimeline />
+        <Question question="How does the 7-day build work?">
+          <p>
+            Pick one of our sample designs or send us a website you like, whenever you are ready. We use it to
+            design your website. <strong>The 7 days start the day we send that design to you.</strong>
+          </p>
+        </Question>
+        <Question question="Why is the timeline so tight?">
+          <p>
+            Because it works for both of us. You do not wait weeks or months for your website. We do not sit
+            waiting on content, or watch the job slowly grow beyond what was agreed. <strong>That is how we keep
+            our price reasonable.</strong>
+          </p>
+          <p>
+            If you think you will need more time, or you expect delays on your side, contact us before we start.
+            We will give you a quote that includes a longer timeline.
+          </p>
+        </Question>
+        <Question question="What do you need from me during the 7 days?">
+          <p>
+            Quick replies. The 7 days work because we keep the feedback loop tight on both sides. You will need
+            to:
+          </p>
           <ul>
             <li>
-              <strong>Day 1:</strong> we send you 2 or 3 sample designs and you pick one.
+              <strong>approve your design within 24 hours;</strong>
             </li>
             <li>
-              <strong>Days 2 and 3:</strong> we write the wording and build every page.
+              <strong>send all your changes in one list by day 5;</strong> and
             </li>
             <li>
-              <strong>Days 4 and 5:</strong> you check every page and send us all your changes in one list.
-            </li>
-            <li>
-              <strong>Day 6:</strong> we make your changes.
-            </li>
-            <li>
-              <strong>Day 7:</strong> your website goes live.
+              <strong>reply to our questions within 24 hours.</strong>
             </li>
           </ul>
           <p>
-            Before day 1 we need your logo, photos of your work, your services and the areas you work in. No
-            photos or logo yet? Send us your Google listing or Facebook page and we work from that.
+            We will keep to our side of the timeline. If you keep to yours, you will have a finished website in a
+            week.
           </p>
         </Question>
-        <Question question="What if I am late on my side?">
+        <Question question="What do I need to send you before we start?">
+          <p>Most delays start with missing content, so have these ready before day 1:</p>
+          <ul className="lgl-checklist">
+            <li>your logo;</li>
+            <li>photos of your work;</li>
+            <li>the services you offer;</li>
+            <li>the areas you work in; and</li>
+            <li>your contact details: phone, WhatsApp, email, address and business hours.</li>
+          </ul>
           <p>
-            Your launch moves by the same number of days. If your changes come in a day late, your website goes
-            live a day later.
+            No photos or logo yet? Send us your Google listing or Facebook page and we work from that.
           </p>
         </Question>
-        <Question question="How many rounds of changes are included?">
+        <Question question="Can I change my design after I have approved it?">
           <p>
-            One round, on day 6, so put everything in one list on day 4 or 5. After launch, basic changes cost
-            nothing extra and design changes are R850 an hour (see below).
+            Once you approve your design, it is locked. That is what keeps your build on track. Switching to a
+            different design after that is a new build, and we quote it first.
           </p>
+        </Question>
+        <Question question="What counts as one round of changes?">
+          <p>
+            <strong>One list, sent all at once by day 5.</strong> It can cover wording, photos, colours and small
+            layout tweaks on the pages we have built. We make everything on it on day 6.
+          </p>
+          <p>
+            A second list, or changes that arrive in bits, are billed at <strong>R850 an hour</strong>. After
+            launch, basic changes cost nothing extra and design changes are R850 an hour (see below).
+          </p>
+        </Question>
+        <Question question="What isn't included?">
+          <p>These are not part of the 7-day build. We quote them first and only start once you have said yes:</p>
+          <ul>
+            <li>new pages beyond the ones in your package;</li>
+            <li>new sections, or a new design direction, once your design is approved;</li>
+            <li>extra features, such as online bookings, a shop or forms other than your contact form; and</li>
+            <li>wording for pages you did not sign up for.</li>
+          </ul>
         </Question>
         <Question question="Who writes the wording?">
           <p>
@@ -613,9 +693,14 @@ const websiteFaqSections: LegalSection[] = [
           </ul>
         </Question>
         <Question question="What counts as a design change?">
+          <p>Anything that changes how a page is laid out. For example:</p>
+          <ul>
+            <li>adding a new section to a page, such as a gallery or a reviews slider;</li>
+            <li>moving sections around or changing a page&rsquo;s layout; and</li>
+            <li>redesigning a page, your header or your menu.</li>
+          </ul>
           <p>
-            Anything that changes how a page is laid out: a new section, a new layout or a redesigned page. Design
-            changes are <strong>R850 an hour</strong>. We tell you how many hours before we start and only start
+            Design changes are <strong>R850 an hour</strong>. We tell you how many hours before we start and only start
             once you have said yes, so there are no surprise invoices. New pages and new features, such as online
             bookings or a shop, are quoted first too.
           </p>
@@ -849,6 +934,6 @@ export const WebsiteFaqPage = () => (
     title="Website Terms and FAQ"
     introduction="Plain answers to the questions website clients ask us most: the 7-day build, changes, editing your site, ownership, your domain, hosting and email."
     sections={websiteFaqSections}
-    effectiveDate="16 October 2026"
+    effectiveDate="23 November 2026"
   />
 );
