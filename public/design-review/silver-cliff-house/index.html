@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Silver Cliff House — Website design concept v1</title>
+<style>
+  :root { --canvas:#e9e9ec; --dots:#d3d3d8; --ink:#1d1d22; --muted:#6c6c78; --bar:#ffffff; --line:#dcdce2; --accent:#0d99ff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--canvas); background-image: radial-gradient(var(--dots) 1px, transparent 1px); background-size: 22px 22px;
+         color: var(--ink); font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  header.bar { position: sticky; top: 0; z-index: 5; background: var(--bar); border-bottom: 1px solid var(--line);
+               display: flex; align-items: center; gap: 16px; padding: 10px 20px; flex-wrap: wrap; }
+  .file { display: flex; flex-direction: column; min-width: 0; }
+  .file strong { font-size: 14px; }
+  .file span { font-size: 12px; color: var(--muted); }
+  .tabs { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
+  .tab { border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer; color: var(--ink); }
+  .tab.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .views { display: none; gap: 4px; }
+  .note { max-width: 1180px; margin: 24px auto 0; padding: 0 20px; }
+  .note > div { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .note b { display: block; margin-bottom: 2px; }
+  .note p { margin: 0; color: var(--muted); }
+  .badge { flex: none; background: #fff4d6; color: #7a5600; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 600; }
+  .board { display: none; justify-content: center; align-items: flex-start; gap: 56px; padding: 32px 20px 80px; }
+  .board.on { display: flex; }
+  .frame { margin: 0; flex: none; }
+  .frame figcaption { font-size: 12px; color: var(--muted); margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+  .frame figcaption em { font-style: normal; opacity: .7; }
+  .dot { width: 8px; height: 8px; border-radius: 2px; background: var(--accent); display: inline-block; }
+  .art { background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 30px rgba(0,0,0,.08); outline: 1px solid rgba(0,0,0,.06); overflow: hidden; }
+  .art img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+  .frame.desktop { width: min(820px, 62vw); }
+  .frame.mobile { width: 300px; }
+  .frame.mobile .art { border-radius: 28px; outline: 8px solid #1d1d22; outline-offset: 0; border: 0; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 0 20px 40px; }
+  @media (max-width: 900px) {
+    header.bar { padding: 10px 16px; }
+    .tabs { margin-left: 0; width: 100%; }
+    .views { display: flex; width: 100%; }
+    .views .tab { flex: 1; }
+    .note { padding: 0 16px; }
+    .board { padding: 20px 16px 60px; gap: 0; }
+    .frame { display: none; }
+    body[data-view="mobile"] .frame.mobile, body[data-view="desktop"] .frame.desktop { display: block; }
+    .frame.mobile { width: min(320px, 100%); margin: 0 auto; }
+    .frame.desktop { width: 100%; }
+  }
+</style>
+</head>
+<body data-view="mobile">
+<header class="bar">
+  <div class="file"><strong>Silver Cliff House — Website design</strong><span>Concept v1 · 24 November 2026 · Local Pros Studio</span></div>
+  <nav class="tabs" aria-label="Pages"><button class="tab on" data-page="home">Home</button><button class="tab" data-page="pebble-suite">Pebble Suite</button></nav>
+  <nav class="views" aria-label="Screen size"><button class="tab on" data-view="mobile">Phone</button><button class="tab" data-view="desktop">Desktop</button></nav>
+</header>
+<div class="note"><div><span class="badge">For approval</span><div><b>Design concept</b><p>These are design frames for the look and layout, shown on a computer and a phone. Photos and wording can still change. Please approve, or send your changes as a numbered list within 24 hours.</p></div></div></div>
+
+    <section class="board on" id="home" aria-label="Home">
+      
+      <figure class="frame desktop">
+        <figcaption><span class="dot"></span>Home — Desktop <em>1440px</em></figcaption>
+        <div class="art"><img src="frames/home-desktop.jpg" alt="Home design, desktop view" loading="eager" draggable="false"></div>
+      </figure>
+      <figure class="frame mobile">
+        <figcaption><span class="dot"></span>Home — Phone <em>390px</em></figcaption>
+        <div class="art"><img src="frames/home-mobile.jpg" alt="Home design, phone view" loading="eager" draggable="false"></div>
+      </figure>
+    </section>
+    <section class="board" id="pebble-suite" aria-label="Pebble Suite">
+      
+      <figure class="frame desktop">
+        <figcaption><span class="dot"></span>Pebble Suite — Desktop <em>1440px</em></figcaption>
+        <div class="art"><img src="frames/pebble-suite-desktop.jpg" alt="Pebble Suite design, desktop view" loading="lazy" draggable="false"></div>
+      </figure>
+      <figure class="frame mobile">
+        <figcaption><span class="dot"></span>Pebble Suite — Phone <em>390px</em></figcaption>
+        <div class="art"><img src="frames/pebble-suite-mobile.jpg" alt="Pebble Suite design, phone view" loading="lazy" draggable="false"></div>
+      </figure>
+    </section>
+<footer>Design concept by Local Pros Studio. Not a live website.</footer>
+<script>
+  document.querySelectorAll('.tabs .tab').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.tabs .tab').forEach(function (x) { x.classList.toggle('on', x === b); });
+      document.querySelectorAll('.board').forEach(function (s) { s.classList.toggle('on', s.id === b.dataset.page); });
+      window.scrollTo({ top: 0 });
+    });
+  });
+  document.querySelectorAll('.views .tab').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.views .tab').forEach(function (x) { x.classList.toggle('on', x === b); });
+      document.body.dataset.view = b.dataset.view;
+    });
+  });
+  document.addEventListener('contextmenu', function (e) { if (e.target.closest('.art')) e.preventDefault(); });
+</script>
+</body>
+</html>
