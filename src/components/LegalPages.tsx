@@ -537,11 +537,16 @@ const refundSections: LegalSection[] = [
 // (web-design-light/WebDesignLight.tsx): change both together.
 const CLIENT_WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
+// Closed by default so clients can scan the questions and open the ones they need (24 Nov 2026, Jeremy).
+// <details> works without JavaScript, so the pre-built page opens and closes too.
 const Question = ({ question, children }: { question: string; children: ReactNode }) => (
-  <div className="lgl-question">
-    <h3>{question}</h3>
-    {children}
-  </div>
+  <details className="lgl-question">
+    <summary>
+      <h3>{question}</h3>
+      <span className="lgl-question-icon" aria-hidden="true" />
+    </summary>
+    <div className="lgl-answer">{children}</div>
+  </details>
 );
 
 // The 7-day build (23 Nov 2026, Jeremy): the clock starts the day we send the client their design, and the page
@@ -584,12 +589,12 @@ const websiteFaqSections: LegalSection[] = [
     title: '1. Building your website in 7 days',
     content: (
       <>
+        <BuildTimeline />
         <Question question="How does the 7-day build work?">
           <p>
             Pick one of our sample designs or send us a website you like, whenever you are ready. We use it to
             design your website. <strong>The 7 days start the day we send that design to you.</strong>
           </p>
-          <BuildTimeline />
         </Question>
         <Question question="Why is the timeline so tight?">
           <p>
