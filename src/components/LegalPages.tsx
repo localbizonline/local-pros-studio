@@ -549,14 +549,14 @@ const Question = ({ question, children }: { question: string; children: ReactNod
   </details>
 );
 
-// The 7-day build (23 Nov 2026, Jeremy): the clock starts the day we send the client their design, and the page
+// The 7-day build (23 Nov 2026, Jeremy; one round of clear design changes within 24 hours added 24 Nov 2026): the clock starts the day we send the client their design, and the page
 // leans on the client keeping the feedback loop tight (approve in 24 hours, one change list by day 5), not on launch
 // dates. Also spells out one round of changes, what isn't included and the locked design, to stop scope creep.
 // /7-day-website (seven-day-website/SevenDayWebsite.tsx) and the proposals (../localpros-clients) still describe the
 // older 16 Oct process: bring them in line when they are next changed.
 const BUILD_TIMELINE: { when: string; who: 'you' | 'us'; what: string }[] = [
   { when: 'Day 1', who: 'us', what: 'We send you your website design.' },
-  { when: 'Within 24 hours', who: 'you', what: 'You approve your design.' },
+  { when: 'Within 24 hours', who: 'you', what: 'You approve your design, or send one round of clear design changes.' },
   { when: 'Days 2 to 4', who: 'us', what: 'We write the wording and build every page.' },
   { when: 'By day 5', who: 'you', what: 'You send all your changes in one list.' },
   { when: 'Day 6', who: 'us', what: 'We make your changes.' },
@@ -614,7 +614,7 @@ const websiteFaqSections: LegalSection[] = [
           </p>
           <ul>
             <li>
-              <strong>approve your design within 24 hours;</strong>
+              <strong>approve your design, or send your design changes, within 24 hours;</strong>
             </li>
             <li>
               <strong>send all your changes in one list by day 5;</strong> and
@@ -639,6 +639,18 @@ const websiteFaqSections: LegalSection[] = [
           </ul>
           <p>
             No photos or logo yet? Send us your Google listing or Facebook page and we work from that.
+          </p>
+        </Question>
+        <Question question="What if I want changes to my design?">
+          <p>
+            Within 24 hours of getting your design, you can approve it or ask for{' '}
+            <strong>one round of design changes</strong>. We make them before we build your pages.
+          </p>
+          <p>
+            Your changes need clear direction, not vague notes. For example, send screenshots of a website you
+            like, or say exactly what you want, such as &ldquo;make the header dark blue&rdquo; or &ldquo;put
+            the reviews above the services&rdquo;. Notes like &ldquo;make it pop&rdquo; or &ldquo;I&rsquo;ll know
+            it when I see it&rdquo; slow everything down, so we will ask you to be more specific.
           </p>
         </Question>
         <Question question="Can I change my design after I have approved it?">
