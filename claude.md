@@ -88,3 +88,5 @@ Primary CTA links to: `wa.me/27832336716`
 
 **Examples chat leads to Ashley's bot (15 Oct 2026).** An examples-chat lead who wants a website (not reviews, social, the package or a "get started" button; on the homepage only when "What would help most?" is a website) is handed by `demo-lead.mts` (`tellSamplesBot`) to the WhatsApp bot on Ashley's number, playbook `website-samples` (repo lp-studio-whatsapp-inbound, `docs/website-samples-flow.md`). 2 to 5 minutes later, inside 08:00 to 18:00, the bot asks 2 short questions; only when they answer does it pick or build 3 sample designs (cloud routine, `kind: samples`) and send them, clearly marked as samples. The team alert then says "Ashley's bot will WhatsApp them at about …" instead of "WhatsApp them now". Off unless Netlify `SAMPLES_BOT_ON=true`.
 
+
+**WhatsApp bot sign-off links (26 Nov 2026).** The Local Pros WhatsApp bot's end-of-job "Tell me more" sends customers to the homepage or `/go/websites-for/<id>` with `?r=CODE`. `src/signoffRef.ts` (called from `main.tsx` on every page) tells the bot the page was opened (`/studio/opened?r=CODE` on the bot Worker). Repo localpros-whatsapp-bot, `src/signoff.js`.

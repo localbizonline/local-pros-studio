@@ -4,10 +4,12 @@ import App from './App.tsx';
 import './index.css';
 import { rememberAdClick } from './adClick';
 import { tagAdWhatsAppTaps } from './adWhatsApp';
+import { tellBotPageOpened } from './signoffRef';
 
 // Before anything else: the ad click id is only on the landing URL
 rememberAdClick();
 tagAdWhatsAppTaps();
+tellBotPageOpened();
 
 const root = document.getElementById('root')!;
 const app = (
