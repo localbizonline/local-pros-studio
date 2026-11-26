@@ -14,3 +14,6 @@
   X-Robots-Tag: noindex, nofollow
 /lead-partners/intro.html
   X-Robots-Tag: noindex, nofollow
+# Client design-approval boards (24 Nov 2026), static files in public/design-review/{client}/, shared only by link
+/design-review/*
+  X-Robots-Tag: noindex, nofollow
